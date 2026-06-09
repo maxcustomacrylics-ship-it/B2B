@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const t = useTranslations();
+  const t = await getTranslations();
 
   const orgSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();

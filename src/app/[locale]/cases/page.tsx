@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
@@ -24,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CasesPage() {
-  const t = useTranslations("cases");
+  const t = await getTranslations("cases");
   const allCases = await getCaseStudies();
 
   const itemListSchema = generateItemListSchema(

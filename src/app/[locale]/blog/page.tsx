@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { useTranslations } from "next-intl";
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -29,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogPage() {
-  const t = useTranslations("blog");
+  const t = await getTranslations("blog");
   const posts = await getBlogPosts();
 
   const itemListSchema = generateItemListSchema(
