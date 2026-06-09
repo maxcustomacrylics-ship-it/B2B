@@ -1,0 +1,151 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "services": "Services",
+    "cases": "Case Studies",
+    "blog": "Blog",
+    "contact": "Contact",
+    "getQuote": "Get Quote"
+  },
+  "footer": {
+    "aboutTitle": "About Us",
+    "aboutText": "Professional B2B acrylic board customization service provider with over 15 years of industry experience. Serving clients worldwide with precision manufacturing.",
+    "quickLinks": "Quick Links",
+    "products": "Products",
+    "services": "Services",
+    "caseStudies": "Case Studies",
+    "blog": "Blog",
+    "contactUs": "Contact Us",
+    "contactInfo": "Contact Info",
+    "address": "No. 888, Industrial Avenue, Guangzhou, China",
+    "phone": "+86 138-0000-0000",
+    "email": "info@acrylicb2b.com",
+    "hours": "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
+    "followUs": "Follow Us",
+    "copyright": "© 2026 AcrylicPro Custom. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "home": {
+    "hero": {
+      "title": "Premium Acrylic Board Customization for Your Business",
+      "subtitle": "B2B wholesale custom acrylic solutions — precision manufacturing, global shipping, competitive pricing.",
+      "cta1": "Request a Quote",
+      "cta2": "View Products"
+    },
+    "about": {
+      "title": "Why Choose AcrylicPro",
+      "subtitle": "Your trusted partner for custom acrylic board manufacturing",
+      "feature1Title": "ISO Certified",
+      "feature1Desc": "ISO 9001:2015 certified manufacturing facility with strict quality control processes.",
+      "feature2Title": "15+ Years Experience",
+      "feature2Desc": "Over a decade of expertise in acrylic fabrication and customization for global B2B clients.",
+      "feature3Title": "Fast Turnaround",
+      "feature3Desc": "Efficient production lines ensuring delivery within 7-15 business days for bulk orders.",
+      "feature4Title": "Global Shipping",
+      "feature4Desc": "Reliable logistics partners ensuring safe delivery to over 50 countries worldwide."
+    },
+    "products": {
+      "title": "Our Products",
+      "subtitle": "Explore our comprehensive range of customizable acrylic products",
+      "viewAll": "View All Products"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "End-to-end acrylic customization services for your business needs",
+      "viewAll": "View All Services"
+    },
+    "cases": {
+      "title": "Case Studies",
+      "subtitle": "Discover how we've helped businesses succeed with custom acrylic solutions",
+      "viewAll": "View All Cases"
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "Trusted by businesses across industries worldwide"
+    },
+    "cta": {
+      "title": "Ready to Start Your Custom Acrylic Project?",
+      "subtitle": "Get in touch with our team for a free consultation and quote. We'll respond within 24 hours.",
+      "button": "Contact Us Now"
+    }
+  },
+  "products": {
+    "title": "Our Products",
+    "subtitle": "Browse our complete range of customizable acrylic board products",
+    "categories": {
+      "all": "All",
+      "clearSheets": "Clear Sheets",
+      "coloredSheets": "Colored Sheets",
+      "displayProducts": "Display Products",
+      "decorativePanels": "Decorative Panels"
+    },
+    "specifications": "Specifications",
+    "applications": "Applications",
+    "inquiryTitle": "Inquire About This Product",
+    "noProducts": "No products found in this category.",
+    "breadcrumbHome": "Home",
+    "breadcrumbProducts": "Products"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive acrylic customization services tailored to your business requirements",
+    "learnMore": "Learn More"
+  },
+  "cases": {
+    "title": "Case Studies",
+    "subtitle": "Real-world examples of our acrylic solutions in action",
+    "client": "Client",
+    "industry": "Industry",
+    "solution": "Solution",
+    "readMore": "Read Full Case Study",
+    "backToList": "Back to Case Studies"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, tips, and industry news about acrylic board customization",
+    "readMore": "Read More",
+    "categories": "Categories",
+    "recentPosts": "Recent Posts",
+    "sharePost": "Share this article",
+    "backToBlog": "Back to Blog",
+    "noPosts": "No blog posts found."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have a question or ready to start a project? We'd love to hear from you.",
+    "formTitle": "Send Us a Message",
+    "formSubtitle": "Fill out the form below and our team will get back to you within 24 hours.",
+    "name": "Full Name",
+    "namePlaceholder": "John Smith",
+    "email": "Email Address",
+    "emailPlaceholder": "john@company.com",
+    "company": "Company Name",
+    "companyPlaceholder": "Acme Corp",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1 (555) 000-0000",
+    "productInterest": "Product Interest",
+    "productInterestPlaceholder": "Select a product category",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your project requirements, quantities, and timeline...",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Thank you for your inquiry! We will get back to you within 24 hours.",
+    "error": "Something went wrong. Please try again or email us directly.",
+    "infoTitle": "Contact Information",
+    "infoSubtitle": "Reach out to us through any of these channels",
+    "whatsapp": "Chat on WhatsApp",
+    "wechat": "WeChat ID",
+    "address": "Our Address",
+    "hours": "Business Hours"
+  },
+  "whatsapp": {
+    "message": "Chat with us on WhatsApp"
+  },
+  "schema": {
+    "organizationName": "AcrylicPro Custom",
+    "organizationDescription": "Professional B2B acrylic board customization service provider with over 15 years of industry experience.",
+    "websiteName": "AcrylicPro Custom"
+  }
+}
