@@ -13,6 +13,7 @@ import {
   generateOrganizationSchema,
   generateWebSiteSchema,
 } from "@/lib/schema";
+import { getProducts, getServices, getCaseStudies, getTestimonials } from "@/lib/data-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -36,21 +37,28 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   const t = useTranslations();
 
   const orgSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
+
+  const [products, services, cases, testimonials] = await Promise.all([
+    getProducts(),
+    getServices(),
+    getCaseStudies(),
+    getTestimonials(),
+  ]);
 
   return (
     <>
       <SchemaOrg data={[orgSchema, webSiteSchema]} />
       <Hero />
       <AboutSection />
-      <ProductShowcase />
-      <ServiceOverview />
-      <CaseHighlights />
-      <TestimonialSection />
+      <ProductShowcase products={products} />
+      <ServiceOverview services={services} />
+      <CaseHighlights cases={cases} />
+      <TestimonialSection testimonials={testimonials} />
       <CTASection />
     </>
   );

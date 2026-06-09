@@ -19,12 +19,13 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return getBlogPosts().map((b) => ({ slug: b.slug }));
+  const posts = await getBlogPosts();
+  return posts.map((b) => ({ slug: b.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogBySlug(slug);
   if (!post) return {};
 
   return {
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogBySlug(slug);
   if (!post) notFound();
 
   const t = await getTranslations("blog");

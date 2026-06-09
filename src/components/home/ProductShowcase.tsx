@@ -4,11 +4,13 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import ProductCard from "@/components/products/ProductCard";
-import { getProducts } from "@/lib/data-store";
+import type { Product } from "@/lib/types";
 
-export default function ProductShowcase() {
+type Props = { products?: Product[] };
+
+export default function ProductShowcase({ products: propProducts }: Props) {
   const t = useTranslations("home.products");
-  const products = getProducts().filter(p => p.featured).slice(0, 4);
+  const products = (propProducts ?? []).filter(p => p.featured).slice(0, 4);
 
   return (
     <section className="py-20 bg-gray-50">

@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "luxury-hotel-acrylic-feature-wall",
+    "title": "Luxury Hotel Lobby Acrylic Feature Wall Installation",
+    "client": "Grand Horizon Hotels Group",
+    "industry": "Hospitality",
+    "challenge": "The client needed a stunning, backlit feature wall for their flagship hotel lobby that would serve as a memorable focal point while meeting strict fire safety regulations and maintaining a luxury aesthetic. The installation needed to span 12 meters wide by 4 meters tall with seamless joints.",
+    "solution": "We custom-fabricated 24 decorative acrylic panels with embedded gold leaf patterns and a special LED-diffusing layer. Each panel was CNC-cut to interlock with its neighbors using a concealed tongue-and-groove system, creating a seamless visual flow. We used fire-rated B1 acrylic with UV-stabilized printing to ensure longevity.",
+    "results": "The completed installation exceeded the client's expectations and has become a signature design element featured in hospitality publications. Installation was completed in 3 days with zero defects. The client has since commissioned similar installations for 3 additional properties.",
+    "image": "/images/cases/hotel-wall.jpg",
+    "featured": true
+  },
+  {
+    "slug": "retail-chain-display-system",
+    "title": "Nationwide Retail Chain Display System Rollout",
+    "client": "TechStyle Electronics",
+    "industry": "Retail",
+    "challenge": "TechStyle needed a standardized modular acrylic display system for 200+ retail locations across 5 countries. The system needed to be durable, easy to assemble by store staff, and flexible enough to accommodate different store layouts while maintaining brand consistency.",
+    "solution": "We designed a complete modular display ecosystem including product risers, signage holders, tablet stands, and feature display cases — all fabricated from clear and brand-colored acrylic. Each component was designed with tool-free assembly and flat-pack shipping in mind. We managed the entire logistics chain from manufacturing to in-store delivery.",
+    "results": "The rollout was completed across all 200+ locations within 4 months. The modular design reduced per-store display costs by 35% compared to their previous mixed-material solution. Store managers reported 90% satisfaction with ease of assembly and durability.",
+    "image": "/images/cases/retail-display.jpg",
+    "featured": true
+  },
+  {
+    "slug": "museum-exhibition-acrylic-vitrines",
+    "title": "Museum-Grade Exhibition Vitrines for National Museum",
+    "client": "National Heritage Museum",
+    "industry": "Museum & Culture",
+    "challenge": "The museum required 40 museum-grade display vitrines with exceptional optical clarity, UV protection for artifact preservation, and micro-climate control integration. The vitrines needed to be completely dust-sealed and meet conservation-grade standards.",
+    "solution": "We fabricated custom vitrines using optically-clear cast acrylic with 92%+ light transmission. Each vitrine was constructed with precision-machined joints sealed with conservation-grade silicone. We integrated UV-filtering acrylic panels (blocking 99% of UV radiation) and designed sealed base compartments for humidity control systems.",
+    "results": "All 40 vitrines passed the museum's rigorous conservation standards inspection on first submission. The optical clarity was measured and certified. The museum has since engaged us for ongoing maintenance and additional vitrine projects for traveling exhibitions.",
+    "image": "/images/cases/museum-vitrines.jpg",
+    "featured": true
+  },
+  {
+    "slug": "corporate-office-acrylic-partitions",
+    "title": "Corporate HQ Acrylic Partition & Branding System",
+    "client": "NexGen Software Inc.",
+    "industry": "Technology",
+    "challenge": "A fast-growing tech company needed to redesign their new headquarters with modern, branded workspaces that balanced open-plan collaboration with private meeting areas, all while maintaining a consistent brand identity throughout the 5,000 sqm office.",
+    "solution": "We designed and manufactured a comprehensive acrylic interior system including frosted meeting room partitions with the company's core values etched into the panels, branded directional signage, decorative acoustic panels with embedded colored acrylic layers, and custom light boxes for the reception area.",
+    "results": "The office design won a regional workplace design award. Employee satisfaction surveys showed an 18% increase in satisfaction with the workspace environment. The project was delivered on time and 5% under budget.",
+    "image": "/images/cases/office-partitions.jpg",
+    "featured": false
+  },
+  {
+    "slug": "cosmetics-brand-retail-displays",
+    "title": "Premium Cosmetics Brand Global Retail Display Program",
+    "client": "Lumière Cosmetics",
+    "industry": "Beauty & Cosmetics",
+    "challenge": "A premium cosmetics brand launching in 30 new markets needed luxurious, consistent point-of-sale displays that reflected their upscale brand image. Displays needed to incorporate lighting, be easy to update seasonally, and withstand the wear of high-traffic retail environments.",
+    "solution": "We developed a signature display system using polished clear acrylic with rose gold mirror accents. The modular design included interchangeable graphic panels for seasonal updates, integrated LED lighting channels, and a magnetic component system for easy reconfiguration. Each display unit was individually quality-checked and shipped in custom protective packaging.",
+    "results": "The global launch was successfully supported with displays in 1,500+ retail locations. The brand reported a 28% increase in impulse purchases at retail locations with the new displays. The modular design allowed seasonal updates at 60% lower cost than their previous custom displays.",
+    "image": "/images/cases/cosmetics-display.jpg",
+    "featured": false
+  },
+  {
+    "slug": "exhibition-stand-acrylic-construction",
+    "title": "International Trade Show Exhibition Stand Construction",
+    "client": "GlobalTech Industries",
+    "industry": "Manufacturing",
+    "challenge": "GlobalTech needed an impressive, reusable exhibition stand for 5 major international trade shows in one year. The stand needed to be lightweight for transport, quick to assemble and disassemble, and make a striking visual impact to attract visitors in a crowded exhibition hall.",
+    "solution": "We created a modular exhibition system using lightweight aluminum frames with custom acrylic panels featuring backlit graphics, product display shelves, and interactive touch-screen mounts. All components were designed to pack flat into custom wheeled cases that met airline cargo requirements. We also provided on-site assembly support for the first show and detailed assembly documentation.",
+    "results": "The stand was successfully used at all 5 trade shows with minimal wear. Assembly time was reduced from 8 hours (first show) to 3 hours by the third show. GlobalTech reported a 40% increase in qualified leads compared to their previous exhibition setup and credited the new stand design as a key factor.",
+    "image": "/images/cases/exhibition-stand.jpg",
+    "featured": false
+  }
+]

@@ -1,11 +1,25 @@
 import "server-only";
 import fs from "fs";
 import path from "path";
+import { getStore } from "@netlify/blobs";
 import type { Product, Service, CaseStudy, BlogPost, Testimonial } from "@/lib/types";
 
+// ─── Seed data (used as initial values when store is empty) ───
+import { products as seedProducts } from "@/data/products";
+import { services as seedServices } from "@/data/services";
+import { caseStudies as seedCaseStudies } from "@/data/cases";
+import { blogPosts as seedBlogPosts } from "@/data/blogs";
+import { testimonials as seedTestimonials } from "@/data/testimonials";
+
+// ─── Config ───
+const isNetlify = process.env.NETLIFY === "true";
 const DATA_DIR = path.join(process.cwd(), "src", "data");
 const MSG_DIR = path.join(process.cwd(), "src", "messages");
 
+// ─── Netlify Blobs store ───
+const store = isNetlify ? getStore("acrylic-data") : null;
+
+// ─── Types ───
 export type Settings = {
   companyName: string;
   phone: string;
@@ -24,126 +38,223 @@ const defaultSettings: Settings = {
   businessHours: "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
 };
 
+// ─── Seed data lookup ───
+type SeedKey = "products" | "services" | "cases" | "blogs" | "testimonials";
+const seedMap: Record<SeedKey, unknown[]> = {
+  products: seedProducts,
+  services: seedServices,
+  cases: seedCaseStudies,
+  blogs: seedBlogPosts,
+  testimonials: seedTestimonials,
+};
+
+// ─── Helpers ───
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 }
 
-function readJson<T>(filePath: string, fallback: T): T {
-  try {
-    if (fs.existsSync(filePath)) {
-      return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
+async function readData<T>(key: string, fallback: T, seed?: unknown[]): Promise<T> {
+  if (store) {
+    // ── Netlify production: read from Blobs ──
+    try {
+      const raw = await store.get(key);
+      if (raw !== null) {
+        const text = typeof raw === "string" ? raw : new TextDecoder().decode(raw);
+        return JSON.parse(text) as T;
+      }
+    } catch (e) {
+      console.warn(`[data-store] Failed to read "${key}" from Netlify Blobs:`, e);
     }
-  } catch {
-    console.warn(`Failed to read ${filePath}`);
+    // First-time: seed initial data if available
+    if (seed && Array.isArray(fallback)) {
+      await store.set(key, JSON.stringify(seed));
+      return seed as T;
+    }
+    return fallback;
+  } else {
+    // ── Local development: read from JSON file ──
+    const filePath = path.join(DATA_DIR, `${key}.json`);
+    try {
+      if (fs.existsSync(filePath)) {
+        return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
+      }
+    } catch {
+      console.warn(`[data-store] Failed to read ${filePath}`);
+    }
+    // First-time: seed from initial data and write to file
+    if (seed && Array.isArray(fallback) && fallback.length === 0) {
+      ensureDir(DATA_DIR);
+      fs.writeFileSync(filePath, JSON.stringify(seed, null, 2), "utf-8");
+      return seed as T;
+    }
+    return fallback;
   }
-  return fallback;
 }
 
-function writeJson<T>(filePath: string, data: T): void {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+async function writeData<T>(key: string, data: T): Promise<void> {
+  if (store) {
+    await store.set(key, JSON.stringify(data));
+  } else {
+    const filePath = path.join(DATA_DIR, `${key}.json`);
+    ensureDir(DATA_DIR);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+  }
 }
 
-// === Products ===
-const productsPath = () => path.join(DATA_DIR, "products.json");
+// ═══════════════════════════════════════════
+//  Products
+// ═══════════════════════════════════════════
 
-export function getProducts(): Product[] {
-  return readJson<Product[]>(productsPath(), []);
+export async function getProducts(): Promise<Product[]> {
+  return readData<Product[]>("products", [], seedProducts);
 }
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return getProducts().find((p) => p.slug === slug);
+export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const all = await getProducts();
+  return all.find((p) => p.slug === slug);
 }
 
-export function saveProducts(products: Product[]): void {
-  ensureDir(DATA_DIR);
-  writeJson(productsPath(), products);
+export async function saveProducts(products: Product[]): Promise<void> {
+  await writeData("products", products);
 }
 
-// === Services ===
-const servicesPath = () => path.join(DATA_DIR, "services.json");
+// ═══════════════════════════════════════════
+//  Services
+// ═══════════════════════════════════════════
 
-export function getServices(): Service[] {
-  return readJson<Service[]>(servicesPath(), []);
+export async function getServices(): Promise<Service[]> {
+  return readData<Service[]>("services", [], seedServices);
 }
 
-export function saveServices(services: Service[]): void {
-  ensureDir(DATA_DIR);
-  writeJson(servicesPath(), services);
+export async function saveServices(services: Service[]): Promise<void> {
+  await writeData("services", services);
 }
 
-// === Case Studies ===
-const casesPath = () => path.join(DATA_DIR, "cases.json");
+// ═══════════════════════════════════════════
+//  Case Studies
+// ═══════════════════════════════════════════
 
-export function getCaseStudies(): CaseStudy[] {
-  return readJson<CaseStudy[]>(casesPath(), []);
+export async function getCaseStudies(): Promise<CaseStudy[]> {
+  return readData<CaseStudy[]>("cases", [], seedCaseStudies);
 }
 
-export function getCaseBySlug(slug: string): CaseStudy | undefined {
-  return getCaseStudies().find((c) => c.slug === slug);
+export async function getCaseBySlug(slug: string): Promise<CaseStudy | undefined> {
+  const all = await getCaseStudies();
+  return all.find((c) => c.slug === slug);
 }
 
-export function saveCaseStudies(cases: CaseStudy[]): void {
-  ensureDir(DATA_DIR);
-  writeJson(casesPath(), cases);
+export async function saveCaseStudies(cases: CaseStudy[]): Promise<void> {
+  await writeData("cases", cases);
 }
 
-// === Blog Posts ===
-const blogsPath = () => path.join(DATA_DIR, "blogs.json");
+// ═══════════════════════════════════════════
+//  Blog Posts
+// ═══════════════════════════════════════════
 
-export function getBlogPosts(): BlogPost[] {
-  return readJson<BlogPost[]>(blogsPath(), []);
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  return readData<BlogPost[]>("blogs", [], seedBlogPosts);
 }
 
-export function getBlogBySlug(slug: string): BlogPost | undefined {
-  return getBlogPosts().find((b) => b.slug === slug);
+export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined> {
+  const all = await getBlogPosts();
+  return all.find((b) => b.slug === slug);
 }
 
-export function saveBlogPosts(posts: BlogPost[]): void {
-  ensureDir(DATA_DIR);
-  writeJson(blogsPath(), posts);
+export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
+  await writeData("blogs", posts);
 }
 
-// === Testimonials ===
-const testimonialsPath = () => path.join(DATA_DIR, "testimonials.json");
+// ═══════════════════════════════════════════
+//  Testimonials
+// ═══════════════════════════════════════════
 
-export function getTestimonials(): Testimonial[] {
-  return readJson<Testimonial[]>(testimonialsPath(), []);
+export async function getTestimonials(): Promise<Testimonial[]> {
+  return readData<Testimonial[]>("testimonials", [], seedTestimonials);
 }
 
-export function saveTestimonials(testimonials: Testimonial[]): void {
-  ensureDir(DATA_DIR);
-  writeJson(testimonialsPath(), testimonials);
+export async function saveTestimonials(testimonials: Testimonial[]): Promise<void> {
+  await writeData("testimonials", testimonials);
 }
 
-// === Settings ===
-const settingsPath = () => path.join(DATA_DIR, "settings.json");
+// ═══════════════════════════════════════════
+//  Settings
+// ═══════════════════════════════════════════
 
-export function getSettings(): Settings {
-  ensureDir(DATA_DIR);
-  const sp = settingsPath();
-  if (!fs.existsSync(sp)) {
-    writeJson(sp, defaultSettings);
+export async function getSettings(): Promise<Settings> {
+  if (store) {
+    try {
+      const raw = await store.get("settings");
+      if (raw !== null) {
+        const text = typeof raw === "string" ? raw : new TextDecoder().decode(raw);
+        return JSON.parse(text) as Settings;
+      }
+    } catch {
+      console.warn('[data-store] Failed to read "settings" from Netlify Blobs');
+    }
+    // Seed default settings
+    await store.set("settings", JSON.stringify(defaultSettings));
+    return defaultSettings;
+  } else {
+    ensureDir(DATA_DIR);
+    const sp = path.join(DATA_DIR, "settings.json");
+    try {
+      if (fs.existsSync(sp)) {
+        return JSON.parse(fs.readFileSync(sp, "utf-8")) as Settings;
+      }
+    } catch {
+      console.warn("[data-store] Failed to read settings.json");
+    }
+    // Seed default
+    fs.writeFileSync(sp, JSON.stringify(defaultSettings, null, 2), "utf-8");
     return defaultSettings;
   }
-  return readJson<Settings>(sp, defaultSettings);
 }
 
-export function saveSettings(settings: Settings): void {
-  ensureDir(DATA_DIR);
-  writeJson(settingsPath(), settings);
+export async function saveSettings(settings: Settings): Promise<void> {
+  await writeData("settings", settings);
 }
 
-// === Messages (i18n) ===
+// ═══════════════════════════════════════════
+//  Messages (i18n overrides)
+// ═══════════════════════════════════════════
+
 type Messages = Record<string, unknown>;
 
-export function getMessagesData(locale = "en"): Messages {
-  const fp = path.join(MSG_DIR, `${locale}.json`);
-  return readJson<Messages>(fp, {});
+export async function getMessagesData(locale = "en"): Promise<Messages> {
+  const key = `messages:${locale}`;
+  if (store) {
+    try {
+      const raw = await store.get(key);
+      if (raw !== null) {
+        const text = typeof raw === "string" ? raw : new TextDecoder().decode(raw);
+        return JSON.parse(text) as Messages;
+      }
+    } catch {
+      console.warn(`[data-store] Failed to read "${key}" from Netlify Blobs`);
+    }
+    return {};
+  } else {
+    const fp = path.join(MSG_DIR, `${locale}.json`);
+    try {
+      if (fs.existsSync(fp)) {
+        return JSON.parse(fs.readFileSync(fp, "utf-8")) as Messages;
+      }
+    } catch {
+      console.warn(`[data-store] Failed to read ${fp}`);
+    }
+    return {};
+  }
 }
 
-export function saveMessagesData(messages: Messages, locale = "en"): void {
-  ensureDir(MSG_DIR);
-  writeJson(path.join(MSG_DIR, `${locale}.json`), messages);
+export async function saveMessagesData(messages: Messages, locale = "en"): Promise<void> {
+  const key = `messages:${locale}`;
+  if (store) {
+    await store.set(key, JSON.stringify(messages));
+  } else {
+    ensureDir(MSG_DIR);
+    const fp = path.join(MSG_DIR, `${locale}.json`);
+    fs.writeFileSync(fp, JSON.stringify(messages, null, 2), "utf-8");
+  }
 }

@@ -20,12 +20,13 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return getCaseStudies().map((c) => ({ slug: c.slug }));
+  const cases = await getCaseStudies();
+  return cases.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const c = getCaseBySlug(slug);
+  const c = await getCaseBySlug(slug);
   if (!c) return {};
 
   return {
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CaseDetailPage({ params }: Props) {
   const { slug } = await params;
-  const c = getCaseBySlug(slug);
+  const c = await getCaseBySlug(slug);
   if (!c) notFound();
 
   const t = await getTranslations("cases");

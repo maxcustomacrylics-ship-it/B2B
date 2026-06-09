@@ -2,9 +2,11 @@ import { useTranslations } from "next-intl";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import { getServices } from "@/lib/data-store";
 import { Scissors, Sparkles, Printer, Flame, Package, PenTool } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import type { Service } from "@/lib/types";
+
+type Props = { services?: Service[] };
 
 const iconMap: Record<string, LucideIcon> = {
   Scissors,
@@ -15,9 +17,9 @@ const iconMap: Record<string, LucideIcon> = {
   PenTool,
 };
 
-export default function ServiceOverview() {
+export default function ServiceOverview({ services: propServices }: Props) {
   const t = useTranslations("home.services");
-  const services = getServices();
+  const services = propServices ?? [];
 
   return (
     <section className="py-20 bg-white">

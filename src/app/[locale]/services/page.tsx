@@ -36,11 +36,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
   const t = useTranslations("services");
+  const allServices = await getServices();
 
   const itemListSchema = generateItemListSchema(
-    getServices().map((s) => ({
+    allServices.map((s) => ({
       name: s.title,
       url: `${SITE_URL}/services`,
     }))
@@ -63,7 +64,7 @@ export default function ServicesPage() {
         <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
         <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {getServices().map((service) => {
+          {allServices.map((service) => {
             const Icon = iconMap[service.icon] || Sparkles;
             return (
               <div

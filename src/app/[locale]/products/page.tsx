@@ -26,9 +26,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
   const t = useTranslations("products");
-  const products = getProducts();
+  const products = await getProducts();
 
   const itemListSchema = generateItemListSchema(
     products.map((p) => ({

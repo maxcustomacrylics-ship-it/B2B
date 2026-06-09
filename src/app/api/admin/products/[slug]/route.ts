@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const products = getProducts();
+  const products = await getProducts();
   const product = products.find((p) => p.slug === slug);
   if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(product);
@@ -18,11 +18,11 @@ export async function PUT(
 ) {
   const { slug } = await params;
   const body = await request.json();
-  const products = getProducts();
+  const products = await getProducts();
   const index = products.findIndex((p) => p.slug === slug);
   if (index === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
   products[index] = { ...products[index], ...body, slug };
-  saveProducts(products);
+  await saveProducts(products);
   return NextResponse.json(products[index]);
 }
 
@@ -31,8 +31,8 @@ export async function DELETE(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  let products = getProducts();
+  let products = await getProducts();
   products = products.filter((p) => p.slug !== slug);
-  saveProducts(products);
+  await saveProducts(products);
   return NextResponse.json({ success: true });
 }

@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { getCaseStudies, saveCaseStudies } from "@/lib/data-store";
 
 export async function GET() {
-  return NextResponse.json(getCaseStudies());
+  const cases = await getCaseStudies();
+  return NextResponse.json(cases);
 }
 
 export async function PUT(request: Request) {
   const body = await request.json();
-  saveCaseStudies(body);
+  await saveCaseStudies(body);
   return NextResponse.json({ success: true });
 }

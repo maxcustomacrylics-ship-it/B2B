@@ -3,11 +3,13 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import { getCaseStudies } from "@/lib/data-store";
+import type { CaseStudy } from "@/lib/types";
 
-export default function CaseHighlights() {
+type Props = { cases?: CaseStudy[] };
+
+export default function CaseHighlights({ cases: propCases }: Props) {
   const t = useTranslations("home.cases");
-  const cases = getCaseStudies().filter(c => c.featured);
+  const cases = (propCases ?? []).filter(c => c.featured);
 
   if (cases.length === 0) return null;
 

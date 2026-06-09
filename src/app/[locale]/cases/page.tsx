@@ -23,11 +23,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function CasesPage() {
+export default async function CasesPage() {
   const t = useTranslations("cases");
+  const allCases = await getCaseStudies();
 
   const itemListSchema = generateItemListSchema(
-    getCaseStudies().map((c) => ({
+    allCases.map((c) => ({
       name: c.title,
       url: `${SITE_URL}/cases/${c.slug}`,
     }))
@@ -45,7 +46,7 @@ export default function CasesPage() {
         <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
         <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {getCaseStudies().map((c) => (
+          {allCases.map((c) => (
             <Link
               key={c.slug}
               href={`/cases/${c.slug}`}

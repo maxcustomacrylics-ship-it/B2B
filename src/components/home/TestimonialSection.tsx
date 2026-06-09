@@ -1,12 +1,14 @@
 import { useTranslations } from "next-intl";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { getTestimonials } from "@/lib/data-store";
 import { Star } from "lucide-react";
+import type { Testimonial } from "@/lib/types";
 
-export default function TestimonialSection() {
+type Props = { testimonials?: Testimonial[] };
+
+export default function TestimonialSection({ testimonials: propList }: Props) {
   const t = useTranslations("home.testimonials");
-  const testimonials = getTestimonials();
+  const testimonials = propList ?? [];
 
   return (
     <section className="py-20 bg-white">

@@ -28,11 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
   const t = useTranslations("blog");
+  const posts = await getBlogPosts();
 
   const itemListSchema = generateItemListSchema(
-    getBlogPosts().map((p) => ({
+    posts.map((p) => ({
       name: p.title,
       url: `${SITE_URL}/blog/${p.slug}`,
     }))
@@ -51,7 +52,7 @@ export default function BlogPage() {
 
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2 space-y-8">
-            {getBlogPosts().map((post) => (
+            {posts.map((post) => (
               <BlogCard key={post.slug} post={post} />
             ))}
           </div>

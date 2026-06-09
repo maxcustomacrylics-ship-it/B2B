@@ -21,7 +21,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   const messages = await getMessages();
-  const settings = getSettings();
+  const settings = await getSettings();
 
   return (
     <NextIntlClientProvider messages={messages}>
