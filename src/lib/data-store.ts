@@ -16,8 +16,19 @@ const isNetlify = process.env.NETLIFY === "true";
 const DATA_DIR = path.join(process.cwd(), "src", "data");
 const MSG_DIR = path.join(process.cwd(), "src", "messages");
 
-// ─── Netlify Blobs store ───
-const store = isNetlify ? getStore("acrylic-data") : null;
+// ─── Netlify Blobs store (lazy init to avoid build-time errors) ───
+let _store: ReturnType<typeof getStore> | null | undefined;
+
+function getBlobsStore() {
+  if (_store === undefined) {
+    try {
+      _store = getStore("acrylic-data");
+    } catch {
+      _store = null;
+    }
+  }
+  return _store;
+}
 
 // ─── Types ───
 export type Settings = {
@@ -56,6 +67,7 @@ function ensureDir(dir: string): void {
 }
 
 async function readData<T>(key: string, fallback: T, seed?: unknown[]): Promise<T> {
+  const store = getBlobsStore();
   if (store) {
     // ── Netlify production: read from Blobs ──
     try {
@@ -94,6 +106,7 @@ async function readData<T>(key: string, fallback: T, seed?: unknown[]): Promise<
 }
 
 async function writeData<T>(key: string, data: T): Promise<void> {
+  const store = getBlobsStore();
   if (store) {
     await store.set(key, JSON.stringify(data));
   } else {
@@ -183,6 +196,7 @@ export async function saveTestimonials(testimonials: Testimonial[]): Promise<voi
 // ═══════════════════════════════════════════
 
 export async function getSettings(): Promise<Settings> {
+  const store = getBlobsStore();
   if (store) {
     try {
       const raw = await store.get("settings");
@@ -224,6 +238,7 @@ type Messages = Record<string, unknown>;
 
 export async function getMessagesData(locale = "en"): Promise<Messages> {
   const key = `messages:${locale}`;
+  const store = getBlobsStore();
   if (store) {
     try {
       const raw = await store.get(key);
@@ -250,6 +265,7 @@ export async function getMessagesData(locale = "en"): Promise<Messages> {
 
 export async function saveMessagesData(messages: Messages, locale = "en"): Promise<void> {
   const key = `messages:${locale}`;
+  const store = getBlobsStore();
   if (store) {
     await store.set(key, JSON.stringify(messages));
   } else {
