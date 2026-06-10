@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Product } from "@/lib/types";
 
@@ -7,16 +11,29 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <Link
       href={`/products/${product.slug}`}
       className="group overflow-hidden rounded-xl border border-border bg-white transition-all hover:shadow-lg"
     >
-      <div className="aspect-square bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center">
-        <div className="text-center text-muted">
-          <div className="text-5xl mb-2">🪟</div>
-          <span className="text-xs">Click to view details</span>
-        </div>
+      <div className="aspect-square bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center relative">
+        {!imgError ? (
+          <Image
+            src={product.images[0] ?? ""}
+            alt={product.name}
+            fill
+            className="object-cover"
+            onError={() => setImgError(true)}
+            unoptimized
+          />
+        ) : (
+          <div className="text-center text-muted">
+            <div className="text-5xl mb-2">🪟</div>
+            <span className="text-xs">Click to view details</span>
+          </div>
+        )}
       </div>
       <div className="p-4">
         <span className="text-xs font-medium text-primary-600 uppercase tracking-wider">
