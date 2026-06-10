@@ -2,8 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background: #ffffff;
+:root {
+  color-scheme: light;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f8fafc;
   color: #0f172a;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  background-image: radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.08), transparent 22%);
+  color: #0f172a;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+section {
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: #475569;
+}
+
+button,
+a {
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+a:hover {
+  transform: translateY(-1px);
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.18);
 }

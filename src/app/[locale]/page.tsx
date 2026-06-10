@@ -53,13 +53,15 @@ export default async function HomePage() {
   return (
     <>
       <SchemaOrg data={[orgSchema, webSiteSchema]} />
-      <Hero />
-      <AboutSection />
-      <ProductShowcase products={products} />
-      <ServiceOverview services={services} />
-      <CaseHighlights cases={cases} />
-      <TestimonialSection testimonials={testimonials} />
-      <CTASection />
+      <main className="bg-slate-50 text-slate-900">
+        <Hero />
+        <AboutSection />
+        <ProductShowcase products={products} />
+        <ServiceOverview services={services} />
+        <CaseHighlights cases={cases} />
+        <TestimonialSection testimonials={testimonials} />
+        <CTASection />
+      </main>
     </>
   );
 }
