@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -9,24 +10,49 @@ type ImageGalleryProps = {
   alt: string;
 };
 
+function Placeholder({ alt }: { alt: string }) {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary-100 to-accent-100">
+      <div className="text-center text-muted">
+        <div className="text-6xl mb-2">🖼</div>
+        <p className="text-sm">{alt}</p>
+        <p className="text-xs mt-1">Product image placeholder</p>
+      </div>
+    </div>
+  );
+}
+
 export default function ImageGallery({ images, alt }: ImageGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [imgError, setImgError] = useState<Record<number, boolean>>({});
 
   const prev = () =>
     setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
   const next = () =>
     setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
 
+  const handleError = (index: number) => {
+    setImgError((prev) => ({ ...prev, [index]: true }));
+  };
+
+  const currentSrc = images[activeIndex];
+  const currentError = imgError[activeIndex];
+
   return (
     <div className="space-y-4">
       <div className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
-        <div className="flex h-full items-center justify-center text-muted">
-          <div className="text-center">
-            <div className="text-6xl mb-2">🖼</div>
-            <p className="text-sm">{alt}</p>
-            <p className="text-xs text-muted mt-1">Product image placeholder</p>
-          </div>
-        </div>
+        {currentSrc && !currentError ? (
+          <Image
+            src={currentSrc}
+            alt={alt}
+            fill
+            className="object-cover"
+            onError={() => handleError(activeIndex)}
+            unoptimized
+          />
+        ) : (
+          <Placeholder alt={alt} />
+        )}
         {images.length > 1 && (
           <>
             <button
@@ -59,9 +85,21 @@ export default function ImageGallery({ images, alt }: ImageGalleryProps) {
                   : "border-border hover:border-primary-300"
               )}
             >
-              <div className="flex h-full items-center justify-center bg-gray-50 text-xs text-muted">
-                {index + 1}
-              </div>
+              {!imgError[index] ? (
+                <Image
+                  src={img}
+                  alt={`${alt} ${index + 1}`}
+                  width={64}
+                  height={64}
+                  className="h-full w-full object-cover"
+                  onError={() => handleError(index)}
+                  unoptimized
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center bg-gray-50 text-xs text-muted">
+                  {index + 1}
+                </div>
+              )}
             </button>
           ))}
         </div>
