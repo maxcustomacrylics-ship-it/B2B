@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getProducts, saveProducts } from "@/lib/data-store";
+import { requireAdmin } from "@/lib/auth";
 
 export async function GET(
   _request: Request,
@@ -16,6 +17,9 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const { slug } = await params;
   const body = await request.json();
   const products = await getProducts();
@@ -30,6 +34,9 @@ export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const { slug } = await params;
   let products = await getProducts();
   products = products.filter((p) => p.slug !== slug);

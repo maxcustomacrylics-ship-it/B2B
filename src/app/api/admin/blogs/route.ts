@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBlogPosts, saveBlogPosts } from "@/lib/data-store";
+import { requireAdmin } from "@/lib/auth";
 
 export async function GET() {
   const posts = await getBlogPosts();
@@ -7,6 +8,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const body = await request.json();
   const posts = await getBlogPosts();
 
@@ -35,6 +39,9 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const body = await request.json();
   await saveBlogPosts(body);
   return NextResponse.json({ success: true });

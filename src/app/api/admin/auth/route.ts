@@ -3,10 +3,44 @@ import { cookies } from "next/headers";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
 
+// ── In-memory rate limiter (shared across invocations on warm instances) ──
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_MS = 5 * 60 * 1000; // 5 minutes
+const attemptLog = new Map<string, { count: number; firstAttempt: number }>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = attemptLog.get(ip);
+
+  if (!entry || now - entry.firstAttempt > LOCKOUT_MS) {
+    // Reset after lockout window
+    attemptLog.set(ip, { count: 1, firstAttempt: now });
+    return false;
+  }
+
+  entry.count++;
+  if (entry.count > MAX_ATTEMPTS) {
+    return true; // blocked
+  }
+  return false;
+}
+
 export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwarded-for") || "unknown";
+
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Too many attempts. Try again in 5 minutes." },
+      { status: 429 }
+    );
+  }
+
   const { password } = await request.json();
 
   if (password === ADMIN_PASSWORD) {
+    // Clear rate limit on success
+    attemptLog.delete(ip);
+
     const cookieStore = await cookies();
     cookieStore.set("admin_token", "authenticated", {
       httpOnly: true,

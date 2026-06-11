@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getTestimonials, saveTestimonials } from "@/lib/data-store";
+import { requireAdmin } from "@/lib/auth";
 
 export async function GET() {
   const list = await getTestimonials();
@@ -7,6 +8,9 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const body = await request.json();
   await saveTestimonials(body);
   return NextResponse.json({ success: true });

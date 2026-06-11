@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCaseStudies, saveCaseStudies } from "@/lib/data-store";
+import { requireAdmin } from "@/lib/auth";
 
 export async function GET() {
   const cases = await getCaseStudies();
@@ -7,6 +8,9 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const body = await request.json();
   await saveCaseStudies(body);
   return NextResponse.json({ success: true });
