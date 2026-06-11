@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
-import { FileText, Save } from "lucide-react";
+import { FileText, Plus, Save } from "lucide-react";
 import type { BlogPost } from "@/lib/types";
 
 export default function AdminBlogsPage() {
@@ -74,14 +74,23 @@ export default function AdminBlogsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Blog Posts</h1>
           <p className="mt-1 text-sm text-gray-500">Edit blog post details inline</p>
         </div>
-        <button
-          onClick={handleSave}
-          disabled={saving || !dirty}
-          className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <Save className="h-4 w-4" />
-          {saving ? "Saving..." : "Save All"}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => router.push("/en/admin/blogs/new")}
+            className="inline-flex items-center gap-2 rounded-lg border border-primary-600 bg-white px-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 transition-colors"
+          >
+            <Plus className="h-4 w-4" />
+            New Blog Post
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={saving || !dirty}
+            className="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Save className="h-4 w-4" />
+            {saving ? "Saving..." : "Save All"}
+          </button>
+        </div>
       </div>
 
       {blogs.length === 0 ? (
