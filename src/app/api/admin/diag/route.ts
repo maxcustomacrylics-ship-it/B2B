@@ -17,7 +17,18 @@ export async function GET() {
     info.queryOk = !error;
     info.queryError = error?.message || null;
     info.rowCount = data?.length || 0;
+
+    // Try a write test
+    const testRes = await sb!.from("settings").upsert({ key: "_diag_test", value: "ok", updated_at: new Date().toISOString() }, { onConflict: "key" });
+    info.writeOk = !testRes.error;
+    info.writeError = testRes.error?.message || null;
   }
+
+  // Auth check
+  const { cookies } = await import("next/headers");
+  const ck = await cookies();
+  const token = ck.get("admin_token");
+  info.authCookie = { present: !!token, value: token?.value };
 
   return NextResponse.json(info);
 }
