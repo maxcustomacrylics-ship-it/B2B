@@ -1,10 +1,10 @@
 import "server-only";
 import fs from "fs";
 import path from "path";
-import { getStore } from "@netlify/blobs";
+import { getSupabase, hasSupabase } from "@/lib/supabase";
 import type { Product, Service, CaseStudy, BlogPost, Testimonial } from "@/lib/types";
 
-// ─── Seed data (used as initial values when store is empty) ───
+// ─── Seed data ───
 import { products as seedProducts } from "@/data/products";
 import { services as seedServices } from "@/data/services";
 import { caseStudies as seedCaseStudies } from "@/data/cases";
@@ -12,23 +12,8 @@ import { blogPosts as seedBlogPosts } from "@/data/blogs";
 import { testimonials as seedTestimonials } from "@/data/testimonials";
 
 // ─── Config ───
-const isNetlify = process.env.NETLIFY === "true";
 const DATA_DIR = path.join(process.cwd(), "src", "data");
 const MSG_DIR = path.join(process.cwd(), "src", "messages");
-
-// ─── Netlify Blobs store (lazy init to avoid build-time errors) ───
-let _store: ReturnType<typeof getStore> | null | undefined;
-
-function getBlobsStore() {
-  if (_store === undefined) {
-    try {
-      _store = getStore("acrylic-data");
-    } catch {
-      _store = null;
-    }
-  }
-  return _store;
-}
 
 // ─── Types ───
 export type Settings = {
@@ -49,16 +34,6 @@ const defaultSettings: Settings = {
   businessHours: "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
 };
 
-// ─── Seed data lookup ───
-type SeedKey = "products" | "services" | "cases" | "blogs" | "testimonials";
-const seedMap: Record<SeedKey, unknown[]> = {
-  products: seedProducts,
-  services: seedServices,
-  cases: seedCaseStudies,
-  blogs: seedBlogPosts,
-  testimonials: seedTestimonials,
-};
-
 // ─── Helpers ───
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
@@ -66,62 +41,44 @@ function ensureDir(dir: string): void {
   }
 }
 
-async function readData<T>(key: string, fallback: T, seed?: unknown[]): Promise<T> {
-  const store = getBlobsStore();
-  if (store) {
-    // ── Netlify production: read from Blobs ──
-    try {
-      const raw = await store.get(key);
-      if (raw !== null) {
-        const text = typeof raw === "string" ? raw : new TextDecoder().decode(raw);
-        return JSON.parse(text) as T;
-      }
-    } catch (e) {
-      console.warn(`[data-store] Failed to read "${key}" from Netlify Blobs:`, e);
-    }
-    // First-time: seed initial data if available
-    if (seed && Array.isArray(fallback)) {
-      await store.set(key, JSON.stringify(seed));
-      return seed as T;
-    }
-    return fallback;
-  } else {
-    // ── Local development: read from JSON file ──
-    const filePath = path.join(DATA_DIR, `${key}.json`);
-    try {
-      if (fs.existsSync(filePath)) {
-        return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
-      }
-    } catch {
-      console.warn(`[data-store] Failed to read ${filePath}`);
-    }
-    // First-time: seed from initial data and write to file
-    if (seed && Array.isArray(fallback) && fallback.length === 0) {
-      ensureDir(DATA_DIR);
-      fs.writeFileSync(filePath, JSON.stringify(seed, null, 2), "utf-8");
-      return seed as T;
-    }
-    return fallback;
+function snakeToCamel(record: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(record)) {
+    // snake_case to camelCase
+    const camel = k.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+    out[camel] = v;
   }
+  return out;
 }
 
-async function writeData<T>(key: string, data: T): Promise<void> {
-  const store = getBlobsStore();
-  if (store) {
-    await store.set(key, JSON.stringify(data));
-  } else {
-    const filePath = path.join(DATA_DIR, `${key}.json`);
-    ensureDir(DATA_DIR);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+function camelToSnake(record: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(record)) {
+    // camelCase to snake_case, skip supabase meta fields
+    if (k === "createdAt" || k === "updatedAt") continue;
+    const snake = k.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
+    out[snake] = v;
   }
+  return out;
 }
 
 // ═══════════════════════════════════════════
-//  Products
+//  PRODUCTS
 // ═══════════════════════════════════════════
 
 export async function getProducts(): Promise<Product[]> {
-  return readData<Product[]>("products", [], seedProducts);
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!.from("products").select("*").order("id", { ascending: false });
+    if (error) { console.error("[supabase] getProducts:", error); return []; }
+    return (data || []).map((r) => snakeToCamel(r) as unknown as Product);
+  }
+
+  // Local fallback
+  const fp = path.join(DATA_DIR, "products.json");
+  try {
+    if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8"));
+  } catch { /* fall through */ }
+  return seedProducts;
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
@@ -130,27 +87,67 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
 }
 
 export async function saveProducts(products: Product[]): Promise<void> {
-  await writeData("products", products);
+  if (hasSupabase()) {
+    // Upsert by slug
+    for (const p of products) {
+      const row = camelToSnake(p as unknown as Record<string, unknown>);
+      row.updated_at = new Date().toISOString();
+      const { error } = await getSupabase()!.from("products").upsert(row, { onConflict: "slug" });
+      if (error) console.error("[supabase] saveProducts:", error);
+    }
+    return;
+  }
+
+  // Local fallback
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
-//  Services
+//  SERVICES
 // ═══════════════════════════════════════════
 
 export async function getServices(): Promise<Service[]> {
-  return readData<Service[]>("services", [], seedServices);
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!.from("services").select("*").order("id", { ascending: true });
+    if (error) { console.error("[supabase] getServices:", error); return []; }
+    return (data || []).map((r) => snakeToCamel(r) as unknown as Service);
+  }
+
+  const fp = path.join(DATA_DIR, "services.json");
+  try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+  return seedServices;
 }
 
 export async function saveServices(services: Service[]): Promise<void> {
-  await writeData("services", services);
+  if (hasSupabase()) {
+    for (const s of services) {
+      const row = camelToSnake(s as unknown as Record<string, unknown>);
+      row.updated_at = new Date().toISOString();
+      const { error } = await getSupabase()!.from("services").upsert(row, { onConflict: "slug" });
+      if (error) console.error("[supabase] saveServices:", error);
+    }
+    return;
+  }
+
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "services.json"), JSON.stringify(services, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
-//  Case Studies
+//  CASE STUDIES
 // ═══════════════════════════════════════════
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
-  return readData<CaseStudy[]>("cases", [], seedCaseStudies);
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!.from("case_studies").select("*").order("id", { ascending: false });
+    if (error) { console.error("[supabase] getCaseStudies:", error); return []; }
+    return (data || []).map((r) => snakeToCamel(r) as unknown as CaseStudy);
+  }
+
+  const fp = path.join(DATA_DIR, "cases.json");
+  try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+  return seedCaseStudies;
 }
 
 export async function getCaseBySlug(slug: string): Promise<CaseStudy | undefined> {
@@ -159,15 +156,34 @@ export async function getCaseBySlug(slug: string): Promise<CaseStudy | undefined
 }
 
 export async function saveCaseStudies(cases: CaseStudy[]): Promise<void> {
-  await writeData("cases", cases);
+  if (hasSupabase()) {
+    for (const c of cases) {
+      const row = camelToSnake(c as unknown as Record<string, unknown>);
+      row.updated_at = new Date().toISOString();
+      const { error } = await getSupabase()!.from("case_studies").upsert(row, { onConflict: "slug" });
+      if (error) console.error("[supabase] saveCaseStudies:", error);
+    }
+    return;
+  }
+
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "cases.json"), JSON.stringify(cases, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
-//  Blog Posts
+//  BLOG POSTS
 // ═══════════════════════════════════════════
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  return readData<BlogPost[]>("blogs", [], seedBlogPosts);
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!.from("blog_posts").select("*").order("id", { ascending: false });
+    if (error) { console.error("[supabase] getBlogPosts:", error); return []; }
+    return (data || []).map((r) => snakeToCamel(r) as unknown as BlogPost);
+  }
+
+  const fp = path.join(DATA_DIR, "blogs.json");
+  try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+  return seedBlogPosts;
 }
 
 export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined> {
@@ -176,101 +192,113 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 }
 
 export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
-  await writeData("blogs", posts);
+  if (hasSupabase()) {
+    for (const p of posts) {
+      const row = camelToSnake(p as unknown as Record<string, unknown>);
+      row.updated_at = new Date().toISOString();
+      const { error } = await getSupabase()!.from("blog_posts").upsert(row, { onConflict: "slug" });
+      if (error) console.error("[supabase] saveBlogPosts:", error);
+    }
+    return;
+  }
+
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "blogs.json"), JSON.stringify(posts, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
-//  Testimonials
+//  TESTIMONIALS
 // ═══════════════════════════════════════════
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  return readData<Testimonial[]>("testimonials", [], seedTestimonials);
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!.from("testimonials").select("*").order("id", { ascending: true });
+    if (error) { console.error("[supabase] getTestimonials:", error); return []; }
+    return (data || []).map((r) => snakeToCamel(r) as unknown as Testimonial);
+  }
+
+  const fp = path.join(DATA_DIR, "testimonials.json");
+  try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+  return seedTestimonials;
 }
 
 export async function saveTestimonials(testimonials: Testimonial[]): Promise<void> {
-  await writeData("testimonials", testimonials);
+  if (hasSupabase()) {
+    for (const t of testimonials) {
+      const row = camelToSnake(t as unknown as Record<string, unknown>);
+      row.updated_at = new Date().toISOString();
+      const { error } = await getSupabase()!.from("testimonials").upsert(row, { onConflict: "id" });
+      if (error) console.error("[supabase] saveTestimonials:", error);
+    }
+    return;
+  }
+
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "testimonials.json"), JSON.stringify(testimonials, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
-//  Settings
+//  SETTINGS
 // ═══════════════════════════════════════════
 
 export async function getSettings(): Promise<Settings> {
-  const store = getBlobsStore();
-  if (store) {
-    try {
-      const raw = await store.get("settings");
-      if (raw !== null) {
-        const text = typeof raw === "string" ? raw : new TextDecoder().decode(raw);
-        return JSON.parse(text) as Settings;
-      }
-    } catch {
-      console.warn('[data-store] Failed to read "settings" from Netlify Blobs');
-    }
-    // Seed default settings
-    await store.set("settings", JSON.stringify(defaultSettings));
-    return defaultSettings;
-  } else {
-    ensureDir(DATA_DIR);
-    const sp = path.join(DATA_DIR, "settings.json");
-    try {
-      if (fs.existsSync(sp)) {
-        return JSON.parse(fs.readFileSync(sp, "utf-8")) as Settings;
-      }
-    } catch {
-      console.warn("[data-store] Failed to read settings.json");
-    }
-    // Seed default
-    fs.writeFileSync(sp, JSON.stringify(defaultSettings, null, 2), "utf-8");
-    return defaultSettings;
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!.from("settings").select("*");
+    if (error) { console.error("[supabase] getSettings:", error); return defaultSettings; }
+    const map: Record<string, string> = {};
+    for (const row of data || []) map[row.key] = row.value;
+    return { ...defaultSettings, ...map };
   }
+
+  const sp = path.join(DATA_DIR, "settings.json");
+  try {
+    if (fs.existsSync(sp)) return JSON.parse(fs.readFileSync(sp, "utf-8"));
+  } catch {}
+  return defaultSettings;
 }
 
 export async function saveSettings(settings: Settings): Promise<void> {
-  await writeData("settings", settings);
+  if (hasSupabase()) {
+    for (const [key, value] of Object.entries(settings)) {
+      const { error } = await getSupabase()!.from("settings").upsert({ key, value, updated_at: new Date().toISOString() }, { onConflict: "key" });
+      if (error) console.error("[supabase] saveSettings:", error);
+    }
+    return;
+  }
+
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "settings.json"), JSON.stringify(settings, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
-//  Messages (i18n overrides)
+//  MESSAGES (i18n)
 // ═══════════════════════════════════════════
 
 type Messages = Record<string, unknown>;
 
 export async function getMessagesData(locale = "en"): Promise<Messages> {
-  const key = `messages:${locale}`;
-  const store = getBlobsStore();
-  if (store) {
-    try {
-      const raw = await store.get(key);
-      if (raw !== null) {
-        const text = typeof raw === "string" ? raw : new TextDecoder().decode(raw);
-        return JSON.parse(text) as Messages;
-      }
-    } catch {
-      console.warn(`[data-store] Failed to read "${key}" from Netlify Blobs`);
-    }
-    return {};
-  } else {
-    const fp = path.join(MSG_DIR, `${locale}.json`);
-    try {
-      if (fs.existsSync(fp)) {
-        return JSON.parse(fs.readFileSync(fp, "utf-8")) as Messages;
-      }
-    } catch {
-      console.warn(`[data-store] Failed to read ${fp}`);
-    }
-    return {};
+  if (hasSupabase()) {
+    const key = `messages_${locale}`;
+    const { data, error } = await getSupabase()!.from("messages").select("*").eq("key", key).single();
+    if (error || !data) return {};
+    return data.value as Messages;
   }
+
+  const fp = path.join(MSG_DIR, `${locale}.json`);
+  try {
+    if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8"));
+  } catch {}
+  return {};
 }
 
 export async function saveMessagesData(messages: Messages, locale = "en"): Promise<void> {
-  const key = `messages:${locale}`;
-  const store = getBlobsStore();
-  if (store) {
-    await store.set(key, JSON.stringify(messages));
-  } else {
-    ensureDir(MSG_DIR);
-    const fp = path.join(MSG_DIR, `${locale}.json`);
-    fs.writeFileSync(fp, JSON.stringify(messages, null, 2), "utf-8");
+  if (hasSupabase()) {
+    const key = `messages_${locale}`;
+    const { error } = await getSupabase()!.from("messages").upsert({ key, value: messages, updated_at: new Date().toISOString() }, { onConflict: "key" });
+    if (error) console.error("[supabase] saveMessagesData:", error);
+    return;
   }
+
+  ensureDir(MSG_DIR);
+  fs.writeFileSync(path.join(MSG_DIR, `${locale}.json`), JSON.stringify(messages, null, 2), "utf-8");
 }
