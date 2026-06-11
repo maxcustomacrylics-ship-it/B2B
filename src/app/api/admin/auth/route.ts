@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+function validatePassword(input: string): boolean {
+  if (!ADMIN_PASSWORD) {
+    console.error("ADMIN_PASSWORD environment variable is not set");
+    return false;
+  }
+  return input === ADMIN_PASSWORD;
+}
 
 // ── In-memory rate limiter (shared across invocations on warm instances) ──
 const MAX_ATTEMPTS = 5;
@@ -37,7 +45,7 @@ export async function POST(request: Request) {
 
   const { password } = await request.json();
 
-  if (password === ADMIN_PASSWORD) {
+  if (validatePassword(password)) {
     // Clear rate limit on success
     attemptLog.delete(ip);
 
