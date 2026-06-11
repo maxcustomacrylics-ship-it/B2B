@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCaseStudies, saveCaseStudies } from "@/lib/data-store";
 import { requireAdmin } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
 export async function GET() {
   const cases = await getCaseStudies();
   return NextResponse.json(cases);

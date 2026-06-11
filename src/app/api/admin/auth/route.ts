@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 function validatePassword(input: string): boolean {

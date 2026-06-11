@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServices, saveServices } from "@/lib/data-store";
 import { requireAdmin } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
 export async function GET() {
   const list = await getServices();
   return NextResponse.json(list);
