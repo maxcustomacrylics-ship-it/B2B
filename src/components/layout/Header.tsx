@@ -20,7 +20,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-xl font-bold text-primary-700">
-            Acrylic<span className="text-accent-600">Pro</span>
+            {settings.companyName}
           </Link>
 
           {/* Desktop Nav */}
@@ -71,7 +71,7 @@ export default function Header() {
           <div className="fixed right-0 top-0 bottom-0 w-72 bg-white shadow-xl p-6 flex flex-col">
             <div className="flex items-center justify-between mb-8">
               <span className="text-lg font-bold text-primary-700">
-                Acrylic<span className="text-accent-600">Pro</span>
+                {settings.companyName}
               </span>
               <button
                 onClick={() => setMobileOpen(false)}

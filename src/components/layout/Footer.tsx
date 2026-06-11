@@ -17,7 +17,7 @@ export default function Footer() {
           {/* About */}
           <div>
             <Link href="/" className="text-xl font-bold text-white">
-              Acrylic<span className="text-accent-400">Pro</span>
+              {settings.companyName}
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-gray-400">
               {t("aboutText")}
