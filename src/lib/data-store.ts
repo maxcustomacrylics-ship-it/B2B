@@ -2,7 +2,7 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { getSupabase, hasSupabase } from "@/lib/supabase";
-import type { Product, Service, CaseStudy, BlogPost, Testimonial } from "@/lib/types";
+import type { Product, Service, CaseStudy, BlogPost, Testimonial, PricingConfig } from "@/lib/types";
 
 // ─── Seed data ───
 import { products as seedProducts } from "@/data/products";
@@ -10,6 +10,14 @@ import { services as seedServices } from "@/data/services";
 import { caseStudies as seedCaseStudies } from "@/data/cases";
 import { blogPosts as seedBlogPosts } from "@/data/blogs";
 import { testimonials as seedTestimonials } from "@/data/testimonials";
+import { 
+  materialRates, 
+  complexityRates, 
+  edgeTreatmentRates, 
+  surfaceFinishRates, 
+  leadTimeMultipliers, 
+  quantityDiscounts 
+} from "@/data/pricing";
 
 // ─── Config ───
 const DATA_DIR = path.join(process.cwd(), "src", "data");
@@ -32,6 +40,15 @@ const defaultSettings: Settings = {
   address: "No. 888, Industrial Avenue, Guangzhou, China",
   whatsapp: "8613800000000",
   businessHours: "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
+};
+
+const defaultPricingConfig: PricingConfig = {
+  materialRates,
+  complexityRates,
+  edgeTreatmentRates,
+  surfaceFinishRates,
+  leadTimeMultipliers,
+  quantityDiscounts,
 };
 
 // ─── Helpers ───
@@ -268,6 +285,39 @@ export async function saveSettings(settings: Settings): Promise<void> {
 
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "settings.json"), JSON.stringify(settings, null, 2), "utf-8");
+}
+
+// ═══════════════════════════════════════════
+//  PRICING
+// ═══════════════════════════════════════════
+
+export async function getPricingConfig(): Promise<PricingConfig> {
+  if (hasSupabase()) {
+    const { data, error } = await getSupabase()!
+      .from("pricing_config")
+      .select("*")
+      .order("updated_at", { ascending: false })
+      .limit(1)
+      .single();
+    if (!error && data) {
+      const snakeCased = snakeToCamel(data) as unknown as PricingConfig;
+      return snakeCased;
+    }
+  }
+  return defaultPricingConfig;
+}
+
+export async function savePricingConfig(config: PricingConfig): Promise<void> {
+  if (hasSupabase()) {
+    const row = camelToSnake(config as unknown as Record<string, unknown>);
+    row.id = "default";
+    row.updated_at = new Date().toISOString();
+    const { error } = await getSupabase()!
+      .from("pricing_config")
+      .upsert(row, { onConflict: "id" });
+    if (error) console.error("[supabase] savePricingConfig:", error);
+    return;
+  }
 }
 
 // ═══════════════════════════════════════════

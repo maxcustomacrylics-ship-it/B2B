@@ -16,6 +16,41 @@ export type Product = {
   featured: boolean;
 };
 
+export type QuoteInput = {
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+  materialType: "clear" | "colored" | "frosted" | "mirror" | "specialty";
+  width: number;
+  height: number;
+  thickness: number;
+  quantity: number;
+  complexity: "simple" | "moderate" | "complex";
+  edgeFinish: "none" | "polished" | "beveled" | "flamePolished";
+  surfaceFinish: "none" | "uvPrint" | "engraving" | "bending";
+  leadTime: "standard" | "express" | "rush";
+  message: string;
+};
+
+export type QuoteEstimate = {
+  area: number;
+  perimeter: number;
+  materialCost: number;
+  cuttingCost: number;
+  edgeCost: number;
+  surfaceCost: number;
+  setupCost: number;
+  discountRate: number;
+  discountValue: number;
+  total: number;
+  minEstimate: number;
+  maxEstimate: number;
+  pricePerUnit: number;
+  quantity: number;
+  leadTimeFactor: number;
+};
+
 export type Service = {
   slug: string;
   title: string;
@@ -60,4 +95,13 @@ export type Testimonial = {
 export type NavItem = {
   label: string;
   href: string;
+};
+
+export type PricingConfig = {
+  materialRates: Record<string, number>;
+  complexityRates: Record<string, number>;
+  edgeTreatmentRates: Record<string, number>;
+  surfaceFinishRates: Record<string, number>;
+  leadTimeMultipliers: Record<string, number>;
+  quantityDiscounts: Array<{ min: number; rate: number }>;
 };

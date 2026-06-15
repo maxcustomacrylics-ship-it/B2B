@@ -45,7 +45,7 @@ export default function Header() {
               <Phone className="h-4 w-4" />
               <span>{settings.phone}</span>
             </a>
-            <Button href="/contact" variant="primary">
+            <Button href="/quote" variant="primary">
               {t("getQuote")}
             </Button>
           </div>
@@ -103,7 +103,7 @@ export default function Header() {
                 <Phone className="h-4 w-4" />
                 {settings.phone}
               </a>
-              <Button href="/contact" variant="primary" className="w-full">
+              <Button href="/quote" variant="primary" className="w-full">
                 {t("getQuote")}
               </Button>
             </div>

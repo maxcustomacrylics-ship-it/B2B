@@ -12,6 +12,7 @@ import {
   Star,
   MessageSquare,
   Settings,
+  DollarSign,
   ArrowLeft,
   LogOut,
 } from "lucide-react";
@@ -24,6 +25,7 @@ const navItems = [
   { href: "/admin/blogs", label: "Blog Posts", icon: FileText },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },
   { href: "/admin/messages", label: "Site Copy", icon: MessageSquare },
+  { href: "/admin/pricing", label: "Pricing", icon: DollarSign },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
