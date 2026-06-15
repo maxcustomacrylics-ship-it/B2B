@@ -10,18 +10,15 @@ import {
   generateArticleSchema,
   generateBreadcrumbSchema,
 } from "@/lib/schema";
-import { getBlogBySlug, getBlogPosts } from "@/lib/data-store";
+import { getBlogBySlug } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-export async function generateStaticParams() {
-  const posts = await getBlogPosts();
-  return posts.map((b) => ({ slug: b.slug }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

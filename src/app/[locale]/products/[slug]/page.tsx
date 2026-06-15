@@ -11,17 +11,14 @@ import {
   generateBreadcrumbSchema,
   generateFAQSchema,
 } from "@/lib/schema";
-import { getProductBySlug, getProducts } from "@/lib/data-store";
+import { getProductBySlug } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-export async function generateStaticParams() {
-  const products = await getProducts();
-  return products.map((p) => ({ slug: p.slug }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

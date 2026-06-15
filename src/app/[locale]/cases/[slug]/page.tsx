@@ -11,18 +11,15 @@ import {
   generateArticleSchema,
   generateBreadcrumbSchema,
 } from "@/lib/schema";
-import { getCaseBySlug, getCaseStudies } from "@/lib/data-store";
+import { getCaseBySlug } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-export async function generateStaticParams() {
-  const cases = await getCaseStudies();
-  return cases.map((c) => ({ slug: c.slug }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
