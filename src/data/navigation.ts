@@ -2,6 +2,7 @@ import type { NavItem } from "@/lib/types";
 
 export const mainNav: NavItem[] = [
   { label: "home", href: "/" },
+  { label: "about", href: "/about" },
   { label: "products", href: "/products" },
   { label: "services", href: "/services" },
   { label: "quote", href: "/quote" },
@@ -29,10 +30,15 @@ export const footerServices: NavItem[] = [
 ];
 
 export const footerCompany: NavItem[] = [
-  { label: "About Us", href: "/" },
+  { label: "About Us", href: "/about" },
   { label: "Case Studies", href: "/cases" },
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Privacy Policy", href: "/" },
-  { label: "Terms of Service", href: "/" },
+];
+
+export const footerLegal: NavItem[] = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+  { label: "Refund Policy", href: "/refund" },
+  { label: "Shipping Policy", href: "/shipping" },
 ];

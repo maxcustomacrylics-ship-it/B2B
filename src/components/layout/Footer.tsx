@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Container from "@/components/ui/Container";
-import { footerProducts, footerServices, footerCompany } from "@/data/navigation";
+import { footerProducts, footerServices, footerCompany, footerLegal } from "@/data/navigation";
 import { useSettings } from "@/components/providers/SettingsProvider";
 
 export default function Footer() {
@@ -84,8 +84,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-          <p>{t("copyright")}</p>
+        {/* Legal Links */}
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+            {footerLegal.map((item) => (
+              <Link key={item.href} href={item.href} className="hover:text-white transition-colors">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <div className="mt-4 text-center text-sm text-gray-500">
+            <p>{t("copyright")}</p>
+          </div>
         </div>
       </Container>
     </footer>
