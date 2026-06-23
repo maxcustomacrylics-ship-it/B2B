@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
 import FormField from "@/components/admin/FormField";
+import ImageUploader from "@/components/admin/ImageUploader";
 import { Save, X } from "lucide-react";
 import type { ProductCategory } from "@/lib/types";
 
@@ -23,10 +24,11 @@ export default function AdminNewProductPage() {
     category: "clear-sheets" as ProductCategory,
     description: "",
     longDescription: "",
+    images: [] as string[],
     featured: false,
   });
 
-  function updateField(field: string, value: string | boolean) {
+  function updateField(field: string, value: string | boolean | string[]) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -74,6 +76,13 @@ export default function AdminNewProductPage() {
 
       <form onSubmit={handleSubmit} className="mt-8">
         <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 space-y-6">
+          <ImageUploader
+            images={form.images}
+            onChange={(imgs) => updateField("images", imgs)}
+            label="Product Images"
+            multiple
+          />
+
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <FormField label="Product Name">
               <input

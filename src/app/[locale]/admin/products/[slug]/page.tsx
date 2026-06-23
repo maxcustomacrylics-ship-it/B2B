@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import FormField from "@/components/admin/FormField";
+import ImageUploader from "@/components/admin/ImageUploader";
 import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
@@ -29,6 +30,7 @@ export default function AdminEditProductPage() {
     category: "clear-sheets" as ProductCategory,
     description: "",
     longDescription: "",
+    images: [] as string[],
     featured: false,
   });
 
@@ -50,6 +52,7 @@ export default function AdminEditProductPage() {
         category: data.category || "clear-sheets",
         description: data.description || "",
         longDescription: data.longDescription || "",
+        images: data.images || [],
         featured: data.featured || false,
       });
     } catch {
@@ -60,7 +63,7 @@ export default function AdminEditProductPage() {
     }
   }
 
-  function updateField(field: string, value: string | boolean) {
+  function updateField(field: string, value: string | boolean | string[]) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -138,6 +141,14 @@ export default function AdminEditProductPage() {
 
       <form onSubmit={handleSubmit} className="mt-8">
         <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 space-y-6">
+          {/* Product Images */}
+          <ImageUploader
+            images={form.images}
+            onChange={(imgs) => updateField("images", imgs)}
+            label="Product Images"
+            multiple
+          />
+
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <FormField label="Product Name">
               <input
@@ -183,26 +194,6 @@ export default function AdminEditProductPage() {
               className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               placeholder="Detailed product description"
             />
-          </FormField>
-
-          <FormField label="Specifications">
-            <input
-              type="text"
-              disabled
-              className="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-400 cursor-not-allowed"
-              placeholder="Edit specs in JSON after creation"
-            />
-            <p className="mt-1 text-xs text-gray-400">Edit specs in JSON after creation</p>
-          </FormField>
-
-          <FormField label="Applications">
-            <input
-              type="text"
-              disabled
-              className="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-400 cursor-not-allowed"
-              placeholder="Edit applications in JSON after creation"
-            />
-            <p className="mt-1 text-xs text-gray-400">Edit applications in JSON after creation</p>
           </FormField>
 
           <FormField label="Featured">

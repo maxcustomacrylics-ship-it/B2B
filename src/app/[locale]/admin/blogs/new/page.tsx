@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
 import FormField from "@/components/admin/FormField";
+import ImageUploader from "@/components/admin/ImageUploader";
 import { Save, X } from "lucide-react";
 
 export default function AdminNewBlogPage() {
@@ -16,6 +17,7 @@ export default function AdminNewBlogPage() {
     author: "",
     excerpt: "",
     content: "",
+    image: "",
   });
 
   function updateField(field: string, value: string) {
@@ -71,6 +73,13 @@ export default function AdminNewBlogPage() {
 
       <form onSubmit={handleSubmit} className="mt-8">
         <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 space-y-6">
+          <ImageUploader
+            images={form.image ? [form.image] : []}
+            onChange={(imgs) => updateField("image", imgs[0] || "")}
+            label="Cover Image"
+            multiple={false}
+          />
+
           <FormField label="Title *">
             <input
               type="text"
