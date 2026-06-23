@@ -3,43 +3,99 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import Textarea from "@/components/ui/Textarea";
 
 type InquiryFormProps = {
   productName?: string;
 };
+
+type FieldErrors = {
+  name?: string;
+  email?: string;
+  company?: string;
+  message?: string;
+};
+
+function validate(data: Record<string, string>, t: (k: string) => string): FieldErrors {
+  const errors: FieldErrors = {};
+
+  if (!data.name || data.name.trim().length < 2) {
+    errors.name = "Please enter your name (at least 2 characters)";
+  }
+  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    errors.email = "Please enter a valid email address";
+  }
+  if (!data.company || data.company.trim().length < 1) {
+    errors.company = "Please enter your company name";
+  }
+  if (!data.message || data.message.trim().length < 5) {
+    errors.message = `Message must be at least 5 characters (${data.message?.length || 0}/5)`;
+  }
+
+  return errors;
+}
 
 export default function InquiryForm({ productName }: InquiryFormProps) {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [charCount, setCharCount] = useState(0);
+
+  function handleBlur(field: string) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  }
+
+  function handleChange(field: string, value: string) {
+    if (field === "message") setCharCount(value.length);
+    // Clear field error on typing
+    if (fieldErrors[field as keyof FieldErrors]) {
+      setFieldErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+    setErrorMsg("");
+    if (status === "error") setStatus("idle");
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      company: formData.get("company"),
-      phone: formData.get("phone"),
-      productInterest: productName || formData.get("productInterest"),
-      message: formData.get("message"),
+    const data: Record<string, string> = {};
+    formData.forEach((v, k) => { data[k] = v.toString(); });
+
+    // Client-side validation
+    const errors = validate(data, t);
+    setFieldErrors(errors);
+    setTouched({ name: true, email: true, company: true, message: true });
+
+    if (Object.keys(errors).length > 0) return;
+
+    setLoading(true);
+    setStatus("idle");
+    setErrorMsg("");
+
+    const payload = {
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      phone: data.phone || "",
+      productInterest: productName || data.productInterest || "",
+      message: data.message,
     };
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         setStatus("success");
         setErrorMsg("");
+        setFieldErrors({});
+        setCharCount(0);
         (e.target as HTMLFormElement).reset();
       } else {
         const errData = await res.json().catch(() => ({}));
@@ -57,26 +113,138 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl bg-green-50 border border-green-200 p-6 text-center">
-        <div className="text-3xl mb-2">✓</div>
-        <p className="text-green-800 font-medium">{t("success")}</p>
+      <div className="rounded-xl bg-green-50 border border-green-200 p-8 text-center">
+        <div className="text-4xl mb-3">✓</div>
+        <h3 className="text-lg font-semibold text-green-800">Message Sent!</h3>
+        <p className="mt-2 text-sm text-green-700">{t("success")}</p>
       </div>
     );
   }
 
+  const inputClass = (field: keyof FieldErrors) =>
+    `block w-full rounded-lg border px-4 py-2.5 text-sm text-foreground placeholder:text-gray-400 focus:outline-none focus:ring-2 ${
+      touched[field] && fieldErrors[field]
+        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+        : "border-gray-300 focus:border-primary-500 focus:ring-primary-500/20"
+    }`;
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <Input label={t("name")} name="name" placeholder={t("namePlaceholder")} required />
-      <Input label={t("email")} name="email" type="email" placeholder={t("emailPlaceholder")} required />
-      <Input label={t("company")} name="company" placeholder={t("companyPlaceholder")} required />
-      <Input label={t("phone")} name="phone" type="tel" placeholder={t("phonePlaceholder")} />
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      {/* Name */}
+      <div>
+        <label className="block text-sm font-medium text-foreground mb-1">
+          {t("name")} <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="name"
+          placeholder={t("namePlaceholder")}
+          className={inputClass("name")}
+          onBlur={() => handleBlur("name")}
+          onChange={(e) => handleChange("name", e.target.value)}
+        />
+        {touched.name && fieldErrors.name && (
+          <p className="mt-1 text-xs text-red-500">{fieldErrors.name}</p>
+        )}
+      </div>
+
+      {/* Email */}
+      <div>
+        <label className="block text-sm font-medium text-foreground mb-1">
+          {t("email")} <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          placeholder={t("emailPlaceholder")}
+          className={inputClass("email")}
+          onBlur={() => handleBlur("email")}
+          onChange={(e) => handleChange("email", e.target.value)}
+        />
+        {touched.email && fieldErrors.email && (
+          <p className="mt-1 text-xs text-red-500">{fieldErrors.email}</p>
+        )}
+      </div>
+
+      {/* Company */}
+      <div>
+        <label className="block text-sm font-medium text-foreground mb-1">
+          {t("company")} <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="company"
+          placeholder={t("companyPlaceholder")}
+          className={inputClass("company")}
+          onBlur={() => handleBlur("company")}
+          onChange={(e) => handleChange("company", e.target.value)}
+        />
+        {touched.company && fieldErrors.company && (
+          <p className="mt-1 text-xs text-red-500">{fieldErrors.company}</p>
+        )}
+      </div>
+
+      {/* Phone */}
+      <div>
+        <label className="block text-sm font-medium text-foreground mb-1">
+          {t("phone")}
+        </label>
+        <input
+          type="tel"
+          name="phone"
+          placeholder={t("phonePlaceholder")}
+          className={inputClass("name")}
+          onBlur={() => handleBlur("phone")}
+        />
+      </div>
+
+      {/* Product Interest (only on contact page, not product page) */}
       {!productName && (
-        <Input label={t("productInterest")} name="productInterest" placeholder={t("productInterestPlaceholder")} />
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1">
+            {t("productInterest")}
+          </label>
+          <input
+            type="text"
+            name="productInterest"
+            placeholder={t("productInterestPlaceholder")}
+            className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          />
+        </div>
       )}
-      <Textarea label={t("message")} name="message" placeholder={t("messagePlaceholder")} required />
-      {status === "error" && (
-        <p className="text-sm text-red-500">{errorMsg || t("error")}</p>
+
+      {/* Message */}
+      <div>
+        <label className="block text-sm font-medium text-foreground mb-1">
+          {t("message")} <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="message"
+          rows={5}
+          placeholder={t("messagePlaceholder")}
+          className={`${inputClass("message")} resize-y`}
+          onBlur={() => handleBlur("message")}
+          onChange={(e) => handleChange("message", e.target.value)}
+        />
+        <div className="flex justify-between mt-1">
+          {touched.message && fieldErrors.message ? (
+            <p className="text-xs text-red-500">{fieldErrors.message}</p>
+          ) : (
+            <span />
+          )}
+          <span className={`text-xs ${charCount < 5 ? "text-gray-400" : "text-green-600"}`}>
+            {charCount}/5 min
+          </span>
+        </div>
+      </div>
+
+      {/* Global error */}
+      {status === "error" && errorMsg && (
+        <div className="rounded-lg bg-red-50 border border-red-200 p-3">
+          <p className="text-sm text-red-600">{errorMsg}</p>
+        </div>
       )}
+
       <Button type="submit" variant="primary" disabled={loading} className="w-full">
         {loading ? t("submitting") : t("submit")}
       </Button>

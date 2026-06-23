@@ -10,7 +10,7 @@ const contactSchema = z.object({
   company: z.string().min(1, "Company is required"),
   phone: z.string().optional(),
   productInterest: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  message: z.string().min(5, "Message must be at least 5 characters"),
 });
 
 export async function POST(request: Request) {
