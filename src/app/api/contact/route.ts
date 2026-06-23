@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       try {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
-          from: "AcrylicPro Website <noreply@maxcustomacrylics.com>",
+          from: "AcrylicPro Website <onboarding@resend.dev>",
           to: "maxcustomacrylics@gmail.com",
           replyTo: validated.email,
           subject: `New Inquiry from ${validated.name} - ${validated.company}`,

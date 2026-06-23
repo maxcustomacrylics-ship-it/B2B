@@ -32,6 +32,8 @@ export async function GET() {
   const ck = await cookies();
   const token = ck.get("admin_token");
   info.authCookiePresent = !!token;
+  info.resendKeySet = Boolean(process.env.RESEND_API_KEY);
+  info.resendKeyPrefix = process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 8) + "..." : "(not set)";
 
   return NextResponse.json(info);
 }
