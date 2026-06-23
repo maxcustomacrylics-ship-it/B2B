@@ -14,6 +14,7 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,12 +39,17 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
 
       if (res.ok) {
         setStatus("success");
+        setErrorMsg("");
         (e.target as HTMLFormElement).reset();
       } else {
+        const errData = await res.json().catch(() => ({}));
+        const detail = errData?.error || errData?.details?.[0]?.message || t("error");
+        setErrorMsg(detail);
         setStatus("error");
       }
     } catch {
       setStatus("error");
+      setErrorMsg(t("error"));
     }
 
     setLoading(false);
@@ -69,7 +75,7 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
       )}
       <Textarea label={t("message")} name="message" placeholder={t("messagePlaceholder")} required />
       {status === "error" && (
-        <p className="text-sm text-red-500">{t("error")}</p>
+        <p className="text-sm text-red-500">{errorMsg || t("error")}</p>
       )}
       <Button type="submit" variant="primary" disabled={loading} className="w-full">
         {loading ? t("submitting") : t("submit")}
