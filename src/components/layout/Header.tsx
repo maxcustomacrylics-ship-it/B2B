@@ -66,46 +66,63 @@ export default function Header() {
         <div className="lg:hidden">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-40"
-            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
             onClick={() => setMobileOpen(false)}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 40,
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
           />
           {/* Drawer */}
-          <div className="fixed top-0 right-0 bottom-0 z-50 flex flex-col bg-white shadow-2xl" style={{ width: "min(85vw, 300px)" }}>
-            {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b">
-              <span className="font-bold text-primary-700">{settings.companyName}</span>
-              <button onClick={() => setMobileOpen(false)} className="p-1 text-gray-500">
-                <X className="h-5 w-5" />
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 50,
+              width: "min(85vw, 300px)",
+              backgroundColor: "#ffffff",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "-4px 0 20px rgba(0,0,0,0.15)",
+            }}
+          >
+            {/* Close row */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", borderBottom: "1px solid #e5e7eb" }}>
+              <span style={{ fontWeight: 700, color: "#1d4ed8" }}>{settings.companyName}</span>
+              <button onClick={() => setMobileOpen(false)} style={{ padding: 4, color: "#6b7280", background: "none", border: "none", cursor: "pointer", fontSize: 20 }}>
+                <X size={20} />
               </button>
             </div>
 
-            {/* Nav links */}
-            <div className="flex-1 overflow-y-auto py-2">
+            {/* Links */}
+            <nav style={{ flex: 1, overflowY: "auto", padding: "8px 0" }}>
               {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Products", href: "/products" },
-                { label: "Services", href: "/services" },
-                { label: "Case Studies", href: "/cases" },
-                { label: "Blog", href: "/blog" },
-                { label: "Contact", href: "/contact" },
-              ].map((item) => (
+                ["Home", "/"],
+                ["About Us", "/about"],
+                ["Products", "/products"],
+                ["Services", "/services"],
+                ["Case Studies", "/cases"],
+                ["Blog", "/blog"],
+                ["Contact", "/contact"],
+              ].map(([label, href]) => (
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  key={href}
+                  href={href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-5 py-3 text-base text-gray-900 active:bg-gray-100"
+                  style={{ display: "block", padding: "14px 20px", fontSize: 16, color: "#111827", textDecoration: "none" }}
                 >
-                  {item.label}
+                  {label}
                 </Link>
               ))}
-            </div>
+            </nav>
 
             {/* Phone + CTA */}
-            <div className="border-t px-5 py-4 space-y-3">
-              <a href={`tel:${settings.phone}`} className="flex items-center gap-2 text-sm text-gray-500">
-                <Phone className="h-4 w-4" />
+            <div style={{ borderTop: "1px solid #e5e7eb", padding: "16px 20px" }}>
+              <a href={`tel:${settings.phone}`} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#6b7280", textDecoration: "none", marginBottom: 12 }}>
+                <Phone size={16} />
                 {settings.phone}
               </a>
               <Button href="/contact" variant="primary" className="w-full">
