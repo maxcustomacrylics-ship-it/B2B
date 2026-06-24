@@ -15,53 +15,55 @@ export default function Header() {
   const settings = useSettings();
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border">
-      <Container>
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-primary-700">
-            {settings.companyName}
-          </Link>
+    <>
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border">
+        <Container>
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="text-xl font-bold text-primary-700">
+              {settings.companyName}
+            </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-muted hover:text-primary-600 transition-colors"
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-8">
+              {mainNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-muted hover:text-primary-600 transition-colors"
+                >
+                  {t(item.label)}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex items-center gap-3">
+              <a
+                href={`tel:${settings.phone}`}
+                className="flex items-center gap-1.5 text-sm text-muted hover:text-primary-600 transition-colors"
               >
-                {t(item.label)}
-              </Link>
-            ))}
-          </nav>
+                <Phone className="h-4 w-4" />
+                <span>{settings.phone}</span>
+              </a>
+              <Button href="/contact" variant="primary">
+                {t("contact")}
+              </Button>
+            </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href={`tel:${settings.phone}`}
-              className="flex items-center gap-1.5 text-sm text-muted hover:text-primary-600 transition-colors"
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="lg:hidden rounded-lg p-2 text-foreground hover:bg-gray-100"
+              aria-label="Open menu"
             >
-              <Phone className="h-4 w-4" />
-              <span>{settings.phone}</span>
-            </a>
-            <Button href="/contact" variant="primary">
-              {t("contact")}
-            </Button>
+              <Menu className="h-6 w-6" />
+            </button>
           </div>
+        </Container>
+      </header>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="lg:hidden rounded-lg p-2 text-foreground hover:bg-gray-100"
-            aria-label="Open menu"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-      </Container>
-
-      {/* Mobile Nav — Minimal pure HTML version */}
+      {/* Mobile Nav — OUTSIDE header to avoid sticky clipping */}
       {mobileOpen && (
         <div className="lg:hidden">
           <div onClick={() => setMobileOpen(false)} style={{position:"fixed",inset:0,zIndex:9998,background:"rgba(0,0,0,0.5)"}} />
@@ -85,6 +87,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
