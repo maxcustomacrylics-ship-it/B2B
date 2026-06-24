@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import Button from "@/components/ui/Button";
 import ImageGallery from "@/components/shared/ImageGallery";
 import InquiryForm from "@/components/products/InquiryForm";
 import SchemaOrg from "@/components/shared/SchemaOrg";
@@ -43,7 +42,6 @@ export default async function ProductDetailPage({ params }: Props) {
   if (!product) notFound();
 
   const t = await getTranslations("products");
-  const q = await getTranslations("quote");
 
   const productSchema = generateProductSchema(product);
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -137,22 +135,6 @@ export default async function ProductDetailPage({ params }: Props) {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="mt-8 rounded-3xl border border-primary-200 bg-primary-50 p-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold text-foreground">
-                {q("productQuoteCTA")}
-              </h2>
-              <p className="mt-2 text-sm text-muted max-w-2xl">
-                {q("productPageQuote")}
-              </p>
-            </div>
-            <Button href="/quote" variant="secondary" className="w-full sm:w-auto">
-              {q("quoteButton")}
-            </Button>
           </div>
         </div>
 

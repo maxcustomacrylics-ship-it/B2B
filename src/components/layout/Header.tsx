@@ -45,8 +45,8 @@ export default function Header() {
               <Phone className="h-4 w-4" />
               <span>{settings.phone}</span>
             </a>
-            <Button href="/quote" variant="primary">
-              {t("getQuote")}
+            <Button href="/contact" variant="primary">
+              {t("contact")}
             </Button>
           </div>
 
@@ -64,47 +64,49 @@ export default function Header() {
       {/* Mobile Nav Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/40"
+            className="absolute inset-0 bg-black/50"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed right-0 top-0 bottom-0 w-72 bg-white shadow-xl p-6 flex flex-col">
-            <div className="flex items-center justify-between mb-8">
+          {/* Drawer */}
+          <div className="absolute right-0 top-0 bottom-0 w-[85vw] max-w-[300px] bg-white shadow-2xl flex flex-col">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
               <span className="text-lg font-bold text-primary-700">
                 {settings.companyName}
               </span>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="rounded-lg p-2 text-foreground hover:bg-gray-100"
+                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
                 aria-label="Close menu"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <nav className="flex flex-col gap-3">
+            <nav className="flex-1 overflow-y-auto px-4 py-3 space-y-1">
               {mainNav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-lg px-3 py-2 text-base font-medium text-foreground hover:bg-gray-50 transition-colors"
+                  className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                   {t(item.label)}
                 </Link>
               ))}
             </nav>
 
-            <div className="mt-auto pt-6 border-t border-border space-y-3">
+            <div className="border-t border-gray-100 px-5 py-4 space-y-3">
               <a
                 href={`tel:${settings.phone}`}
-                className="flex items-center gap-2 text-sm text-muted"
+                className="flex items-center gap-2 text-sm text-gray-500"
               >
                 <Phone className="h-4 w-4" />
                 {settings.phone}
               </a>
-              <Button href="/quote" variant="primary" className="w-full">
-                {t("getQuote")}
+              <Button href="/contact" variant="primary" className="w-full">
+                {t("contact")}
               </Button>
             </div>
           </div>
