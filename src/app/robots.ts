@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.acrylicprob2b.com";
+const BASE_URL = "https://www.maxcustomacrylics.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/_next/"],
+      disallow: ["/api/", "/_next/", "/admin/"],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
   };
