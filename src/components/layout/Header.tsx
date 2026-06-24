@@ -61,73 +61,26 @@ export default function Header() {
         </div>
       </Container>
 
-      {/* Mobile Nav Drawer */}
+      {/* Mobile Nav — Minimal pure HTML version */}
       {mobileOpen && (
         <div className="lg:hidden">
-          {/* Backdrop */}
-          <div
-            onClick={() => setMobileOpen(false)}
-            style={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 40,
-              backgroundColor: "rgba(0,0,0,0.5)",
-            }}
-          />
-          {/* Drawer */}
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 50,
-              width: "min(85vw, 300px)",
-              backgroundColor: "#ffffff",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "-4px 0 20px rgba(0,0,0,0.15)",
-            }}
-          >
-            {/* Close row */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 16px", borderBottom: "1px solid #e5e7eb" }}>
-              <span style={{ fontWeight: 700, color: "#1d4ed8" }}>{settings.companyName}</span>
-              <button onClick={() => setMobileOpen(false)} style={{ padding: 4, color: "#6b7280", background: "none", border: "none", cursor: "pointer", fontSize: 20 }}>
-                <X size={20} />
-              </button>
+          <div onClick={() => setMobileOpen(false)} style={{position:"fixed",inset:0,zIndex:9998,background:"rgba(0,0,0,0.5)"}} />
+          <div style={{position:"fixed",top:0,right:0,bottom:0,zIndex:9999,width:280,background:"#fff",overflowY:"auto",WebkitOverflowScrolling:"touch"}}>
+            <div style={{display:"flex",justifyContent:"flex-end",padding:"12px 16px"}}>
+              <button onClick={() => setMobileOpen(false)} style={{background:"none",border:"none",fontSize:24,color:"#333",cursor:"pointer",padding:4,lineHeight:1}}>✕</button>
             </div>
-
-            {/* Links */}
-            <nav style={{ flex: 1, overflowY: "auto", padding: "8px 0" }}>
-              {[
-                ["Home", "/"],
-                ["About Us", "/about"],
-                ["Products", "/products"],
-                ["Services", "/services"],
-                ["Case Studies", "/cases"],
-                ["Blog", "/blog"],
-                ["Contact", "/contact"],
-              ].map(([label, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={() => setMobileOpen(false)}
-                  style={{ display: "block", padding: "14px 20px", fontSize: 16, color: "#111827", textDecoration: "none" }}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Phone + CTA */}
-            <div style={{ borderTop: "1px solid #e5e7eb", padding: "16px 20px" }}>
-              <a href={`tel:${settings.phone}`} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, color: "#6b7280", textDecoration: "none", marginBottom: 12 }}>
-                <Phone size={16} />
-                {settings.phone}
+            <a href="/" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Home</a>
+            <a href="/about" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>About Us</a>
+            <a href="/products" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Products</a>
+            <a href="/services" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Services</a>
+            <a href="/cases" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Case Studies</a>
+            <a href="/blog" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Blog</a>
+            <a href="/contact" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Contact</a>
+            <div style={{padding:"16px 20px",borderTop:"1px solid #e5e7eb",marginTop:8}}>
+              <a href={`tel:${settings.phone}`} style={{display:"flex",alignItems:"center",gap:8,fontSize:14,color:"#666",textDecoration:"none",marginBottom:12}}>
+                <Phone size={16} />{settings.phone}
               </a>
-              <Button href="/contact" variant="primary" className="w-full">
-                Contact Us
-              </Button>
+              <a href="/contact" style={{display:"block",width:"100%",padding:"12px 0",textAlign:"center",background:"#2563eb",color:"#fff",borderRadius:8,fontSize:14,fontWeight:600,textDecoration:"none"}}>Contact Us</a>
             </div>
           </div>
         </div>
