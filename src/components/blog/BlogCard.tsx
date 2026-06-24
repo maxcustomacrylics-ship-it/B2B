@@ -11,8 +11,12 @@ export default function BlogCard({ post }: BlogCardProps) {
       href={`/blog/${post.slug}`}
       className="group overflow-hidden rounded-xl border border-border bg-white transition-all hover:shadow-lg"
     >
-      <div className="aspect-video bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center">
-        <span className="text-4xl">📝</span>
+      <div className="aspect-video bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center overflow-hidden">
+        {post.image ? (
+          <img src={post.image} alt={post.title} className="h-full w-full object-cover" />
+        ) : (
+          <span className="text-4xl">📝</span>
+        )}
       </div>
       <div className="p-6">
         <div className="flex items-center gap-3 text-xs text-muted">

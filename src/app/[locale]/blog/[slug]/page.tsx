@@ -69,6 +69,17 @@ export default async function BlogPostPage({ params }: Props) {
           {t("backToBlog")}
         </Link>
 
+        {/* Cover Image */}
+        {post.image && (
+          <div className="mt-8 mx-auto max-w-3xl">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full rounded-xl object-cover aspect-video"
+            />
+          </div>
+        )}
+
         <article className="mt-8 mx-auto max-w-3xl">
           <div className="flex items-center gap-3 text-sm">
             <span className="font-medium text-primary-600 uppercase">

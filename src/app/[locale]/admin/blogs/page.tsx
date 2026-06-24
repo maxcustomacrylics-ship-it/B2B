@@ -155,7 +155,7 @@ function BlogEntry({
       <div className="flex items-start gap-4 mb-4">
         <div className="h-20 w-20 shrink-0 rounded-lg border border-gray-200 overflow-hidden bg-gray-50">
           {blog.image ? (
-            <img src={blog.image} alt="" className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+            <img src={blog.image} alt={blog.title || "Blog post image"} className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
           ) : (
             <div className="flex h-full items-center justify-center text-gray-300">
               <FileText className="h-8 w-8" />
