@@ -63,14 +63,18 @@ export default function Header() {
 
       {/* Mobile Nav Drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop */}
+        <div className="lg:hidden">
+          {/* Backdrop — fixed fullscreen dark overlay */}
           <div
-            className="absolute inset-0 bg-black/50"
+            className="fixed inset-0 z-40"
+            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
             onClick={() => setMobileOpen(false)}
           />
-          {/* Drawer */}
-          <div className="absolute right-0 top-0 bottom-0 w-[85vw] max-w-[300px] bg-white shadow-2xl flex flex-col">
+          {/* Drawer — fixed on right side, white background */}
+          <div
+            className="fixed right-0 top-0 bottom-0 z-50 flex flex-col bg-white shadow-2xl"
+            style={{ width: "min(85vw, 300px)" }}
+          >
             <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
               <span className="text-lg font-bold text-primary-700">
                 {settings.companyName}
