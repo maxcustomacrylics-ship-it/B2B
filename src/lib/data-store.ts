@@ -276,10 +276,17 @@ export async function getSettings(): Promise<Settings> {
 
 export async function saveSettings(settings: Settings): Promise<void> {
   if (hasSupabase()) {
-    for (const [key, value] of Object.entries(settings)) {
-      const { error } = await getSupabase()!.from("settings").upsert({ key, value, updated_at: new Date().toISOString() }, { onConflict: "key" });
-      if (error) console.error("[supabase] saveSettings:", error);
-    }
+    const rows = Object.entries(settings).map(([key, value]) => ({
+      key,
+      value,
+      updated_at: new Date().toISOString(),
+    }));
+
+    // Delete all existing, then insert new batch — more reliable than upsert
+    const sb = getSupabase()!;
+    await sb.from("settings").delete().neq("key", "__never__"); // deletes all
+    const { error } = await sb.from("settings").insert(rows);
+    if (error) console.error("[supabase] saveSettings:", error);
     return;
   }
 
