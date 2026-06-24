@@ -3,7 +3,7 @@ export function cn(...classes: (string | undefined | false | null)[]) {
 }
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.acrylicprob2b.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.maxcustomacrylics.com";
 
 export const SITE_NAME = "AcrylicPro Custom";
 
