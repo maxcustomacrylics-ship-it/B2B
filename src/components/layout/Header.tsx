@@ -89,16 +89,13 @@ export default function Header() {
             </div>
 
             <nav className="flex-1 overflow-y-auto px-4 py-3 space-y-1">
-              {mainNav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                  {t(item.label)}
-                </Link>
-              ))}
+              <Link href="/" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">Home</Link>
+              <Link href="/about" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">About Us</Link>
+              <Link href="/products" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">Products</Link>
+              <Link href="/services" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">Services</Link>
+              <Link href="/cases" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">Case Studies</Link>
+              <Link href="/blog" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">Blog</Link>
+              <Link href="/contact" onClick={() => setMobileOpen(false)} className="block rounded-lg px-3 py-2.5 text-base font-medium text-gray-900 hover:bg-gray-50">Contact</Link>
             </nav>
 
             <div className="border-t border-gray-100 px-5 py-4 space-y-3">
