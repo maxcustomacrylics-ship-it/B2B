@@ -1,11 +1,11 @@
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import ProductShowcase from "@/components/home/ProductShowcase";
-import AboutSection from "@/components/home/AboutSection";
-import ServiceOverview from "@/components/home/ServiceOverview";
-import CaseHighlights from "@/components/home/CaseHighlights";
+import StatsSection from "@/components/home/StatsSection";
+import CapabilitiesSection from "@/components/home/CapabilitiesSection";
+import CategoryShowcase from "@/components/home/CategoryShowcase";
+import FactorySection from "@/components/home/FactorySection";
+import CustomerSuccess from "@/components/home/CustomerSuccess";
 import TestimonialSection from "@/components/home/TestimonialSection";
 import CTASection from "@/components/home/CTASection";
 import SchemaOrg from "@/components/shared/SchemaOrg";
@@ -13,7 +13,7 @@ import {
   generateOrganizationSchema,
   generateWebSiteSchema,
 } from "@/lib/schema";
-import { getProducts, getServices, getCaseStudies, getTestimonials } from "@/lib/data-store";
+import { getCaseStudies, getTestimonials } from "@/lib/data-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -43,9 +43,7 @@ export default async function HomePage() {
   const orgSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
 
-  const [products, services, cases, testimonials] = await Promise.all([
-    getProducts(),
-    getServices(),
+  const [cases, testimonials] = await Promise.all([
     getCaseStudies(),
     getTestimonials(),
   ]);
@@ -55,10 +53,11 @@ export default async function HomePage() {
       <SchemaOrg data={[orgSchema, webSiteSchema]} />
       <main className="bg-slate-50 text-slate-900">
         <Hero />
-        <ProductShowcase products={products} />
-        <AboutSection />
-        <ServiceOverview services={services} />
-        <CaseHighlights cases={cases} />
+        <StatsSection />
+        <CapabilitiesSection />
+        <CategoryShowcase />
+        <FactorySection />
+        <CustomerSuccess cases={cases} />
         <TestimonialSection testimonials={testimonials} />
         <CTASection />
       </main>
