@@ -1,8 +1,12 @@
+"use client";
+
 import Container from "@/components/ui/Container";
+import { useSettings } from "@/components/providers/SettingsProvider";
 import InquiryForm from "@/components/products/InquiryForm";
 import { FileText, Truck, ShieldCheck } from "lucide-react";
 
 export default function RFQSection() {
+  const s = useSettings();
   return (
     <section className="py-20 bg-gray-50">
       <Container>
@@ -10,10 +14,8 @@ export default function RFQSection() {
           {/* Left — info */}
           <div className="lg:col-span-2">
             <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Get Started</span>
-            <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">Request a Free Quote</h2>
-            <p className="mt-4 text-gray-500 leading-relaxed">
-              Tell us about your project and receive a detailed quotation within 24 hours. No minimum order — we handle prototypes to mass production.
-            </p>
+            <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">{s.rfqTitle}</h2>
+            <p className="mt-4 text-gray-500 leading-relaxed">{s.rfqDesc}</p>
             <div className="mt-8 space-y-4">
               {[
                 { icon: ShieldCheck, title: "ISO 9001 Certified", desc: "Consistent quality you can trust" },

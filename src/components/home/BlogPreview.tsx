@@ -1,17 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import { useSettings } from "@/components/providers/SettingsProvider";
 import type { BlogPost } from "@/lib/types";
 import { ArrowRight } from "lucide-react";
 
 export default function BlogPreview({ posts }: { posts: BlogPost[] }) {
+  const s = useSettings();
   const recent = posts.slice(0, 3);
 
   return (
     <section className="py-20 bg-white">
       <Container>
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Industry Insights</h2>
-          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Expert articles on acrylic manufacturing, material selection, and industry best practices.</p>
+          <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">{s.blogTitle}</h2>
+          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">{s.blogDesc}</p>
         </div>
         <div className="grid gap-8 sm:grid-cols-3">
           {recent.map((post) => (

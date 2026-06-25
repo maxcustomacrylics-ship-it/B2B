@@ -46,6 +46,14 @@ export type Settings = {
   factoryImg3: string;
   factoryImg4: string;
   factoryImg5: string;
+  // Stats
+  statYears: string; statArea: string; statCountries: string; statProducts: string;
+  // Hero buttons
+  heroBtnPrimaryUrl: string; heroBtnSecondaryUrl: string;
+  // Section titles
+  factoryTitle: string; factoryDesc: string;
+  blogTitle: string; blogDesc: string;
+  rfqTitle: string; rfqDesc: string; rfqSuccess: string;
 };
 
 const defaultSettings: Settings = {
@@ -63,6 +71,11 @@ const defaultSettings: Settings = {
   ctaButton: "Get Free Quote",
   heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
   factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "", factoryImg5: "",
+  statYears: "15+", statArea: "5,000㎡", statCountries: "30+", statProducts: "100+",
+  heroBtnPrimaryUrl: "/contact", heroBtnSecondaryUrl: "/products",
+  factoryTitle: "Advanced Manufacturing Facility", factoryDesc: "5,000㎡ workshop with state-of-the-art equipment. ISO 9001 certified, 50+ skilled technicians, in-house tooling and export-ready packaging.",
+  blogTitle: "Industry Insights", blogDesc: "Expert articles on acrylic manufacturing, material selection, and industry best practices.",
+  rfqTitle: "Request a Free Quote", rfqDesc: "Tell us about your project and receive a detailed quotation within 24 hours. No minimum order — we handle prototypes to mass production.", rfqSuccess: "Thank you! We will get back to you within 24 hours.",
 };
 
 const defaultPricingConfig: PricingConfig = {

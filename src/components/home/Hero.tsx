@@ -17,8 +17,8 @@ export default function Hero() {
             <h1 className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-6xl leading-tight">{s.heroHeadline}</h1>
             <p className="mt-5 text-lg text-gray-500 leading-relaxed max-w-xl">{s.heroSubheadline}</p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><ArrowRight className="h-4 w-4" />Get Free Quote</Link>
-              <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:border-[#0F2744] transition-colors">View Products</Link>
+              <Link href={s.heroBtnPrimaryUrl} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><ArrowRight className="h-4 w-4" />Get Free Quote</Link>
+              <Link href={s.heroBtnSecondaryUrl} className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-gray-200 bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:border-[#0F2744] transition-colors">View Products</Link>
             </div>
             <div className="mt-8 flex flex-wrap gap-5 text-sm text-gray-500">
               <span className="flex items-center gap-1.5"><Shield className="h-4 w-4 text-green-600" />ISO Certified</span>

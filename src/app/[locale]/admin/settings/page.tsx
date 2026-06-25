@@ -21,6 +21,11 @@ type SiteSettings = {
   ctaButton: string;
   heroImg1: string; heroImg2: string; heroImg3: string; heroImg4: string;
   factoryImg1: string; factoryImg2: string; factoryImg3: string; factoryImg4: string; factoryImg5: string;
+  statYears: string; statArea: string; statCountries: string; statProducts: string;
+  heroBtnPrimaryUrl: string; heroBtnSecondaryUrl: string;
+  factoryTitle: string; factoryDesc: string;
+  blogTitle: string; blogDesc: string;
+  rfqTitle: string; rfqDesc: string; rfqSuccess: string;
 };
 
 export default function AdminSettingsPage() {
@@ -43,6 +48,11 @@ export default function AdminSettingsPage() {
     ctaButton: "",
     heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
     factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "", factoryImg5: "",
+    statYears: "", statArea: "", statCountries: "", statProducts: "",
+    heroBtnPrimaryUrl: "", heroBtnSecondaryUrl: "",
+    factoryTitle: "", factoryDesc: "",
+    blogTitle: "", blogDesc: "",
+    rfqTitle: "", rfqDesc: "", rfqSuccess: "",
   });
 
   useEffect(() => {
@@ -68,6 +78,11 @@ export default function AdminSettingsPage() {
         ctaButton: data.ctaButton || "",
         heroImg1: data.heroImg1 || "", heroImg2: data.heroImg2 || "", heroImg3: data.heroImg3 || "", heroImg4: data.heroImg4 || "",
         factoryImg1: data.factoryImg1 || "", factoryImg2: data.factoryImg2 || "", factoryImg3: data.factoryImg3 || "", factoryImg4: data.factoryImg4 || "", factoryImg5: data.factoryImg5 || "",
+        statYears: data.statYears || "", statArea: data.statArea || "", statCountries: data.statCountries || "", statProducts: data.statProducts || "",
+        heroBtnPrimaryUrl: data.heroBtnPrimaryUrl || "", heroBtnSecondaryUrl: data.heroBtnSecondaryUrl || "",
+        factoryTitle: data.factoryTitle || "", factoryDesc: data.factoryDesc || "",
+        blogTitle: data.blogTitle || "", blogDesc: data.blogDesc || "",
+        rfqTitle: data.rfqTitle || "", rfqDesc: data.rfqDesc || "", rfqSuccess: data.rfqSuccess || "",
       });
     } catch {
       showToast("Failed to load settings", "error");
@@ -212,6 +227,48 @@ export default function AdminSettingsPage() {
                 <input type="text" value={form.ctaButton} onChange={(e) => updateField("ctaButton", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="Get Free Quote" />
               </FormField>
             </div>
+          </div>
+
+          {/* Stats Section */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Company Stats (Homepage)</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField label="Years Experience"><input type="text" value={form.statYears} onChange={(e) => updateField("statYears", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+              <FormField label="Factory Area"><input type="text" value={form.statArea} onChange={(e) => updateField("statArea", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+              <FormField label="Countries Served"><input type="text" value={form.statCountries} onChange={(e) => updateField("statCountries", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+              <FormField label="Custom Product Types"><input type="text" value={form.statProducts} onChange={(e) => updateField("statProducts", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+            </div>
+          </div>
+
+          {/* Hero Button URLs */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Buttons</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField label="Primary Button URL"><input type="text" value={form.heroBtnPrimaryUrl} onChange={(e) => updateField("heroBtnPrimaryUrl", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="/contact" /></FormField>
+              <FormField label="Secondary Button URL"><input type="text" value={form.heroBtnSecondaryUrl} onChange={(e) => updateField("heroBtnSecondaryUrl", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="/products" /></FormField>
+            </div>
+          </div>
+
+          {/* Factory Section */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Factory Section</h2>
+            <FormField label="Title"><input type="text" value={form.factoryTitle} onChange={(e) => updateField("factoryTitle", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+            <div className="mt-4"><FormField label="Description"><textarea value={form.factoryDesc} onChange={(e) => updateField("factoryDesc", e.target.value)} rows={2} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField></div>
+          </div>
+
+          {/* Blog Section */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Industry Insights Section</h2>
+            <FormField label="Title"><input type="text" value={form.blogTitle} onChange={(e) => updateField("blogTitle", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+            <div className="mt-4"><FormField label="Description"><input type="text" value={form.blogDesc} onChange={(e) => updateField("blogDesc", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField></div>
+          </div>
+
+          {/* RFQ Section */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">RFQ / Contact Section</h2>
+            <FormField label="Title"><input type="text" value={form.rfqTitle} onChange={(e) => updateField("rfqTitle", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField>
+            <div className="mt-4"><FormField label="Description"><textarea value={form.rfqDesc} onChange={(e) => updateField("rfqDesc", e.target.value)} rows={2} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField></div>
+            <div className="mt-4"><FormField label="Success Message"><input type="text" value={form.rfqSuccess} onChange={(e) => updateField("rfqSuccess", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField></div>
           </div>
 
           {/* Homepage Images */}

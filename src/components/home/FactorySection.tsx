@@ -14,8 +14,8 @@ export default function FactorySection() {
       <Container>
         <div className="text-center mb-12">
           <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Inside Our Facility</span>
-          <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">Advanced Manufacturing Facility</h2>
-          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">5,000㎡ workshop with state-of-the-art equipment. ISO 9001 certified, 50+ skilled technicians, in-house tooling and export-ready packaging.</p>
+          <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">{s.factoryTitle}</h2>
+          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">{s.factoryDesc}</p>
         </div>
 
         {/* Gallery: left large + right 2×2 grid */}
