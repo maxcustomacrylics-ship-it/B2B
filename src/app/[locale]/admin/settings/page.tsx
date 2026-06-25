@@ -13,6 +13,12 @@ type SiteSettings = {
   address: string;
   whatsapp: string;
   businessHours: string;
+  heroHeadline: string;
+  heroSubheadline: string;
+  heroBadge: string;
+  ctaTitle: string;
+  ctaSubtitle: string;
+  ctaButton: string;
 };
 
 export default function AdminSettingsPage() {
@@ -27,6 +33,12 @@ export default function AdminSettingsPage() {
     address: "",
     whatsapp: "",
     businessHours: "",
+    heroHeadline: "",
+    heroSubheadline: "",
+    heroBadge: "",
+    ctaTitle: "",
+    ctaSubtitle: "",
+    ctaButton: "",
   });
 
   useEffect(() => {
@@ -44,6 +56,12 @@ export default function AdminSettingsPage() {
         address: data.address || "",
         whatsapp: data.whatsapp || "",
         businessHours: data.businessHours || "",
+        heroHeadline: data.heroHeadline || "",
+        heroSubheadline: data.heroSubheadline || "",
+        heroBadge: data.heroBadge || "",
+        ctaTitle: data.ctaTitle || "",
+        ctaSubtitle: data.ctaSubtitle || "",
+        ctaButton: data.ctaButton || "",
       });
     } catch {
       showToast("Failed to load settings", "error");
@@ -156,6 +174,38 @@ export default function AdminSettingsPage() {
                 placeholder="Mon-Fri: 8:00 AM - 6:00 PM (CST)"
               />
             </FormField>
+          </div>
+
+          {/* Homepage Hero */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Homepage Hero</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <FormField label="Hero Badge">
+                <input type="text" value={form.heroBadge} onChange={(e) => updateField("heroBadge", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="OEM & ODM Acrylic Manufacturer" />
+              </FormField>
+              <FormField label="Hero Headline">
+                <input type="text" value={form.heroHeadline} onChange={(e) => updateField("heroHeadline", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="Custom Acrylic Products Manufacturer in China" />
+              </FormField>
+              <FormField label="Hero Subheadline">
+                <textarea value={form.heroSubheadline} onChange={(e) => updateField("heroSubheadline", e.target.value)} rows={3} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="OEM & ODM acrylic fabrication services..." />
+              </FormField>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Bottom CTA Section</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <FormField label="CTA Title">
+                <input type="text" value={form.ctaTitle} onChange={(e) => updateField("ctaTitle", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="Ready to Start Your Custom Acrylic Project?" />
+              </FormField>
+              <FormField label="CTA Subtitle">
+                <input type="text" value={form.ctaSubtitle} onChange={(e) => updateField("ctaSubtitle", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="Get a free quote within 24 hours." />
+              </FormField>
+              <FormField label="CTA Button Text">
+                <input type="text" value={form.ctaButton} onChange={(e) => updateField("ctaButton", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="Get Free Quote" />
+              </FormField>
+            </div>
           </div>
         </div>
 

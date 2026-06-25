@@ -9,6 +9,12 @@ export type Settings = {
   address: string;
   whatsapp: string;
   businessHours: string;
+  heroHeadline: string;
+  heroSubheadline: string;
+  heroBadge: string;
+  ctaTitle: string;
+  ctaSubtitle: string;
+  ctaButton: string;
 };
 
 const SettingsContext = createContext<Settings | null>(null);
@@ -37,6 +43,12 @@ export function useSettings(): Settings {
       address: "No. 888, Industrial Avenue, Guangzhou, China",
       whatsapp: "8613800000000",
       businessHours: "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
+      heroHeadline: "Custom Acrylic Products Manufacturer in China",
+      heroSubheadline: "OEM & ODM acrylic fabrication services for global businesses. From custom displays to retail fixtures and promotional products — high-quality manufacturing with flexible MOQ and fast turnaround.",
+      heroBadge: "OEM & ODM Acrylic Manufacturer",
+      ctaTitle: "Ready to Start Your Custom Acrylic Project?",
+      ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",
+      ctaButton: "Get Free Quote",
     };
   }
   return ctx;
