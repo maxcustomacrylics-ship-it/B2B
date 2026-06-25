@@ -45,6 +45,7 @@ export type Settings = {
   factoryImg2: string;
   factoryImg3: string;
   factoryImg4: string;
+  factoryImg5: string;
 };
 
 const defaultSettings: Settings = {
@@ -61,7 +62,7 @@ const defaultSettings: Settings = {
   ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",
   ctaButton: "Get Free Quote",
   heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
-  factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "",
+  factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "", factoryImg5: "",
 };
 
 const defaultPricingConfig: PricingConfig = {

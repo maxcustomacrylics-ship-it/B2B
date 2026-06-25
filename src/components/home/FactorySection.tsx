@@ -7,7 +7,7 @@ const imgFallback = (i: number) => ["🏭","🔬","📦","⚙️","🏗"][i] || 
 
 export default function FactorySection() {
   const s = useSettings();
-  const imgs = [s.factoryImg1, s.factoryImg2, s.factoryImg3, s.factoryImg4];
+  const imgs = [s.factoryImg1, s.factoryImg2, s.factoryImg3, s.factoryImg4, s.factoryImg5];
 
   return (
     <section className="py-20 lg:py-28 bg-white">

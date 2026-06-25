@@ -20,7 +20,7 @@ type SiteSettings = {
   ctaSubtitle: string;
   ctaButton: string;
   heroImg1: string; heroImg2: string; heroImg3: string; heroImg4: string;
-  factoryImg1: string; factoryImg2: string; factoryImg3: string; factoryImg4: string;
+  factoryImg1: string; factoryImg2: string; factoryImg3: string; factoryImg4: string; factoryImg5: string;
 };
 
 export default function AdminSettingsPage() {
@@ -42,7 +42,7 @@ export default function AdminSettingsPage() {
     ctaSubtitle: "",
     ctaButton: "",
     heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
-    factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "",
+    factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "", factoryImg5: "",
   });
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function AdminSettingsPage() {
         ctaSubtitle: data.ctaSubtitle || "",
         ctaButton: data.ctaButton || "",
         heroImg1: data.heroImg1 || "", heroImg2: data.heroImg2 || "", heroImg3: data.heroImg3 || "", heroImg4: data.heroImg4 || "",
-        factoryImg1: data.factoryImg1 || "", factoryImg2: data.factoryImg2 || "", factoryImg3: data.factoryImg3 || "", factoryImg4: data.factoryImg4 || "",
+        factoryImg1: data.factoryImg1 || "", factoryImg2: data.factoryImg2 || "", factoryImg3: data.factoryImg3 || "", factoryImg4: data.factoryImg4 || "", factoryImg5: data.factoryImg5 || "",
       });
     } catch {
       showToast("Failed to load settings", "error");
