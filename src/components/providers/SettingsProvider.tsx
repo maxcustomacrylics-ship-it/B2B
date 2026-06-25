@@ -15,6 +15,8 @@ export type Settings = {
   ctaTitle: string;
   ctaSubtitle: string;
   ctaButton: string;
+  heroImg1: string; heroImg2: string; heroImg3: string; heroImg4: string;
+  factoryImg1: string; factoryImg2: string; factoryImg3: string; factoryImg4: string;
 };
 
 const SettingsContext = createContext<Settings | null>(null);

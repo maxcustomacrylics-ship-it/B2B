@@ -37,6 +37,14 @@ export type Settings = {
   ctaTitle: string;
   ctaSubtitle: string;
   ctaButton: string;
+  heroImg1: string;
+  heroImg2: string;
+  heroImg3: string;
+  heroImg4: string;
+  factoryImg1: string;
+  factoryImg2: string;
+  factoryImg3: string;
+  factoryImg4: string;
 };
 
 const defaultSettings: Settings = {
@@ -52,6 +60,8 @@ const defaultSettings: Settings = {
   ctaTitle: "Ready to Start Your Custom Acrylic Project?",
   ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",
   ctaButton: "Get Free Quote",
+  heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
+  factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "",
 };
 
 const defaultPricingConfig: PricingConfig = {
