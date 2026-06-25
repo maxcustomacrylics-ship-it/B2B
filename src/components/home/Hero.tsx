@@ -45,7 +45,6 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-4 -left-4 rounded-xl bg-[#0F2744] text-white px-5 py-3 shadow-lg hidden sm:block"><div className="text-2xl font-bold">15+</div><div className="text-xs text-blue-200">Years Experience</div></div>
           </div>
         </div>
       </Container>
