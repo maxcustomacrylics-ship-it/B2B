@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
-import { Briefcase, Save, Upload } from "lucide-react";
+import SettingsImageField from "@/components/admin/SettingsImageField";
+import { Briefcase, Save } from "lucide-react";
 import type { CaseStudy } from "@/lib/types";
 
 export default function AdminCasesPage() {
@@ -36,22 +37,6 @@ export default function AdminCasesPage() {
       return updated;
     });
     setDirty(true);
-  }
-
-  async function uploadCaseImage(index: number, file: File) {
-    const formData = new FormData();
-    formData.append("file", file);
-    try {
-      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
-      if (res.ok) {
-        const data = await res.json();
-        updateCase(index, "image", data.url);
-      } else {
-        showToast("Image upload failed", "error");
-      }
-    } catch {
-      showToast("Image upload failed", "error");
-    }
   }
 
   async function handleSave() {
@@ -109,102 +94,32 @@ export default function AdminCasesPage() {
       ) : (
         <div className="mt-8 space-y-4">
           {cases.map((caseItem, index) => (
-            <CaseEntry key={caseItem.slug} caseItem={caseItem} index={index} updateCase={updateCase} uploadImage={uploadCaseImage} />
+            <div key={caseItem.slug} className="rounded-xl bg-white shadow-sm border border-gray-200 p-6">
+              <div className="mb-4">
+                <SettingsImageField
+                  label="Project Image"
+                  value={caseItem.image || ""}
+                  onChange={(url) => updateCase(index, "image", url)}
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Title</label>
+                  <input type="text" value={caseItem.title} onChange={(e) => updateCase(index, "title", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Client</label>
+                  <input type="text" value={caseItem.client} onChange={(e) => updateCase(index, "client", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Industry</label>
+                  <input type="text" value={caseItem.industry} onChange={(e) => updateCase(index, "industry", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" />
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}
-    </div>
-  );
-}
-
-function CaseEntry({
-  caseItem,
-  index,
-  updateCase,
-  uploadImage,
-}: {
-  caseItem: CaseStudy;
-  index: number;
-  updateCase: (i: number, f: keyof CaseStudy, v: string) => void;
-  uploadImage: (i: number, file: File) => Promise<void>;
-}) {
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-
-  async function handleFilePick(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
-    await uploadImage(index, file);
-    setUploading(false);
-    if (fileRef.current) fileRef.current.value = "";
-  }
-
-  return (
-    <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6">
-      <div className="flex items-start gap-4 mb-4">
-        <div className="h-20 w-20 shrink-0 rounded-lg border border-gray-200 overflow-hidden bg-gray-50">
-          {caseItem.image ? (
-            <img src={caseItem.image} alt={caseItem.title || "Case study image"} className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-          ) : (
-            <div className="flex h-full items-center justify-center text-gray-300">
-              <Briefcase className="h-8 w-8" />
-            </div>
-          )}
-        </div>
-        <div className="flex-1 min-w-0">
-          <label className="block text-xs font-medium text-gray-500 mb-1">Image URL</label>
-          <input
-            type="text"
-            value={caseItem.image || ""}
-            onChange={(e) => updateCase(index, "image", e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-xs text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            placeholder="/images/cases/example.jpg or https://..."
-          />
-        </div>
-        <div className="pt-5">
-          <input ref={fileRef} type="file" accept="image/*" onChange={handleFilePick} className="hidden" />
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            disabled={uploading}
-            className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-          >
-            <Upload className="h-3 w-3" />
-            {uploading ? "..." : "Upload"}
-          </button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Title</label>
-          <input
-            type="text"
-            value={caseItem.title}
-            onChange={(e) => updateCase(index, "title", e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Client</label>
-          <input
-            type="text"
-            value={caseItem.client}
-            onChange={(e) => updateCase(index, "client", e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Industry</label>
-          <input
-            type="text"
-            value={caseItem.industry}
-            onChange={(e) => updateCase(index, "industry", e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-          />
-        </div>
-      </div>
     </div>
   );
 }

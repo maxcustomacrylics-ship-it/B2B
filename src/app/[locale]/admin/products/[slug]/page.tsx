@@ -5,7 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import FormField from "@/components/admin/FormField";
-import ImageUploader from "@/components/admin/ImageUploader";
+import SettingsImageField from "@/components/admin/SettingsImageField";
 import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
@@ -143,12 +143,20 @@ export default function AdminEditProductPage() {
       <form onSubmit={handleSubmit} className="mt-8">
         <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 space-y-6">
           {/* Product Images */}
-          <ImageUploader
-            images={form.images}
-            onChange={(imgs) => updateField("images", imgs)}
-            label="Product Images"
-            multiple
-          />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[0, 1, 2, 3].map((i) => (
+              <SettingsImageField
+                key={i}
+                label={`Product Image ${i + 1}`}
+                value={form.images[i] || ""}
+                onChange={(url) => {
+                  const imgs = [...form.images];
+                  imgs[i] = url;
+                  updateField("images", imgs.filter(Boolean) as any);
+                }}
+              />
+            ))}
+          </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <FormField label="Product Name">
