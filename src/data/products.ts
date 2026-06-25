@@ -1,247 +1,228 @@
-import type { Product } from "@/lib/types";
+import type { Product, ProductCategory } from "@/lib/types";
 
 export const products: Product[] = [
+  // ═══ Acrylic Displays (8) ═══
   {
-    slug: "clear-acrylic-sheets",
-    name: "Clear Acrylic Sheets",
-    category: "clear-sheets",
-    description:
-      "Premium crystal-clear acrylic sheets with superior optical clarity. Ideal for displays, windows, and protective barriers.",
-    longDescription:
-      "Our clear acrylic sheets are manufactured using advanced casting technology to deliver exceptional optical clarity and light transmission up to 92%. Available in a wide range of thicknesses from 1mm to 50mm, these sheets offer 17x the impact resistance of glass while weighing only half as much. Each sheet undergoes rigorous quality inspection to ensure flawless surface finish and consistent color throughout.",
-    specs: [
-      { label: "Material", value: "Cast Acrylic (PMMA)" },
-      { label: "Thickness", value: "1mm – 50mm" },
-      { label: "Sheet Size", value: "1220×2440mm (custom sizes available)" },
-      { label: "Light Transmission", value: "≥ 92%" },
-      { label: "Density", value: "1.19 g/cm³" },
-      { label: "Impact Resistance", value: "17× stronger than glass" },
-      { label: "UV Resistance", value: "UV-stabilized optional" },
-      { label: "MOQ", value: "100 sheets" },
-    ],
-    applications: [
-      "Retail display cases",
-      "Protective barriers and sneeze guards",
-      "Architectural glazing",
-      "Museum display cases",
-      "Furniture components",
-      "Signage and wayfinding",
-    ],
-    images: ["/images/products/clear-acrylic-1.jpg"],
-    featured: true,
+    slug: "cosmetic-display", name: "Acrylic Cosmetic Display Stand", category: "acrylic-displays",
+    description: "Premium custom acrylic cosmetic display stands for beauty brands and retail counters.",
+    longDescription: "Our custom acrylic cosmetic display stands showcase beauty products with elegance and clarity. Crystal-clear acrylic provides luxury presentation, while custom fabrication allows unique shapes, tiered shelving, integrated lighting, and brand-specific design elements. Ideal for lipstick displays, skincare testers, perfume showcases, and cosmetic counter installations.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–15mm" }, { label: "Finish", value: "Diamond Polished" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "12–18 days" }],
+    applications: ["Beauty Retail", "Department Stores", "Duty-Free", "Trade Shows"], images: [], featured: true,
   },
   {
-    slug: "colored-acrylic-sheets",
-    name: "Colored Acrylic Sheets",
-    category: "colored-sheets",
-    description:
-      "Vibrant colored acrylic sheets in over 50 colors. Perfect for branding, interior design, and creative applications.",
-    longDescription:
-      "Our colored acrylic sheets combine stunning aesthetics with the durability of cast acrylic. Choose from over 50 standard colors including transparent, translucent, and opaque finishes. Custom color matching is available for bulk orders. Each sheet maintains consistent color distribution throughout its thickness, ensuring beautiful edge finishes for any fabrication technique.",
-    specs: [
-      { label: "Material", value: "Cast Acrylic (PMMA)" },
-      { label: "Thickness", value: "2mm – 25mm" },
-      { label: "Sheet Size", value: "1220×2440mm (custom sizes available)" },
-      { label: "Colors Available", value: "50+ (custom matching available)" },
-      { label: "Finish Options", value: "Glossy, Matte, Textured" },
-      { label: "Density", value: "1.19 g/cm³" },
-      { label: "Weather Resistance", value: "Excellent for indoor, good for outdoor" },
-      { label: "MOQ", value: "50 sheets" },
-    ],
-    applications: [
-      "Brand signage and logos",
-      "Interior design elements",
-      "Retail fixtures and displays",
-      "Architectural decorative panels",
-      "Furniture and shelving",
-      "Event and exhibition displays",
-    ],
-    images: ["/images/products/colored-acrylic-1.jpg"],
-    featured: true,
+    slug: "retail-display-stand", name: "Acrylic Retail Display Stand", category: "acrylic-displays",
+    description: "Versatile acrylic retail display stands for stores, malls, and exhibitions.",
+    longDescription: "Designed for retail environments, our acrylic display stands combine durability with premium aesthetics. Available in counter-top, floor-standing, and wall-mounted configurations. Customizable shelving, signage integration, and modular designs make these stands adaptable to changing retail needs.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–12mm" }, { label: "Types", value: "Counter, Floor, Wall, Rotating" }, { label: "MOQ", value: "30 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Electronics", "Fashion", "Supermarkets", "Trade Booths"], images: [], featured: true,
   },
   {
-    slug: "acrylic-display-stands",
-    name: "Acrylic Display Stands",
-    category: "display-products",
-    description:
-      "Custom-designed acrylic display stands and holders for retail, exhibitions, and product showcasing.",
-    longDescription:
-      "Our custom acrylic display stands are precision-fabricated to your exact specifications using CNC cutting, laser engraving, and professional polishing techniques. From simple brochure holders to complex multi-tier product displays, we deliver solutions that enhance your product presentation while maintaining durability and elegance. All edges are diamond-polished for a premium finish.",
-    specs: [
-      { label: "Material", value: "Cast Acrylic (PMMA)" },
-      { label: "Thickness", value: "3mm – 20mm" },
-      { label: "Fabrication", value: "CNC cut, laser cut, heat bent" },
-      { label: "Edge Finish", value: "Diamond polished, flame polished" },
-      { label: "Customization", value: "Fully custom design support" },
-      { label: "Assembly", value: "Knock-down or pre-assembled" },
-      { label: "Printing", value: "UV printing, silk screen available" },
-      { label: "MOQ", value: "50 units" },
-    ],
-    applications: [
-      "Retail product displays",
-      "Trade show booths",
-      "Jewelry and cosmetic displays",
-      "Brochure and literature holders",
-      "Tablet and phone stands",
-      "Food and beverage displays",
-    ],
-    images: ["/images/products/display-stands-1.jpg"],
-    featured: true,
+    slug: "jewelry-display", name: "Acrylic Jewelry Display Stand", category: "acrylic-displays",
+    description: "Elegant acrylic jewelry displays for rings, necklaces, bracelets, and watches.",
+    longDescription: "Our acrylic jewelry displays are precision-crafted to present fine jewelry with museum-quality clarity. Custom configurations include necklace busts, ring holders, bracelet bars, earring racks, and watch stands. Optional velvet inserts, LED lighting, lockable cases, and brand-engraved bases.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–20mm" }, { label: "Options", value: "LED, Velvet, Locks" }, { label: "MOQ", value: "20 units" }, { label: "Lead Time", value: "12–18 days" }],
+    applications: ["Jewelry Stores", "Luxury Boutiques", "Trade Exhibitions"], images: [], featured: false,
   },
   {
-    slug: "acrylic-decorative-panels",
-    name: "Decorative Acrylic Panels",
-    category: "decorative-panels",
-    description:
-      "Artistic decorative acrylic panels with patterns, textures, and embedded designs for luxury interiors.",
-    longDescription:
-      "Our decorative acrylic panels transform ordinary spaces into stunning visual experiences. Using advanced techniques including digital printing, laser etching, embedded materials, and multi-layer lamination, we create unique panels that serve as focal points in luxury hotels, corporate offices, retail environments, and high-end residential projects. Patterns, textures, and designs can be fully customized to match your creative vision.",
-    specs: [
-      { label: "Material", value: "Cast Acrylic (PMMA)" },
-      { label: "Thickness", value: "5mm – 30mm" },
-      { label: "Sheet Size", value: "Up to 2000×3000mm" },
-      { label: "Techniques", value: "Print, etch, embed, laminate" },
-      { label: "Patterns", value: "Custom design supported" },
-      { label: "Backlighting", value: "LED-compatible options" },
-      { label: "Fire Rating", value: "B2 / B1 available" },
-      { label: "MOQ", value: "30 sheets" },
-    ],
-    applications: [
-      "Hotel lobby feature walls",
-      "Corporate office partitions",
-      "Retail store interiors",
-      "Restaurant and bar design",
-      "Luxury residential interiors",
-      "Exhibition booth backdrops",
-    ],
-    images: ["/images/products/decorative-panels-1.jpg"],
-    featured: false,
+    slug: "food-display-stand", name: "Acrylic Food Display Stand", category: "acrylic-displays",
+    description: "Food-safe acrylic display stands for bakeries, cafes, hotels, and catering.",
+    longDescription: "Present culinary creations with professional-grade food-safe acrylic displays. Multi-tier designs maximize counter space while creating inviting visual presentation. Easy to clean, lightweight yet stable, with customizable brand logo or menu details printed directly on the acrylic.",
+    specs: [{ label: "Material", value: "Food-Safe Cast Acrylic" }, { label: "Design", value: "Single/Multi-Tier, Dome" }, { label: "MOQ", value: "30 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Bakeries", "Hotels", "Restaurants", "Catering"], images: [], featured: false,
   },
   {
-    slug: "frosted-acrylic-sheets",
-    name: "Frosted Acrylic Sheets",
-    category: "clear-sheets",
-    description:
-      "Elegant frosted acrylic sheets providing privacy with light diffusion. Ideal for partitions and decorative applications.",
-    longDescription:
-      "Our frosted acrylic sheets offer the perfect balance between privacy and light transmission. The matte finish diffuses light beautifully while obscuring visibility, making them ideal for office partitions, bathroom enclosures, and decorative screening. Available in various levels of translucency from lightly etched to fully opaque. Can be combined with clear sections for striking visual effects.",
-    specs: [
-      { label: "Material", value: "Cast Acrylic (PMMA)" },
-      { label: "Thickness", value: "2mm – 20mm" },
-      { label: "Sheet Size", value: "1220×2440mm" },
-      { label: "Light Transmission", value: "50% – 80% (adjustable)" },
-      { label: "Finish", value: "Single or double-sided frost" },
-      { label: "Density", value: "1.19 g/cm³" },
-      { label: "Custom Etching", value: "Logo and pattern etching available" },
-      { label: "MOQ", value: "50 sheets" },
-    ],
-    applications: [
-      "Office partitions and dividers",
-      "Bathroom enclosures",
-      "Reception desk panels",
-      "Conference room doors",
-      "Privacy screening",
-      "Decorative wall panels",
-    ],
-    images: ["/images/products/frosted-acrylic-1.jpg"],
-    featured: true,
+    slug: "brochure-holder", name: "Acrylic Brochure Holder", category: "acrylic-displays",
+    description: "Wall-mounted and counter-top acrylic brochure holders for professional literature display.",
+    longDescription: "Keep marketing materials organized with clear acrylic brochure holders. Available in wall-mounted, counter-top, and multi-pocket configurations for A4, A5, DL, and custom formats. Optional logo printing, magnetic mounting, and modular stacking designs.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–5mm" }, { label: "Sizes", value: "A4, A5, DL, Custom" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Hotels", "Real Estate", "Medical", "Trade Shows"], images: [], featured: false,
   },
   {
-    slug: "mirror-acrylic-sheets",
-    name: "Mirror Acrylic Sheets",
-    category: "colored-sheets",
-    description:
-      "Lightweight, shatterproof mirror acrylic sheets. Safer than glass mirrors with the same reflective quality.",
-    longDescription:
-      "Our mirror acrylic sheets deliver the same reflective quality as traditional glass mirrors but with superior safety and design flexibility. Being shatterproof and significantly lighter, they're perfect for public spaces, retail environments, and creative installations. Available in silver, gold, bronze, and custom tinted mirror finishes. Can be laser cut into complex shapes that would be impossible with glass mirrors.",
-    specs: [
-      { label: "Material", value: "Extruded/Cast Acrylic (PMMA)" },
-      { label: "Thickness", value: "1mm – 6mm" },
-      { label: "Sheet Size", value: "1220×2440mm" },
-      { label: "Reflectivity", value: "≥ 90%" },
-      { label: "Colors", value: "Silver, Gold, Bronze, Rose Gold, Custom" },
-      { label: "Weight", value: "50% lighter than glass mirror" },
-      { label: "Safety", value: "Shatterproof, splinter-free" },
-      { label: "MOQ", value: "30 sheets" },
-    ],
-    applications: [
-      "Retail store displays",
-      "Gym and dance studio walls",
-      "Safety mirrors for public spaces",
-      "Decorative wall art",
-      "Cosmetic and beauty displays",
-      "Event and stage design",
-    ],
-    images: ["/images/products/mirror-acrylic-1.jpg"],
-    featured: false,
+    slug: "menu-holder", name: "Acrylic Menu Holder", category: "acrylic-displays",
+    description: "Sleek acrylic menu holders and table signs for restaurants, cafes, and hotels.",
+    longDescription: "Present menus with sophistication using custom acrylic holders. Available in single-page, multi-page, and tri-fold designs. Easy-clean surface with options for restaurant logo engraving, table numbers, and QR code printing.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–8mm" }, { label: "Sizes", value: "A5, A4, Custom" }, { label: "MOQ", value: "30 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Restaurants", "Cafes", "Hotels", "Bars"], images: [], featured: false,
   },
   {
-    slug: "acrylic-laser-cutting-service",
-    name: "Laser-Cut Acrylic Parts",
-    category: "display-products",
-    description:
-      "Precision laser-cut acrylic components with smooth polished edges. Custom shapes, letters, and intricate designs.",
-    longDescription:
-      "Our CNC laser cutting service delivers precision-cut acrylic parts with exceptional edge quality. Using high-powered CO2 laser machines, we can cut intricate designs, custom lettering, complex geometries, and precise components up to 25mm thickness. The laser cutting process produces clean, flame-polished edges that require minimal post-processing. Ideal for signage, decorative elements, machine guards, and precision components.",
-    specs: [
-      { label: "Technology", value: "CO2 Laser Cutting" },
-      { label: "Max Thickness", value: "25mm" },
-      { label: "Max Sheet Size", value: "1500×3000mm" },
-      { label: "Edge Quality", value: "Flame polished, smooth" },
-      { label: "Tolerance", value: "±0.1mm" },
-      { label: "File Formats", value: "AI, DXF, DWG, SVG, PDF" },
-      { label: "Engraving", value: "Surface and deep engraving available" },
-      { label: "MOQ", value: "10 units" },
-    ],
-    applications: [
-      "Custom signage and lettering",
-      "Decorative screens and panels",
-      "Machine safety guards",
-      "Point-of-sale displays",
-      "Architectural models",
-      "Precision engineering components",
-    ],
-    images: ["/images/products/laser-cut-1.jpg"],
-    featured: true,
+    slug: "display-riser", name: "Acrylic Display Riser", category: "acrylic-displays",
+    description: "Multi-level acrylic risers that create visual hierarchy and maximize display space.",
+    longDescription: "Create depth and visual interest with acrylic display risers. Precision-cut and bonded for seamless joints. Available in clear, frosted, or colored acrylic with options for integrated lighting and anti-slip surfaces. Stackable designs for flexible configuration.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–10mm" }, { label: "Styles", value: "Tiered, Stepped, Cubes" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "8–12 days" }],
+    applications: ["Retail Windows", "Museums", "Trade Shows", "Jewelry"], images: [], featured: false,
   },
   {
-    slug: "acrylic-light-boxes",
-    name: "Acrylic Light Boxes",
-    category: "decorative-panels",
-    description:
-      "Custom acrylic light boxes with uniform LED edge lighting. High-impact visual displays for branding and advertising.",
-    longDescription:
-      "Our custom acrylic light boxes combine precision fabrication with advanced LED lighting technology to create stunning illuminated displays. Using laser-engraved acrylic panels edge-lit with energy-efficient LEDs, we create uniform, eye-catching illumination that brings graphics and text to life. Available in single-sided and double-sided configurations, with options for color-changing RGB LEDs and programmable lighting sequences.",
-    specs: [
-      { label: "Material", value: "Cast Acrylic + Aluminum Frame" },
-      { label: "Thickness", value: "Panel: 5mm – 10mm" },
-      { label: "Sizes", value: "Custom up to 1500×3000mm" },
-      { label: "Lighting", value: "LED edge-lit, 12V/24V" },
-      { label: "Color Temp", value: "3000K – 6500K, RGB optional" },
-      { label: "Power", value: "Energy-efficient LED, low power" },
-      { label: "Graphics", value: "UV printed, vinyl, or engraved" },
-      { label: "MOQ", value: "20 units" },
-    ],
-    applications: [
-      "Retail store signage",
-      "Restaurant menu boards",
-      "Corporate logo displays",
-      "Trade show exhibits",
-      "Reception area branding",
-      "Directional signage systems",
-    ],
-    images: ["/images/products/light-boxes-1.jpg"],
-    featured: false,
+    slug: "counter-display", name: "Acrylic Counter Display", category: "acrylic-displays",
+    description: "Compact acrylic counter displays for point-of-sale product presentation.",
+    longDescription: "Maximize point-of-sale impact with custom acrylic counter displays. Designed to fit checkout counters, reception desks, and service areas. Customizable with brand colors, logo, and product-specific compartments. Lightweight and easy to reposition.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–8mm" }, { label: "Design", value: "Counter-Top, Modular" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Convenience", "Pharmacies", "Gift Shops", "Salons"], images: [], featured: false,
+  },
+
+  // ═══ Acrylic Boxes (6) ═══
+  {
+    slug: "acrylic-storage-box", name: "Acrylic Storage Box", category: "acrylic-boxes",
+    description: "Crystal-clear acrylic storage boxes for organized retail display and home organization.",
+    longDescription: "Precision-cut panels with seamless bonding for a clean, professional appearance. Available in stackable designs, drawer-style boxes, and compartmentalized organizers. Transparent design allows instant content identification with a premium aesthetic.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–8mm" }, { label: "Types", value: "Stackable, Drawer, Compartment" }, { label: "MOQ", value: "100 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Retail Organization", "Home Storage", "Cosmetics", "Luxury Packaging"], images: [], featured: true,
+  },
+  {
+    slug: "donation-box", name: "Acrylic Donation Box", category: "acrylic-boxes",
+    description: "Secure, transparent acrylic donation boxes with lockable access.",
+    longDescription: "Encourage donations with professional, transparent acrylic donation boxes. Clear design allows donors to see contributions while lockable access doors maintain security. Custom sizes with organization logo printing or engraving.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–10mm" }, { label: "Security", value: "Lockable Access Door" }, { label: "MOQ", value: "20 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Charity Events", "Religious Orgs", "Museums", "Fundraising"], images: [], featured: false,
+  },
+  {
+    slug: "ballot-box", name: "Acrylic Ballot Box", category: "acrylic-boxes",
+    description: "Transparent acrylic ballot boxes for secure and visible voting.",
+    longDescription: "Ensure transparency in voting with custom acrylic ballot boxes. Completely transparent design eliminates tampering concerns. Available with lockable lids, numbered seals, and custom branding. Meets standard election and corporate voting requirements.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–8mm" }, { label: "Security", value: "Lockable, Numbered Seals" }, { label: "MOQ", value: "10 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Corporate Elections", "Awards", "Events", "Government"], images: [], featured: false,
+  },
+  {
+    slug: "display-box", name: "Acrylic Display Box", category: "acrylic-boxes",
+    description: "Premium acrylic display boxes for collectibles, awards, and luxury presentation.",
+    longDescription: "Museum-quality acrylic display boxes with seamless bonded joints and crystal-clear panels. Optional mirrored bases, turntable platforms, LED lighting, and UV-protective coatings. Custom sizes for any display requirement.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–12mm" }, { label: "Options", value: "Mirror Base, LED, Turntable" }, { label: "MOQ", value: "20 units" }, { label: "Lead Time", value: "12–18 days" }],
+    applications: ["Museums", "Collectibles", "Luxury Retail", "Trophies"], images: [], featured: false,
+  },
+  {
+    slug: "lock-box", name: "Acrylic Lock Box", category: "acrylic-boxes",
+    description: "Secure acrylic lock boxes for key management and controlled-access.",
+    longDescription: "Visible security for commercial applications. Transparent design allows content verification without opening. Used for key management, cash handling, suggestion boxes, and secure document storage. Custom multi-compartment configurations available.",
+    specs: [{ label: "Material", value: "Cast Acrylic 8mm–15mm" }, { label: "Lock", value: "Key, Combination, Electronic" }, { label: "MOQ", value: "20 units" }, { label: "Lead Time", value: "12–18 days" }],
+    applications: ["Key Management", "Cash Handling", "Suggestion Boxes"], images: [], featured: false,
+  },
+  {
+    slug: "bakery-display-box", name: "Acrylic Bakery Display Box", category: "acrylic-boxes",
+    description: "Food-safe acrylic display boxes for bakeries, patisseries, and dessert counters.",
+    longDescription: "Present baked creations in their best light with food-safe acrylic display boxes. Available with hinged lids, removable domes, and slide-access panels. Optional anti-fog coating for refrigerated displays and custom UV printing.",
+    specs: [{ label: "Material", value: "Food-Safe Cast Acrylic" }, { label: "Design", value: "Dome, Box, Tiered" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Bakeries", "Patisseries", "Hotel Buffets", "Cake Shops"], images: [], featured: false,
+  },
+
+  // ═══ Acrylic Signage (6) ═══
+  {
+    slug: "office-sign", name: "Acrylic Office Sign", category: "acrylic-signage",
+    description: "Professional acrylic office signs for corporate environments.",
+    longDescription: "Create professional corporate environments with custom acrylic office signs. Available in wall-mounted, door-mounted, and free-standing configurations with UV printed text, engraved lettering, or dimensional raised lettering. Ideal for directories, room identification, and branded messaging.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–15mm" }, { label: "Printing", value: "UV Print, Engrave, Raised" }, { label: "MOQ", value: "10 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Corporate Offices", "Coworking", "Government", "Education"], images: [], featured: false,
+  },
+  {
+    slug: "door-sign", name: "Acrylic Door Sign", category: "acrylic-signage",
+    description: "Custom acrylic door signs with room numbers and occupant names.",
+    longDescription: "Clear identification for every room with custom-manufactured door signs. Options for Braille compliance, interchangeable name inserts, color coding by department, and integrated room number panels. Durable for interior and covered exterior use.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–10mm" }, { label: "Options", value: "Braille, Interchangeable, Color Code" }, { label: "MOQ", value: "20 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Hotels", "Hospitals", "Office Buildings", "Schools"], images: [], featured: false,
+  },
+  {
+    slug: "name-plate", name: "Acrylic Name Plate", category: "acrylic-signage",
+    description: "Personalized acrylic name plates for desks, offices, and reception.",
+    longDescription: "Professional custom acrylic name plates with crisp text on crystal-clear or frosted acrylic. Available in desktop, wall-mount, and door-mount styles. Custom options include company logo, individual names, and department information.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–8mm" }, { label: "Styles", value: "Desktop, Wall, Door" }, { label: "MOQ", value: "10 units" }, { label: "Lead Time", value: "5–10 days" }],
+    applications: ["Corporate", "Medical", "Law Firms", "Reception"], images: [], featured: false,
+  },
+  {
+    slug: "qr-code-sign", name: "Acrylic QR Code Sign", category: "acrylic-signage",
+    description: "Custom acrylic QR code signs for contactless menus and payments.",
+    longDescription: "Bridge physical and digital with custom acrylic QR code signs. Perfect for digital menus, contactless payments, and digital information access. High-resolution UV printing ensures reliable QR scanning. Available as counter stands, wall signs, and free-standing displays.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–8mm" }, { label: "Printing", value: "High-Res UV Print" }, { label: "MOQ", value: "20 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Restaurants", "Retail", "Museums", "Events"], images: [], featured: false,
+  },
+  {
+    slug: "table-sign", name: "Acrylic Table Sign", category: "acrylic-signage",
+    description: "Elegant acrylic table signs and tent cards for restaurants and events.",
+    longDescription: "Communicate with customers through custom acrylic table signs. Available as T-stands, L-stands, tent cards, and slanted displays. Perfect for table numbers, menu specials, and promotional messages with single or double-sided printing.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–5mm" }, { label: "Style", value: "T-Stand, L-Stand, Tent Card" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Restaurants", "Hotels", "Weddings", "Events"], images: [], featured: false,
+  },
+  {
+    slug: "wall-sign", name: "Acrylic Wall Sign", category: "acrylic-signage",
+    description: "Large-format acrylic wall signs for corporate branding and lobbies.",
+    longDescription: "Bold statement wall signs with precision-cut acrylic. Full-color UV printing, dimensional lettering, backlighting, and multi-layer designs available. Stand-off mounting creates a floating effect for premium corporate image in lobbies and conference rooms.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–20mm" }, { label: "Size", value: "Up to 2400×1200mm" }, { label: "MOQ", value: "5 units" }, { label: "Lead Time", value: "12–18 days" }],
+    applications: ["Corporate Lobbies", "Retail", "Museums", "Hotels"], images: [], featured: false,
+  },
+
+  // ═══ Acrylic Home & Office (6) ═══
+  {
+    slug: "desk-organizer", name: "Acrylic Desk Organizer", category: "acrylic-home-office",
+    description: "Sleek acrylic desk organizers for modern workspace organization.",
+    longDescription: "Transform workspaces with custom acrylic desk organizers for pens, stationery, business cards, and office accessories. Modular configurations with clear, frosted, or colored finishes. Perfect for corporate gifting with logo engraving.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–8mm" }, { label: "Configuration", value: "Modular, Multi-Compartment" }, { label: "MOQ", value: "100 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Office Supply", "Corporate Gifts", "Home Office"], images: [], featured: true,
+  },
+  {
+    slug: "monitor-stand", name: "Acrylic Monitor Stand", category: "acrylic-home-office",
+    description: "Ergonomic acrylic monitor stands with storage space underneath.",
+    longDescription: "Improve workspace ergonomics with custom acrylic monitor stands that raise screens to optimal viewing height. Storage space beneath for keyboards and accessories. Available in clear, frosted, and colored finishes with cable management.",
+    specs: [{ label: "Material", value: "Cast Acrylic 8mm–15mm" }, { label: "Capacity", value: "Up to 15kg" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Office Supply", "Home Office", "Corporate"], images: [], featured: false,
+  },
+  {
+    slug: "tissue-box", name: "Acrylic Tissue Box Cover", category: "acrylic-home-office",
+    description: "Premium acrylic tissue box covers for hotels and luxury environments.",
+    longDescription: "Turn everyday items into design statements with custom acrylic tissue box covers. Precision-cut from premium cast acrylic with clear, frosted, or colored finishes. Weighted base keeps cover stable. Popular for hotels, restaurants, and corporate gifting.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–8mm" }, { label: "Finish", value: "Clear, Frosted, Colored" }, { label: "MOQ", value: "200 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Hotels", "Restaurants", "Corporate", "Luxury Retail"], images: [], featured: false,
+  },
+  {
+    slug: "makeup-organizer", name: "Acrylic Makeup Organizer", category: "acrylic-home-office",
+    description: "Stylish acrylic makeup organizers for beauty enthusiasts and professionals.",
+    longDescription: "Organize beauty collections with premium acrylic makeup organizers featuring dedicated compartments for lipsticks, brushes, palettes, and skincare. Modular designs with drawers, rotating bases, and dust covers. Crystal-clear acrylic makes finding products effortless.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–8mm" }, { label: "Design", value: "Modular, Drawers, Rotating" }, { label: "MOQ", value: "100 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Beauty Retail", "Cosmetics Brands", "Home Organization"], images: [], featured: false,
+  },
+  {
+    slug: "acrylic-tray", name: "Acrylic Serving Tray", category: "acrylic-home-office",
+    description: "Elegant acrylic serving trays for hospitality and home entertaining.",
+    longDescription: "Serve with style using custom acrylic trays available in rectangular, round, and organic shapes. Options for handles, non-slip surfaces, and custom edge profiles. Lightweight yet durable for daily use with luxury appearance.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–10mm" }, { label: "Shape", value: "Rectangular, Round, Custom" }, { label: "MOQ", value: "100 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Hotels", "Restaurants", "Home Decor", "Luxury Retail"], images: [], featured: false,
+  },
+  {
+    slug: "book-stand", name: "Acrylic Book Stand", category: "acrylic-home-office",
+    description: "Adjustable acrylic book stands for reading, presentations, and cookbooks.",
+    longDescription: "Read comfortably with custom acrylic book stands featuring adjustable angles for different preferences and book sizes. Transparent design keeps focus on content while providing stable support. Options for page holders, document clips, and integrated lighting.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–10mm" }, { label: "Adjustment", value: "5-Position Angle" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Libraries", "Schools", "Corporate", "Home & Kitchen"], images: [], featured: false,
+  },
+
+  // ═══ Acrylic Awards & Gifts (4) ═══
+  {
+    slug: "acrylic-award", name: "Custom Acrylic Award", category: "acrylic-awards-gifts",
+    description: "Bespoke acrylic awards for corporate events and employee recognition.",
+    longDescription: "Honor achievement with custom-designed acrylic awards. Each award is individually manufactured with options for geometric shapes, corporate logo cutouts, full-color UV printing, laser engraving, colored accents, and illuminated bases.",
+    specs: [{ label: "Material", value: "Cast Acrylic 10mm–30mm" }, { label: "Design", value: "Fully Custom, Logo Cutout" }, { label: "MOQ", value: "10 units" }, { label: "Lead Time", value: "12–20 days" }],
+    applications: ["Corporate Awards", "Sports", "Employee Recognition"], images: [], featured: true,
+  },
+  {
+    slug: "trophy", name: "Acrylic Trophy", category: "acrylic-awards-gifts",
+    description: "Contemporary acrylic trophies for competitions and achievements.",
+    longDescription: "Celebrate victory with stunning custom acrylic trophies offering modern aesthetics and endless design possibilities. Intricate 3D shapes, embedded objects, colored accents, and personalized engraving available. Lightweight yet substantial.",
+    specs: [{ label: "Material", value: "Cast Acrylic 15mm–50mm" }, { label: "Design", value: "3D, Stacked Layers, Embedded" }, { label: "MOQ", value: "10 units" }, { label: "Lead Time", value: "15–20 days" }],
+    applications: ["Sports Events", "Corporate Awards", "Galas"], images: [], featured: false,
+  },
+  {
+    slug: "photo-frame", name: "Acrylic Photo Frame", category: "acrylic-awards-gifts",
+    description: "Modern acrylic photo frames for corporate gifting and retail.",
+    longDescription: "Display memories in premium acrylic photo frames available in free-standing, wall-mounted, and magnetic designs. Frameless construction puts full focus on photographs. Custom sizes with multi-photo layouts, personalized engraving, and gift packaging.",
+    specs: [{ label: "Material", value: "Cast Acrylic 5mm–10mm" }, { label: "Style", value: "Free-Standing, Wall, Magnetic" }, { label: "MOQ", value: "50 units" }, { label: "Lead Time", value: "7–12 days" }],
+    applications: ["Corporate Gifts", "Photo Retail", "Home Decor", "Events"], images: [], featured: false,
+  },
+  {
+    slug: "acrylic-souvenir", name: "Acrylic Souvenir", category: "acrylic-awards-gifts",
+    description: "Custom acrylic souvenirs for tourism, events, and brand promotions.",
+    longDescription: "Create memorable keepsakes with custom acrylic souvenirs ranging from keychains and magnets to desk ornaments and commemorative plaques. Full-color UV printing for landmarks, logos, and event branding with gift box packaging options.",
+    specs: [{ label: "Material", value: "Cast Acrylic 3mm–10mm" }, { label: "Type", value: "Keychain, Magnet, Ornament, Plaque" }, { label: "MOQ", value: "200 units" }, { label: "Lead Time", value: "10–15 days" }],
+    applications: ["Tourism", "Events", "Brand Promotions", "Museum Shops"], images: [], featured: false,
   },
 ];
 
-export const getProductBySlug = (slug: string) =>
-  products.find((p) => p.slug === slug);
-
-export const getProductsByCategory = (category: string) =>
-  category === "all"
-    ? products
-    : products.filter((p) => p.category === category);
-
-export const getFeaturedProducts = () =>
-  products.filter((p) => p.featured);
+export const getProductBySlug = (slug: string) => products.find((p) => p.slug === slug);
+export const getProductsByCategory = (category: ProductCategory) => products.filter((p) => p.category === category);
+export const getProductCategories = () => Array.from(new Set(products.map((p) => p.category)));
+export const getFeaturedProducts = () => products.filter((p) => p.featured);

@@ -9,10 +9,11 @@ import { Save, X } from "lucide-react";
 import type { ProductCategory } from "@/lib/types";
 
 const CATEGORIES: ProductCategory[] = [
-  "clear-sheets",
-  "colored-sheets",
-  "display-products",
-  "decorative-panels",
+  "acrylic-displays",
+  "acrylic-boxes",
+  "acrylic-signage",
+  "acrylic-home-office",
+  "acrylic-awards-gifts",
 ];
 
 export default function AdminNewProductPage() {
@@ -21,7 +22,7 @@ export default function AdminNewProductPage() {
 
   const [form, setForm] = useState({
     name: "",
-    category: "clear-sheets" as ProductCategory,
+    category: "acrylic-displays" as ProductCategory,
     description: "",
     longDescription: "",
     images: [] as string[],

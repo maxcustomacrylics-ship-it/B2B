@@ -7,11 +7,12 @@ import ProductGrid from "@/components/products/ProductGrid";
 import type { Product } from "@/lib/types";
 
 const categories = [
-  { value: "all", label: "products.categories.all" },
-  { value: "clear-sheets", label: "products.categories.clearSheets" },
-  { value: "colored-sheets", label: "products.categories.coloredSheets" },
-  { value: "display-products", label: "products.categories.displayProducts" },
-  { value: "decorative-panels", label: "products.categories.decorativePanels" },
+  { value: "all", label: "All Products" },
+  { value: "acrylic-displays", label: "Acrylic Displays" },
+  { value: "acrylic-boxes", label: "Acrylic Boxes" },
+  { value: "acrylic-signage", label: "Acrylic Signage" },
+  { value: "acrylic-home-office", label: "Home & Office" },
+  { value: "acrylic-awards-gifts", label: "Awards & Gifts" },
 ];
 
 type Props = {
@@ -19,13 +20,7 @@ type Props = {
 };
 
 export function ProductCategories({ products }: Props) {
-  const t = useTranslations();
   const [activeCategory, setActiveCategory] = useState("all");
-
-  const translatedCategories = categories.map((cat) => ({
-    ...cat,
-    label: t(cat.label),
-  }));
 
   const filteredProducts = activeCategory === "all"
     ? products
@@ -34,7 +29,7 @@ export function ProductCategories({ products }: Props) {
   return (
     <div className="space-y-8">
       <ProductFilters
-        categories={translatedCategories}
+        categories={categories}
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
       />

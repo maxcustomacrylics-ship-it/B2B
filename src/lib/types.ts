@@ -1,8 +1,9 @@
 export type ProductCategory =
-  | "clear-sheets"
-  | "colored-sheets"
-  | "display-products"
-  | "decorative-panels";
+  | "acrylic-displays"
+  | "acrylic-boxes"
+  | "acrylic-signage"
+  | "acrylic-home-office"
+  | "acrylic-awards-gifts";
 
 export type Product = {
   slug: string;

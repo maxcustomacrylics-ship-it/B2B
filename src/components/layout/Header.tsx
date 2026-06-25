@@ -72,10 +72,11 @@ export default function Header() {
               <button onClick={() => setMobileOpen(false)} style={{background:"none",border:"none",fontSize:24,color:"#333",cursor:"pointer",padding:4,lineHeight:1}}>✕</button>
             </div>
             <a href="/" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Home</a>
-            <a href="/about" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>About Us</a>
             <a href="/products" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Products</a>
-            <a href="/services" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Services</a>
-            <a href="/cases" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Case Studies</a>
+            <a href="/custom-solutions" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Custom Solutions</a>
+            <a href="/manufacturing" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Manufacturing</a>
+            <a href="/cases" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Projects</a>
+            <a href="/about" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>About Us</a>
             <a href="/blog" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Blog</a>
             <a href="/contact" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Contact</a>
             <div style={{padding:"16px 20px",borderTop:"1px solid #e5e7eb",marginTop:8}}>
