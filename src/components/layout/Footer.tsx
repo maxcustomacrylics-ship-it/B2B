@@ -26,47 +26,37 @@ export default function Footer() {
 
           {/* Products */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              {t("products")}
-            </h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Products</h3>
             <ul className="mt-4 space-y-2">
               {footerProducts.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Capabilities */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              {t("services")}
-            </h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Capabilities</h3>
             <ul className="mt-4 space-y-2">
               {footerServices.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
+            <ul className="mt-4 space-y-2">
+              {footerCompany.map((item) => (
+                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
               ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
-              {t("contactUs")}
-            </h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">{t("contactUs")}</h3>
             <ul className="mt-4 space-y-3 text-sm text-gray-400">
               <li>{settings.address}</li>
               <li>
