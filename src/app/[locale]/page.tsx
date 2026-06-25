@@ -2,8 +2,8 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import AboutSection from "@/components/home/AboutSection";
 import ProductShowcase from "@/components/home/ProductShowcase";
+import AboutSection from "@/components/home/AboutSection";
 import ServiceOverview from "@/components/home/ServiceOverview";
 import CaseHighlights from "@/components/home/CaseHighlights";
 import TestimonialSection from "@/components/home/TestimonialSection";
@@ -55,8 +55,8 @@ export default async function HomePage() {
       <SchemaOrg data={[orgSchema, webSiteSchema]} />
       <main className="bg-slate-50 text-slate-900">
         <Hero />
-        <AboutSection />
         <ProductShowcase products={products} />
+        <AboutSection />
         <ServiceOverview services={services} />
         <CaseHighlights cases={cases} />
         <TestimonialSection testimonials={testimonials} />
