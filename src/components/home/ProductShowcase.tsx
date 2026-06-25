@@ -10,7 +10,7 @@ type Props = { products?: Product[] };
 
 export default function ProductShowcase({ products: propProducts }: Props) {
   const t = useTranslations("home.products");
-  const products = (propProducts ?? []).filter(p => p.featured).slice(0, 4);
+  const products = (propProducts ?? []).slice(0, 12);
 
   return (
     <section className="py-20 bg-gray-50">

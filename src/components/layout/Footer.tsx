@@ -76,7 +76,7 @@ export default function Footer() {
 
         {/* Legal Links */}
         <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+          <div className="flex justify-center gap-x-6 text-xs text-gray-500 overflow-x-auto">
             {footerLegal.map((item) => (
               <Link key={item.href} href={item.href} className="hover:text-white transition-colors">
                 {item.label}
