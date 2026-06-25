@@ -20,8 +20,8 @@ import {
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
-  { href: "/admin/services", label: "Services", icon: Wrench },
-  { href: "/admin/cases", label: "Case Studies", icon: Briefcase },
+  { href: "/admin/services", label: "Capabilities", icon: Wrench },
+  { href: "/admin/cases", label: "Projects", icon: Briefcase },
   { href: "/admin/blogs", label: "Blog Posts", icon: FileText },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },
   { href: "/admin/messages", label: "Site Copy", icon: MessageSquare },
