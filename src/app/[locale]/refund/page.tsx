@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Refund & Return Policy | AcrylicPro Custom",
+  title: "Refund & Return Policy ",
   description: "Our refund and return policy for custom acrylic products — quality guarantee, inspection, and resolution process.",
 };
 

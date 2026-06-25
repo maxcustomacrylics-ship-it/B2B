@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | AcrylicPro Custom",
+  title: "Terms of Service ",
   description: "Read the terms and conditions governing the use of AcrylicPro Custom's website and services.",
 };
 

@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Shipping Policy | AcrylicPro Custom",
+  title: "Shipping Policy ",
   description: "Shipping information for acrylic product orders — shipping methods, packaging, delivery times, and international logistics.",
 };
 

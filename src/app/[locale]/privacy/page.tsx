@@ -3,7 +3,7 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | AcrylicPro Custom",
+  title: "Privacy Policy ",
   description: "Learn how AcrylicPro Custom collects, uses, and protects your personal information.",
 };
 
