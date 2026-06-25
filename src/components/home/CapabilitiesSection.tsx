@@ -1,16 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import { services } from "@/data/services";
+import { useSettings } from "@/components/providers/SettingsProvider";
 
 const capabilities = [
-  { slug: "laser-cutting", title: "Laser Cutting", desc: "High-precision CO2 laser cutting for acrylic sheets up to 25mm with ±0.1mm tolerance and flame-polished edges. Ideal for signage, display components, and intricate geometries.", emoji: "🔬" },
-  { slug: "cnc-machining", title: "CNC Machining", desc: "Multi-axis CNC routing for complex 3D acrylic parts. Beveled edges, V-grooves, precision drilling, and threaded inserts for mechanical assembly.", emoji: "⚙️" },
-  { slug: "diamond-polishing", title: "Diamond Polishing", desc: "Optical-grade edge clarity using progressively finer diamond abrasives. The premium finish for luxury displays, awards, and high-end retail fixtures.", emoji: "💎" },
-  { slug: "uv-printing", title: "UV Digital Printing", desc: "Full-color CMYK + White printing direct to acrylic at 1440dpi. Durable, vibrant graphics for branded displays, signage, and personalized products.", emoji: "🖨" },
-  { slug: "assembly", title: "Assembly & Packaging", desc: "Complete product assembly, hardware integration, quality inspection, and export-ready packaging. Finished products ready for retail or distribution.", emoji: "📦" },
+  { key: "capImg1", slug: "laser-cutting", title: "Laser Cutting", desc: "High-precision CO2 laser cutting for acrylic sheets up to 25mm with ±0.1mm tolerance and flame-polished edges.", emoji: "🔬" },
+  { key: "capImg2", slug: "cnc-machining", title: "CNC Machining", desc: "Multi-axis CNC routing for complex 3D acrylic parts. Beveled edges, V-grooves, precision drilling, and threaded inserts.", emoji: "⚙️" },
+  { key: "capImg3", slug: "diamond-polishing", title: "Diamond Polishing", desc: "Optical-grade edge clarity using progressively finer diamond abrasives. Premium finish for luxury displays and awards.", emoji: "💎" },
+  { key: "capImg4", slug: "uv-printing", title: "UV Digital Printing", desc: "Full-color CMYK + White printing direct to acrylic at 1440dpi. Durable graphics for branded displays and signage.", emoji: "🖨" },
+  { key: "capImg5", slug: "assembly", title: "Assembly & Packaging", desc: "Complete product assembly, hardware integration, quality inspection, and export-ready packaging.", emoji: "📦" },
 ];
 
 export default function CapabilitiesSection() {
+  const s = useSettings();
+  const imgs: Record<string, string> = { capImg1: s.capImg1, capImg2: s.capImg2, capImg3: s.capImg3, capImg4: s.capImg4, capImg5: s.capImg5 };
+
   return (
     <section className="py-20 lg:py-28 bg-white">
       <Container>
@@ -28,7 +33,7 @@ export default function CapabilitiesSection() {
                 {/* Image placeholder */}
                 <div className={`lg:col-span-3 ${isLeft ? "" : "lg:col-start-3"}`}>
                   <div className="aspect-[16/10] rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden shadow-sm">
-                    <span className="text-7xl opacity-20 select-none">{cap.emoji}</span>
+                    {imgs[cap.key] ? <img src={imgs[cap.key]} alt={cap.title} className="h-full w-full object-cover" /> : <span className="text-7xl opacity-20 select-none">{cap.emoji}</span>}
                   </div>
                 </div>
                 {/* Content */}

@@ -22,6 +22,8 @@ export type Settings = {
   factoryTitle: string; factoryDesc: string;
   blogTitle: string; blogDesc: string;
   rfqTitle: string; rfqDesc: string; rfqSuccess: string;
+  catImg1: string; catImg2: string; catImg3: string; catImg4: string;
+  capImg1: string; capImg2: string; capImg3: string; capImg4: string; capImg5: string;
 };
 
 const SettingsContext = createContext<Settings | null>(null);
@@ -63,6 +65,8 @@ export function useSettings(): Settings {
       factoryTitle: "Advanced Manufacturing Facility", factoryDesc: "5,000㎡ workshop with state-of-the-art equipment. ISO 9001 certified, 50+ skilled technicians, in-house tooling and export-ready packaging.",
       blogTitle: "Industry Insights", blogDesc: "Expert articles on acrylic manufacturing, material selection, and industry best practices.",
       rfqTitle: "Request a Free Quote", rfqDesc: "Tell us about your project and receive a detailed quotation within 24 hours. No minimum order — we handle prototypes to mass production.", rfqSuccess: "Thank you! We will get back to you within 24 hours.",
+      catImg1: "", catImg2: "", catImg3: "", catImg4: "",
+      capImg1: "", capImg2: "", capImg3: "", capImg4: "", capImg5: "",
     };
   }
   return ctx;

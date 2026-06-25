@@ -26,6 +26,8 @@ type SiteSettings = {
   factoryTitle: string; factoryDesc: string;
   blogTitle: string; blogDesc: string;
   rfqTitle: string; rfqDesc: string; rfqSuccess: string;
+  catImg1: string; catImg2: string; catImg3: string; catImg4: string;
+  capImg1: string; capImg2: string; capImg3: string; capImg4: string; capImg5: string;
 };
 
 export default function AdminSettingsPage() {
@@ -53,6 +55,8 @@ export default function AdminSettingsPage() {
     factoryTitle: "", factoryDesc: "",
     blogTitle: "", blogDesc: "",
     rfqTitle: "", rfqDesc: "", rfqSuccess: "",
+    catImg1: "", catImg2: "", catImg3: "", catImg4: "",
+    capImg1: "", capImg2: "", capImg3: "", capImg4: "", capImg5: "",
   });
 
   useEffect(() => {
@@ -83,6 +87,8 @@ export default function AdminSettingsPage() {
         factoryTitle: data.factoryTitle || "", factoryDesc: data.factoryDesc || "",
         blogTitle: data.blogTitle || "", blogDesc: data.blogDesc || "",
         rfqTitle: data.rfqTitle || "", rfqDesc: data.rfqDesc || "", rfqSuccess: data.rfqSuccess || "",
+        catImg1: data.catImg1 || "", catImg2: data.catImg2 || "", catImg3: data.catImg3 || "", catImg4: data.catImg4 || "",
+        capImg1: data.capImg1 || "", capImg2: data.capImg2 || "", capImg3: data.capImg3 || "", capImg4: data.capImg4 || "", capImg5: data.capImg5 || "",
       });
     } catch {
       showToast("Failed to load settings", "error");
@@ -271,9 +277,32 @@ export default function AdminSettingsPage() {
             <div className="mt-4"><FormField label="Success Message"><input type="text" value={form.rfqSuccess} onChange={(e) => updateField("rfqSuccess", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" /></FormField></div>
           </div>
 
+          {/* Category Images */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Category Images (Popular Products)</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField label="Acrylic Displays"><input type="text" value={form.catImg1} onChange={(e) => updateField("catImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../display.jpg" /></FormField>
+              <FormField label="Acrylic Boxes"><input type="text" value={form.catImg2} onChange={(e) => updateField("catImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../boxes.jpg" /></FormField>
+              <FormField label="Acrylic Signage"><input type="text" value={form.catImg3} onChange={(e) => updateField("catImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../signage.jpg" /></FormField>
+              <FormField label="Acrylic Home & Office"><input type="text" value={form.catImg4} onChange={(e) => updateField("catImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../home-office.jpg" /></FormField>
+            </div>
+          </div>
+
+          {/* Capability Images */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Capability Images (Manufacturing)</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField label="Laser Cutting"><input type="text" value={form.capImg1} onChange={(e) => updateField("capImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../laser.jpg" /></FormField>
+              <FormField label="CNC Machining"><input type="text" value={form.capImg2} onChange={(e) => updateField("capImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../cnc.jpg" /></FormField>
+              <FormField label="Diamond Polishing"><input type="text" value={form.capImg3} onChange={(e) => updateField("capImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../polish.jpg" /></FormField>
+              <FormField label="UV Printing"><input type="text" value={form.capImg4} onChange={(e) => updateField("capImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../uv-print.jpg" /></FormField>
+              <FormField label="Assembly"><input type="text" value={form.capImg5} onChange={(e) => updateField("capImg5", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../assembly.jpg" /></FormField>
+            </div>
+          </div>
+
           {/* Homepage Images */}
           <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Homepage Images</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero & Factory Images</h2>
             <p className="text-xs text-gray-500 mb-4">Upload product images via Products admin, then paste the Supabase URL here.</p>
 
             <h3 className="text-sm font-medium text-gray-700 mb-2">Hero Section Images (4)</h3>
