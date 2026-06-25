@@ -249,6 +249,9 @@ export default function AdminSettingsPage() {
               <FormField label="Factory Image 4">
                 <input type="text" value={form.factoryImg4} onChange={(e) => updateField("factoryImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
               </FormField>
+              <FormField label="Factory Image 5">
+                <input type="text" value={form.factoryImg5} onChange={(e) => updateField("factoryImg5", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
+              </FormField>
             </div>
           </div>
         </div>
