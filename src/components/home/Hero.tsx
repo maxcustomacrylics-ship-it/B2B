@@ -29,12 +29,20 @@ export default function Hero() {
           <div className="relative">
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-3">
-                <div className="aspect-square rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center"><span className="text-6xl">🖼</span></div>
-                <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"><span className="text-5xl">📦</span></div>
+                <div className="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+                  {s.heroImg1 ? <img src={s.heroImg1} alt="Product sample" className="h-full w-full object-cover" /> : <span className="text-6xl">🖼</span>}
+                </div>
+                <div className="aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  {s.heroImg2 ? <img src={s.heroImg2} alt="Product sample" className="h-full w-full object-cover" /> : <span className="text-5xl">📦</span>}
+                </div>
               </div>
               <div className="space-y-3 pt-8">
-                <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"><span className="text-5xl">🏆</span></div>
-                <div className="aspect-square rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center"><span className="text-6xl">📋</span></div>
+                <div className="aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  {s.heroImg3 ? <img src={s.heroImg3} alt="Product sample" className="h-full w-full object-cover" /> : <span className="text-5xl">🏆</span>}
+                </div>
+                <div className="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+                  {s.heroImg4 ? <img src={s.heroImg4} alt="Product sample" className="h-full w-full object-cover" /> : <span className="text-6xl">📋</span>}
+                </div>
               </div>
             </div>
             <div className="absolute -bottom-4 -left-4 rounded-xl bg-[#0F2744] text-white px-5 py-3 shadow-lg hidden sm:block"><div className="text-2xl font-bold">15+</div><div className="text-xs text-blue-200">Years Experience</div></div>

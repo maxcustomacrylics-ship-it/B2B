@@ -1,6 +1,10 @@
+"use client";
+
 import Container from "@/components/ui/Container";
+import { useSettings } from "@/components/providers/SettingsProvider";
 
 export default function FactorySection() {
+  const s = useSettings();
   return (
     <section className="py-20 bg-white">
       <Container>
@@ -18,10 +22,11 @@ export default function FactorySection() {
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="aspect-square rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"><span className="text-5xl opacity-30">🏭</span></div>
-            <div className="aspect-square rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center"><span className="text-5xl opacity-30">🔬</span></div>
-            <div className="aspect-square rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center"><span className="text-5xl opacity-30">📦</span></div>
-            <div className="aspect-square rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center"><span className="text-5xl opacity-30">⚙️</span></div>
+            {[s.factoryImg1, s.factoryImg2, s.factoryImg3, s.factoryImg4].map((img, i) => (
+              <div key={i} className="aspect-square rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                {img ? <img src={img} alt={`Factory ${i+1}`} className="h-full w-full object-cover" /> : <span className="text-5xl opacity-30">{["🏭","🔬","📦","⚙️"][i]}</span>}
+              </div>
+            ))}
           </div>
         </div>
       </Container>

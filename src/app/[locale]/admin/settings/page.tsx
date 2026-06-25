@@ -19,6 +19,8 @@ type SiteSettings = {
   ctaTitle: string;
   ctaSubtitle: string;
   ctaButton: string;
+  heroImg1: string; heroImg2: string; heroImg3: string; heroImg4: string;
+  factoryImg1: string; factoryImg2: string; factoryImg3: string; factoryImg4: string;
 };
 
 export default function AdminSettingsPage() {
@@ -39,6 +41,8 @@ export default function AdminSettingsPage() {
     ctaTitle: "",
     ctaSubtitle: "",
     ctaButton: "",
+    heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
+    factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "",
   });
 
   useEffect(() => {
@@ -62,6 +66,8 @@ export default function AdminSettingsPage() {
         ctaTitle: data.ctaTitle || "",
         ctaSubtitle: data.ctaSubtitle || "",
         ctaButton: data.ctaButton || "",
+        heroImg1: data.heroImg1 || "", heroImg2: data.heroImg2 || "", heroImg3: data.heroImg3 || "", heroImg4: data.heroImg4 || "",
+        factoryImg1: data.factoryImg1 || "", factoryImg2: data.factoryImg2 || "", factoryImg3: data.factoryImg3 || "", factoryImg4: data.factoryImg4 || "",
       });
     } catch {
       showToast("Failed to load settings", "error");
@@ -204,6 +210,44 @@ export default function AdminSettingsPage() {
               </FormField>
               <FormField label="CTA Button Text">
                 <input type="text" value={form.ctaButton} onChange={(e) => updateField("ctaButton", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="Get Free Quote" />
+              </FormField>
+            </div>
+          </div>
+
+          {/* Homepage Images */}
+          <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Homepage Images</h2>
+            <p className="text-xs text-gray-500 mb-4">Upload product images via Products admin, then paste the Supabase URL here.</p>
+
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Hero Section Images (4)</h3>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField label="Hero Image 1">
+                <input type="text" value={form.heroImg1} onChange={(e) => updateField("heroImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
+              </FormField>
+              <FormField label="Hero Image 2">
+                <input type="text" value={form.heroImg2} onChange={(e) => updateField("heroImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
+              </FormField>
+              <FormField label="Hero Image 3">
+                <input type="text" value={form.heroImg3} onChange={(e) => updateField("heroImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
+              </FormField>
+              <FormField label="Hero Image 4">
+                <input type="text" value={form.heroImg4} onChange={(e) => updateField("heroImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
+              </FormField>
+            </div>
+
+            <h3 className="text-sm font-medium text-gray-700 mb-2 mt-6">Factory Section Images (4)</h3>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <FormField label="Factory Image 1">
+                <input type="text" value={form.factoryImg1} onChange={(e) => updateField("factoryImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
+              </FormField>
+              <FormField label="Factory Image 2">
+                <input type="text" value={form.factoryImg2} onChange={(e) => updateField("factoryImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
+              </FormField>
+              <FormField label="Factory Image 3">
+                <input type="text" value={form.factoryImg3} onChange={(e) => updateField("factoryImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
+              </FormField>
+              <FormField label="Factory Image 4">
+                <input type="text" value={form.factoryImg4} onChange={(e) => updateField("factoryImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
               </FormField>
             </div>
           </div>
