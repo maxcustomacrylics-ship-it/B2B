@@ -71,7 +71,6 @@ export default function Header() {
             <a href="/cases" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Projects</a>
             <a href="/about" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>About Us</a>
             <a href="/blog" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Blog</a>
-            <a href="/contact" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Contact</a>
             <div style={{padding:"16px 20px",borderTop:"1px solid #e5e7eb",marginTop:8}}>
               <a href="/contact" style={{display:"block",width:"100%",padding:"12px 0",textAlign:"center",background:"#2563eb",color:"#fff",borderRadius:8,fontSize:14,fontWeight:600,textDecoration:"none"}}>Contact Us</a>
             </div>

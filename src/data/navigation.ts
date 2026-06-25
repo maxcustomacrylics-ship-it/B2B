@@ -8,7 +8,6 @@ export const mainNav: NavItem[] = [
   { label: "projects", href: "/cases" },
   { label: "about", href: "/about" },
   { label: "blog", href: "/blog" },
-  { label: "contact", href: "/contact" },
 ];
 
 export const footerProducts: NavItem[] = [
