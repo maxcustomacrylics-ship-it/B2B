@@ -6,15 +6,14 @@ import CapabilitiesSection from "@/components/home/CapabilitiesSection";
 import CategoryShowcase from "@/components/home/CategoryShowcase";
 import FactorySection from "@/components/home/FactorySection";
 import CustomerSuccess from "@/components/home/CustomerSuccess";
-import TestimonialSection from "@/components/home/TestimonialSection";
 import BlogPreview from "@/components/home/BlogPreview";
-import CTASection from "@/components/home/CTASection";
+import RFQSection from "@/components/home/RFQSection";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import {
   generateOrganizationSchema,
   generateWebSiteSchema,
 } from "@/lib/schema";
-import { getCaseStudies, getTestimonials, getBlogPosts } from "@/lib/data-store";
+import { getCaseStudies, getBlogPosts } from "@/lib/data-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -44,9 +43,8 @@ export default async function HomePage() {
   const orgSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
 
-  const [cases, testimonials, blogPosts] = await Promise.all([
+  const [cases, blogPosts] = await Promise.all([
     getCaseStudies(),
-    getTestimonials(),
     getBlogPosts(),
   ]);
 
@@ -60,9 +58,8 @@ export default async function HomePage() {
         <CategoryShowcase />
         <FactorySection />
         <CustomerSuccess cases={cases} />
-        <TestimonialSection testimonials={testimonials} />
         <BlogPreview posts={blogPosts} />
-        <CTASection />
+        <RFQSection />
       </main>
     </>
   );

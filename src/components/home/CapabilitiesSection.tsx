@@ -1,26 +1,47 @@
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import { services } from "@/data/services";
 
-const showSlugs = ["laser-cutting","cnc-machining","diamond-polishing","uv-printing","assembly"];
-const capIcons: Record<string, string> = { "laser-cutting":"🔬","cnc-machining":"⚙️","diamond-polishing":"💎","uv-printing":"🖨","assembly":"🔧" };
+const capabilities = [
+  { slug: "laser-cutting", title: "Laser Cutting", desc: "High-precision CO2 laser cutting for acrylic sheets up to 25mm with ±0.1mm tolerance and flame-polished edges. Ideal for signage, display components, and intricate geometries.", emoji: "🔬" },
+  { slug: "cnc-machining", title: "CNC Machining", desc: "Multi-axis CNC routing for complex 3D acrylic parts. Beveled edges, V-grooves, precision drilling, and threaded inserts for mechanical assembly.", emoji: "⚙️" },
+  { slug: "diamond-polishing", title: "Diamond Polishing", desc: "Optical-grade edge clarity using progressively finer diamond abrasives. The premium finish for luxury displays, awards, and high-end retail fixtures.", emoji: "💎" },
+  { slug: "uv-printing", title: "UV Digital Printing", desc: "Full-color CMYK + White printing direct to acrylic at 1440dpi. Durable, vibrant graphics for branded displays, signage, and personalized products.", emoji: "🖨" },
+  { slug: "assembly", title: "Assembly & Packaging", desc: "Complete product assembly, hardware integration, quality inspection, and export-ready packaging. Finished products ready for retail or distribution.", emoji: "📦" },
+];
 
 export default function CapabilitiesSection() {
-  const items = showSlugs.map((s) => services.find((x) => x.slug === s)).filter(Boolean) as typeof services;
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 lg:py-28 bg-white">
       <Container>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Our Manufacturing Capabilities</h2>
-          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Complete in-house manufacturing — from raw material to finished product under one roof.</p>
+        <div className="text-center mb-16">
+          <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Manufacturing Excellence</span>
+          <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">Our Manufacturing Capabilities</h2>
+          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Complete in-house manufacturing — from raw material to finished product. Every process controlled under one roof for consistent quality.</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-          {items.map((s) => (
-            <div key={s.slug} className="group rounded-xl border border-gray-200 bg-white p-6 text-center hover:shadow-md hover:border-blue-200 transition-all">
-              <div className="text-4xl mb-3">{capIcons[s.slug] || "🔩"}</div>
-              <h3 className="font-semibold text-[#0F2744]">{s.title}</h3>
-              <p className="mt-2 text-xs text-gray-500 leading-relaxed">{s.description}</p>
-            </div>
-          ))}
+
+        <div className="space-y-16 lg:space-y-24">
+          {capabilities.map((cap, i) => {
+            const isLeft = i % 2 === 0;
+            return (
+              <div key={cap.slug} className={`grid gap-8 lg:grid-cols-5 items-center ${isLeft ? "" : "lg:grid-flow-dense"}`}>
+                {/* Image placeholder */}
+                <div className={`lg:col-span-3 ${isLeft ? "" : "lg:col-start-3"}`}>
+                  <div className="aspect-[16/10] rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden shadow-sm">
+                    <span className="text-7xl opacity-20 select-none">{cap.emoji}</span>
+                  </div>
+                </div>
+                {/* Content */}
+                <div className={`lg:col-span-2 ${isLeft ? "" : "lg:col-start-1 lg:row-start-1"}`}>
+                  <h3 className="text-2xl font-bold text-[#0F2744]">{cap.title}</h3>
+                  <p className="mt-3 text-gray-500 leading-relaxed">{cap.desc}</p>
+                  <Link href={`/manufacturing/${cap.slug}`} className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors">
+                    Learn more <span className="text-lg leading-none">→</span>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>
