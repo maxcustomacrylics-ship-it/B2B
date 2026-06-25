@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Menu, Phone } from "lucide-react";
+import { Menu } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import { mainNav } from "@/data/navigation";
@@ -39,13 +39,6 @@ export default function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
-                href={`tel:${settings.phone}`}
-                className="flex items-center gap-1.5 text-sm text-muted hover:text-primary-600 transition-colors"
-              >
-                <Phone className="h-4 w-4" />
-                <span>{settings.phone}</span>
-              </a>
               <Button href="/contact" variant="primary">
                 {t("contact")}
               </Button>
@@ -80,9 +73,6 @@ export default function Header() {
             <a href="/blog" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Blog</a>
             <a href="/contact" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Contact</a>
             <div style={{padding:"16px 20px",borderTop:"1px solid #e5e7eb",marginTop:8}}>
-              <a href={`tel:${settings.phone}`} style={{display:"flex",alignItems:"center",gap:8,fontSize:14,color:"#666",textDecoration:"none",marginBottom:12}}>
-                <Phone size={16} />{settings.phone}
-              </a>
               <a href="/contact" style={{display:"block",width:"100%",padding:"12px 0",textAlign:"center",background:"#2563eb",color:"#fff",borderRadius:8,fontSize:14,fontWeight:600,textDecoration:"none"}}>Contact Us</a>
             </div>
           </div>
