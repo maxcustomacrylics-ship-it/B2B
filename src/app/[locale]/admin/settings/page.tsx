@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
 import FormField from "@/components/admin/FormField";
+import SettingsImageField from "@/components/admin/SettingsImageField";
 import { Settings as SettingsIcon, Save } from "lucide-react";
 
 type SiteSettings = {
@@ -281,10 +282,10 @@ export default function AdminSettingsPage() {
           <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Category Images (Popular Products)</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormField label="Acrylic Displays"><input type="text" value={form.catImg1} onChange={(e) => updateField("catImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../display.jpg" /></FormField>
-              <FormField label="Acrylic Boxes"><input type="text" value={form.catImg2} onChange={(e) => updateField("catImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../boxes.jpg" /></FormField>
-              <FormField label="Acrylic Signage"><input type="text" value={form.catImg3} onChange={(e) => updateField("catImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../signage.jpg" /></FormField>
-              <FormField label="Acrylic Home & Office"><input type="text" value={form.catImg4} onChange={(e) => updateField("catImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../home-office.jpg" /></FormField>
+              <SettingsImageField label="Acrylic Displays" value={form.catImg1} onChange={(v) => updateField("catImg1", v)} />
+              <SettingsImageField label="Acrylic Boxes" value={form.catImg2} onChange={(v) => updateField("catImg2", v)} />
+              <SettingsImageField label="Acrylic Signage" value={form.catImg3} onChange={(v) => updateField("catImg3", v)} />
+              <SettingsImageField label="Acrylic Home & Office" value={form.catImg4} onChange={(v) => updateField("catImg4", v)} />
             </div>
           </div>
 
@@ -292,11 +293,11 @@ export default function AdminSettingsPage() {
           <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 mt-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Capability Images (Manufacturing)</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormField label="Laser Cutting"><input type="text" value={form.capImg1} onChange={(e) => updateField("capImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../laser.jpg" /></FormField>
-              <FormField label="CNC Machining"><input type="text" value={form.capImg2} onChange={(e) => updateField("capImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../cnc.jpg" /></FormField>
-              <FormField label="Diamond Polishing"><input type="text" value={form.capImg3} onChange={(e) => updateField("capImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../polish.jpg" /></FormField>
-              <FormField label="UV Printing"><input type="text" value={form.capImg4} onChange={(e) => updateField("capImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../uv-print.jpg" /></FormField>
-              <FormField label="Assembly"><input type="text" value={form.capImg5} onChange={(e) => updateField("capImg5", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://.../assembly.jpg" /></FormField>
+              <SettingsImageField label="Laser Cutting" value={form.capImg1} onChange={(v) => updateField("capImg1", v)} />
+              <SettingsImageField label="CNC Machining" value={form.capImg2} onChange={(v) => updateField("capImg2", v)} />
+              <SettingsImageField label="Diamond Polishing" value={form.capImg3} onChange={(v) => updateField("capImg3", v)} />
+              <SettingsImageField label="UV Printing" value={form.capImg4} onChange={(v) => updateField("capImg4", v)} />
+              <SettingsImageField label="Assembly" value={form.capImg5} onChange={(v) => updateField("capImg5", v)} />
             </div>
           </div>
 
@@ -307,37 +308,19 @@ export default function AdminSettingsPage() {
 
             <h3 className="text-sm font-medium text-gray-700 mb-2">Hero Section Images (4)</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormField label="Hero Image 1">
-                <input type="text" value={form.heroImg1} onChange={(e) => updateField("heroImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
-              </FormField>
-              <FormField label="Hero Image 2">
-                <input type="text" value={form.heroImg2} onChange={(e) => updateField("heroImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
-              </FormField>
-              <FormField label="Hero Image 3">
-                <input type="text" value={form.heroImg3} onChange={(e) => updateField("heroImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
-              </FormField>
-              <FormField label="Hero Image 4">
-                <input type="text" value={form.heroImg4} onChange={(e) => updateField("heroImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../image.jpg" />
-              </FormField>
+              <SettingsImageField label="Hero Image 1" value={form.heroImg1} onChange={(v) => updateField("heroImg1", v)} />
+              <SettingsImageField label="Hero Image 2" value={form.heroImg2} onChange={(v) => updateField("heroImg2", v)} />
+              <SettingsImageField label="Hero Image 3" value={form.heroImg3} onChange={(v) => updateField("heroImg3", v)} />
+              <SettingsImageField label="Hero Image 4" value={form.heroImg4} onChange={(v) => updateField("heroImg4", v)} />
             </div>
 
             <h3 className="text-sm font-medium text-gray-700 mb-2 mt-6">Factory Section Images (4)</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <FormField label="Factory Image 1">
-                <input type="text" value={form.factoryImg1} onChange={(e) => updateField("factoryImg1", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
-              </FormField>
-              <FormField label="Factory Image 2">
-                <input type="text" value={form.factoryImg2} onChange={(e) => updateField("factoryImg2", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
-              </FormField>
-              <FormField label="Factory Image 3">
-                <input type="text" value={form.factoryImg3} onChange={(e) => updateField("factoryImg3", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
-              </FormField>
-              <FormField label="Factory Image 4">
-                <input type="text" value={form.factoryImg4} onChange={(e) => updateField("factoryImg4", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
-              </FormField>
-              <FormField label="Factory Image 5">
-                <input type="text" value={form.factoryImg5} onChange={(e) => updateField("factoryImg5", e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500" placeholder="https://...supabase.co/.../factory.jpg" />
-              </FormField>
+              <SettingsImageField label="Factory Image 1" value={form.factoryImg1} onChange={(v) => updateField("factoryImg1", v)} />
+              <SettingsImageField label="Factory Image 2" value={form.factoryImg2} onChange={(v) => updateField("factoryImg2", v)} />
+              <SettingsImageField label="Factory Image 3" value={form.factoryImg3} onChange={(v) => updateField("factoryImg3", v)} />
+              <SettingsImageField label="Factory Image 4" value={form.factoryImg4} onChange={(v) => updateField("factoryImg4", v)} />
+              <SettingsImageField label="Factory Image 5" value={form.factoryImg5} onChange={(v) => updateField("factoryImg5", v)} />
             </div>
           </div>
         </div>
