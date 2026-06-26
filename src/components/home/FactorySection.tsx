@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import {
-  FileText, Search, ClipboardCheck, Cube,
+  FileText, Search, ClipboardCheck, Box,
   Users, ShieldCheck, Package, Truck, Upload,
 } from "lucide-react";
 
@@ -9,7 +9,7 @@ const steps = [
   { icon: FileText, num: "01", title: "Project Inquiry", desc: "Share your drawings, ideas or requirements." },
   { icon: Search, num: "02", title: "Engineering Review", desc: "Review drawings, materials and manufacturing feasibility." },
   { icon: ClipboardCheck, num: "03", title: "Solution & Quotation", desc: "Recommend suitable production methods and provide a detailed quotation." },
-  { icon: Cube, num: "04", title: "Prototype (Optional)", desc: "Produce samples for approval before mass production." },
+  { icon: Box, num: "04", title: "Prototype (Optional)", desc: "Produce samples for approval before mass production." },
   { icon: Users, num: "05", title: "Production Coordination", desc: "Coordinate qualified manufacturing partners and monitor production progress." },
   { icon: ShieldCheck, num: "06", title: "Quality Inspection", desc: "Inspect dimensions, finish, assembly and packaging before shipment." },
   { icon: Package, num: "07", title: "Secure Packaging", desc: "Use appropriate protective packaging for international transportation." },
