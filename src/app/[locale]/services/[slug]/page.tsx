@@ -83,17 +83,55 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </div>
 
-        {/* What Is + Benefits */}
-        <div className="mt-20 grid gap-10 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-[#0F2744]">What Is {s.title}?</h2>
-            <p className="mt-4 text-gray-500 leading-relaxed">{s.whatIs}</p>
+        {/* Overview Section */}
+        <section className="mt-28" aria-labelledby="overview-heading">
+          <div className="grid gap-12 lg:grid-cols-2 items-start">
+            {/* Left — Images */}
+            <div className="space-y-4">
+              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden">
+                <span className="text-8xl opacity-20 select-none">🔬</span>
+              </div>
+              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-gray-100 to-blue-50 flex items-center justify-center overflow-hidden">
+                <span className="text-8xl opacity-20 select-none">📦</span>
+              </div>
+            </div>
+
+            {/* Right — Text + Highlights */}
+            <div>
+              <h2 id="overview-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
+                Precision Acrylic Laser Cutting Solutions
+              </h2>
+
+              {s.overview ? (
+                <div className="mt-5 space-y-4 text-gray-500 leading-relaxed">
+                  <p>{s.overview.para1}</p>
+                  <p>{s.overview.para2}</p>
+                  <p>{s.overview.para3}</p>
+                </div>
+              ) : (
+                <p className="mt-5 text-gray-500 leading-relaxed">{s.whatIs}</p>
+              )}
+
+              {/* Key Highlights */}
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {[
+                  { icon: Check, title: "Clean Edge Finish", desc: "Laser-cut edges come out flame-polished and ready for use." },
+                  { icon: Check, title: "High Precision Cutting", desc: "Tolerances as tight as ±0.1mm for consistent production quality." },
+                  { icon: Check, title: "Complex Custom Shapes", desc: "Intricate geometries not possible with traditional cutting methods." },
+                  { icon: Check, title: "Flexible Production Quantities", desc: "From single prototypes to thousands of identical parts." },
+                ].map((h) => (
+                  <div key={h.title} className="flex items-start gap-3 rounded-xl border border-gray-100 bg-white p-4">
+                    <h.icon className="h-5 w-5 text-green-600 shrink-0 mt-0.5" aria-hidden="true" />
+                    <div>
+                      <h3 className="font-semibold text-[#0F2744] text-sm">{h.title}</h3>
+                      <p className="text-xs text-gray-500 mt-0.5">{h.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <h3 className="font-semibold text-[#0F2744] mb-3">Key Benefits</h3>
-            <ul className="space-y-2">{s.benefits.slice(0,5).map((b,i)=>(<li key={i} className="flex items-start gap-2 text-sm text-gray-500"><Check className="h-4 w-4 text-green-600 shrink-0 mt-0.5" />{b}</li>))}</ul>
-          </div>
-        </div>
+        </section>
 
         {/* Materials */}
         <div className="mt-16">
