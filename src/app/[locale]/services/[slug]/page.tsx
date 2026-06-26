@@ -95,6 +95,11 @@ export default async function ServicePage({ params }: Props) {
           <div className="space-y-4 max-w-3xl">{s.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.question}</h3><p className="mt-2 text-sm text-gray-500">{f.answer}</p></div>))}</div>
         </div>
 
+        {/* Related Industries */}
+        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-6">Industries Using {s.title}</h2>
+          <div className="flex flex-wrap gap-2">{[{n:"Retail Display",s:"retail-display"},{n:"Cosmetics",s:"cosmetics-display"},{n:"Hotel Hospitality",s:"hotel-hospitality"},{n:"Medical",s:"medical-healthcare"},{n:"Electronics",s:"electronics-industry"},{n:"Museum",s:"museum-art-gallery"}].map((ind)=>(<Link key={ind.s} href={`/industries/${ind.s}`} className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors">{ind.n}</Link>))}</div>
+        </div>
+
         {/* Related Services + CTA */}
         <div className="mt-16 grid gap-10 lg:grid-cols-3">
           <div className="lg:col-span-2">

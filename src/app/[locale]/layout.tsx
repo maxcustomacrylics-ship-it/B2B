@@ -7,6 +7,7 @@ import { SettingsProvider } from "@/components/providers/SettingsProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
+import MobileCTABar from "@/components/shared/MobileCTABar";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +33,9 @@ export default async function LocaleLayout({ children, params }: Props) {
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <MobileCTABar />
+        {/* Spacer for mobile CTA bar */}
+        <div className="lg:hidden h-16" />
       </SettingsProvider>
     </NextIntlClientProvider>
   );

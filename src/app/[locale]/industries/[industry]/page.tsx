@@ -87,6 +87,11 @@ export default async function IndustryPage({ params }: Props) {
           <div className="space-y-4 max-w-3xl">{d.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.question}</h3><p className="mt-2 text-sm text-gray-500">{f.answer}</p></div>))}</div>
         </div>
 
+        {/* Related Services */}
+        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-6">Related Services</h2>
+          <div className="flex flex-wrap gap-2">{[{n:"Laser Cutting",s:"laser-cutting"},{n:"CNC Machining",s:"cnc-machining"},{n:"UV Printing",s:"uv-printing"},{n:"Diamond Polishing",s:"diamond-polishing"},{n:"Bonding & Assembly",s:"bonding-assembly"},{n:"OEM Projects",s:"oem-project-support"}].map((sv)=>(<Link key={sv.s} href={`/services/${sv.s}`} className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors">{sv.n}</Link>))}</div>
+        </div>
+
         {/* CTA */}
         <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white">
           <h2 className="text-2xl font-bold">Request a Custom Solution for {d.name}</h2>
