@@ -14,7 +14,7 @@ import {
   generateOrganizationSchema,
   generateWebSiteSchema,
 } from "@/lib/schema";
-import { getCaseStudies, getBlogPosts } from "@/lib/data-store";
+import { getBlogPosts } from "@/lib/data-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -44,10 +44,7 @@ export default async function HomePage() {
   const orgSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
 
-  const [cases, blogPosts] = await Promise.all([
-    getCaseStudies(),
-    getBlogPosts(),
-  ]);
+  const blogPosts = await getBlogPosts();
 
   return (
     <>
@@ -59,7 +56,7 @@ export default async function HomePage() {
         <CategoryShowcase />
         <FactorySection />
         <FAQSection />
-        <CustomerSuccess cases={cases} />
+        <CustomerSuccess />
         <BlogPreview posts={blogPosts} />
         <RFQSection />
       </main>
