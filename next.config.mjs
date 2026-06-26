@@ -14,8 +14,8 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      { source: "/services", destination: "/manufacturing", permanent: true },
-      { source: "/services/:path*", destination: "/manufacturing/:path*", permanent: true },
+      { source: "/manufacturing", destination: "/services", permanent: true },
+      { source: "/manufacturing/:path*", destination: "/services/:path*", permanent: true },
       { source: "/quote", destination: "/contact", permanent: true },
     ];
   },
