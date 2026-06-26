@@ -78,7 +78,6 @@ export default async function ServicePage({ params }: Props) {
               alt="Custom acrylic laser cutting service for precision fabricated acrylic products"
               className="h-full w-full object-cover"
               loading="lazy"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
             <span className="absolute text-8xl opacity-15 select-none pointer-events-none">🔬</span>
           </div>
