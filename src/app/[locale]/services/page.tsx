@@ -1,100 +1,40 @@
-import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import SchemaOrg from "@/components/shared/SchemaOrg";
-import {
-  generateItemListSchema,
-  generateBreadcrumbSchema,
-} from "@/lib/schema";
-import { getServices } from "@/lib/data-store";
-import { SITE_URL } from "@/lib/utils";
-import { Scissors, Sparkles, Printer, Flame, Package, PenTool } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import InquiryForm from "@/components/products/InquiryForm";
+import { servicePages } from "@/data/service-pages";
+import { ArrowRight } from "lucide-react";
 
-const iconMap: Record<string, LucideIcon> = {
-  Scissors,
-  Sparkles,
-  Printer,
-  Flame,
-  Package,
-  PenTool,
+export const metadata: Metadata = {
+  title: "Custom Acrylic Services | Max Custom Acrylics",
+  description: "Complete custom acrylic fabrication services — laser cutting, CNC machining, diamond polishing, UV printing, thermoforming, bonding & assembly, and OEM project support.",
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("services");
-
-  return {
-    title: t("title"),
-    description: t("subtitle"),
-    openGraph: {
-      title: `${t("title")} | AcrylicPro Custom`,
-      description: t("subtitle"),
-    },
-  };
-}
-
-export default async function ServicesPage() {
-  const t = await getTranslations("services");
-  const allServices = await getServices();
-
-  const itemListSchema = generateItemListSchema(
-    allServices.map((s) => ({
-      name: s.title,
-      url: `${SITE_URL}/services`,
-    }))
-  );
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home", url: SITE_URL },
-    { name: t("title"), url: `${SITE_URL}/services` },
-  ]);
-
+export default function ServicesPage() {
   return (
-    <>
-      <SchemaOrg data={[itemListSchema, breadcrumbSchema]} />
-      <Container className="py-12">
-        <Breadcrumb
-          items={[
-            { label: "Home", href: "/" },
-            { label: t("title") },
-          ]}
-        />
-        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+    <Container className="py-12">
+      <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Services" }]} />
+      <div className="mt-6">
+        <h1 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Custom Acrylic Services</h1>
+        <p className="mt-4 max-w-2xl text-gray-500">Engineering-driven custom acrylic fabrication — from single prototypes to full production runs. Every service backed by professional project management and quality inspection.</p>
+      </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {allServices.map((service) => {
-            const Icon = iconMap[service.icon] || Sparkles;
-            return (
-              <div
-                key={service.slug}
-                className="rounded-xl border border-border p-8 transition-all hover:border-primary-200 hover:shadow-lg"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
-                  <Icon className="h-7 w-7" />
-                </div>
-                <h3 className="mt-5 text-xl font-semibold text-foreground">
-                  {service.title}
-                </h3>
-                <p className="mt-3 text-muted leading-relaxed">
-                  {service.longDescription}
-                </p>
-                <ul className="mt-4 space-y-2">
-                  {service.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2 text-sm text-muted"
-                    >
-                      <span className="mt-0.5 text-accent-600 font-bold">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-        </div>
-      </Container>
-    </>
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {servicePages.map((s) => (
+          <Link key={s.slug} href={`/services/${s.slug}`} className="group rounded-xl border border-gray-200 bg-white p-6 hover:shadow-md hover:border-blue-200 transition-all">
+            <h2 className="text-xl font-semibold text-[#0F2744] group-hover:text-blue-700">{s.title}</h2>
+            <p className="mt-2 text-sm text-gray-500 line-clamp-2">{s.metaDesc}</p>
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#0F2744]"><ArrowRight className="h-4 w-4" /></span>
+          </Link>
+        ))}
+      </div>
+
+      <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white">
+        <h2 className="text-2xl font-bold">Not Sure Which Service You Need?</h2>
+        <p className="mt-2 text-blue-200">Tell us about your project and our engineers will recommend the best approach.</p>
+        <div className="mt-6 max-w-md mx-auto"><InquiryForm /></div>
+      </div>
+    </Container>
   );
 }
