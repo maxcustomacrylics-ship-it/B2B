@@ -44,11 +44,7 @@ export default async function ServicePage({ params }: Props) {
             <h1 className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[3.25rem] lg:leading-[1.15]">
               {s.h1}
             </h1>
-            <div className="mt-6 text-base text-gray-500 leading-relaxed sm:text-lg space-y-4">
-              {s.intro.split("\n\n").map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
+            <p className="mt-6 text-base text-gray-500 leading-relaxed sm:text-lg">{s.intro}</p>
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
