@@ -37,7 +37,7 @@ export default function BlogSidebar() {
           href="/contact"
           className="mt-4 inline-block rounded-lg bg-white px-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 transition-colors"
         >
-          Get a Quote
+          Request a Quote
         </Link>
       </div>
     </aside>
