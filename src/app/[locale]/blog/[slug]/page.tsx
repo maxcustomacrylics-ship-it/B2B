@@ -155,7 +155,27 @@ export default async function BlogPostPage({ params }: Props) {
               );
             })}
           </div>
+
+          {/* Internal Linking — Related Resources */}
+          <div className="mt-12 border-t pt-10 max-w-3xl mx-auto">
+            <h2 className="text-xl font-bold text-[#0F2744] mb-6">Explore Our Capabilities</h2>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <a href="/services" className="rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 hover:shadow-sm transition-all text-sm font-medium text-[#0F2744]">Custom Acrylic Services →</a>
+              <a href="/products" className="rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 hover:shadow-sm transition-all text-sm font-medium text-[#0F2744]">Product Categories →</a>
+              <a href="/projects" className="rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 hover:shadow-sm transition-all text-sm font-medium text-[#0F2744]">View Projects →</a>
+              <a href="/industries/retail-display" className="rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 hover:shadow-sm transition-all text-sm text-gray-500">Retail Display Solutions</a>
+              <a href="/industries/cosmetics-display" className="rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 hover:shadow-sm transition-all text-sm text-gray-500">Cosmetics Display Solutions</a>
+              <a href="/industries/hotel-hospitality" className="rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 hover:shadow-sm transition-all text-sm text-gray-500">Hotel Hospitality Solutions</a>
+            </div>
+          </div>
         </article>
+
+        {/* CTA */}
+        <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold">Need a Custom Acrylic Solution?</h2>
+          <p className="mt-2 text-blue-200 max-w-xl mx-auto">Our engineering team will review your requirements and provide a detailed quotation within 24 hours.</p>
+          <div className="mt-6"><Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50">Get Free Quote</Link></div>
+        </div>
       </Container>
     </>
   );
