@@ -5,7 +5,7 @@ export const mainNav: NavItem[] = [
   { label: "services", href: "/services" },
   { label: "products", href: "/products" },
   { label: "industries", href: "/custom-solutions/industries" },
-  { label: "projects", href: "/cases" },
+  { label: "projects", href: "/projects" },
   { label: "resources", href: "/blog" },
   { label: "about", href: "/about" },
   { label: "contact", href: "/contact" },
@@ -30,7 +30,7 @@ export const footerServices: NavItem[] = [
 
 export const footerCompany: NavItem[] = [
   { label: "About Us", href: "/about" },
-  { label: "Projects", href: "/cases" },
+  { label: "Projects", href: "/projects" },
   { label: "Resources", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
   { label: "Industries", href: "/custom-solutions/industries" },

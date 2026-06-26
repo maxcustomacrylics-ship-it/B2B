@@ -68,7 +68,7 @@ export default function Header() {
             <a href="/services" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Services</a>
             <a href="/products" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Products</a>
             <a href="/custom-solutions/industries" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Industries</a>
-            <a href="/cases" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Projects</a>
+            <a href="/projects" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Projects</a>
             <a href="/blog" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Resources</a>
             <a href="/about" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>About</a>
             <a href="/contact" onClick={() => setMobileOpen(false)} style={{display:"block",padding:"14px 20px",fontSize:16,color:"#111",textDecoration:"none",borderBottom:"1px solid #f3f4f6"}}>Contact</a>
