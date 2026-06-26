@@ -174,7 +174,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold">Need a Custom Acrylic Solution?</h2>
           <p className="mt-2 text-blue-200 max-w-xl mx-auto">Our engineering team will review your requirements and provide a detailed quotation within 24 hours.</p>
-          <div className="mt-6"><Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50">Get Free Quote</Link></div>
+          <div className="mt-6"><Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50">Request a Quote</Link></div>
         </div>
       </Container>
     </>

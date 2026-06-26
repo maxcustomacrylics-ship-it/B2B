@@ -57,7 +57,7 @@ export function useSettings(): Settings {
       heroBadge: "OEM & ODM Acrylic Manufacturer",
       ctaTitle: "Ready to Start Your Custom Acrylic Project?",
       ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",
-      ctaButton: "Get Free Quote",
+      ctaButton: "Request a Quote",
       heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
       factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "", factoryImg5: "",
       statYears: "15+", statArea: "5,000㎡", statCountries: "30+", statProducts: "100+",

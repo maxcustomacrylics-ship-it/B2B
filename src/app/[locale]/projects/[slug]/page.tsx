@@ -88,7 +88,7 @@ export default async function ProjectDetail({ params }: Props) {
         <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white">
           <h2 className="text-2xl font-bold">Start Your Custom Acrylic Project</h2>
           <p className="mt-2 text-blue-200">Tell us about your requirements and receive a detailed proposal within 24 hours.</p>
-          <div className="mt-6"><Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50">Get Free Quote <ArrowRight className="h-4 w-4" /></Link></div>
+          <div className="mt-6"><Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50">Request a Quote <ArrowRight className="h-4 w-4" /></Link></div>
         </div>
       </Container>
     </>
