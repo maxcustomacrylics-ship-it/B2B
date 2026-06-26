@@ -92,7 +92,7 @@ export default async function ServicePage({ params }: Props) {
 
         {/* FAQ */}
         <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-4 max-w-3xl">{s.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.q}</h3><p className="mt-2 text-sm text-gray-500">{f.a}</p></div>))}</div>
+          <div className="space-y-4 max-w-3xl">{s.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.question}</h3><p className="mt-2 text-sm text-gray-500">{f.answer}</p></div>))}</div>
         </div>
 
         {/* Related Services + CTA */}

@@ -4,7 +4,7 @@ export type ServicePageData = {
   whatIs: string; benefits: string[];
   materials: string[]; specs: { label: string; value: string }[];
   applications: string[];
-  faqs: { q: string; a: string }[];
+  faqs: { question: string; answer: string }[];
   relatedServices: string[];
 };
 
@@ -19,10 +19,10 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Max Sheet Size", value: "2,500mm × 1,300mm" },{ label: "Thickness Range", value: "1mm – 25mm" },{ label: "Tolerance", value: "±0.1mm" },{ label: "Edge Finish", value: "Flame-polished, as-cut" },{ label: "Min. Internal Radius", value: "0.5mm" },{ label: "Lead Time", value: "7–15 business days" }],
     applications: ["Retail Displays","POP Displays","Signage & Wayfinding","Decorative Panels","Awards & Trophies","Medical Components","Electronic Enclosures","Custom Parts"],
     faqs: [
-      { q: "What thickness of acrylic can you laser cut?", a: "We can laser cut acrylic from 1mm up to 25mm thickness. Thicker materials (above 25mm) are typically processed via CNC machining for better edge quality and precision." },
-      { q: "Do laser-cut edges need additional polishing?", a: "For most applications, laser-cut edges come out flame-polished and ready to use. For premium display products requiring optical-grade clarity, we can add diamond polishing as a secondary process." },
-      { q: "What file formats do you accept for laser cutting?", a: "We accept DXF, DWG, AI, EPS, PDF, and SVG vector files. Our engineering team can also work from sketches, reference images, or physical samples to create production-ready files." },
-      { q: "Is there a minimum order quantity for laser cutting?", a: "No strict minimum. We handle single prototypes to mass production. Pricing becomes more economical at higher quantities due to setup amortization." },
+      { question: "What thickness of acrylic can you laser cut?", answer: "We can laser cut acrylic from 1mm up to 25mm thickness. Thicker materials (above 25mm) are typically processed via CNC machining for better edge quality and precision." },
+      { question: "Do laser-cut edges need additional polishing?", answer: "For most applications, laser-cut edges come out flame-polished and ready to use. For premium display products requiring optical-grade clarity, we can add diamond polishing as a secondary process." },
+      { question: "What file formats do you accept for laser cutting?", answer: "We accept DXF, DWG, AI, EPS, PDF, and SVG vector files. Our engineering team can also work from sketches, reference images, or physical samples to create production-ready files." },
+      { question: "Is there a minimum order quantity for laser cutting?", answer: "No strict minimum. We handle single prototypes to mass production. Pricing becomes more economical at higher quantities due to setup amortization." },
     ],
     relatedServices: ["cnc-machining","diamond-polishing","uv-printing","oem-project-support"],
   },
@@ -36,9 +36,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Max Sheet Size", value: "2,000mm × 3,000mm" },{ label: "Thickness Range", value: "3mm – 50mm" },{ label: "Tolerance", value: "±0.1mm" },{ label: "Spindle Speed", value: "Up to 24,000 RPM" },{ label: "Thread Types", value: "M2 – M12 metric, UNC/UNF" },{ label: "Lead Time", value: "10–18 business days" }],
     applications: ["Display Stands & Fixtures","POP Displays","Architectural Panels","Machine Guards","Medical Equipment","Electronic Enclosures","Industrial Components","Custom Parts"],
     faqs: [
-      { q: "What's the difference between CNC machining and laser cutting?", a: "Laser cutting is best for 2D profile cutting with polished edges. CNC machining handles 3D features including beveled edges, threaded holes, pockets, and contoured surfaces. Many projects combine both processes." },
-      { q: "Can you add threaded inserts to acrylic parts?", a: "Yes. We can drill and tap threads directly into acrylic, or install metal threaded inserts (brass or stainless steel) for applications requiring frequent assembly and disassembly." },
-      { q: "What is the thickest acrylic you can CNC machine?", a: "We routinely machine acrylic up to 50mm thick. For specialized applications, we can handle thicker blocks upon request." },
+      { question: "What's the difference between CNC machining and laser cutting?", answer: "Laser cutting is best for 2D profile cutting with polished edges. CNC machining handles 3D features including beveled edges, threaded holes, pockets, and contoured surfaces. Many projects combine both processes." },
+      { question: "Can you add threaded inserts to acrylic parts?", answer: "Yes. We can drill and tap threads directly into acrylic, or install metal threaded inserts (brass or stainless steel) for applications requiring frequent assembly and disassembly." },
+      { question: "What is the thickest acrylic you can CNC machine?", answer: "We routinely machine acrylic up to 50mm thick. For specialized applications, we can handle thicker blocks upon request." },
     ],
     relatedServices: ["laser-cutting","diamond-polishing","uv-printing","bonding-assembly"],
   },
@@ -52,9 +52,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Finish Quality", value: "Optical-grade transparency" },{ label: "Thickness Range", value: "3mm – 50mm" },{ label: "Edge Types", value: "Flat, beveled, rounded, stepped" },{ label: "Applications", value: "Luxury displays, awards, architectural" },{ label: "Lead Time Impact", value: "+3–5 business days" }],
     applications: ["Luxury Retail Displays","Corporate Awards & Trophies","Architectural Features","High-End Signage","Jewelry Display Cases","Museum Exhibits","Premium Gift Products"],
     faqs: [
-      { q: "How does diamond polishing compare to flame polishing?", a: "Diamond polishing produces the highest optical clarity and is the preferred finish for premium products. Flame polishing is faster and more economical for production volumes where a glossy (not optical-grade) finish is sufficient." },
-      { q: "Can all edges be diamond polished?", a: "Straight external edges polish best. Internal cutouts, sharp corners, and complex profiles may have limitations. Our engineers can advise on the best finishing approach for your specific design." },
-      { q: "How much does diamond polishing add to lead time?", a: "Typically 3–5 additional business days depending on the number of edges and quantity. For large orders, we allocate dedicated polishing stations to maintain schedule." },
+      { question: "How does diamond polishing compare to flame polishing?", answer: "Diamond polishing produces the highest optical clarity and is the preferred finish for premium products. Flame polishing is faster and more economical for production volumes where a glossy (not optical-grade) finish is sufficient." },
+      { question: "Can all edges be diamond polished?", answer: "Straight external edges polish best. Internal cutouts, sharp corners, and complex profiles may have limitations. Our engineers can advise on the best finishing approach for your specific design." },
+      { question: "How much does diamond polishing add to lead time?", answer: "Typically 3–5 additional business days depending on the number of edges and quantity. For large orders, we allocate dedicated polishing stations to maintain schedule." },
     ],
     relatedServices: ["laser-cutting","cnc-machining","flame-polishing","uv-printing"],
   },
@@ -68,9 +68,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Finish Quality", value: "Glossy, smooth" },{ label: "Thickness Range", value: "2mm – 25mm" },{ label: "Best For", value: "Straight edges, gentle curves" },{ label: "Processing Speed", value: "Up to 5 meters/minute" },{ label: "Lead Time Impact", value: "+1–2 business days" }],
     applications: ["Retail Display Fixtures","POP Displays","Signage","Shelving","Brochure Holders","Standard Display Products","Promotional Items"],
     faqs: [
-      { q: "When should I choose flame polishing over diamond polishing?", a: "Choose flame polishing for production volumes where a professional glossy finish is sufficient and cost/speed are priorities. Choose diamond polishing for premium products requiring optical-grade edge clarity, such as luxury displays and awards." },
-      { q: "Will flame polishing affect the dimensions of my parts?", a: "Flame polishing removes an extremely thin surface layer and has negligible impact on part dimensions. For tight-tolerance parts, our process accounts for this in the cutting stage." },
-      { q: "Can complex shapes be flame polished?", a: "Flame polishing works best on straight edges and gentle external curves. Sharp internal corners and intricate profiles are better suited to diamond polishing or alternative finishing methods." },
+      { question: "When should I choose flame polishing over diamond polishing?", answer: "Choose flame polishing for production volumes where a professional glossy finish is sufficient and cost/speed are priorities. Choose diamond polishing for premium products requiring optical-grade edge clarity, such as luxury displays and awards." },
+      { question: "Will flame polishing affect the dimensions of my parts?", answer: "Flame polishing removes an extremely thin surface layer and has negligible impact on part dimensions. For tight-tolerance parts, our process accounts for this in the cutting stage." },
+      { question: "Can complex shapes be flame polished?", answer: "Flame polishing works best on straight edges and gentle external curves. Sharp internal corners and intricate profiles are better suited to diamond polishing or alternative finishing methods." },
     ],
     relatedServices: ["laser-cutting","cnc-machining","diamond-polishing","bonding-assembly"],
   },
@@ -84,9 +84,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Max Print Area", value: "2,500mm × 1,300mm" },{ label: "Resolution", value: "Up to 1,440 dpi" },{ label: "Ink Type", value: "UV-curable CMYK + White" },{ label: "Substrate Thickness", value: "1mm – 50mm" },{ label: "Finish Options", value: "Gloss, matte, spot varnish" },{ label: "Lead Time", value: "7–12 business days" }],
     applications: ["Branded Retail Displays","Custom Signage","Decorative Panels","POP Displays","Personalized Products","Corporate Awards","Wayfinding Signs","Promotional Items"],
     faqs: [
-      { q: "How durable is UV printing on acrylic?", a: "UV-cured inks form a strong mechanical and chemical bond with acrylic surfaces. The print is scratch-resistant, water-resistant, and suitable for indoor use and covered outdoor applications. For full outdoor exposure, we recommend additional protective measures." },
-      { q: "Can you print white on clear acrylic?", a: "Yes. Our printers include white ink capability. We can print solid white underlayers for opacity, white text on clear backgrounds, or create layered effects combining white and CMYK for stunning translucent graphics." },
-      { q: "What resolution and color accuracy can I expect?", a: "We print at up to 1,440 dpi for photo-quality output. Color matching to Pantone references is available for brand-critical applications. We provide print proofs for approval before production runs." },
+      { question: "How durable is UV printing on acrylic?", answer: "UV-cured inks form a strong mechanical and chemical bond with acrylic surfaces. The print is scratch-resistant, water-resistant, and suitable for indoor use and covered outdoor applications. For full outdoor exposure, we recommend additional protective measures." },
+      { question: "Can you print white on clear acrylic?", answer: "Yes. Our printers include white ink capability. We can print solid white underlayers for opacity, white text on clear backgrounds, or create layered effects combining white and CMYK for stunning translucent graphics." },
+      { question: "What resolution and color accuracy can I expect?", answer: "We print at up to 1,440 dpi for photo-quality output. Color matching to Pantone references is available for brand-critical applications. We provide print proofs for approval before production runs." },
     ],
     relatedServices: ["laser-cutting","cnc-machining","diamond-polishing","oem-project-support"],
   },
@@ -100,9 +100,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Max Sheet Size", value: "2,000mm × 1,500mm" },{ label: "Thickness Range", value: "2mm – 15mm" },{ label: "Bend Types", value: "90°, radius, multi-axis, compound" },{ label: "Forming Method", value: "Line bending, drape forming, vacuum forming" },{ label: "Lead Time", value: "10–18 business days" }],
     applications: ["Curved Display Stands","Protective Covers","Retail Fixtures","Architectural Elements","Product Enclosures","POP Displays","Signage","Machine Guards"],
     faqs: [
-      { q: "What is the minimum bend radius for acrylic?", a: "The minimum bend radius depends on thickness. As a general rule, the radius should be at least 3–4 times the material thickness. Our engineers can advise on optimal bend parameters for your design." },
-      { q: "Can you combine thermoforming with printing?", a: "Yes. We can UV print graphics on flat acrylic sheet before forming, creating curved branded displays. Careful registration ensures graphics align correctly on the formed product." },
-      { q: "What is the difference between line bending and vacuum forming?", a: "Line bending creates straight bends along a single axis — ideal for display stands, brochure holders, and simple enclosures. Vacuum forming shapes sheet over a 3D mold for complex curves and deep draws." },
+      { question: "What is the minimum bend radius for acrylic?", answer: "The minimum bend radius depends on thickness. As a general rule, the radius should be at least 3–4 times the material thickness. Our engineers can advise on optimal bend parameters for your design." },
+      { question: "Can you combine thermoforming with printing?", answer: "Yes. We can UV print graphics on flat acrylic sheet before forming, creating curved branded displays. Careful registration ensures graphics align correctly on the formed product." },
+      { question: "What is the difference between line bending and vacuum forming?", answer: "Line bending creates straight bends along a single axis — ideal for display stands, brochure holders, and simple enclosures. Vacuum forming shapes sheet over a 3D mold for complex curves and deep draws." },
     ],
     relatedServices: ["laser-cutting","cnc-machining","uv-printing","bonding-assembly"],
   },
@@ -116,9 +116,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Joint Type", value: "Solvent weld, UV-cure, structural adhesive" },{ label: "Joint Strength", value: "Up to 80% of base material strength" },{ label: "Hardware Options", value: "Threaded inserts, hinges, locks, standoffs" },{ label: "Assembly Scale", value: "Single unit to thousands" },{ label: "Lead Time", value: "+3–7 business days" }],
     applications: ["Display Cases & Boxes","Aquariums & Enclosures","Retail Fixtures","Architectural Features","Point-of-Purchase Displays","Product Enclosures","Custom Furniture Components"],
     faqs: [
-      { q: "How strong are solvent-bonded acrylic joints?", a: "Solvent-bonded joints achieve approximately 80% of the base material strength. For most display and enclosure applications, this is more than sufficient. For structural applications, we can add mechanical reinforcement or recommend alternative joining methods." },
-      { q: "Will the bond line be visible?", a: "When done correctly by our experienced technicians, solvent-bonded joints are completely transparent with no visible bond line. This is the key advantage of solvent bonding over adhesive-based joining methods." },
-      { q: "Can you assemble products with hardware included?", a: "Yes. We integrate hinges, locks, handles, standoffs, threaded inserts, and other hardware during assembly. We can also source specialty hardware based on your requirements." },
+      { question: "How strong are solvent-bonded acrylic joints?", answer: "Solvent-bonded joints achieve approximately 80% of the base material strength. For most display and enclosure applications, this is more than sufficient. For structural applications, we can add mechanical reinforcement or recommend alternative joining methods." },
+      { question: "Will the bond line be visible?", answer: "When done correctly by our experienced technicians, solvent-bonded joints are completely transparent with no visible bond line. This is the key advantage of solvent bonding over adhesive-based joining methods." },
+      { question: "Can you assemble products with hardware included?", answer: "Yes. We integrate hinges, locks, handles, standoffs, threaded inserts, and other hardware during assembly. We can also source specialty hardware based on your requirements." },
     ],
     relatedServices: ["laser-cutting","cnc-machining","diamond-polishing","oem-project-support"],
   },
@@ -132,9 +132,9 @@ export const servicePages: ServicePageData[] = [
     specs: [{ label: "Project Types", value: "New product development, ongoing supply, one-off projects" },{ label: "MOQ", value: "Flexible — prototypes to mass production" },{ label: "Communication", value: "English, with documented updates" },{ label: "Delivery Terms", value: "FOB, CIF, DDP available" },{ label: "Lead Time", value: "Project-dependent, quoted upfront" }],
     applications: ["New Product Development","Custom Retail Displays","Branded Merchandise Programs","POP Display Rollouts","Architectural Projects","Industrial Components","Export & Distribution Programs"],
     faqs: [
-      { q: "I have a rough idea but no technical drawings. Can you help?", a: "Absolutely. Many of our projects start with a sketch, reference image, or verbal description. Our engineering team creates production-ready CAD drawings and 3D renderings for your approval before manufacturing begins." },
-      { q: "How do you ensure quality for overseas clients?", a: "We provide detailed inspection reports with photos at key production stages. For critical projects, we offer video inspection calls and pre-shipment sample approval. Our multi-stage QC process catches issues before products leave the facility." },
-      { q: "Can you match an existing product I already manufacture elsewhere?", a: "Yes. Send us a sample or detailed specifications of your current product, and we will provide a competitive quotation with equivalent or improved quality. Many clients switch to us for better quality, pricing, or service." },
+      { question: "I have a rough idea but no technical drawings. Can you help?", answer: "Absolutely. Many of our projects start with a sketch, reference image, or verbal description. Our engineering team creates production-ready CAD drawings and 3D renderings for your approval before manufacturing begins." },
+      { question: "How do you ensure quality for overseas clients?", answer: "We provide detailed inspection reports with photos at key production stages. For critical projects, we offer video inspection calls and pre-shipment sample approval. Our multi-stage QC process catches issues before products leave the facility." },
+      { question: "Can you match an existing product I already manufacture elsewhere?", answer: "Yes. Send us a sample or detailed specifications of your current product, and we will provide a competitive quotation with equivalent or improved quality. Many clients switch to us for better quality, pricing, or service." },
     ],
     relatedServices: ["laser-cutting","cnc-machining","uv-printing","bonding-assembly"],
   },
