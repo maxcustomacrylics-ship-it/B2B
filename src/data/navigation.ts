@@ -3,7 +3,7 @@ import type { NavItem } from "@/lib/types";
 export const mainNav: NavItem[] = [
   { label: "home", href: "/" },
   {
-    label: "capabilities", href: "/services",
+    label: "capabilities", href: "",
     children: [
       { label: "Laser Cutting", href: "/services/laser-cutting" },
       { label: "CNC Machining", href: "/services/cnc-machining" },
@@ -14,7 +14,7 @@ export const mainNav: NavItem[] = [
     ],
   },
   {
-    label: "products", href: "/products",
+    label: "products", href: "",
     children: [
       { label: "Acrylic Display", href: "/products/acrylic-displays" },
       { label: "Acrylic Box", href: "/products/acrylic-boxes" },
@@ -26,7 +26,7 @@ export const mainNav: NavItem[] = [
     ],
   },
   {
-    label: "industries", href: "/custom-solutions/industries",
+    label: "industries", href: "",
     children: [
       { label: "Retail Display", href: "/industries/retail-display" },
       { label: "Cosmetics", href: "/industries/cosmetics-display" },
@@ -40,7 +40,7 @@ export const mainNav: NavItem[] = [
   },
   { label: "projects", href: "/projects" },
   {
-    label: "resources", href: "/blog",
+    label: "resources", href: "",
     children: [
       { label: "Blog", href: "/blog" },
       { label: "Buying Guide", href: "/blog" },
