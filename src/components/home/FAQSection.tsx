@@ -55,7 +55,7 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="py-20 lg:py-28 bg-gray-50">
+    <section id="faq" className="py-20 lg:py-28 bg-gray-50">
       <Container>
         {/* Heading */}
         <div className="text-center mb-12">
