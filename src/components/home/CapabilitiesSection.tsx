@@ -20,9 +20,9 @@ export default function CapabilitiesSection() {
     <section className="py-20 lg:py-28 bg-white">
       <Container>
         <div className="text-center mb-16">
-          <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Manufacturing Excellence</span>
-          <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">Our Manufacturing Capabilities</h2>
-          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Complete in-house manufacturing — from raw material to finished product. Every process controlled under one roof for consistent quality.</p>
+          <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">What We Do</span>
+          <h2 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">Our Services</h2>
+          <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Engineering support, precision fabrication, quality inspection and global delivery — everything you need to bring your custom acrylic project to life.</p>
         </div>
 
         <div className="space-y-16 lg:space-y-24">

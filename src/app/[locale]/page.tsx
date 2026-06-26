@@ -5,6 +5,7 @@ import StatsSection from "@/components/home/StatsSection";
 import CapabilitiesSection from "@/components/home/CapabilitiesSection";
 import CategoryShowcase from "@/components/home/CategoryShowcase";
 import FactorySection from "@/components/home/FactorySection";
+import FAQSection from "@/components/home/FAQSection";
 import CustomerSuccess from "@/components/home/CustomerSuccess";
 import BlogPreview from "@/components/home/BlogPreview";
 import RFQSection from "@/components/home/RFQSection";
@@ -57,6 +58,7 @@ export default async function HomePage() {
         <CapabilitiesSection />
         <CategoryShowcase />
         <FactorySection />
+        <FAQSection />
         <CustomerSuccess cases={cases} />
         <BlogPreview posts={blogPosts} />
         <RFQSection />

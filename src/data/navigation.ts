@@ -2,12 +2,13 @@ import type { NavItem } from "@/lib/types";
 
 export const mainNav: NavItem[] = [
   { label: "home", href: "/" },
+  { label: "services", href: "/manufacturing" },
   { label: "products", href: "/products" },
-  { label: "customSolutions", href: "/custom-solutions" },
-  { label: "manufacturing", href: "/manufacturing" },
+  { label: "industries", href: "/custom-solutions/industries" },
   { label: "projects", href: "/cases" },
+  { label: "resources", href: "/blog" },
   { label: "about", href: "/about" },
-  { label: "blog", href: "/blog" },
+  { label: "contact", href: "/contact" },
 ];
 
 export const footerProducts: NavItem[] = [
@@ -19,21 +20,20 @@ export const footerProducts: NavItem[] = [
 ];
 
 export const footerServices: NavItem[] = [
-  { label: "Laser Cutting", href: "/manufacturing/laser-cutting" },
-  { label: "CNC Machining", href: "/manufacturing/cnc-machining" },
-  { label: "Diamond Polishing", href: "/manufacturing/diamond-polishing" },
-  { label: "UV Printing", href: "/manufacturing/uv-printing" },
-  { label: "Hot Bending", href: "/manufacturing/hot-bending" },
-  { label: "Assembly & Packaging", href: "/manufacturing/assembly" },
+  { label: "Custom Acrylic Solutions", href: "/custom-solutions" },
+  { label: "Engineering Support", href: "/custom-solutions/fabrication" },
+  { label: "Production Capability", href: "/manufacturing" },
+  { label: "OEM Projects", href: "/custom-solutions/oem-odm" },
+  { label: "Quality Control", href: "/manufacturing" },
+  { label: "Global Shipping", href: "/shipping" },
 ];
 
 export const footerCompany: NavItem[] = [
   { label: "About Us", href: "/about" },
   { label: "Projects", href: "/cases" },
-  { label: "Blog", href: "/blog" },
+  { label: "Resources", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Custom Solutions", href: "/custom-solutions" },
-  { label: "Manufacturing", href: "/manufacturing" },
+  { label: "Industries", href: "/custom-solutions/industries" },
 ];
 
 export const footerLegal: NavItem[] = [

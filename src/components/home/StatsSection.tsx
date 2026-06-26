@@ -7,7 +7,7 @@ export default function StatsSection() {
   const s = useSettings();
   const stats = [
     { value: s.statYears, label: "Years Experience" },
-    { value: s.statArea, label: "Factory Area" },
+    { value: s.statArea, label: "Projects Delivered" },
     { value: s.statCountries, label: "Countries Served" },
     { value: s.statProducts, label: "Custom Product Types" },
   ];
