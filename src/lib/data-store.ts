@@ -66,7 +66,7 @@ const defaultSettings: Settings = {
   whatsapp: "8613800000000",
   businessHours: "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
   heroHeadline: "Custom Acrylic Fabrication & Sourcing Solutions",
-  heroSubheadline: "We help brands, wholesalers, retailers and project contractors develop custom acrylic products through engineering support, quality-controlled manufacturing partners and reliable global delivery.",
+  heroSubheadline: "We help businesses develop custom acrylic products by connecting engineering expertise, qualified manufacturing partners and strict quality control into one reliable project workflow.",
   heroBadge: "Trusted by 200+ Businesses Worldwide",
   ctaTitle: "Ready to Start Your Custom Acrylic Project?",
   ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",

@@ -53,7 +53,7 @@ export function useSettings(): Settings {
       whatsapp: "8613800000000",
       businessHours: "Mon-Fri: 8:00 AM - 6:00 PM (CST)",
       heroHeadline: "Custom Acrylic Products Manufacturer in China",
-      heroSubheadline: "OEM & ODM acrylic fabrication services for global businesses. From custom displays to retail fixtures and promotional products — high-quality manufacturing with flexible MOQ and fast turnaround.",
+      heroSubheadline: "We help businesses develop custom acrylic products by connecting engineering expertise, qualified manufacturing partners and strict quality control into one reliable project workflow.",
       heroBadge: "OEM & ODM Acrylic Manufacturer",
       ctaTitle: "Ready to Start Your Custom Acrylic Project?",
       ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",
