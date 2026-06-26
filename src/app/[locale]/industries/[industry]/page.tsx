@@ -1,63 +1,96 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import ProductGrid from "@/components/products/ProductGrid";
 import InquiryForm from "@/components/products/InquiryForm";
 import SchemaOrg from "@/components/shared/SchemaOrg";
-import { generateBreadcrumbSchema } from "@/lib/schema";
-import { products } from "@/data/products";
+import { generateFAQSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
-
-const industryData: Record<string, { title: string; desc: string; intro: string; products: string[] }> = {
-  cosmetics: { title: "Cosmetics", desc: "Custom acrylic displays and packaging for cosmetics brands — OEM manufacturing with global shipping.", intro: "We manufacture premium acrylic display solutions for the cosmetics industry. From lipstick display stands to skincare tester units and complete counter displays, every product is custom-fabricated to showcase beauty products at their best.", products: ["cosmetic-display","makeup-organizer","display-box","acrylic-storage-box","counter-display"] },
-  retail: { title: "Retail", desc: "Acrylic retail displays, POS units, and store fixtures for retail chains and independent stores.", intro: "Our retail display solutions are designed to maximize product visibility and drive sales. From counter displays to floor-standing units, we manufacture durable, attractive acrylic fixtures that enhance any retail environment.", products: ["retail-display-stand","counter-display","display-riser","brochure-holder","acrylic-storage-box"] },
-  jewelry: { title: "Jewelry", desc: "Premium acrylic jewelry displays — ring holders, necklace busts, bracelet bars, and watch stands.", intro: "Present fine jewelry with museum-quality clarity using our custom acrylic displays. Precision-crafted with diamond-polished edges, our jewelry displays let every detail of your pieces shine.", products: ["jewelry-display","display-box","acrylic-award","display-riser"] },
-  restaurant: { title: "Restaurant", desc: "Acrylic menu holders, table signs, food displays, and QR code stands for restaurants and cafes.", intro: "From digital menu QR stands to elegant table numbers and food display cases, we manufacture the acrylic products restaurants need to create memorable dining experiences.", products: ["menu-holder","food-display-stand","qr-code-sign","table-sign","bakery-display-box"] },
-  hotel: { title: "Hotel", desc: "Acrylic signage, displays, and amenities for hotels — from room signs to reception displays.", intro: "Create a consistent, professional image throughout your property with custom acrylic products. Room signage, lobby displays, brochure holders, and amenity presentation — all manufactured to your specifications.", products: ["office-sign","door-sign","brochure-holder","acrylic-tray","tissue-box","wall-sign"] },
-  medical: { title: "Medical", desc: "Acrylic protective barriers, equipment covers, signage, and organizational displays for healthcare.", intro: "We manufacture precision acrylic products for medical and healthcare environments. Protective barriers, equipment display covers, patient room signage, and organizational systems — all with medical-grade quality and cleanliness.", products: ["office-sign","door-sign","display-riser","acrylic-storage-box","wall-sign"] },
-  electronics: { title: "Electronics", desc: "Acrylic product stands, display fixtures, and enclosure components for electronics brands.", intro: "Showcase electronics products with crystal-clear acrylic displays. Our precision manufacturing ensures every stand, riser, and display component meets the exacting standards of the electronics industry.", products: ["retail-display-stand","counter-display","monitor-stand","display-riser","desk-organizer"] },
-  "luxury-packaging": { title: "Luxury Packaging", desc: "Premium acrylic gift boxes, presentation cases, and branded packaging for luxury brands.", intro: "Elevate your brand presentation with custom acrylic packaging. From gift boxes and presentation cases to branded retail packaging, we manufacture luxury acrylic packaging that makes an unforgettable impression.", products: ["display-box","acrylic-storage-box","acrylic-tray","photo-frame","acrylic-souvenir"] },
-};
+import { getIndustry, industryPages } from "@/data/industry-pages";
+import { ArrowRight, Check } from "lucide-react";
 
 type Props = { params: Promise<{ industry: string }> };
+const steps = ["Inquiry","Design Review","Quotation","Prototype","Production","Inspection","Delivery"];
+const capabilities = ["Laser Cutting","CNC Machining","UV Printing","Diamond Polishing","Flame Polishing","Bonding & Assembly"];
+const why = ["Engineering Support","Fast Quotation","Flexible MOQ","Global Shipping","Quality Control","Manufacturing Network"];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { industry } = await params;
-  const data = industryData[industry];
-  if (!data) return {};
-  return { title: `${data.title} | AcrylicPro Custom`, description: data.desc };
+  const d = getIndustry(industry);
+  if (!d) return {};
+  return { title: `${d.h1} | Max Custom Acrylics`, description: d.metaDesc };
 }
 
 export default async function IndustryPage({ params }: Props) {
   const { industry } = await params;
-  const data = industryData[industry];
-  if (!data) notFound();
+  const d = getIndustry(industry);
+  if (!d) notFound();
 
-  const relatedProducts = products.filter((p) => data.products.includes(p.slug));
   const bcSchema = generateBreadcrumbSchema([
-    { name: "Home", url: SITE_URL },
-    { name: "Custom Solutions", url: `${SITE_URL}/custom-solutions` },
-    { name: "Industries", url: `${SITE_URL}/custom-solutions/industries` },
-    { name: data.title, url: `${SITE_URL}/industries/${industry}` },
+    { name: "Home", url: SITE_URL },{ name: "Industries", url: `${SITE_URL}/industries` },{ name: d.name, url: `${SITE_URL}/industries/${industry}` },
   ]);
+  const faqSchema = generateFAQSchema(d.faqs);
 
   return (
     <>
-      <SchemaOrg data={[bcSchema]} />
+      <SchemaOrg data={[bcSchema, faqSchema]} />
       <Container className="py-12">
-        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Custom Solutions", href: "/custom-solutions" }, { label: "Industries", href: "/custom-solutions/industries" }, { label: data.title }]} />
-        <h1 className="mt-4 text-3xl font-bold text-foreground sm:text-4xl">{data.title}</h1>
-        <p className="mt-4 max-w-3xl text-muted leading-relaxed">{data.intro}</p>
+        <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Industries", href: "/industries" },{ label: d.name }]} />
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Recommended Products</h2>
-          <ProductGrid products={relatedProducts} />
+        {/* Hero */}
+        <div className="mt-8 grid gap-10 lg:grid-cols-2 items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">{d.h1}</h1>
+            <p className="mt-4 text-gray-500 leading-relaxed">{d.intro}</p>
+            <div className="mt-6"><Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c]">Request a Quote <ArrowRight className="h-4 w-4" /></Link></div>
+          </div>
+          <div className="aspect-[16/10] rounded-xl bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center"><span className="text-8xl opacity-20">🏭</span></div>
         </div>
 
-        <div className="mt-16 rounded-xl bg-primary-600 p-8 text-center text-white">
-          <h2 className="text-2xl font-bold">Need a Solution for {data.title}?</h2>
-          <p className="mt-2 text-primary-100 max-w-xl mx-auto">Tell us your requirements and we will recommend the best acrylic products for your industry.</p>
+        {/* Industry Overview */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold text-[#0F2744]">Industry Overview</h2>
+          <p className="mt-4 text-gray-500 leading-relaxed max-w-4xl">{d.overview}</p>
+        </div>
+
+        {/* Applications + Products */}
+        <div className="mt-16 grid gap-10 lg:grid-cols-2">
+          <div>
+            <h2 className="text-2xl font-bold text-[#0F2744]">Acrylic Applications</h2>
+            <div className="mt-4 flex flex-wrap gap-2">{d.applications.map((a,i)=>(<span key={i} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">{a}</span>))}</div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-[#0F2744]">Common Products</h2>
+            <ul className="mt-4 space-y-2">{d.commonProducts.map((p,i)=>(<li key={i} className="flex items-center gap-2 text-sm text-gray-500"><Check className="h-4 w-4 text-green-600 shrink-0" />{p}</li>))}</ul>
+          </div>
+        </div>
+
+        {/* Manufacturing Capabilities */}
+        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] text-center mb-8">Manufacturing Capabilities</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{capabilities.map((c,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5 text-center"><Check className="h-5 w-5 text-green-600 mx-auto mb-2" /><h3 className="font-semibold text-[#0F2744] text-sm">{c}</h3></div>))}</div>
+        </div>
+
+        {/* Why Choose */}
+        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] text-center mb-8">Why Choose Max Custom Acrylics</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{why.map((w,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5 text-center"><Check className="h-5 w-5 text-green-600 mx-auto mb-2" /><h3 className="font-semibold text-[#0F2744] text-sm">{w}</h3></div>))}</div>
+        </div>
+
+        {/* Process */}
+        <div className="mt-16 rounded-xl bg-gray-50 p-8">
+          <h2 className="text-2xl font-bold text-[#0F2744] text-center mb-8">How We Deliver Your Project</h2>
+          <div className="flex flex-wrap justify-center gap-2 text-sm">{steps.map((s,i)=>(<span key={i} className="flex items-center gap-2"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0F2744] text-white text-xs font-bold">{i+1}</span>{s}{i<steps.length-1&&<span className="text-gray-300 mx-1">→</span>}</span>))}</div>
+        </div>
+
+        {/* FAQ */}
+        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-8">Frequently Asked Questions</h2>
+          <div className="space-y-4 max-w-3xl">{d.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.question}</h3><p className="mt-2 text-sm text-gray-500">{f.answer}</p></div>))}</div>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white">
+          <h2 className="text-2xl font-bold">Request a Custom Solution for {d.name}</h2>
+          <p className="mt-2 text-blue-200 max-w-xl mx-auto">Tell us about your {d.name.toLowerCase()} project and we will provide a tailored manufacturing solution within 24 hours.</p>
           <div className="mt-6 max-w-md mx-auto"><InquiryForm /></div>
         </div>
       </Container>
