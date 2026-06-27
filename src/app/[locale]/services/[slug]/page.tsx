@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import InquiryForm from "@/components/products/InquiryForm";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateFAQSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
