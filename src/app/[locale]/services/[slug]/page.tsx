@@ -179,27 +179,13 @@ export default async function ServicePage({ params }: Props) {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "Cast Acrylic", badge: "Premium Finish", desc: "Excellent optical clarity and premium surface finish. Ideal for high-end displays, luxury retail fixtures, signage and custom fabricated products requiring glass-like transparency.", emoji: "💎" },
-              { name: "Extruded Acrylic", badge: "Cost Effective", desc: "A cost-effective material offering consistent thickness and excellent machinability. Suitable for general-purpose applications, volume production and projects with tighter budget requirements.", emoji: "📋" },
-              { name: "PETG", badge: "High Impact", desc: "A durable and impact-resistant plastic suitable for protective panels, retail displays, thermoformed products and applications requiring toughness without sacrificing clarity.", emoji: "🛡" },
-              { name: "Polycarbonate (PC)", badge: "Maximum Strength", desc: "A high-strength engineering plastic providing outstanding impact resistance — 250× stronger than glass. Used for demanding industrial, safety and structural applications.", emoji: "🔩" },
-              { name: "ABS", badge: "Industrial Grade", desc: "A versatile engineering plastic commonly used for functional components, equipment housings, industrial parts and applications requiring rigidity and durability.", emoji: "⚙️" },
-              { name: "PVC Foam Board", badge: "Lightweight", desc: "A lightweight material suitable for signage, exhibition graphics, indoor display applications and projects where weight reduction is a priority without sacrificing print quality.", emoji: "📰" },
-            ].map((mat) => (
-              <div key={mat.name} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col">
-                {/* Image */}
-                <div className="aspect-[4/3] bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden relative">
-                  <span className="text-6xl opacity-30 transition-transform duration-300 group-hover:scale-110 select-none">{mat.emoji}</span>
-                  <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-[#0F2744] shadow-sm">{mat.badge}</span>
-                </div>
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-semibold text-[#0F2744]">{mat.name}</h3>
-                  <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">{mat.desc}</p>
-                  <Link href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-4 w-4" /></Link>
-                </div>
-              </div>
-            ))}
+              { n:"Cast Acrylic", r:"★★★★★", rl:"Excellent", b:["Luxury displays","Signage","Display cases"], d:"Superior optical clarity and premium surface finish — the ideal choice for high-end applications.", e:"💎" },
+              { n:"Extruded Acrylic", r:"★★★★☆", rl:"Very Good", b:["General fabrication","Retail displays","Volume production"], d:"Cost-effective with consistent thickness and excellent machinability.", e:"📋" },
+              { n:"PETG", r:"★★★★☆", rl:"Very Good", b:["Protective panels","Medical applications","Thermoformed parts"], d:"Impact-resistant and durable — excellent for toughness without sacrificing clarity.", e:"🛡" },
+              { n:"Polycarbonate (PC)", r:"★★★☆☆", rl:"Moderate", b:["Impact-resistant components","Industrial guards"], d:"250× stronger than glass — best where extreme impact resistance matters.", e:"🔩" },
+              { n:"PVC Foam Board", r:"★★★☆☆", rl:"Moderate", b:["Indoor signage","Exhibition displays"], d:"Lightweight and cost-effective for indoor applications.", e:"📰" },
+              { n:"ABS", r:"★★☆☆☆", rl:"Limited", b:["Functional engineering parts"], d:"Rigid engineering plastic for functional components where clarity is not required.", e:"⚙️" },
+            ].map((m)=>(<div key={m.n} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col"><div className="aspect-[4/3] bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden relative"><span className="text-6xl opacity-30 transition-transform duration-300 group-hover:scale-110 select-none">{m.e}</span><span className="absolute top-3 right-3 rounded-full bg-white/90 px-2 py-1 text-xs font-bold text-[#0F2744] shadow-sm">{m.r}</span></div><div className="p-5 flex flex-col flex-1"><div className="flex items-center justify-between mb-1"><h3 className="font-semibold text-[#0F2744]">{m.n}</h3><span className="text-[10px] text-gray-400 font-medium">{m.rl}</span></div><p className="text-sm text-gray-500 leading-relaxed">{m.d}</p><div className="mt-3 pt-3 border-t border-gray-100"><span className="text-[10px] text-gray-400 uppercase tracking-wide">Best For</span><div className="mt-1.5 flex flex-wrap gap-1">{m.b.map((x)=>(<span key={x} className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] text-blue-700">{x}</span>))}</div></div><Link href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More<ArrowRight className="h-4 w-4"/></Link></div></div>))}
           </div>
         </section>
 
