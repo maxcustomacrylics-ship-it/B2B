@@ -49,22 +49,19 @@ export default function AssemblyPage() {
               </div>
             </div>
             <div className="relative" aria-hidden="true">
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { icon: "🖼", label: "Display", color: "from-blue-100 to-blue-50/60" },
-                  { icon: "🔩", label: "Hardware", color: "from-slate-100 to-slate-50/60" },
-                  { icon: "📦", label: "Packaging", color: "from-amber-100 to-amber-50/60" },
-                  { icon: "✅", label: "QC Pass", color: "from-emerald-100 to-emerald-50/60" },
-                  { icon: "🚢", label: "Export", color: "from-teal-100 to-teal-50/60" },
-                  { icon: "🧩", label: "Assembly", color: "from-purple-100 to-purple-50/60" },
-                ].map((img, i) => (
-                  <div key={i} className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${img.color} flex flex-col items-center justify-center shadow-sm`}>
-                    <span className="text-xl sm:text-2xl select-none">{img.icon}</span>
-                    <span className="mt-0.5 text-[9px] text-gray-400 font-medium">{img.label}</span>
+              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
+                <div className="text-center select-none">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
+                    <svg className="w-10 h-10 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                      <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
                   </div>
-                ))}
+                  <p className="text-xs text-gray-400 tracking-wide uppercase">Complete Assembly & Export Packaging</p>
+                </div>
               </div>
-              <span className="sr-only">Assembly and packaging for display cases, hardware integration, packaging, quality inspection, export shipping and multi-component assembly</span>
+              <span className="sr-only">Professional acrylic assembly and packaging service with hardware integration and export-ready packaging</span>
             </div>
           </div>
         </Container>

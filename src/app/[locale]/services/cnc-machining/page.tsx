@@ -50,22 +50,20 @@ export default function CncMachiningPage() {
               </div>
             </div>
             <div className="relative" aria-hidden="true">
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { icon: "🧊", label: "3D Contours", color: "from-blue-100 to-blue-50/60" },
-                  { icon: "🔩", label: "Threaded", color: "from-slate-100 to-slate-50/60" },
-                  { icon: "📏", label: "Beveled", color: "from-amber-100 to-amber-50/60" },
-                  { icon: "🪨", label: "Thick Matl", color: "from-teal-100 to-teal-50/60" },
-                  { icon: "⚙️", label: "Mechanical", color: "from-rose-100 to-rose-50/60" },
-                  { icon: "🎯", label: "±0.1mm", color: "from-purple-100 to-purple-50/60" },
-                ].map((img, i) => (
-                  <div key={i} className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${img.color} flex flex-col items-center justify-center shadow-sm`}>
-                    <span className="text-xl sm:text-2xl select-none">{img.icon}</span>
-                    <span className="mt-0.5 text-[9px] text-gray-400 font-medium">{img.label}</span>
+              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
+                <div className="text-center select-none">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
+                    <svg className="w-10 h-10 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8.5" cy="8.5" r="2" /><circle cx="15.5" cy="8.5" r="2" />
+                      <circle cx="8.5" cy="15.5" r="2" /><circle cx="15.5" cy="15.5" r="2" />
+                      <path d="M12 3v2M12 19v2M3 12h2M19 12h2" />
+                    </svg>
                   </div>
-                ))}
+                  <p className="text-xs text-gray-400 tracking-wide uppercase">Precision CNC Acrylic Machining</p>
+                </div>
               </div>
-              <span className="sr-only">CNC machining for 3D contours, threaded features, beveled edges, thick materials, mechanical parts and tight tolerances</span>
+              <span className="sr-only">CNC machining service for precision acrylic components with 3D contouring and threaded features</span>
             </div>
           </div>
         </Container>
