@@ -1,0 +1,135 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import Container from "@/components/ui/Container";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import {
+  ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
+  FileCheck, Search, ClipboardList, BarChart3, MessageSquare, Users, AlertTriangle,
+} from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Acrylic Quality Control & Project Support | Max Custom Acrylics",
+  description:
+    "Multi-stage inspection throughout production with documented reports — incoming materials, in-process checks and final QC. Engineering support for custom acrylic projects.",
+};
+
+export default function QualityControlPage() {
+  return (
+    <>
+      {/* ========== HERO SECTION ========== */}
+      <section className="relative bg-white overflow-hidden" aria-labelledby="qc-hero-heading">
+        <Container className="py-14 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center min-h-[520px] lg:min-h-[560px]">
+            <div>
+              <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Quality Control" }]} />
+              <h1 id="qc-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
+                Acrylic Quality Control & Project Support
+              </h1>
+              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
+                Multi-stage inspection throughout production with documented reports so you know exactly what you are receiving — from incoming materials to pre-shipment approval.
+              </p>
+              <p className="mt-3 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
+                Our engineering team manages quality at every stage of your custom acrylic project, providing documented inspection, photo reports and professional communication throughout the process.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3" role="group" aria-label="Call to action buttons">
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Request a quote for quality controlled acrylic products">
+                  Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Upload your drawing for project support quotation">
+                  <Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing
+                </Link>
+              </div>
+              <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:gap-6 text-sm text-gray-500">
+                <span className="flex items-center gap-1.5"><Cog className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Engineering Review</span>
+                <span className="flex items-center gap-1.5"><Wrench className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Custom Manufacturing</span>
+                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Quality Inspection</span>
+                <span className="flex items-center gap-1.5"><Globe className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Worldwide Delivery</span>
+              </div>
+            </div>
+            <div className="relative" aria-hidden="true">
+              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
+                <div className="text-center select-none">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
+                    <svg className="w-10 h-10 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-gray-400 tracking-wide uppercase">Multi-Stage Quality Control</p>
+                </div>
+              </div>
+              <span className="sr-only">Quality control and project support for custom acrylic products with documented inspection reports</span>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== WHEN TO CHOOSE SECTION ========== */}
+      <section className="bg-gray-50" aria-labelledby="qc-when-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2 id="qc-when-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
+              When Should You Invest in Quality Control & Project Support?
+            </h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Multi-stage quality control and dedicated project support provide confidence that your custom acrylic products meet specifications before they ship — especially valuable for complex projects and brand-critical applications.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-[7fr_5fr]">
+            <div>
+              <h3 className="text-xl font-semibold text-[#0F2744]">Best Applications</h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {[
+                  { icon: ClipboardList, title: "New Product Development", desc: "Engineering review and prototyping support to get your design production-ready." },
+                  { icon: Search, title: "Critical Tolerance Parts", desc: "Documented measurement reports for parts with tight dimensional requirements." },
+                  { icon: FileCheck, title: "Export & Overseas Orders", desc: "Pre-shipment inspection and photo reports before products leave the facility." },
+                  { icon: MessageSquare, title: "Brand-Critical Products", desc: "Consistent quality across production for brand-sensitive applications." },
+                  { icon: BarChart3, title: "Ongoing Supply Programs", desc: "Reliable repeat production with documented consistency across batches." },
+                  { icon: Users, title: "Complex Multi-Process Projects", desc: "Single-point coordination across multiple manufacturing processes." },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                    <div className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-50 text-[#0F2744]">
+                      <item.icon className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <h4 className="mt-3 text-sm font-semibold text-[#0F2744]">{item.title}</h4>
+                    <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-[#0F2744]">Consider Other Processes If</h3>
+              <div className="mt-6 space-y-4">
+                {[
+                  { title: "Simple Standard Parts", desc: "Basic quality checks may be sufficient for commodity components." },
+                  { title: "Informal QC Is Acceptable", desc: "In-house inspection may be adequate for non-critical applications." },
+                  { title: "Single Prototype Orders", desc: "Full QC documentation may not be needed for concept samples." },
+                  { title: "Direct Supplier Relationship", desc: "You may already have established quality protocols with your supplier." },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-xl border border-amber-200 bg-amber-50/50 p-5">
+                    <div className="flex gap-3">
+                      <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      <div>
+                        <h4 className="text-sm font-semibold text-[#0F2744]">{item.title}</h4>
+                        <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="mt-14 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Not sure what level of quality control your project needs?</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">
+              Our engineering team can recommend the most appropriate quality assurance plan based on your product requirements, target market and budget.
+            </p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
+              <Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing
+            </Link>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}
