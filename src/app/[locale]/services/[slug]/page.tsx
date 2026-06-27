@@ -326,6 +326,40 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
+        {/* Design Guidelines */}
+        <section className="mt-28">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 className="text-2xl font-bold text-[#0F2744] sm:text-3xl">Design Guidelines for Better Laser Cutting Results</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Following good design practices helps improve manufacturing efficiency, product quality and overall project success.</p>
+          </div>
+          <div className="grid gap-10 lg:grid-cols-2 items-start">
+            <div className="space-y-4">
+              {[
+                { t: "Use Vector Files", d: "Preferred formats include AI, DXF and DWG for precise toolpath generation." },
+                { t: "Consider Material Thickness", d: "Choose material thickness according to product function and structural requirements." },
+                { t: "Avoid Extremely Small Details", d: "Very fine details may increase manufacturing complexity and cost." },
+                { t: "Plan Assembly Features", d: "Design slots and tabs with assembly requirements in mind for easier fabrication." },
+                { t: "Consult Engineering Early", d: "Early design review can reduce revisions and overall production costs." },
+              ].map((g) => (
+                <div key={g.t} className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-5 hover:shadow-sm transition-all">
+                  <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
+                  <div><h3 className="font-semibold text-[#0F2744] text-sm">{g.t}</h3><p className="text-sm text-gray-500 mt-0.5">{g.d}</p></div>
+                </div>
+              ))}
+            </div>
+            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden lg:sticky lg:top-24">
+              <div className="text-center p-8">
+                <span className="text-8xl opacity-20 select-none">📐</span>
+                <p className="mt-4 text-sm text-gray-400 max-w-xs mx-auto">CAD-style engineering diagram illustrating recommended laser cutting design practices</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-10 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-[#0F2744]">Need help reviewing your design?</h3>
+            <Link href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><Upload className="h-4 w-4"/>Upload Your Drawing</Link>
+          </div>
+        </section>
+
         {/* Why Choose This Service */}
         <section className="mt-28" aria-labelledby="why-heading">
           <div className="max-w-[1280px] mx-auto text-center mb-12">
