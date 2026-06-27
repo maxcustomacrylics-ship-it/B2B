@@ -6,7 +6,7 @@ import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   FileCheck, Search, ClipboardList, BarChart3, MessageSquare, Users, AlertTriangle,
   Layers, Star,
-  FileText, Ruler, ScanEye, Puzzle, XCircle, Check,
+  FileText, Ruler, ScanEye, Puzzle, XCircle, Check, FlaskConical,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -297,6 +297,34 @@ export default function QualityControlPage() {
               </details>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* ========== FINAL CTA SECTION ========== */}
+      <section className="bg-white" aria-labelledby="qc-cta-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="qc-cta-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Ready to Discuss Your Project?</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Whether you already have detailed drawings or just an initial concept, our engineering team is ready to help you evaluate your project and recommend the most suitable manufacturing solution.</p></div>
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            <div className="space-y-4">
+              {[
+                { icon: Cog, title: "Engineering Review", desc: "Your design reviewed by experienced engineers for manufacturability and cost optimization." },
+                { icon: Layers, title: "Material Recommendation", desc: "Expert guidance on material selection based on your application and performance requirements." },
+                { icon: FlaskConical, title: "Prototype Support", desc: "Prototyping and sampling available to validate your design before full production." },
+                { icon: Globe, title: "Worldwide Delivery", desc: "Export-ready packaging and international logistics to over 30 countries." },
+              ].map((item) => (
+                <div key={item.title} className="flex gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm"><div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center"><item.icon className="h-5 w-5 text-[#0F2744]" aria-hidden="true" /></div><div><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p></div></div>
+              ))}
+            </div>
+            <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-[#0F2744] to-[#1a3a5c] p-8 text-white flex flex-col justify-center">
+              <h3 className="text-xl font-bold">Start Your Project Today</h3>
+              <p className="mt-3 text-blue-200 leading-relaxed text-sm">Send us your drawings or project brief. Our team will review your requirements and respond with a detailed quotation and manufacturing recommendations.</p>
+              <div className="mt-6 flex flex-col gap-3">
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]">Request a Quote<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]"><Upload className="h-4 w-4" aria-hidden="true" />Upload Your Drawing</Link>
+              </div>
+            </div>
+          </div>
+          <p className="mt-8 text-center text-sm text-gray-400">Our team typically responds within one business day.</p>
         </Container>
       </section>
     </>
