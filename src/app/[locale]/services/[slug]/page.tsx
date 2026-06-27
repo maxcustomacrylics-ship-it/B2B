@@ -8,7 +8,7 @@ import { generateFAQSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
 import { getServicePage, servicePages } from "@/data/service-pages";
 import { ArrowRight, Check, Upload, Search, Cog, ShieldCheck, Globe } from "lucide-react";
-// Build cache bust: 2026-06-27-v2
+// FORCE DEPLOY v3 — Vercel cache workaround
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,6 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!s) return {};
   return { title: `${s.h1} | Max Custom Acrylics`, description: s.metaDesc };
 }
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
