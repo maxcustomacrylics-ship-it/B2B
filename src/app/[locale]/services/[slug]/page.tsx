@@ -18,8 +18,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${s.h1} | Max Custom Acrylics`, description: s.metaDesc };
 }
 
-export const fetchCache = "force-no-store";
-
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
   const s = getServicePage(slug);
@@ -148,41 +146,27 @@ export default async function ServicePage({ params }: Props) {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "Cast Acrylic", rating: "★★★★★", ratingLabel: "Excellent", bestFor: ["Luxury displays","Signage","Display cases"], desc: "Superior optical clarity and premium surface finish. The ideal choice for high-end applications where visual quality is the top priority.", emoji: "💎" },
-              { name: "Extruded Acrylic", rating: "★★★★☆", ratingLabel: "Very Good", bestFor: ["General fabrication","Retail displays","Volume production"], desc: "Cost-effective with consistent thickness and excellent machinability for general-purpose projects.", emoji: "📋" },
-              { name: "PETG", rating: "★★★★☆", ratingLabel: "Very Good", bestFor: ["Protective panels","Medical applications","Thermoformed parts"], desc: "Impact-resistant and durable. Excellent for applications requiring toughness without sacrificing clarity.", emoji: "🛡" },
-              { name: "Polycarbonate (PC)", rating: "★★★☆☆", ratingLabel: "Moderate", bestFor: ["Impact-resistant components","Industrial guards"], desc: "250× stronger than glass. Best choice where extreme impact resistance is the primary requirement.", emoji: "🔩" },
-              { name: "PVC Foam Board", rating: "★★★☆☆", ratingLabel: "Moderate", bestFor: ["Indoor signage","Exhibition displays"], desc: "Lightweight and cost-effective for indoor applications where weight is a key consideration.", emoji: "📰" },
-              { name: "ABS", rating: "★★☆☆☆", ratingLabel: "Limited", bestFor: ["Functional engineering parts"], desc: "Rigid and durable engineering plastic for functional components where optical clarity is not required.", emoji: "⚙️" },
+              { name: "Cast Acrylic", badge: "Premium Finish", desc: "Excellent optical clarity and premium surface finish. Ideal for high-end displays, luxury retail fixtures, signage and custom fabricated products requiring glass-like transparency.", emoji: "💎" },
+              { name: "Extruded Acrylic", badge: "Cost Effective", desc: "A cost-effective material offering consistent thickness and excellent machinability. Suitable for general-purpose applications, volume production and projects with tighter budget requirements.", emoji: "📋" },
+              { name: "PETG", badge: "High Impact", desc: "A durable and impact-resistant plastic suitable for protective panels, retail displays, thermoformed products and applications requiring toughness without sacrificing clarity.", emoji: "🛡" },
+              { name: "Polycarbonate (PC)", badge: "Maximum Strength", desc: "A high-strength engineering plastic providing outstanding impact resistance — 250× stronger than glass. Used for demanding industrial, safety and structural applications.", emoji: "🔩" },
+              { name: "ABS", badge: "Industrial Grade", desc: "A versatile engineering plastic commonly used for functional components, equipment housings, industrial parts and applications requiring rigidity and durability.", emoji: "⚙️" },
+              { name: "PVC Foam Board", badge: "Lightweight", desc: "A lightweight material suitable for signage, exhibition graphics, indoor display applications and projects where weight reduction is a priority without sacrificing print quality.", emoji: "📰" },
             ].map((mat) => (
               <div key={mat.name} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col">
+                {/* Image */}
                 <div className="aspect-[4/3] bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden relative">
                   <span className="text-6xl opacity-30 transition-transform duration-300 group-hover:scale-110 select-none">{mat.emoji}</span>
-                  <span className="absolute top-3 right-3 rounded-full bg-white/90 px-2 py-1 text-xs font-bold text-[#0F2744] shadow-sm">{mat.rating}</span>
+                  <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-[#0F2744] shadow-sm">{mat.badge}</span>
                 </div>
+                {/* Content */}
                 <div className="p-5 flex flex-col flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="font-semibold text-[#0F2744]">{mat.name}</h3>
-                    <span className="text-[10px] text-gray-400 font-medium">{mat.ratingLabel}</span>
-                  </div>
-                  <p className="text-sm text-gray-500 leading-relaxed">{mat.desc}</p>
-                  <div className="mt-3 pt-3 border-t border-gray-100">
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wide">Best For</span>
-                    <div className="mt-1.5 flex flex-wrap gap-1">{mat.bestFor.map((b)=>(<span key={b} className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] text-blue-700">{b}</span>))}</div>
-                  </div>
+                  <h3 className="font-semibold text-[#0F2744]">{mat.name}</h3>
+                  <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">{mat.desc}</p>
                   <Link href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-4 w-4" /></Link>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Material help CTA */}
-          <div className="mt-10 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-[#0F2744]">Need Help Choosing Materials?</h3>
-            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
-              Our engineering team can recommend the most suitable material based on your product design, application and manufacturing requirements.
-            </p>
-            <Link href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Contact Engineering Team</Link>
           </div>
         </section>
 
@@ -320,113 +304,6 @@ export default async function ServicePage({ params }: Props) {
               Not sure which manufacturing process or material is right for your project? Our engineering team can review your drawings and recommend the most suitable solution before production begins.
             </p>
             <Link href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><Upload className="h-4 w-4" /> Upload Your Drawing</Link>
-          </div>
-        </section>
-
-        {/* When Should You Choose */}
-        <section className="mt-28" aria-labelledby="when-heading">
-          <div className="max-w-[1280px] mx-auto text-center mb-12">
-            <h2 id="when-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
-              When Should You Choose {s.title}?
-            </h2>
-            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              {s.title} is an excellent choice for many custom acrylic applications, but selecting the right manufacturing process depends on your design, material and project requirements.
-            </p>
-          </div>
-
-          <div className="grid gap-10 lg:grid-cols-2">
-            {/* Left: Best Applications */}
-            <div>
-              <h3 className="text-lg font-semibold text-[#0F2744] mb-5">Best Applications</h3>
-              <div className="space-y-3">
-                {[
-                  { t: "Intricate Shapes", d: "Ideal for complex contours and detailed cut patterns.", icon: "🎯" },
-                  { t: "Smooth Edge Finish", d: "Produces clean polished edges on suitable acrylic materials.", icon: "✨" },
-                  { t: "Fast Prototyping", d: "Suitable for prototype development and low-volume production.", icon: "⚡" },
-                  { t: "Retail Displays", d: "Perfect for display stands, signage and branded fixtures.", icon: "🏪" },
-                  { t: "Custom Fabrication", d: "Supports highly customized acrylic components.", icon: "🔧" },
-                  { t: "Efficient Production", d: "Suitable for repeat production with consistent quality.", icon: "📦" },
-                ].map((item) => (
-                  <div key={item.t} className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 hover:shadow-sm transition-all">
-                    <span className="text-xl shrink-0">{item.icon}</span>
-                    <div><h4 className="font-semibold text-[#0F2744] text-sm">{item.t}</h4><p className="text-xs text-gray-500 mt-0.5">{item.d}</p></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Consider Other Processes */}
-            <div>
-              <h3 className="text-lg font-semibold text-[#0F2744] mb-5">Consider Other Processes If</h3>
-              <div className="space-y-3">
-                {[
-                  { t: "Deep Grooves Required", d: "Consider CNC Machining.", link: "/services/cnc-machining" },
-                  { t: "Thick Material Processing", d: "Alternative machining methods may be more suitable.", link: "/services/cnc-machining" },
-                  { t: "Threaded Features", d: "Secondary machining may be required.", link: "/services/cnc-machining" },
-                  { t: "Three-Dimensional Machining", d: "CNC machining is often recommended.", link: "/services/cnc-machining" },
-                ].map((item) => (
-                  <Link key={item.t} href={item.link} className="flex items-start gap-3 rounded-xl border border-amber-100 bg-amber-50/50 p-4 hover:shadow-sm transition-all group">
-                    <span className="text-lg shrink-0">⚠️</span>
-                    <div className="flex-1"><h4 className="font-semibold text-[#0F2744] text-sm">{item.t}</h4><p className="text-xs text-gray-500 mt-0.5">{item.d}</p></div>
-                    <ArrowRight className="h-4 w-4 text-amber-500 shrink-0 mt-1 group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom highlight */}
-          <div className="mt-10 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-[#0F2744]">Not sure which process is right?</h3>
-            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
-              Our engineering team can review your drawings and recommend the most suitable manufacturing process based on your project goals.
-            </p>
-            <Link href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><Upload className="h-4 w-4" /> Upload Your Drawing</Link>
-          </div>
-        </section>
-
-        {/* Comparison: This Service vs CNC Machining */}
-        <section className="mt-28" aria-labelledby="comparison-heading">
-          <div className="max-w-[1280px] mx-auto text-center mb-12">
-            <h2 id="comparison-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
-              {s.title} vs CNC Machining
-            </h2>
-            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              Both {s.title.toLowerCase()} and CNC machining are widely used for custom acrylic fabrication. Choosing the right process depends on your design, material and performance requirements.
-            </p>
-          </div>
-
-          {/* Comparison table */}
-          <div className="max-w-3xl mx-auto rounded-2xl border border-gray-200 overflow-hidden bg-white">
-            {[
-              { label: "Suitable Materials", laser: "Cast & Extruded Acrylic, PETG, PC, ABS", cnc: "Cast & Extruded Acrylic, PETG, PC, ABS, PVC" },
-              { label: "Complex Shapes", laser: "Excellent for intricate 2D profiles", cnc: "Excellent for 3D contours" },
-              { label: "Edge Finish", laser: "Flame-polished straight from machine", cnc: "Requires secondary polishing" },
-              { label: "Production Speed", laser: "Fast for sheet cutting", cnc: "Faster for 3D features" },
-              { label: "Prototype Support", laser: "Quick turnaround, no tooling cost", cnc: "Quick turnaround, no tooling cost" },
-              { label: "Engraving Capability", laser: "Built-in, excellent detail", cnc: "Possible with V-bit tooling" },
-              { label: "Deep Machining", laser: "Limited to sheet thickness", cnc: "Excellent for deep pockets" },
-              { label: "3D Features", laser: "2D profile only", cnc: "Full 3D capability" },
-              { label: "Typical Applications", laser: "Displays, signage, panels, parts", cnc: "Structural parts, enclosures, fixtures" },
-            ].map((row, i) => (
-              <div key={i} className={`grid grid-cols-3 text-sm ${i === 0 ? "bg-gray-50 font-semibold text-[#0F2744]" : i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
-                <div className="px-5 py-3 border-r border-gray-100">{row.label}</div>
-                <div className="px-5 py-3 border-r border-gray-100 text-gray-600">{row.laser}</div>
-                <div className="px-5 py-3 text-gray-600">{row.cnc}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Info box */}
-          <div className="mt-10 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-[#0F2744]">Which Process Should You Choose?</h3>
-            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
-              {s.title} is generally preferred for intricate acrylic sheet fabrication, while CNC machining is better suited for projects requiring deep machining, complex three-dimensional features or tighter mechanical tolerances.
-            </p>
-            <div className="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/services/cnc-machining" className="inline-flex items-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors">View CNC Machining <ArrowRight className="h-4 w-4" /></Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote</Link>
-            </div>
           </div>
         </section>
 
@@ -591,4 +468,3 @@ export default async function ServicePage({ params }: Props) {
     </>
   );
 }
-
