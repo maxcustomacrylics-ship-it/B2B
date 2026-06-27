@@ -159,10 +159,34 @@ export default async function ServicePage({ params }: Props) {
           <div className="flex flex-wrap justify-center gap-2 text-sm">{steps.map((st,i)=>(<span key={i} className="flex items-center gap-2"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0F2744] text-white text-xs font-bold">{i+1}</span>{st}{i<steps.length-1&&<span className="text-gray-300 mx-1">→</span>}</span>))}</div>
         </div>
 
-        {/* Why Choose */}
-        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] text-center mb-8">Why Choose Max Custom Acrylics</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{["Engineering Support","Stable Quality","Professional Communication","Flexible MOQ","Worldwide Shipping"].map((w,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5 text-center"><Check className="h-5 w-5 text-green-600 mx-auto mb-2" /><h3 className="font-semibold text-[#0F2744] text-sm">{w}</h3></div>))}</div>
-        </div>
+        {/* Why Choose This Service */}
+        <section className="mt-28" aria-labelledby="why-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="why-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
+              Why Choose {s.title}?
+            </h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              {s.title.toLowerCase()} provides an ideal balance of precision, efficiency and design flexibility, making it one of the most widely used manufacturing methods for custom acrylic products.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: "🎯", title: "High Precision", desc: "Accurately cut complex shapes and detailed designs to meet demanding project requirements." },
+              { icon: "✨", title: "Clean Edge Finish", desc: "Produce smooth, polished-looking edges that often require minimal post-processing." },
+              { icon: "🎨", title: "Design Flexibility", desc: "Support custom dimensions, intricate patterns and unique product designs based on customer drawings." },
+              { icon: "⚡", title: "Efficient Production", desc: "An efficient process suitable for both prototypes and repeat production while maintaining consistent quality." },
+              { icon: "📐", title: "Material Compatibility", desc: "Suitable for a wide range of acrylic sheet types and thicknesses depending on project requirements." },
+              { icon: "🔧", title: "Engineering Support", desc: "Our engineering team reviews each project and recommends the most suitable manufacturing approach to optimize quality, cost and production efficiency." },
+            ].map((card) => (
+              <div key={card.title} className="group rounded-2xl border border-gray-200 bg-white p-6 hover:shadow-md hover:border-blue-200 transition-all">
+                <div className="text-2xl mb-3">{card.icon}</div>
+                <h3 className="font-semibold text-[#0F2744] text-sm">{card.title}</h3>
+                <p className="mt-2 text-sm text-gray-500 leading-relaxed">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* FAQ */}
         <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-8">Frequently Asked Questions</h2>
