@@ -2,17 +2,7 @@ import type { NavItem } from "@/lib/types";
 
 export const mainNav: NavItem[] = [
   { label: "home", href: "/" },
-  {
-    label: "capabilities", href: "",
-    children: [
-      { label: "Laser Cutting", href: "/services/laser-cutting" },
-      { label: "CNC Machining", href: "/services/cnc-machining" },
-      { label: "Diamond Polishing", href: "/services/diamond-polishing" },
-      { label: "UV Printing", href: "/services/uv-printing" },
-      { label: "Assembly", href: "/services/bonding-assembly" },
-      { label: "Quality Control", href: "/services/oem-project-support" },
-    ],
-  },
+  { label: "capabilities", href: "/capabilities" },
   {
     label: "products", href: "",
     children: [
