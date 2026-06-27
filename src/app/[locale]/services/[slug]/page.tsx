@@ -133,11 +133,40 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
-        {/* Materials */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-[#0F2744]">Materials Supported</h2>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{s.materials.map((m,i)=>(<div key={i} className="rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-700">{m}</div>))}</div>
-        </div>
+        {/* Materials We Process */}
+        <section className="mt-28" aria-labelledby="materials-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="materials-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">Materials We Process</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Selecting the right material is essential for achieving the desired appearance, durability and performance of your custom acrylic products. Our engineering team helps recommend the most suitable material based on your application and project requirements.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { name: "Cast Acrylic", badge: "Premium Finish", desc: "Excellent optical clarity and premium surface finish. Ideal for high-end displays, luxury retail fixtures, signage and custom fabricated products requiring glass-like transparency.", emoji: "💎" },
+              { name: "Extruded Acrylic", badge: "Cost Effective", desc: "A cost-effective material offering consistent thickness and excellent machinability. Suitable for general-purpose applications, volume production and projects with tighter budget requirements.", emoji: "📋" },
+              { name: "PETG", badge: "High Impact", desc: "A durable and impact-resistant plastic suitable for protective panels, retail displays, thermoformed products and applications requiring toughness without sacrificing clarity.", emoji: "🛡" },
+              { name: "Polycarbonate (PC)", badge: "Maximum Strength", desc: "A high-strength engineering plastic providing outstanding impact resistance — 250× stronger than glass. Used for demanding industrial, safety and structural applications.", emoji: "🔩" },
+              { name: "ABS", badge: "Industrial Grade", desc: "A versatile engineering plastic commonly used for functional components, equipment housings, industrial parts and applications requiring rigidity and durability.", emoji: "⚙️" },
+              { name: "PVC Foam Board", badge: "Lightweight", desc: "A lightweight material suitable for signage, exhibition graphics, indoor display applications and projects where weight reduction is a priority without sacrificing print quality.", emoji: "📰" },
+            ].map((mat) => (
+              <div key={mat.name} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col">
+                {/* Image */}
+                <div className="aspect-[4/3] bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden relative">
+                  <span className="text-6xl opacity-30 transition-transform duration-300 group-hover:scale-110 select-none">{mat.emoji}</span>
+                  <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-[#0F2744] shadow-sm">{mat.badge}</span>
+                </div>
+                {/* Content */}
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-semibold text-[#0F2744]">{mat.name}</h3>
+                  <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">{mat.desc}</p>
+                  <Link href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-4 w-4" /></Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Specs + Applications */}
         <div className="mt-16 grid gap-10 lg:grid-cols-2">
