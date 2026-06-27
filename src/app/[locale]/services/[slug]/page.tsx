@@ -24,7 +24,12 @@ export default async function ServicePage({ params }: Props) {
   const s = getServicePage(slug);
   if (!s) notFound();
 
-  const faqSchema = generateFAQSchema(s.faqs);
+  const faqSchema = generateFAQSchema([
+    { question: "Can you manufacture from my drawings or samples?", answer: "Yes. We can review CAD files, technical drawings or physical samples and recommend the most suitable manufacturing solution before production begins." },
+    { question: "Can I request a prototype before mass production?", answer: "Yes. Prototype development is available for many projects, allowing you to evaluate dimensions, appearance and functionality before proceeding with larger production quantities." },
+    { question: "How is product quality controlled?", answer: "Each project is reviewed by our engineering team and undergoes quality inspection before packaging to help ensure products meet the approved specifications." },
+    { question: "Do you support international shipping?", answer: "Yes. We coordinate worldwide delivery and can arrange packaging suitable for international transportation according to customer requirements." },
+  ]);
   const bcSchema = generateBreadcrumbSchema([
     { name: "Home", url: SITE_URL },{ name: "Services", url: `${SITE_URL}/services` },{ name: s.title, url: `${SITE_URL}/services/${slug}` },
   ]);
@@ -333,9 +338,50 @@ export default async function ServicePage({ params }: Props) {
         </section>
 
         {/* FAQ */}
-        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-8">Frequently Asked Questions</h2>
-          <div className="space-y-4 max-w-3xl">{s.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.question}</h3><p className="mt-2 text-sm text-gray-500">{f.answer}</p></div>))}</div>
-        </div>
+        <section className="mt-28" aria-labelledby="faq-heading">
+          <div className="max-w-[1000px] mx-auto">
+            <div className="text-center mb-10">
+              <h2 id="faq-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">Frequently Asked Questions</h2>
+              <p className="mt-3 text-gray-500 max-w-xl mx-auto leading-relaxed">
+                Find answers to the most common questions about custom acrylic {s.title.toLowerCase()}, engineering support, materials, production and worldwide delivery.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                { q: "Can you manufacture from my drawings or samples?", a: "Yes. We can review CAD files, technical drawings or physical samples and recommend the most suitable manufacturing solution before production begins." },
+                { q: "What file formats do you accept?", a: "We commonly work with AI, PDF, DXF, DWG, STEP and IGES files. If you are unsure, simply send us your available files and our engineering team will review them." },
+                { q: "Can I request a prototype before mass production?", a: "Yes. Prototype development is available for many projects, allowing you to evaluate dimensions, appearance and functionality before proceeding with larger production quantities." },
+                { q: "Which materials are available for laser cutting?", a: "Depending on your application, we can coordinate the processing of Cast Acrylic, Extruded Acrylic, PETG, Polycarbonate, ABS and other suitable plastic materials." },
+                { q: "Can laser cutting be combined with other manufacturing processes?", a: "Yes. Laser cutting can be combined with services such as UV printing, diamond polishing, CNC machining and assembly according to project requirements." },
+                { q: "How is product quality controlled?", a: "Each project is reviewed by our engineering team and undergoes quality inspection before packaging to help ensure products meet the approved specifications." },
+                { q: "Do you support international shipping?", a: "Yes. We coordinate worldwide delivery and can arrange packaging suitable for international transportation according to customer requirements." },
+                { q: "How can I start my custom acrylic project?", a: "Simply send us your drawings, product specifications or project ideas through the Request a Quote or Upload Your Drawing buttons. Our engineering team will review your requirements and provide recommendations." },
+              ].map((faq, i) => (
+                <details key={i} className="group rounded-2xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden" open={i === 0}>
+                  <summary className="cursor-pointer px-6 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-4">
+                    <span>{faq.q}</span>
+                    <span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span>
+                    <span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span>
+                  </summary>
+                  <p className="px-6 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+                </details>
+              ))}
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-10 rounded-2xl bg-gray-50 border border-gray-200 p-8 text-center">
+              <h3 className="text-xl font-bold text-[#0F2744]">Still Have Questions?</h3>
+              <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
+                Our engineering team is happy to review your project and recommend the most suitable manufacturing solution.
+              </p>
+              <div className="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote</Link>
+                <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border-2 border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:border-[#0F2744] transition-colors"><Upload className="h-4 w-4" /> Upload Your Drawing</Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Industries We Support */}
         <section className="mt-28" aria-labelledby="industries-heading">
