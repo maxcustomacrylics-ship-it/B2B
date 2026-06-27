@@ -307,6 +307,68 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
+        {/* When Should You Choose */}
+        <section className="mt-28" aria-labelledby="when-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="when-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
+              When Should You Choose {s.title}?
+            </h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              {s.title} is an excellent choice for many custom acrylic applications, but selecting the right manufacturing process depends on your design, material and project requirements.
+            </p>
+          </div>
+
+          <div className="grid gap-10 lg:grid-cols-2">
+            {/* Left: Best Applications */}
+            <div>
+              <h3 className="text-lg font-semibold text-[#0F2744] mb-5">Best Applications</h3>
+              <div className="space-y-3">
+                {[
+                  { t: "Intricate Shapes", d: "Ideal for complex contours and detailed cut patterns.", icon: "🎯" },
+                  { t: "Smooth Edge Finish", d: "Produces clean polished edges on suitable acrylic materials.", icon: "✨" },
+                  { t: "Fast Prototyping", d: "Suitable for prototype development and low-volume production.", icon: "⚡" },
+                  { t: "Retail Displays", d: "Perfect for display stands, signage and branded fixtures.", icon: "🏪" },
+                  { t: "Custom Fabrication", d: "Supports highly customized acrylic components.", icon: "🔧" },
+                  { t: "Efficient Production", d: "Suitable for repeat production with consistent quality.", icon: "📦" },
+                ].map((item) => (
+                  <div key={item.t} className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 hover:shadow-sm transition-all">
+                    <span className="text-xl shrink-0">{item.icon}</span>
+                    <div><h4 className="font-semibold text-[#0F2744] text-sm">{item.t}</h4><p className="text-xs text-gray-500 mt-0.5">{item.d}</p></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Consider Other Processes */}
+            <div>
+              <h3 className="text-lg font-semibold text-[#0F2744] mb-5">Consider Other Processes If</h3>
+              <div className="space-y-3">
+                {[
+                  { t: "Deep Grooves Required", d: "Consider CNC Machining.", link: "/services/cnc-machining" },
+                  { t: "Thick Material Processing", d: "Alternative machining methods may be more suitable.", link: "/services/cnc-machining" },
+                  { t: "Threaded Features", d: "Secondary machining may be required.", link: "/services/cnc-machining" },
+                  { t: "Three-Dimensional Machining", d: "CNC machining is often recommended.", link: "/services/cnc-machining" },
+                ].map((item) => (
+                  <Link key={item.t} href={item.link} className="flex items-start gap-3 rounded-xl border border-amber-100 bg-amber-50/50 p-4 hover:shadow-sm transition-all group">
+                    <span className="text-lg shrink-0">⚠️</span>
+                    <div className="flex-1"><h4 className="font-semibold text-[#0F2744] text-sm">{item.t}</h4><p className="text-xs text-gray-500 mt-0.5">{item.d}</p></div>
+                    <ArrowRight className="h-4 w-4 text-amber-500 shrink-0 mt-1 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom highlight */}
+          <div className="mt-10 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-[#0F2744]">Not sure which process is right?</h3>
+            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
+              Our engineering team can review your drawings and recommend the most suitable manufacturing process based on your project goals.
+            </p>
+            <Link href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><Upload className="h-4 w-4" /> Upload Your Drawing</Link>
+          </div>
+        </section>
+
         {/* Why Choose This Service */}
         <section className="mt-28" aria-labelledby="why-heading">
           <div className="max-w-[1280px] mx-auto text-center mb-12">
