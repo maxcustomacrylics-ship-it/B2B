@@ -27,7 +27,6 @@ export default function LaserCuttingPage() {
               <Breadcrumb
                 items={[
                   { label: "Home", href: "/" },
-                  { label: "Services", href: "/services" },
                   { label: "Laser Cutting" },
                 ]}
               />
