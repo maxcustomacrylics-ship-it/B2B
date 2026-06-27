@@ -2,7 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import { ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe } from "lucide-react";
+import {
+  ArrowRight,
+  Upload,
+  Cog,
+  Wrench,
+  ShieldCheck,
+  Globe,
+  PenTool,
+  Zap,
+  Store,
+  Sliders,
+  Repeat,
+  AlertTriangle,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Custom Acrylic Laser Cutting Services | Max Custom Acrylics",
@@ -139,6 +152,154 @@ export default function LaserCuttingPage() {
         </Container>
       </section>
       {/* ========== END HERO SECTION ========== */}
+
+      {/* ========== WHEN TO CHOOSE SECTION ========== */}
+      <section
+        className="bg-gray-50"
+        aria-labelledby="when-to-choose-heading"
+      >
+        <Container className="py-16 lg:py-24">
+          {/* Section heading */}
+          <div className="max-w-[720px]">
+            <h2
+              id="when-to-choose-heading"
+              className="text-3xl font-bold text-[#0F2744] sm:text-4xl"
+            >
+              When Should You Choose Laser Cutting?
+            </h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Laser cutting is an excellent choice for many custom acrylic
+              applications, but selecting the right manufacturing process
+              depends on your design, material and project requirements.
+            </p>
+          </div>
+
+          {/* Two columns */}
+          <div className="mt-12 grid gap-10 lg:grid-cols-[7fr_5fr]">
+            {/* —— Left Column: Best Applications —— */}
+            <div>
+              <h3 className="text-xl font-semibold text-[#0F2744]">
+                Best Applications
+              </h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {[
+                  {
+                    icon: PenTool,
+                    title: "Intricate Shapes",
+                    desc: "Ideal for complex contours and detailed cut patterns.",
+                  },
+                  {
+                    icon: Zap,
+                    title: "Smooth Edge Finish",
+                    desc: "Produces clean polished edges on suitable acrylic materials.",
+                  },
+                  {
+                    icon: Repeat,
+                    title: "Fast Prototyping",
+                    desc: "Suitable for prototype development and low-volume production.",
+                  },
+                  {
+                    icon: Store,
+                    title: "Retail Displays",
+                    desc: "Perfect for display stands, signage and branded fixtures.",
+                  },
+                  {
+                    icon: Sliders,
+                    title: "Custom Fabrication",
+                    desc: "Supports highly customized acrylic components.",
+                  },
+                  {
+                    icon: Cog,
+                    title: "Efficient Production",
+                    desc: "Suitable for repeat production with consistent quality.",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+                  >
+                    <div className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-50 text-[#0F2744]">
+                      <item.icon className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <h4 className="mt-3 text-sm font-semibold text-[#0F2744]">
+                      {item.title}
+                    </h4>
+                    <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* —— Right Column: Consider Other Processes If —— */}
+            <div>
+              <h3 className="text-xl font-semibold text-[#0F2744]">
+                Consider Other Processes If
+              </h3>
+              <div className="mt-6 space-y-4">
+                {[
+                  {
+                    title: "Deep Grooves Required",
+                    desc: "Consider CNC Machining.",
+                  },
+                  {
+                    title: "Thick Material Processing",
+                    desc: "Alternative machining methods may be more suitable.",
+                  },
+                  {
+                    title: "Threaded Features",
+                    desc: "Secondary machining may be required.",
+                  },
+                  {
+                    title: "Three-Dimensional Machining",
+                    desc: "CNC machining is often recommended.",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-xl border border-amber-200 bg-amber-50/50 p-5"
+                  >
+                    <div className="flex gap-3">
+                      <AlertTriangle
+                        className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5"
+                        aria-hidden="true"
+                      />
+                      <div>
+                        <h4 className="text-sm font-semibold text-[#0F2744]">
+                          {item.title}
+                        </h4>
+                        <p className="mt-1 text-sm text-gray-500 leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Highlight CTA */}
+          <div className="mt-14 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">
+              Not sure which process is right?
+            </h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">
+              Our engineering team can review your drawings and recommend the
+              most suitable manufacturing process based on your project goals.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"
+            >
+              <Upload className="h-4 w-4" aria-hidden="true" />
+              Upload Your Drawing
+            </Link>
+          </div>
+        </Container>
+      </section>
+      {/* ========== END WHEN TO CHOOSE SECTION ========== */}
     </>
   );
 }
