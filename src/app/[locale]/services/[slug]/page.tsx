@@ -213,6 +213,56 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
+        {/* Products Manufactured with This Service */}
+        <section className="mt-28" aria-labelledby="products-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="products-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
+              Products Manufactured with {s.title}
+            </h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Explore some of the custom acrylic products commonly produced using precision {s.title.toLowerCase()} for retail, commercial and industrial applications.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { name: "Acrylic Display Stand", tags: ["Laser Cut","Retail","OEM"], desc: "Custom display stands for retail counters, trade shows and product showcases with clean edges and precise dimensions.", emoji: "🖼" },
+              { name: "Acrylic Display Box", tags: ["Custom","Display","Retail"], desc: "Transparent display cases and boxes with polished edges for showcasing products in retail environments.", emoji: "📦" },
+              { name: "Acrylic Sign", tags: ["Laser Cut","Commercial","Custom"], desc: "Professional interior signage with crisp lettering, custom shapes and precision-cut mounting holes.", emoji: "📋" },
+              { name: "POP Display", tags: ["Retail","OEM","Display"], desc: "Point-of-purchase display components manufactured to brand specifications for retail marketing campaigns.", emoji: "🏪" },
+              { name: "Acrylic Brochure Holder", tags: ["Commercial","Custom","Retail"], desc: "Wall-mounted and counter-top literature holders with precision-cut pockets for professional presentation.", emoji: "📄" },
+              { name: "Protective Shield", tags: ["Industrial","Medical","Custom"], desc: "Transparent protective barriers and panels manufactured to precise dimensions for commercial and medical use.", emoji: "🛡" },
+              { name: "Custom Acrylic Panel", tags: ["Custom","Laser Cut","OEM"], desc: "Bespoke acrylic panels cut to customer specifications with custom shapes, holes and edge finishing.", emoji: "🔲" },
+              { name: "Custom Acrylic Parts", tags: ["OEM","Industrial","Custom"], desc: "Precision-fabricated acrylic components and parts manufactured according to engineering drawings and CAD files.", emoji: "⚙️" },
+            ].map((prod) => (
+              <Link key={prod.name} href="/products" className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col">
+                <div className="aspect-square bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden relative">
+                  <span className="text-6xl opacity-30 transition-transform duration-300 group-hover:scale-110 select-none">{prod.emoji}</span>
+                </div>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="font-semibold text-[#0F2744] text-sm">{prod.name}</h3>
+                  <p className="mt-1.5 text-xs text-gray-500 leading-relaxed flex-1">{prod.desc}</p>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {prod.tags.map((tag) => (<span key={tag} className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">{tag}</span>))}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-12 rounded-2xl bg-gray-50 border border-gray-200 p-8 text-center max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-[#0F2744]">Looking for a Custom Acrylic Product?</h3>
+            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
+              Share your drawings or project requirements and our engineering team will recommend the most suitable manufacturing solution.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote</Link>
+              <Link href="/products" className="inline-flex items-center gap-2 rounded-lg border-2 border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:border-[#0F2744] transition-colors">Browse All Products</Link>
+            </div>
+          </div>
+        </section>
+
         {/* Process Flow */}
         <div className="mt-16 rounded-xl bg-gray-50 p-8">
           <h2 className="text-2xl font-bold text-[#0F2744] text-center mb-8">How We Deliver Your Project</h2>
