@@ -369,6 +369,51 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
+        {/* Comparison: This Service vs CNC Machining */}
+        <section className="mt-28" aria-labelledby="comparison-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="comparison-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
+              {s.title} vs CNC Machining
+            </h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Both {s.title.toLowerCase()} and CNC machining are widely used for custom acrylic fabrication. Choosing the right process depends on your design, material and performance requirements.
+            </p>
+          </div>
+
+          {/* Comparison table */}
+          <div className="max-w-3xl mx-auto rounded-2xl border border-gray-200 overflow-hidden bg-white">
+            {[
+              { label: "Suitable Materials", laser: "Cast & Extruded Acrylic, PETG, PC, ABS", cnc: "Cast & Extruded Acrylic, PETG, PC, ABS, PVC" },
+              { label: "Complex Shapes", laser: "Excellent for intricate 2D profiles", cnc: "Excellent for 3D contours" },
+              { label: "Edge Finish", laser: "Flame-polished straight from machine", cnc: "Requires secondary polishing" },
+              { label: "Production Speed", laser: "Fast for sheet cutting", cnc: "Faster for 3D features" },
+              { label: "Prototype Support", laser: "Quick turnaround, no tooling cost", cnc: "Quick turnaround, no tooling cost" },
+              { label: "Engraving Capability", laser: "Built-in, excellent detail", cnc: "Possible with V-bit tooling" },
+              { label: "Deep Machining", laser: "Limited to sheet thickness", cnc: "Excellent for deep pockets" },
+              { label: "3D Features", laser: "2D profile only", cnc: "Full 3D capability" },
+              { label: "Typical Applications", laser: "Displays, signage, panels, parts", cnc: "Structural parts, enclosures, fixtures" },
+            ].map((row, i) => (
+              <div key={i} className={`grid grid-cols-3 text-sm ${i === 0 ? "bg-gray-50 font-semibold text-[#0F2744]" : i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}>
+                <div className="px-5 py-3 border-r border-gray-100">{row.label}</div>
+                <div className="px-5 py-3 border-r border-gray-100 text-gray-600">{row.laser}</div>
+                <div className="px-5 py-3 text-gray-600">{row.cnc}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Info box */}
+          <div className="mt-10 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-[#0F2744]">Which Process Should You Choose?</h3>
+            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
+              {s.title} is generally preferred for intricate acrylic sheet fabrication, while CNC machining is better suited for projects requiring deep machining, complex three-dimensional features or tighter mechanical tolerances.
+            </p>
+            <div className="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/services/cnc-machining" className="inline-flex items-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors">View CNC Machining <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote</Link>
+            </div>
+          </div>
+        </section>
+
         {/* Why Choose This Service */}
         <section className="mt-28" aria-labelledby="why-heading">
           <div className="max-w-[1280px] mx-auto text-center mb-12">
