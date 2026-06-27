@@ -19,8 +19,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${s.h1} | Max Custom Acrylics`, description: s.metaDesc };
 }
 
-const steps = ["Inquiry","Drawing Review","Quotation","Prototype","Production","Inspection","Packaging","Shipping"];
-
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
   const s = getServicePage(slug);
@@ -263,11 +261,47 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
-        {/* Process Flow */}
-        <div className="mt-16 rounded-xl bg-gray-50 p-8">
-          <h2 className="text-2xl font-bold text-[#0F2744] text-center mb-8">How We Deliver Your Project</h2>
-          <div className="flex flex-wrap justify-center gap-2 text-sm">{steps.map((st,i)=>(<span key={i} className="flex items-center gap-2"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0F2744] text-white text-xs font-bold">{i+1}</span>{st}{i<steps.length-1&&<span className="text-gray-300 mx-1">→</span>}</span>))}</div>
-        </div>
+        {/* How Your Project Works */}
+        <section className="mt-28" aria-labelledby="workflow-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="workflow-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">
+              How Your {s.title} Project Works
+            </h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              From your initial inquiry to worldwide delivery, our engineering team coordinates every step to help ensure a smooth, efficient and quality-controlled manufacturing process.
+            </p>
+          </div>
+
+          {/* Steps grid */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { num: "01", icon: "📋", title: "Request & Drawing Review", desc: "Share your drawings, samples or project requirements. Our engineering team reviews the design and manufacturing feasibility." },
+              { num: "02", icon: "🔬", title: "Material Recommendation", desc: "We recommend suitable materials and manufacturing options based on your product application, appearance and performance requirements." },
+              { num: "03", icon: "📊", title: "Quotation & Confirmation", desc: "Receive a detailed quotation, review the project scope and confirm specifications before production begins." },
+              { num: "04", icon: "⚙️", title: "Prototype or Production", desc: "Depending on your project requirements, we coordinate prototype development or full-scale production through qualified manufacturing partners." },
+              { num: "05", icon: "✅", title: "Quality Inspection", desc: "Every order undergoes quality inspection before packaging to help ensure it meets the approved project requirements." },
+              { num: "06", icon: "🚚", title: "Packaging & Worldwide Delivery", desc: "Products are carefully packaged and arranged for reliable international shipment according to customer requirements." },
+            ].map((step) => (
+              <div key={step.num} className="group rounded-2xl border border-gray-200 bg-white p-6 hover:shadow-md hover:border-blue-200 transition-all">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700 text-lg">{step.icon}</span>
+                  <span className="text-xs font-bold text-blue-600 tracking-wider">{step.num}</span>
+                </div>
+                <h3 className="font-semibold text-[#0F2744] text-sm">{step.title}</h3>
+                <p className="mt-2 text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Info Box */}
+          <div className="mt-12 rounded-2xl bg-blue-50 border border-blue-100 p-8 text-center max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-[#0F2744]">Need Engineering Assistance?</h3>
+            <p className="mt-2 text-gray-500 leading-relaxed max-w-lg mx-auto">
+              Not sure which manufacturing process or material is right for your project? Our engineering team can review your drawings and recommend the most suitable solution before production begins.
+            </p>
+            <Link href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm"><Upload className="h-4 w-4" /> Upload Your Drawing</Link>
+          </div>
+        </section>
 
         {/* Why Choose This Service */}
         <section className="mt-28" aria-labelledby="why-heading">
