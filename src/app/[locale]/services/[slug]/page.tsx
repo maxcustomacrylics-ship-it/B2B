@@ -8,6 +8,7 @@ import { generateFAQSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
 import { getServicePage, servicePages } from "@/data/service-pages";
 import { ArrowRight, Check, Upload, Search, Cog, ShieldCheck, Globe } from "lucide-react";
+// Build cache bust: 2026-06-27-v2
 
 type Props = { params: Promise<{ slug: string }> };
 
