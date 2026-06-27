@@ -28,6 +28,11 @@ import {
   Star,
   ShoppingBag,
   FileText,
+  Ruler,
+  ScanEye,
+  Puzzle,
+  MessageSquare,
+  Lightbulb,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -643,6 +648,153 @@ export default function LaserCuttingPage() {
         </Container>
       </section>
       {/* ========== END MATERIAL COMPATIBILITY SECTION ========== */}
+
+      {/* ========== DESIGN GUIDELINES SECTION ========== */}
+      <section className="bg-white" aria-labelledby="design-guidelines-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2
+              id="design-guidelines-heading"
+              className="text-3xl font-bold text-[#0F2744] sm:text-4xl"
+            >
+              Design Guidelines for Better Laser Cutting Results
+            </h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Following good design practices helps improve manufacturing
+              efficiency, product quality and overall project success.
+            </p>
+          </div>
+
+          {/* Two columns */}
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+            {/* —— Left: Design Recommendation Cards —— */}
+            <div className="space-y-4">
+              {[
+                {
+                  icon: FileText,
+                  title: "Use Vector Files",
+                  desc: "Preferred formats include AI, DXF and DWG. Vector files preserve precise geometry and ensure accurate toolpath generation for laser cutting.",
+                },
+                {
+                  icon: Ruler,
+                  title: "Consider Material Thickness",
+                  desc: "Choose material thickness according to product function. Thinner sheets cut faster and are more economical; thicker materials provide structural rigidity.",
+                },
+                {
+                  icon: ScanEye,
+                  title: "Avoid Extremely Small Details",
+                  desc: "Very fine details may increase manufacturing complexity. Maintain minimum feature sizes proportional to material thickness for consistent, reliable results.",
+                },
+                {
+                  icon: Puzzle,
+                  title: "Plan Assembly Features",
+                  desc: "Design slots, tabs and interlocking features with assembly requirements in mind. Include appropriate clearances for a smooth fit without excessive play.",
+                },
+                {
+                  icon: MessageSquare,
+                  title: "Consult Engineering Early",
+                  desc: "Early design review can reduce revisions and production costs. Our engineering team can identify potential manufacturing issues before you finalize your design.",
+                },
+              ].map((item, i) => (
+                <div
+                  key={item.title}
+                  className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex gap-4">
+                    {/* Step number */}
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0F2744] text-white flex items-center justify-center text-xs font-bold">
+                      {i + 1}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <item.icon className="h-4 w-4 text-[#0F2744]" aria-hidden="true" />
+                        <h3 className="text-sm font-semibold text-[#0F2744]">
+                          {item.title}
+                        </h3>
+                      </div>
+                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* —— Right: Design Illustration —— */}
+            <div className="relative" aria-hidden="true">
+              <div className="sticky top-24 rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+                {/* CAD-style diagram */}
+                <div className="aspect-[4/5] flex items-center justify-center p-8">
+                  <svg
+                    className="w-full h-full max-w-[320px]"
+                    viewBox="0 0 200 260"
+                    fill="none"
+                    stroke="#0F2744"
+                    strokeWidth="0.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    {/* Outer frame */}
+                    <rect x="20" y="20" width="160" height="220" rx="4" stroke="#cbd5e1" strokeWidth="1" />
+                    {/* Inner cut shape */}
+                    <rect x="50" y="50" width="100" height="80" rx="2" stroke="#0F2744" strokeWidth="1.2" strokeDasharray="4 2" />
+                    {/* Dimension lines */}
+                    <line x1="50" y1="40" x2="150" y2="40" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="50" y1="36" x2="50" y2="44" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="150" y1="36" x2="150" y2="44" stroke="#94a3b8" strokeWidth="0.6" />
+                    <text x="90" y="36" fontSize="6" fill="#94a3b8" stroke="none">100.0 mm</text>
+                    {/* Vertical dimension */}
+                    <line x1="40" y1="50" x2="40" y2="130" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="36" y1="50" x2="44" y2="50" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="36" y1="130" x2="44" y2="130" stroke="#94a3b8" strokeWidth="0.6" />
+                    <text x="22" y="90" fontSize="6" fill="#94a3b8" stroke="none" transform="rotate(-90 22 90)">80.0 mm</text>
+                    {/* Slot feature */}
+                    <rect x="70" y="155" width="15" height="30" rx="1" stroke="#0F2744" strokeWidth="0.8" />
+                    {/* Tab feature */}
+                    <rect x="115" y="175" width="20" height="8" rx="1" stroke="#0F2744" strokeWidth="0.8" />
+                    {/* Annotation lines */}
+                    <line x1="85" y1="155" x2="85" y2="142" stroke="#64748b" strokeWidth="0.5" />
+                    <line x1="85" y1="142" x2="120" y2="142" stroke="#64748b" strokeWidth="0.5" />
+                    <text x="125" y="140" fontSize="6" fill="#64748b" stroke="none">Slot 15×30mm</text>
+                    <line x1="135" y1="175" x2="135" y2="198" stroke="#64748b" strokeWidth="0.5" />
+                    <line x1="135" y1="198" x2="155" y2="198" stroke="#64748b" strokeWidth="0.5" />
+                    <text x="160" y="196" fontSize="6" fill="#64748b" stroke="none">Tab 20×8mm</text>
+                    {/* Corner radius callout */}
+                    <circle cx="50" cy="50" r="20" stroke="#64748b" strokeWidth="0.4" fill="none" />
+                    <line x1="70" y1="50" x2="78" y2="50" stroke="#64748b" strokeWidth="0.5" />
+                    <text x="80" y="52" fontSize="5" fill="#64748b" stroke="none">R20</text>
+                  </svg>
+                </div>
+                {/* Caption */}
+                <div className="px-6 pb-6 text-center">
+                  <p className="text-xs text-gray-400">Recommended: submit vector CAD files with dimensions and tolerances</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">
+              Need help reviewing your design?
+            </h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">
+              Our engineering team can review your CAD files and provide
+              feedback on manufacturability before you commit to production.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"
+            >
+              <Upload className="h-4 w-4" aria-hidden="true" />
+              Upload Your Drawing
+            </Link>
+          </div>
+        </Container>
+      </section>
+      {/* ========== END DESIGN GUIDELINES SECTION ========== */}
     </>
   );
 }
