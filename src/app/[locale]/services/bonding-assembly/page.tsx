@@ -264,30 +264,6 @@ export default function AssemblyPage() {
         </Container>
       </section>
 
-      {/* ========== TYPICAL APPLICATIONS SECTION ========== */}
-      <section className="bg-white" aria-labelledby="assembly-applications-heading">
-        <Container className="py-16 lg:py-24">
-          <div className="max-w-[720px]"><h2 id="assembly-applications-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Typical Applications of Acrylic Assembly & Packaging</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Professional assembly transforms individual acrylic components into complete, retail-ready products with integrated hardware and protective packaging.</p></div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Display Cases", desc: "Crystal-clear bonded display cases with seamless joints for luxury product presentation in retail and exhibition environments.", materials: "Cast Acrylic", color: "from-blue-100 to-blue-50", icon: "🖼" },
-              { title: "Aquariums & Enclosures", desc: "Water-tight solvent-bonded enclosures with structural integrity for aquatic displays and environmental chambers.", materials: "Cast Acrylic", color: "from-cyan-100 to-cyan-50", icon: "🐠" },
-              { title: "Retail Fixtures", desc: "Multi-component retail displays with integrated hardware — hinges, locks, standoffs — assembled and ready for installation.", materials: "Cast Acrylic, Extruded Acrylic", color: "from-sky-100 to-sky-50", icon: "🏪" },
-              { title: "Product Enclosures", desc: "Protective housings combining acrylic panels with hardware integration for electronic devices and mechanical assemblies.", materials: "PETG, Polycarbonate", color: "from-slate-100 to-slate-50", icon: "📱" },
-              { title: "POP Displays", desc: "Ready-to-deploy promotional displays with printed graphics, assembled hardware and retail-ready packaging.", materials: "Extruded Acrylic", color: "from-amber-100 to-amber-50", icon: "📢" },
-              { title: "Custom Furniture Parts", desc: "Acrylic furniture components with bonded joints, threaded hardware and protective packaging for safe transport.", materials: "Cast Acrylic", color: "from-emerald-100 to-emerald-50", icon: "🪑" },
-              { title: "Museum Vitrines", desc: "Precision-assembled display vitrines with invisible bonded joints and integrated lighting hardware for artifact protection.", materials: "Cast Acrylic", color: "from-purple-100 to-purple-50", icon: "🏛" },
-              { title: "Export-Ready Products", desc: "Fully assembled, quality-inspected products with custom foam inserts and export-grade crating for international delivery.", materials: "Cast Acrylic", color: "from-teal-100 to-teal-50", icon: "🚢" },
-            ].map((item) => (
-              <div key={item.title} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${item.color} flex items-center justify-center`}><span className="text-4xl select-none">{item.icon}</span></div>
-                <div className="p-4 flex flex-col flex-1"><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1">{item.desc}</p><span className="mt-3 inline-block text-xs text-gray-400"><span className="font-medium text-gray-500">Typical Materials:</span> {item.materials}</span><Link href="/contact" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-3 w-3" aria-hidden="true" /></Link></div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* ========== FILE PREPARATION GUIDE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="assembly-files-heading">
         <Container className="py-16 lg:py-24">

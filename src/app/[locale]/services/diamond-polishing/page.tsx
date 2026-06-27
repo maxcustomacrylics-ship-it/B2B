@@ -264,30 +264,6 @@ export default function DiamondPolishingPage() {
         </Container>
       </section>
 
-      {/* ========== TYPICAL APPLICATIONS SECTION ========== */}
-      <section className="bg-white" aria-labelledby="dp-applications-heading">
-        <Container className="py-16 lg:py-24">
-          <div className="max-w-[720px]"><h2 id="dp-applications-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Typical Applications of Diamond Polished Acrylic</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Diamond polishing delivers the highest quality edge finish for premium products where visual excellence is paramount.</p></div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Luxury Retail Displays", desc: "Optical-grade polished edges for flagship store displays, cosmetics counters and premium brand presentation.", materials: "Cast Acrylic", color: "from-blue-100 to-blue-50", icon: "💎" },
-              { title: "Corporate Awards", desc: "Flawless edge finish for recognition trophies and plaques. Glass-like clarity elevates perceived value and prestige.", materials: "Cast Acrylic", color: "from-amber-100 to-amber-50", icon: "🏆" },
-              { title: "Architectural Features", desc: "Premium polished edges for architectural acrylic elements including balustrades, feature walls and decorative installations.", materials: "Cast Acrylic", color: "from-sky-100 to-sky-50", icon: "🏛" },
-              { title: "Museum Vitrines", desc: "Crystal-clear display cases with invisible seams. Optical-grade edges ensure artifact presentation without visual distraction.", materials: "Cast Acrylic", color: "from-emerald-100 to-emerald-50", icon: "🖼" },
-              { title: "Jewelry Display Cases", desc: "Premium edge clarity that complements fine jewelry. Diamond-polished acrylic provides an invisible, luxurious backdrop.", materials: "Cast Acrylic", color: "from-purple-100 to-purple-50", icon: "💍" },
-              { title: "Premium Gift Products", desc: "Elevated presentation for corporate gifts and luxury accessories. Polished edges signal quality and attention to detail.", materials: "Cast Acrylic", color: "from-rose-100 to-rose-50", icon: "🎁" },
-              { title: "High-End Signage", desc: "Premium polished sign panels for luxury brands, corporate headquarters and flagship locations.", materials: "Cast Acrylic", color: "from-indigo-100 to-indigo-50", icon: "✨" },
-              { title: "Executive Desktop Items", desc: "Polished acrylic desk accessories, name plates and office items that reflect executive-level quality standards.", materials: "Cast Acrylic", color: "from-teal-100 to-teal-50", icon: "🖊" },
-            ].map((item) => (
-              <div key={item.title} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${item.color} flex items-center justify-center`}><span className="text-4xl select-none">{item.icon}</span></div>
-                <div className="p-4 flex flex-col flex-1"><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1">{item.desc}</p><span className="mt-3 inline-block text-xs text-gray-400"><span className="font-medium text-gray-500">Typical Materials:</span> {item.materials}</span><Link href="/contact" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-3 w-3" aria-hidden="true" /></Link></div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* ========== FILE PREPARATION GUIDE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="dp-files-heading">
         <Container className="py-16 lg:py-24">

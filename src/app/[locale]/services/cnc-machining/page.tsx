@@ -377,30 +377,6 @@ export default function CncMachiningPage() {
         </Container>
       </section>
 
-      {/* ========== TYPICAL APPLICATIONS SECTION ========== */}
-      <section className="bg-white" aria-labelledby="cnc-applications-heading">
-        <Container className="py-16 lg:py-24">
-          <div className="max-w-[720px]"><h2 id="cnc-applications-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Typical Applications of CNC Acrylic Machining</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">CNC machining enables complex 3D acrylic parts with mechanical features that go beyond flat sheet fabrication.</p></div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Display Stands", desc: "Beveled edges, threaded inserts and contoured surfaces for premium retail display stands with integrated assembly features.", materials: "Cast Acrylic", color: "from-blue-100 to-blue-50", icon: "🖥" },
-              { title: "Architectural Panels", desc: "Precision-drilled mounting holes and V-groove details for architectural installations requiring accurate fit and finish.", materials: "Cast Acrylic, Extruded Acrylic", color: "from-sky-100 to-sky-50", icon: "🏗" },
-              { title: "Machine Guards", desc: "Impact-resistant enclosures with threaded mounting points for industrial equipment safety and operator protection.", materials: "Polycarbonate", color: "from-amber-100 to-amber-50", icon: "⚙️" },
-              { title: "Electronic Enclosures", desc: "Custom housings with precise cutouts, vents and mounting bosses for electronic device integration and thermal management.", materials: "ABS, Polycarbonate", color: "from-slate-100 to-slate-50", icon: "🔌" },
-              { title: "Medical Equipment", desc: "Precision-machined PETG housings with smooth contours and mounting features for healthcare device applications.", materials: "PETG", color: "from-emerald-100 to-emerald-50", icon: "🏥" },
-              { title: "Industrial Components", desc: "Structural parts with threaded holes, pockets and precisely machined mating surfaces for mechanical assemblies.", materials: "Polycarbonate, ABS", color: "from-purple-100 to-purple-50", icon: "🔧" },
-              { title: "Structural Brackets", desc: "Load-bearing acrylic components with reinforced geometry and threaded inserts for secure mechanical fastening.", materials: "Cast Acrylic, ABS", color: "from-teal-100 to-teal-50", icon: "📐" },
-              { title: "Threaded Assemblies", desc: "Multi-part products with tapped holes, threaded inserts and precision-fit components for reliable mechanical connections.", materials: "Cast Acrylic", color: "from-indigo-100 to-indigo-50", icon: "🔩" },
-            ].map((item) => (
-              <div key={item.title} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${item.color} flex items-center justify-center`}><span className="text-4xl select-none">{item.icon}</span></div>
-                <div className="p-4 flex flex-col flex-1"><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1">{item.desc}</p><span className="mt-3 inline-block text-xs text-gray-400"><span className="font-medium text-gray-500">Typical Materials:</span> {item.materials}</span><Link href="/contact" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-3 w-3" aria-hidden="true" /></Link></div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       {/* ========== FILE PREPARATION GUIDE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="cnc-files-heading">
         <Container className="py-16 lg:py-24">
