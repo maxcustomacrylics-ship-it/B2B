@@ -263,6 +263,30 @@ export default function UvPrintingPage() {
           </div>
         </Container>
       </section>
+
+      {/* ========== TYPICAL APPLICATIONS SECTION ========== */}
+      <section className="bg-white" aria-labelledby="uv-applications-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="uv-applications-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Typical Applications of UV Printed Acrylic</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">UV digital printing delivers vibrant, durable graphics directly onto acrylic for branded displays, signage and custom products.</p></div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Branded Retail Displays", desc: "Full-color logos and graphics with precise brand color matching for flagship store displays and retail fixtures.", materials: "Cast Acrylic", color: "from-blue-100 to-blue-50", icon: "🛍" },
+              { title: "Custom Signage", desc: "Photo-quality signage for interior wayfinding, directional signs and branded environment graphics with durable UV-cured inks.", materials: "Cast Acrylic, PVC", color: "from-indigo-100 to-indigo-50", icon: "🪧" },
+              { title: "Decorative Panels", desc: "Vibrant patterns and imagery for interior design applications including wall panels, room dividers and artistic installations.", materials: "Cast Acrylic", color: "from-purple-100 to-purple-50", icon: "🎨" },
+              { title: "POP Displays", desc: "Eye-catching promotional displays with full-color graphics printed directly onto acrylic for maximum visual impact.", materials: "Extruded Acrylic", color: "from-amber-100 to-amber-50", icon: "📢" },
+              { title: "Corporate Awards", desc: "Personalized awards and trophies with UV-printed logos, recipient names and achievement details for corporate recognition.", materials: "Cast Acrylic", color: "from-emerald-100 to-emerald-50", icon: "🏆" },
+              { title: "Wayfinding Signs", desc: "Clear, durable directional signage with high-contrast UV printing for commercial buildings and public spaces.", materials: "Cast Acrylic", color: "from-teal-100 to-teal-50", icon: "📍" },
+              { title: "Personalized Products", desc: "Variable data printing for unique corporate gifts, personalized accessories and custom-branded merchandise.", materials: "Cast Acrylic", color: "from-rose-100 to-rose-50", icon: "🎁" },
+              { title: "Promotional Items", desc: "Cost-effective UV-printed promotional products including keychains, stands and branded giveaways for events.", materials: "Extruded Acrylic", color: "from-sky-100 to-sky-50", icon: "🎯" },
+            ].map((item) => (
+              <div key={item.title} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                <div className={`aspect-[16/10] bg-gradient-to-br ${item.color} flex items-center justify-center`}><span className="text-4xl select-none">{item.icon}</span></div>
+                <div className="p-4 flex flex-col flex-1"><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1">{item.desc}</p><span className="mt-3 inline-block text-xs text-gray-400"><span className="font-medium text-gray-500">Typical Materials:</span> {item.materials}</span><Link href="/contact" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-3 w-3" aria-hidden="true" /></Link></div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

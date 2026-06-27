@@ -263,6 +263,30 @@ export default function QualityControlPage() {
           </div>
         </Container>
       </section>
+
+      {/* ========== TYPICAL APPLICATIONS SECTION ========== */}
+      <section className="bg-white" aria-labelledby="qc-applications-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="qc-applications-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Typical Applications of Quality Control & Project Support</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Multi-stage quality control and dedicated project support provide confidence that custom acrylic products meet specifications before shipping.</p></div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "New Product Development", desc: "Engineering review and prototyping support to get your design production-ready with documented quality checkpoints.", materials: "Cast Acrylic", color: "from-blue-100 to-blue-50", icon: "🔬" },
+              { title: "Brand-Critical Products", desc: "Consistent quality across production for brand-sensitive applications requiring precise color, finish and dimensional accuracy.", materials: "Cast Acrylic", color: "from-amber-100 to-amber-50", icon: "✨" },
+              { title: "Export Orders", desc: "Pre-shipment inspection and photo reports before products leave the facility for international delivery and customs clearance.", materials: "Cast Acrylic, PETG", color: "from-emerald-100 to-emerald-50", icon: "🚢" },
+              { title: "Medical Components", desc: "Documented measurement reports for medical device housings and healthcare components with regulatory compliance requirements.", materials: "PETG, Polycarbonate", color: "from-teal-100 to-teal-50", icon: "🏥" },
+              { title: "Architectural Projects", desc: "Multi-stage QC for large-scale architectural acrylic installations requiring consistent quality across multiple production batches.", materials: "Cast Acrylic", color: "from-sky-100 to-sky-50", icon: "🏗" },
+              { title: "Repeat Production Runs", desc: "Documented batch consistency for ongoing supply programs. Statistical process monitoring across production runs.", materials: "Extruded Acrylic", color: "from-indigo-100 to-indigo-50", icon: "🔄" },
+              { title: "High-Value Display Products", desc: "Multi-stage inspection for luxury displays where every unit must meet exacting appearance and dimensional standards.", materials: "Cast Acrylic", color: "from-purple-100 to-purple-50", icon: "💎" },
+              { title: "Tight-Tolerance Parts", desc: "Measurement reports for components with critical dimensional requirements and functional assembly tolerances.", materials: "Cast Acrylic, ABS", color: "from-slate-100 to-slate-50", icon: "📏" },
+            ].map((item) => (
+              <div key={item.title} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                <div className={`aspect-[16/10] bg-gradient-to-br ${item.color} flex items-center justify-center`}><span className="text-4xl select-none">{item.icon}</span></div>
+                <div className="p-4 flex flex-col flex-1"><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1">{item.desc}</p><span className="mt-3 inline-block text-xs text-gray-400"><span className="font-medium text-gray-500">Typical Materials:</span> {item.materials}</span><Link href="/contact" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-3 w-3" aria-hidden="true" /></Link></div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
