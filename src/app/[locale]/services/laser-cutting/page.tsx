@@ -15,6 +15,16 @@ import {
   Sliders,
   Repeat,
   AlertTriangle,
+  Layers,
+  Sparkles,
+  Timer,
+  FlaskConical,
+  Pen,
+  Drill,
+  Box,
+  Target,
+  Check,
+  Minus,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -300,6 +310,264 @@ export default function LaserCuttingPage() {
         </Container>
       </section>
       {/* ========== END WHEN TO CHOOSE SECTION ========== */}
+
+      {/* ========== COMPARISON SECTION ========== */}
+      <section className="bg-white" aria-labelledby="comparison-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2
+              id="comparison-heading"
+              className="text-3xl font-bold text-[#0F2744] sm:text-4xl"
+            >
+              Laser Cutting vs CNC Machining
+            </h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Both laser cutting and CNC machining are widely used for custom
+              acrylic fabrication. Choosing the right process depends on your
+              design, material and performance requirements.
+            </p>
+          </div>
+
+          {/* Desktop: Comparison Table | Mobile: Stacked Cards */}
+          <div className="mt-10 hidden lg:block">
+            {/* ——— Desktop Table ——— */}
+            <div className="rounded-2xl border border-gray-200 overflow-hidden">
+              {/* Header */}
+              <div className="grid grid-cols-[220px_1fr_1fr] bg-[#0F2744] text-white">
+                <div className="px-6 py-4 text-sm font-semibold">Feature</div>
+                <div className="px-6 py-4 text-sm font-semibold text-center border-l border-white/20">
+                  Laser Cutting
+                </div>
+                <div className="px-6 py-4 text-sm font-semibold text-center border-l border-white/20">
+                  CNC Machining
+                </div>
+              </div>
+              {/* Rows */}
+              {[
+                {
+                  icon: Layers,
+                  label: "Suitable Materials",
+                  laser: "Cast & extruded acrylic, PETG, polycarbonate, PVC",
+                  cnc: "Cast & extruded acrylic, PETG, polycarbonate, PVC, ABS",
+                  laserBest: true,
+                },
+                {
+                  icon: PenTool,
+                  label: "Complex Shapes",
+                  laser: "Excellent for intricate 2D profiles and fine details",
+                  cnc: "Good for 2D; excels at 3D contours and pockets",
+                },
+                {
+                  icon: Sparkles,
+                  label: "Edge Finish",
+                  laser: "Flame-polished, smooth as-cut finish directly from machine",
+                  cnc: "Machined finish; may require secondary polishing",
+                  laserBest: true,
+                },
+                {
+                  icon: Timer,
+                  label: "Production Speed",
+                  laser: "Fast processing; no physical tooling or setup required",
+                  cnc: "Slower initial setup; faster on thick materials",
+                  laserBest: true,
+                },
+                {
+                  icon: FlaskConical,
+                  label: "Prototype Support",
+                  laser: "Excellent — zero tooling cost, ideal for sampling",
+                  cnc: "Good — requires CAM programming for each design",
+                  laserBest: true,
+                },
+                {
+                  icon: Pen,
+                  label: "Engraving Capability",
+                  laser: "Excellent — raster and vector engraving built in",
+                  cnc: "Possible with specialized engraving bits and toolpaths",
+                  laserBest: true,
+                },
+                {
+                  icon: Drill,
+                  label: "Deep Machining",
+                  laser: "Limited to laser-rated material thickness, typically ≤25mm",
+                  cnc: "Excellent — machines acrylic up to 50mm thickness",
+                  cncBest: true,
+                },
+                {
+                  icon: Box,
+                  label: "3D Features",
+                  laser: "Not available — 2D profile cutting only",
+                  cnc: "Excellent — beveled edges, pockets, threaded holes, contours",
+                  cncBest: true,
+                },
+                {
+                  icon: Target,
+                  label: "Typical Applications",
+                  laser: "Displays, signage, decorative panels, POP, awards",
+                  cnc: "Structural parts, enclosures, machine guards, threaded assemblies",
+                },
+              ].map((row, i) => (
+                <div
+                  key={row.label}
+                  className={`grid grid-cols-[220px_1fr_1fr] ${
+                    i % 2 === 0 ? "bg-gray-50/50" : "bg-white"
+                  }`}
+                >
+                  {/* Label */}
+                  <div className="px-6 py-4 flex items-center gap-3 border-t border-gray-100">
+                    <row.icon className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="text-sm font-medium text-[#0F2744]">{row.label}</span>
+                  </div>
+                  {/* Laser Cutting */}
+                  <div className="px-6 py-4 flex items-center border-t border-l border-gray-100">
+                    <div className="flex items-start gap-2 w-full">
+                      {row.laserBest ? (
+                        <Check className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      ) : row.cncBest ? (
+                        <Minus className="h-4 w-4 text-gray-300 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      ) : (
+                        <Check className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      )}
+                      <span className="text-sm text-gray-500 leading-relaxed">{row.laser}</span>
+                    </div>
+                  </div>
+                  {/* CNC Machining */}
+                  <div className="px-6 py-4 flex items-center border-t border-l border-gray-100">
+                    <div className="flex items-start gap-2 w-full">
+                      {row.cncBest ? (
+                        <Check className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      ) : row.laserBest ? (
+                        <Minus className="h-4 w-4 text-gray-300 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      ) : (
+                        <Check className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      )}
+                      <span className="text-sm text-gray-500 leading-relaxed">{row.cnc}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ——— Mobile: Stacked Cards ——— */}
+          <div className="mt-8 lg:hidden space-y-4">
+            {[
+              {
+                icon: Layers,
+                label: "Suitable Materials",
+                laser: "Cast & extruded acrylic, PETG, polycarbonate, PVC",
+                cnc: "Cast & extruded acrylic, PETG, polycarbonate, PVC, ABS",
+                laserBest: true,
+              },
+              {
+                icon: PenTool,
+                label: "Complex Shapes",
+                laser: "Excellent for intricate 2D profiles and fine details",
+                cnc: "Good for 2D; excels at 3D contours and pockets",
+              },
+              {
+                icon: Sparkles,
+                label: "Edge Finish",
+                laser: "Flame-polished, smooth as-cut finish directly from machine",
+                cnc: "Machined finish; may require secondary polishing",
+                laserBest: true,
+              },
+              {
+                icon: Timer,
+                label: "Production Speed",
+                laser: "Fast processing; no physical tooling or setup required",
+                cnc: "Slower initial setup; faster on thick materials",
+                laserBest: true,
+              },
+              {
+                icon: FlaskConical,
+                label: "Prototype Support",
+                laser: "Excellent — zero tooling cost, ideal for sampling",
+                cnc: "Good — requires CAM programming for each design",
+                laserBest: true,
+              },
+              {
+                icon: Pen,
+                label: "Engraving Capability",
+                laser: "Excellent — raster and vector engraving built in",
+                cnc: "Possible with specialized engraving bits and toolpaths",
+                laserBest: true,
+              },
+              {
+                icon: Drill,
+                label: "Deep Machining",
+                laser: "Limited to laser-rated material thickness, typically ≤25mm",
+                cnc: "Excellent — machines acrylic up to 50mm thickness",
+                cncBest: true,
+              },
+              {
+                icon: Box,
+                label: "3D Features",
+                laser: "Not available — 2D profile cutting only",
+                cnc: "Excellent — beveled edges, pockets, threaded holes, contours",
+                cncBest: true,
+              },
+              {
+                icon: Target,
+                label: "Typical Applications",
+                laser: "Displays, signage, decorative panels, POP, awards",
+                cnc: "Structural parts, enclosures, machine guards, threaded assemblies",
+              },
+            ].map((row) => (
+              <div
+                key={row.label}
+                className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm"
+              >
+                {/* Mobile Header */}
+                <div className="flex items-center gap-2 px-5 py-3 bg-gray-50 border-b border-gray-100">
+                  <row.icon className="h-4 w-4 text-gray-400" aria-hidden="true" />
+                  <span className="text-sm font-semibold text-[#0F2744]">{row.label}</span>
+                </div>
+                {/* Mobile Rows */}
+                <div className="grid grid-cols-2 divide-x divide-gray-100">
+                  <div className="p-4">
+                    <span className="text-xs font-semibold text-[#0F2744] uppercase tracking-wide">Laser Cutting</span>
+                    <p className="mt-1 text-sm text-gray-500 leading-relaxed">{row.laser}</p>
+                  </div>
+                  <div className="p-4">
+                    <span className="text-xs font-semibold text-[#0F2744] uppercase tracking-wide">CNC Machining</span>
+                    <p className="mt-1 text-sm text-gray-500 leading-relaxed">{row.cnc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Info Box */}
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">
+              Which Process Should You Choose?
+            </h3>
+            <p className="mt-3 text-gray-500 max-w-3xl leading-relaxed">
+              Laser cutting is generally preferred for intricate acrylic sheet
+              fabrication, while CNC machining is better suited for projects
+              requiring deep machining, complex three-dimensional features or
+              tighter mechanical tolerances.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/services/cnc-machining"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"
+              >
+                View CNC Machining
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"
+              >
+                Request a Quote
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+      {/* ========== END COMPARISON SECTION ========== */}
     </>
   );
 }
