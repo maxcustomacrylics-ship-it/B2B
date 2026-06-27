@@ -18,6 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${s.h1} | Max Custom Acrylics`, description: s.metaDesc };
 }
 
+export const fetchCache = "force-no-store";
+
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
   const s = getServicePage(slug);
