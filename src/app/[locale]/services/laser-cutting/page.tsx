@@ -130,42 +130,24 @@ export default function LaserCuttingPage() {
               </div>
             </div>
 
-            {/* —— Right Column — Hero Image —— */}
+            {/* —— Right Column — Product Collage —— */}
             <div className="relative" aria-hidden="true">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
-                {/* Premium placeholder — precision laser cutting theme */}
-                <div className="text-center select-none">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
-                    <svg
-                      className="w-10 h-10 text-[#0F2744]"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="0.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      {/* Precision crosshair + acrylic sheet icon */}
-                      <circle cx="12" cy="12" r="10" />
-                      <circle cx="12" cy="12" r="6" />
-                      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-                      <line x1="12" y1="2" x2="12" y2="6" />
-                      <line x1="12" y1="18" x2="12" y2="22" />
-                      <line x1="2" y1="12" x2="6" y2="12" />
-                      <line x1="18" y1="12" x2="22" y2="12" />
-                    </svg>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { icon: "🔬", label: "Intricate", color: "from-blue-100 to-blue-50/60" },
+                  { icon: "✨", label: "Smooth Edge", color: "from-sky-100 to-sky-50/60" },
+                  { icon: "⚡", label: "Fast Proto", color: "from-amber-100 to-amber-50/60" },
+                  { icon: "🏪", label: "Retail", color: "from-emerald-100 to-emerald-50/60" },
+                  { icon: "🎯", label: "Precision", color: "from-rose-100 to-rose-50/60" },
+                  { icon: "📐", label: "Custom", color: "from-purple-100 to-purple-50/60" },
+                ].map((img, i) => (
+                  <div key={i} className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${img.color} flex flex-col items-center justify-center shadow-sm`}>
+                    <span className="text-xl sm:text-2xl select-none">{img.icon}</span>
+                    <span className="mt-0.5 text-[9px] text-gray-400 font-medium">{img.label}</span>
                   </div>
-                  <p className="text-xs text-gray-400 tracking-wide uppercase">
-                    Precision Acrylic Fabrication
-                  </p>
-                </div>
+                ))}
               </div>
-              {/* ALT text for screen readers */}
-              <span className="sr-only">
-                Custom acrylic laser cutting service for precision fabricated
-                acrylic products
-              </span>
+              <span className="sr-only">Precision laser cutting for intricate shapes, smooth edges, fast prototyping, retail displays, precision parts and custom fabrication</span>
             </div>
 
           </div>

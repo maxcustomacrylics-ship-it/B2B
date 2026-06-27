@@ -48,20 +48,22 @@ export default function UvPrintingPage() {
               </div>
             </div>
             <div className="relative" aria-hidden="true">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
-                <div className="text-center select-none">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
-                    <svg className="w-10 h-10 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <circle cx="8" cy="8" r="3.5" /><circle cx="8" cy="8" r="1.5" fill="currentColor" />
-                      <circle cx="16.5" cy="16.5" r="3.5" /><circle cx="16.5" cy="16.5" r="1.5" fill="currentColor" />
-                      <circle cx="12" cy="12" r="3" /><circle cx="12" cy="12" r="1" fill="currentColor" />
-                    </svg>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { icon: "🛍", label: "Branded", color: "from-blue-100 to-blue-50/60" },
+                  { icon: "🪧", label: "Signage", color: "from-indigo-100 to-indigo-50/60" },
+                  { icon: "🎨", label: "CMYK+W", color: "from-purple-100 to-purple-50/60" },
+                  { icon: "📢", label: "POP", color: "from-amber-100 to-amber-50/60" },
+                  { icon: "📷", label: "1440dpi", color: "from-emerald-100 to-emerald-50/60" },
+                  { icon: "🎁", label: "Custom", color: "from-rose-100 to-rose-50/60" },
+                ].map((img, i) => (
+                  <div key={i} className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${img.color} flex flex-col items-center justify-center shadow-sm`}>
+                    <span className="text-xl sm:text-2xl select-none">{img.icon}</span>
+                    <span className="mt-0.5 text-[9px] text-gray-400 font-medium">{img.label}</span>
                   </div>
-                  <p className="text-xs text-gray-400 tracking-wide uppercase">Full-Color UV Digital Printing</p>
-                </div>
+                ))}
               </div>
-              <span className="sr-only">UV digital printing on acrylic for vibrant branded displays and signage</span>
+              <span className="sr-only">UV digital printing for branded displays, signage, CMYK+White, POP displays, high resolution and custom products</span>
             </div>
           </div>
         </Container>
