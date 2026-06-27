@@ -421,14 +421,49 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
-        {/* Related Services + CTA */}
-        <div className="mt-16 grid gap-10 lg:grid-cols-3">
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-[#0F2744] mb-6">Related Services</h2>
-            <div className="grid gap-3 sm:grid-cols-2">{s.relatedServices.map((rs)=>{const r=servicePages.find(x=>x.slug===rs);return r?<Link key={rs} href={`/services/${rs}`} className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 transition-colors"><span className="font-medium text-[#0F2744]">{r.title}</span><ArrowRight className="h-4 w-4 text-gray-400" /></Link>:null;})}</div>
-          </div>
-          <div className="rounded-xl bg-[#0F2744] p-6 text-center text-white"><h3 className="text-xl font-bold">Start Your Project</h3><p className="mt-2 text-sm text-blue-200">Get a free quote within 24 hours.</p><div className="mt-4"><InquiryForm /></div></div>
+        {/* Related Services */}
+        <div className="mt-28">
+          <h2 className="text-2xl font-bold text-[#0F2744] mb-6">Related Services</h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{s.relatedServices.map((rs)=>{const r=servicePages.find(x=>x.slug===rs);return r?<Link key={rs} href={`/services/${rs}`} className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 hover:border-blue-200 transition-colors"><span className="font-medium text-[#0F2744]">{r.title}</span><ArrowRight className="h-4 w-4 text-gray-400" /></Link>:null;})}</div>
         </div>
+
+        {/* Final CTA */}
+        <section className="mt-28" aria-labelledby="cta-heading">
+          <div className="max-w-[1280px] mx-auto">
+            <div className="rounded-[20px] bg-gray-50 border border-gray-200 p-10 lg:p-14 shadow-sm">
+              <div className="grid gap-10 lg:grid-cols-5 items-center">
+                {/* Left — Trust + copy */}
+                <div className="lg:col-span-3">
+                  <h2 id="cta-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">Ready to Start Your Custom Acrylic Project?</h2>
+                  <p className="mt-4 text-gray-500 leading-relaxed max-w-xl">
+                    Whether you already have engineering drawings or are still developing your product concept, our engineering team can help evaluate your requirements, recommend suitable manufacturing solutions and coordinate reliable production from prototype to final delivery.
+                  </p>
+                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {[
+                      { t: "Engineering Review", d: "Every project begins with a technical review to ensure manufacturability." },
+                      { t: "Qualified Manufacturing Network", d: "Production is coordinated through carefully selected manufacturing partners." },
+                      { t: "Quality Inspection", d: "Products are inspected before packaging and shipment." },
+                      { t: "Worldwide Delivery", d: "Support for international shipping and export packaging." },
+                    ].map((h) => (
+                      <div key={h.t} className="flex items-start gap-2.5"><Check className="h-4 w-4 text-green-600 shrink-0 mt-0.5" aria-hidden="true" /><div><h4 className="font-semibold text-[#0F2744] text-sm">{h.t}</h4><p className="text-xs text-gray-500 mt-0.5">{h.d}</p></div></div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right — Inquiry card */}
+                <div className="lg:col-span-2 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm">
+                  <h3 className="text-lg font-bold text-[#0F2744]">Start Your Inquiry</h3>
+                  <p className="mt-1 text-sm text-gray-500">Upload your drawings or share your project requirements. Our team will review your project and respond with suitable recommendations.</p>
+                  <div className="mt-5 space-y-2.5">
+                    <Link href="/contact" className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-4 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote</Link>
+                    <Link href="/contact" className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-[#0F2744] hover:border-[#0F2744] transition-colors"><Upload className="h-4 w-4" /> Upload Your Drawing</Link>
+                  </div>
+                  <p className="mt-4 text-center text-xs text-gray-400">We typically respond within one business day.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
       </Container>
     </>
