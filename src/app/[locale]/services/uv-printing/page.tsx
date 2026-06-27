@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   Palette, Sun, Layers, ShoppingBag, Monitor, Camera, AlertTriangle, Star,
-  FileText, Ruler, ScanEye, Puzzle, MessageSquare, XCircle, ClipboardList,
+  FileText, Ruler, ScanEye, Puzzle, MessageSquare, XCircle, ClipboardList, Check,
 } from "lucide-react";
 
 export const metadata: Metadata = {

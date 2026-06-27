@@ -6,7 +6,7 @@ import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   FileCheck, Search, ClipboardList, BarChart3, MessageSquare, Users, AlertTriangle,
   Layers, Star,
-  FileText, Ruler, ScanEye, Puzzle, XCircle,
+  FileText, Ruler, ScanEye, Puzzle, XCircle, Check,
 } from "lucide-react";
 
 export const metadata: Metadata = {
