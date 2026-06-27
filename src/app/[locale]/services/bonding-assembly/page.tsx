@@ -299,6 +299,30 @@ export default function AssemblyPage() {
           <div className="mt-10 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center"><h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your files?</h3><p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can review your assembly documentation and recommend the optimal approach.</p><Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link></div>
         </Container>
       </section>
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="assembly-faq-heading">
+        <Container>
+          <div className="text-center mb-12"><h2 id="assembly-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Frequently Asked Questions</h2><p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">Find answers to common questions about acrylic assembly, hardware integration and export packaging.</p></div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              { q: "What types of hardware can you integrate?", a: "We integrate hinges, locks, handles, standoffs, threaded inserts and custom hardware. We can also source specialty hardware based on your requirements." },
+              { q: "How strong are solvent-bonded joints?", a: "Solvent-bonded joints achieve approximately 80% of the base material strength. For most display and enclosure applications, this is more than sufficient." },
+              { q: "Will the bond line be visible?", a: "When done correctly by our experienced technicians, solvent-bonded joints are completely transparent with no visible bond line — a key advantage over adhesive-based joining." },
+              { q: "Can you package for retail?", a: "Yes. We offer branded retail boxes, barcode labeling, individual polybagging and custom foam inserts. Products arrive ready for retail display or distribution." },
+              { q: "Do you offer export crating?", a: "Yes. Custom foam inserts and wooden crates are available for international shipping. Packaging is designed based on product fragility, shipping method and destination." },
+              { q: "What's the minimum order for assembly?", a: "No strict minimum. We handle single prototypes to mass production. Assembly pricing becomes more economical at higher quantities." },
+              { q: "Can you source hardware for us?", a: "Yes. We can procure standard and specialty hardware including hinges, locks, threaded inserts and mounting brackets to your specifications." },
+              { q: "How do I start my project?", a: "Send your assembly drawings with hardware specifications. Our engineering team will review your requirements and provide a quotation within 24 hours." },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3"><span>{faq.q}</span><span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span><span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span></summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

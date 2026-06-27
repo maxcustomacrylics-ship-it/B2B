@@ -958,6 +958,38 @@ export default function LaserCuttingPage() {
         </Container>
       </section>
       {/* ========== END FILE PREPARATION GUIDE SECTION ========== */}
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="laser-faq-heading">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 id="laser-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Frequently Asked Questions</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">Find answers to common questions about custom acrylic laser cutting, engineering support and project delivery.</p>
+          </div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              { q: "Can you manufacture from my drawings?", a: "Yes. Send us your DXF, DWG, AI or PDF files and our engineering team will review them for manufacturability before providing a quotation." },
+              { q: "Do you support prototype orders?", a: "Absolutely. Laser cutting has zero tooling cost, making it ideal for prototypes and small-batch production. We handle single units to full production runs." },
+              { q: "Which materials work best for laser cutting?", a: "Cast acrylic produces the best flame-polished edge finish. Extruded acrylic is more economical for volume production. PETG and polycarbonate are also compatible." },
+              { q: "Can laser cutting be combined with CNC machining?", a: "Yes. Many projects combine both processes — laser cutting for 2D profiles and CNC machining for 3D features, threaded holes and beveled edges." },
+              { q: "What file types do you accept?", a: "We accept AI, PDF, DXF, DWG, EPS and SVG vector files. Our engineering team can also work from sketches, photos or physical samples." },
+              { q: "How is quality inspected?", a: "Multi-stage inspection throughout production — incoming material check, in-process dimensional verification and final QC with documented photo reports before shipment." },
+              { q: "Do you support international shipping?", a: "Yes. We ship to over 30 countries with export-ready packaging including custom foam inserts, wooden crates and complete export documentation." },
+              { q: "How do I start my project?", a: "Upload your drawing through our website or contact our engineering team directly. We will review your requirements and provide a quotation within 24 hours." },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3">
+                  <span>{faq.q}</span>
+                  <span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span>
+                  <span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span>
+                </summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
+      {/* ========== END FAQ SECTION ========== */}
     </>
   );
 }

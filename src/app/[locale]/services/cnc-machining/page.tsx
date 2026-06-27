@@ -412,6 +412,30 @@ export default function CncMachiningPage() {
           <div className="mt-10 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center"><h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your files?</h3><p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can review your 3D models and provide feedback before production.</p><Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link></div>
         </Container>
       </section>
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="cnc-faq-heading">
+        <Container>
+          <div className="text-center mb-12"><h2 id="cnc-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Frequently Asked Questions</h2><p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">Find answers to common questions about CNC acrylic machining, 3D capabilities and project delivery.</p></div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              { q: "What's the difference between CNC and laser cutting?", a: "CNC machining handles 3D features including beveled edges, pockets, threaded holes and contoured surfaces. Laser cutting is best for 2D profile cutting with polished edges." },
+              { q: "Can you machine thick acrylic?", a: "Yes. We routinely machine acrylic up to 50mm thickness. For specialized applications, thicker blocks can be accommodated upon request." },
+              { q: "What tolerances can you achieve?", a: "Standard tolerance is ±0.1mm for most features. Tighter tolerances are achievable for critical dimensions — discuss your requirements during engineering review." },
+              { q: "Can you add threaded inserts?", a: "Yes. We can install brass and stainless steel threaded inserts for applications requiring frequent assembly and disassembly. Direct tapping into acrylic is also available." },
+              { q: "Do you need 3D CAD files?", a: "STEP or IGES files are preferred for 3D machining. We can also work from 2D DXF or DWG drawings, but 3D models enable faster and more accurate toolpath generation." },
+              { q: "How long does CNC machining take?", a: "Typical lead time is 10–18 business days depending on part complexity and quantity. Rush orders may be accommodated — discuss your timeline during quotation." },
+              { q: "Can you combine CNC with polishing?", a: "Yes. We regularly combine CNC machining with diamond polishing or flame polishing for parts requiring both 3D features and premium edge finish." },
+              { q: "How do I start my project?", a: "Send your 3D model or technical drawing for engineering review. Our team will assess manufacturability and provide a detailed quotation within 24 hours." },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3"><span>{faq.q}</span><span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span><span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span></summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

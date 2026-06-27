@@ -299,6 +299,30 @@ export default function DiamondPolishingPage() {
           <div className="mt-10 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center"><h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your files?</h3><p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can review your edge finish specifications and recommend the optimal approach.</p><Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link></div>
         </Container>
       </section>
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="dp-faq-heading">
+        <Container>
+          <div className="text-center mb-12"><h2 id="dp-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Frequently Asked Questions</h2><p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">Find answers to common questions about diamond edge polishing, finish quality and project delivery.</p></div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              { q: "How does diamond polishing compare to flame polishing?", a: "Diamond polishing produces optical-grade clarity — the highest quality edge finish available. Flame polishing provides a glossy finish that is faster and more economical for production volumes." },
+              { q: "Can all edges be diamond polished?", a: "Straight external edges polish best. Internal corners, sharp angles and complex profiles may have limitations. Our engineers can advise on achievable results for your specific design." },
+              { q: "Which acrylic grade polishes best?", a: "Cast acrylic produces superior diamond polishing results due to its material hardness and optical properties. Extruded acrylic can be polished but may not achieve the same clarity." },
+              { q: "Does polishing affect part dimensions?", a: "Diamond polishing removes an extremely thin surface layer with negligible impact on dimensions. For tight-tolerance parts, our process accounts for material removal in the cutting stage." },
+              { q: "How long does polishing add to lead time?", a: "Typically 3–5 additional business days depending on the number of edges and quantity. For large orders, we allocate dedicated polishing stations to maintain schedule." },
+              { q: "Can you polish complex shapes?", a: "Straight edges and gentle external curves are ideal. Sharp internal corners and intricate profiles are better suited to flame polishing or alternative finishing methods." },
+              { q: "Is diamond polishing worth the cost?", a: "For luxury displays, awards, architectural features and premium retail products where edge appearance directly impacts perceived value — absolutely. It is the gold standard for edge finishing." },
+              { q: "How do I start my project?", a: "Send your design with edge finish requirements clearly marked. Our engineering team will recommend the optimal polishing approach and provide a quotation within 24 hours." },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3"><span>{faq.q}</span><span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span><span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span></summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

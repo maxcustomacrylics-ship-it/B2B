@@ -299,6 +299,30 @@ export default function QualityControlPage() {
           <div className="mt-10 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center"><h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help setting quality standards?</h3><p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can help define appropriate QC documentation for your custom acrylic products.</p><Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link></div>
         </Container>
       </section>
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="qc-faq-heading">
+        <Container>
+          <div className="text-center mb-12"><h2 id="qc-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Frequently Asked Questions</h2><p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">Find answers to common questions about quality control, project support and engineering review.</p></div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              { q: "What QC processes do you follow?", a: "We follow a multi-stage QC process — incoming material inspection, in-process checks at key production stages, and final dimensional and visual inspection before shipment." },
+              { q: "Do you provide inspection reports?", a: "Yes. We provide documented inspection reports including dimensional measurements and photo documentation. You know exactly what you are receiving." },
+              { q: "Can I approve samples before production?", a: "Yes. We strongly recommend pre-production samples for approval. This allows you to verify dimensions, finish quality and workmanship before full production." },
+              { q: "How do you handle quality issues?", a: "Issues identified during inspection are documented and corrected before shipment. Our multi-stage QC process is designed to catch and resolve issues early." },
+              { q: "What if products don't meet specifications?", a: "We work with you to resolve any quality concerns promptly. Clear acceptance criteria defined upfront help prevent misunderstandings and ensure alignment." },
+              { q: "Can you match existing products?", a: "Yes. Send us a sample or detailed specifications of your current product, and we will provide a quotation with equivalent or improved quality." },
+              { q: "Do you offer NDA protection?", a: "Yes. We regularly sign non-disclosure agreements with clients. Your designs, specifications and project details remain confidential throughout our engagement." },
+              { q: "How do I start my project?", a: "Contact our engineering team to discuss your quality requirements and project goals. We will recommend an appropriate QC plan and provide a quotation within 24 hours." },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3"><span>{faq.q}</span><span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span><span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span></summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

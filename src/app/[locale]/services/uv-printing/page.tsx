@@ -299,6 +299,30 @@ export default function UvPrintingPage() {
           <div className="mt-10 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center"><h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your artwork?</h3><p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our pre-press team can review your files and provide print proofs for approval before production.</p><Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link></div>
         </Container>
       </section>
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="uv-faq-heading">
+        <Container>
+          <div className="text-center mb-12"><h2 id="uv-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Frequently Asked Questions</h2><p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">Find answers to common questions about UV digital printing on acrylic, artwork preparation and project delivery.</p></div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              { q: "How durable is UV printing on acrylic?", a: "UV-cured inks form a strong mechanical and chemical bond with acrylic. The print is scratch-resistant and suitable for indoor and covered outdoor applications." },
+              { q: "Can you print white on clear acrylic?", a: "Yes. Our printers include white ink capability for solid white underlayers, white text on clear backgrounds, and layered effects combining white with CMYK for translucent graphics." },
+              { q: "What resolution do you print at?", a: "We print at up to 1,440 dpi for photo-quality output. Color matching to Pantone references is available for brand-critical applications." },
+              { q: "Can you match brand colors?", a: "Yes. Provide Pantone references for critical brand colors and our pre-press team will match them. Print proofs are available for your approval before production runs." },
+              { q: "What's the maximum print size?", a: "Up to 2.5m × 1.3m in a single pass. Larger projects can be produced across multiple panels with precise registration." },
+              { q: "Do you provide print proofs?", a: "Yes. We recommend print proofs for color-critical projects. You can approve the proof before we proceed with full production." },
+              { q: "Can you print on colored or frosted acrylic?", a: "Yes. White ink underlay ensures vibrant, opaque colors on dark, colored and frosted acrylic substrates. We can advise on the optimal print strategy for your material." },
+              { q: "How do I start my project?", a: "Send your artwork files for pre-press review. Our team will check file setup, recommend print strategies and provide a quotation within 24 hours." },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3"><span>{faq.q}</span><span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span><span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span></summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
