@@ -157,6 +157,17 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
+        {/* Comparison */}
+        <section className="mt-28">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 className="text-2xl font-bold text-[#0F2744] sm:text-3xl">{s.title} vs CNC Machining</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto">Both {s.title.toLowerCase()} and CNC machining are widely used for custom acrylic fabrication. Choosing the right process depends on your design, material and performance requirements.</p>
+          </div>
+          <div className="max-w-3xl mx-auto rounded-2xl border border-gray-200 overflow-hidden bg-white">
+            {[{l:"Suitable Materials",a:"Cast & Extruded Acrylic, PETG, PC, ABS",b:"Cast & Extruded Acrylic, PETG, PC, ABS, PVC"},{l:"Complex Shapes",a:"Excellent for intricate 2D profiles",b:"Excellent for 3D contours"},{l:"Edge Finish",a:"Flame-polished straight from machine",b:"Requires secondary polishing"},{l:"Production Speed",a:"Fast for sheet cutting",b:"Faster for 3D features"},{l:"Prototype Support",a:"Quick turnaround, no tooling cost",b:"Quick turnaround, no tooling cost"},{l:"Engraving Capability",a:"Built-in, excellent detail",b:"Possible with V-bit tooling"},{l:"Deep Machining",a:"Limited to sheet thickness",b:"Excellent for deep pockets"},{l:"3D Features",a:"2D profile only",b:"Full 3D capability"},{l:"Typical Applications",a:"Displays, signage, panels, parts",b:"Structural parts, enclosures, fixtures"}].map((r,i)=>(<div key={i} className={`grid grid-cols-3 text-sm ${i===0?"bg-gray-50 font-semibold text-[#0F2744]":i%2===0?"bg-white":"bg-gray-50/50"}`}><div className="px-5 py-3 border-r border-gray-100">{r.l}</div><div className="px-5 py-3 border-r border-gray-100 text-gray-600">{r.a}</div><div className="px-5 py-3 text-gray-600">{r.b}</div></div>))}
+          </div>
+        </section>
+
         {/* Materials We Process */}
         <section className="mt-28" aria-labelledby="materials-heading">
           <div className="max-w-[1280px] mx-auto text-center mb-12">
