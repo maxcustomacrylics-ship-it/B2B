@@ -6,6 +6,7 @@ import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   FileCheck, Search, ClipboardList, BarChart3, MessageSquare, Users, AlertTriangle,
   Layers, Star,
+  FileText, Ruler, ScanEye, Puzzle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -179,6 +180,60 @@ export default function QualityControlPage() {
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need Help Choosing Materials?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can recommend the most suitable material based on your product design, application and manufacturing requirements.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Contact Engineering Team<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== DESIGN GUIDELINES SECTION ========== */}
+      <section className="bg-white" aria-labelledby="qc-design-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2 id="qc-design-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Design Guidelines for Better Quality Control Results</h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Clear quality specifications and documentation requirements help ensure your products meet expectations before they ship.</p>
+          </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+            <div className="space-y-4">
+              {[
+                { icon: FileText, title: "Define Acceptance Criteria", desc: "Specify critical dimensions, surface quality requirements and allowable tolerances. Clear criteria enable consistent inspection and reduce ambiguity in quality decisions." },
+                { icon: Ruler, title: "Document Inspection Points", desc: "Identify key stages for in-process and final inspection. Early-stage checks catch issues before value-added processing, reducing waste and rework." },
+                { icon: ScanEye, title: "Provide Reference Samples", desc: "Approved physical samples serve as quality benchmarks. Reference samples help align expectations and provide a tangible standard for production batches." },
+                { icon: Puzzle, title: "Plan for Documentation Needs", desc: "Specify report format, photo documentation and measurement data requirements. Structured documentation supports traceability and quality assurance processes." },
+                { icon: MessageSquare, title: "Consult Engineering Early", desc: "Early QC planning reduces rejection rates and helps establish realistic quality targets aligned with your product positioning and budget." },
+              ].map((item, i) => (
+                <div key={item.title} className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0F2744] text-white flex items-center justify-center text-xs font-bold">{i + 1}</div>
+                    <div>
+                      <div className="flex items-center gap-2"><item.icon className="h-4 w-4 text-[#0F2744]" aria-hidden="true" /><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3></div>
+                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="relative" aria-hidden="true">
+              <div className="sticky top-24 rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+                <div className="aspect-[4/5] flex items-center justify-center p-8">
+                  <svg className="w-full h-full max-w-[320px]" viewBox="0 0 200 260" fill="none" stroke="#0F2744" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="20" y="20" width="160" height="220" rx="4" stroke="#cbd5e1" strokeWidth="1" />
+                    <rect x="50" y="50" width="100" height="80" rx="2" stroke="#0F2744" strokeWidth="1.2" />
+                    <path d="M55 55 L75 70 L95 60" stroke="#22c55e" strokeWidth="1.2" fill="none" />
+                    <circle cx="95" cy="60" r="3" stroke="#22c55e" strokeWidth="1" fill="none" />
+                    <line x1="55" y1="105" x2="145" y2="105" stroke="#94a3b8" strokeWidth="0.5" />
+                    <rect x="50" y="120" width="100" height="50" rx="2" stroke="#94a3b8" strokeWidth="0.8" fill="#f8fafc" />
+                    <line x1="60" y1="133" x2="140" y2="133" stroke="#94a3b8" strokeWidth="0.4" />
+                    <line x1="60" y1="146" x2="140" y2="146" stroke="#94a3b8" strokeWidth="0.4" />
+                    <line x1="60" y1="159" x2="120" y2="159" stroke="#94a3b8" strokeWidth="0.4" />
+                  </svg>
+                </div>
+                <div className="px-6 pb-6 text-center"><p className="text-xs text-gray-400">Recommended: provide acceptance criteria and reference samples</p></div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help setting quality standards?</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can help define appropriate quality criteria and inspection plans for your custom acrylic products.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>

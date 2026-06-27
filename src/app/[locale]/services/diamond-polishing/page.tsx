@@ -6,6 +6,7 @@ import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   Gem, Sparkles, Eye, Award, ShoppingBag, ClipboardCheck, AlertTriangle,
   Layers, Star,
+  FileText, Ruler, ScanEye, Puzzle, MessageSquare,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -179,6 +180,60 @@ export default function DiamondPolishingPage() {
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need Help Choosing Materials?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can recommend the most suitable material based on your product design, application and manufacturing requirements.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Contact Engineering Team<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== DESIGN GUIDELINES SECTION ========== */}
+      <section className="bg-white" aria-labelledby="dp-design-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2 id="dp-design-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Design Guidelines for Better Diamond Polishing Results</h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Following good design practices helps achieve optical-grade edge quality, reduce processing time and ensure consistent finishing results.</p>
+          </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+            <div className="space-y-4">
+              {[
+                { icon: FileText, title: "Specify Edge Geometry", desc: "Define whether edges should be flat, beveled or rounded. Clear edge profile specifications help us select the right diamond tooling and polishing sequence." },
+                { icon: ScanEye, title: "Identify Visible Edges", desc: "Mark which edges require optical-grade finish versus standard finish. Focusing premium polishing on visible surfaces helps manage cost while maximizing visual impact." },
+                { icon: Ruler, title: "Choose Cast Acrylic for Best Results", desc: "Cast acrylic produces superior polishing results due to its hardness and optical properties. Extruded acrylic can be polished but may not achieve the same clarity." },
+                { icon: Puzzle, title: "Allow for Process Sequence", desc: "Polish after cutting and before assembly. Planning the manufacturing sequence correctly ensures polished edges remain pristine through subsequent processes." },
+                { icon: MessageSquare, title: "Consult Engineering Early", desc: "Early design review ensures achievable edge quality targets. Our engineers can recommend the optimal edge profile and finish level for your product positioning." },
+              ].map((item, i) => (
+                <div key={item.title} className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0F2744] text-white flex items-center justify-center text-xs font-bold">{i + 1}</div>
+                    <div>
+                      <div className="flex items-center gap-2"><item.icon className="h-4 w-4 text-[#0F2744]" aria-hidden="true" /><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3></div>
+                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="relative" aria-hidden="true">
+              <div className="sticky top-24 rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+                <div className="aspect-[4/5] flex items-center justify-center p-8">
+                  <svg className="w-full h-full max-w-[320px]" viewBox="0 0 200 260" fill="none" stroke="#0F2744" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="20" y="20" width="160" height="220" rx="4" stroke="#cbd5e1" strokeWidth="1" />
+                    <rect x="50" y="50" width="100" height="80" rx="2" stroke="#0F2744" strokeWidth="1.2" />
+                    <path d="M50 50 C50 30,60 20,80 20" stroke="#f59e0b" strokeWidth="2" fill="none" />
+                    <circle cx="78" cy="22" r="2" fill="#f59e0b" stroke="none" />
+                    <line x1="78" y1="22" x2="78" y2="42" stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="3 2" />
+                    <line x1="40" y1="85" x2="40" y2="95" stroke="#0F2744" strokeWidth="1.5" />
+                    <line x1="50" y1="88" x2="40" y2="88" stroke="#94a3b8" strokeWidth="0.5" />
+                    <rect x="30" y="120" width="25" height="25" rx="10" stroke="#0F2744" strokeWidth="0.8" fill="#f8fafc" />
+                    <rect x="30" y="120" width="25" height="25" rx="10" stroke="#f59e0b" strokeWidth="1.2" fill="none" />
+                  </svg>
+                </div>
+                <div className="px-6 pb-6 text-center"><p className="text-xs text-gray-400">Recommended: mark edges requiring optical-grade finish on your drawing</p></div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help reviewing your design?</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can review your drawings and recommend the optimal edge finishing approach for your product.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>

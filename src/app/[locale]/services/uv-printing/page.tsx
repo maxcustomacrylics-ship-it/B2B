@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   Palette, Sun, Layers, ShoppingBag, Monitor, Camera, AlertTriangle, Star,
+  FileText, Ruler, ScanEye, Puzzle, MessageSquare,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -180,6 +181,59 @@ export default function UvPrintingPage() {
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need Help Choosing Materials?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can recommend the most suitable material based on your product design, application and manufacturing requirements.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Contact Engineering Team<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== DESIGN GUIDELINES SECTION ========== */}
+      <section className="bg-white" aria-labelledby="uv-design-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2 id="uv-design-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Design Guidelines for Better UV Printing Results</h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Following good artwork preparation practices helps achieve vibrant, durable print quality and reduces production turnaround time.</p>
+          </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+            <div className="space-y-4">
+              {[
+                { icon: FileText, title: "Use High-Resolution Artwork", desc: "Provide artwork at minimum 300dpi at actual print size. Higher resolution ensures sharp text and smooth gradients for professional-quality results on acrylic." },
+                { icon: ScanEye, title: "Provide Vector Files When Possible", desc: "AI, EPS or PDF files with outlined text produce the sharpest output. Vector graphics scale without quality loss and enable precise print registration." },
+                { icon: Ruler, title: "Specify Pantone Color References", desc: "Provide Pantone references for brand-critical colors. Our pre-press team can match specified colors for consistent branding across your product range." },
+                { icon: Puzzle, title: "Plan White Ink Usage", desc: "White ink underlay enables opaque, vibrant printing on clear acrylic. Specify where white ink is needed — full underlay, spot white, or transparent effects." },
+                { icon: MessageSquare, title: "Consult Engineering Early", desc: "Early artwork review prevents printing issues and reduces revisions. We can advise on file setup, color strategies and print-proof options before production." },
+              ].map((item, i) => (
+                <div key={item.title} className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0F2744] text-white flex items-center justify-center text-xs font-bold">{i + 1}</div>
+                    <div>
+                      <div className="flex items-center gap-2"><item.icon className="h-4 w-4 text-[#0F2744]" aria-hidden="true" /><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3></div>
+                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="relative" aria-hidden="true">
+              <div className="sticky top-24 rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+                <div className="aspect-[4/5] flex items-center justify-center p-8">
+                  <svg className="w-full h-full max-w-[320px]" viewBox="0 0 200 260" fill="none" stroke="#0F2744" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="20" y="20" width="160" height="220" rx="4" stroke="#cbd5e1" strokeWidth="1" />
+                    <rect x="50" y="50" width="100" height="80" rx="2" stroke="#0F2744" strokeWidth="1.2" />
+                    <circle cx="80" cy="75" r="15" fill="#3b82f6" fillOpacity="0.08" stroke="#3b82f6" strokeWidth="0.8" />
+                    <circle cx="120" cy="95" r="12" fill="#ef4444" fillOpacity="0.08" stroke="#ef4444" strokeWidth="0.8" />
+                    <rect x="60" y="120" width="15" height="15" rx="1" fill="#fbbf24" fillOpacity="0.15" stroke="#f59e0b" strokeWidth="0.8" />
+                    <line x1="50" y1="40" x2="150" y2="40" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="50" y1="36" x2="50" y2="44" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="150" y1="36" x2="150" y2="44" stroke="#94a3b8" strokeWidth="0.6" />
+                  </svg>
+                </div>
+                <div className="px-6 pb-6 text-center"><p className="text-xs text-gray-400">Recommended: provide vector artwork at 300dpi with Pantone references</p></div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your artwork?</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our pre-press team can review your files and advise on the optimal print setup for your acrylic products.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>

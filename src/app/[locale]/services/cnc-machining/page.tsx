@@ -7,6 +7,7 @@ import {
   Cuboid, Drill, Layers, Ruler, Sliders, Repeat, AlertTriangle,
   PenTool, Sparkles, Timer, FlaskConical, Pen, Box, Target,
   Check, Minus, Star,
+  FileText, ScanEye, Puzzle, MessageSquare,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -288,6 +289,64 @@ export default function CncMachiningPage() {
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need Help Choosing Materials?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can recommend the most suitable material based on your product design, application and manufacturing requirements.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Contact Engineering Team<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== DESIGN GUIDELINES SECTION ========== */}
+      <section className="bg-white" aria-labelledby="cnc-design-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2 id="cnc-design-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Design Guidelines for Better CNC Machining Results</h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Following good design practices helps improve manufacturing efficiency, part accuracy and overall project success.</p>
+          </div>
+          <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+            <div className="space-y-4">
+              {[
+                { icon: FileText, title: "Use 3D CAD Models", desc: "Preferred formats include STEP, IGES and STL. 3D models enable accurate toolpath generation and help our engineers assess manufacturability before programming." },
+                { icon: Ruler, title: "Specify Tolerances", desc: "Define critical dimensions and acceptable tolerance ranges. Clear tolerance specifications help us select appropriate tooling and machining strategies for your parts." },
+                { icon: ScanEye, title: "Consider Tool Accessibility", desc: "Design with tool reach and clearance in mind. Deep pockets and narrow channels may require specialized long-reach tooling, impacting cost and lead time." },
+                { icon: Puzzle, title: "Plan for Fixturing", desc: "Include features for secure workholding during machining. Tabs, reference edges and mounting holes help maintain part position for consistent accuracy." },
+                { icon: MessageSquare, title: "Consult Engineering Early", desc: "Early design review can reduce programming time and production costs. Our engineers can identify potential machining challenges before you finalize your design." },
+              ].map((item, i) => (
+                <div key={item.title} className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0F2744] text-white flex items-center justify-center text-xs font-bold">{i + 1}</div>
+                    <div>
+                      <div className="flex items-center gap-2"><item.icon className="h-4 w-4 text-[#0F2744]" aria-hidden="true" /><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3></div>
+                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="relative" aria-hidden="true">
+              <div className="sticky top-24 rounded-2xl border border-gray-200 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+                <div className="aspect-[4/5] flex items-center justify-center p-8">
+                  <svg className="w-full h-full max-w-[320px]" viewBox="0 0 200 260" fill="none" stroke="#0F2744" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect x="20" y="20" width="160" height="220" rx="4" stroke="#cbd5e1" strokeWidth="1" />
+                    <rect x="50" y="50" width="100" height="80" rx="2" stroke="#0F2744" strokeWidth="1.2" />
+                    <circle cx="80" cy="75" r="6" strokeDasharray="3 2" strokeWidth="0.8" />
+                    <circle cx="120" cy="75" r="6" strokeDasharray="3 2" strokeWidth="0.8" />
+                    <line x1="50" y1="40" x2="150" y2="40" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="50" y1="36" x2="50" y2="44" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="150" y1="36" x2="150" y2="44" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="40" y1="50" x2="40" y2="130" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="36" y1="50" x2="44" y2="50" stroke="#94a3b8" strokeWidth="0.6" />
+                    <line x1="36" y1="130" x2="44" y2="130" stroke="#94a3b8" strokeWidth="0.6" />
+                    <rect x="65" y="140" width="20" height="20" rx="1" stroke="#0F2744" strokeWidth="0.8" fill="#f1f5f9" />
+                    <rect x="65" y="140" width="8" height="20" rx="1" stroke="#0F2744" strokeWidth="1" fill="none" />
+                    <rect x="115" y="155" width="30" height="8" rx="1" stroke="#0F2744" strokeWidth="0.8" fill="#f1f5f9" />
+                  </svg>
+                </div>
+                <div className="px-6 pb-6 text-center"><p className="text-xs text-gray-400">Recommended: submit 3D CAD models with tolerance specifications</p></div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help reviewing your design?</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can review your CAD files and provide feedback on manufacturability before you commit to production.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>
