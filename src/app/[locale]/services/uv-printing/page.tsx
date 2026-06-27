@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   Palette, Sun, Layers, ShoppingBag, Monitor, Camera, AlertTriangle, Star,
-  FileText, Ruler, ScanEye, Puzzle, MessageSquare, XCircle,
+  FileText, Ruler, ScanEye, Puzzle, MessageSquare, XCircle, ClipboardList,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -285,6 +285,18 @@ export default function UvPrintingPage() {
               </div>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* ========== FILE PREPARATION GUIDE SECTION ========== */}
+      <section className="bg-gray-50" aria-labelledby="uv-files-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="uv-files-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Preparing Your Artwork for UV Printing</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Providing print-ready artwork files helps speed up pre-press review and ensures accurate color reproduction.</p></div>
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6"><div className="flex items-center gap-2 mb-5"><FileText className="h-5 w-5 text-[#0F2744]" aria-hidden="true" /><h3 className="text-lg font-semibold text-[#0F2744]">Accepted File Formats</h3></div><div className="grid grid-cols-3 gap-3">{["AI", "PDF", "EPS", "PSD", "TIFF", "INDD"].map((fmt) => (<div key={fmt} className="flex items-center justify-center rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-semibold text-[#0F2744]">{fmt}</div>))}</div></div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6"><div className="flex items-center gap-2 mb-5"><ClipboardList className="h-5 w-5 text-[#0F2744]" aria-hidden="true" /><h3 className="text-lg font-semibold text-[#0F2744]">Artwork Checklist</h3></div><ul className="space-y-3">{["Convert all text to outlines.","Use CMYK color mode for accurate printing.","Include Pantone references for brand colors.","Provide artwork at 300dpi minimum.","Specify white ink areas and requirements.","Include adequate bleed (3mm minimum)."].map((item) => (<li key={item} className="flex items-start gap-2.5 text-sm text-gray-500"><Check className="h-4 w-4 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />{item}</li>))}</ul></div>
+          </div>
+          <div className="mt-10 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center"><h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your artwork?</h3><p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our pre-press team can review your files and provide print proofs for approval before production.</p><Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link></div>
         </Container>
       </section>
     </>
