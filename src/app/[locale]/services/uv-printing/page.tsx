@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   Palette, Sun, Layers, ShoppingBag, Monitor, Camera, AlertTriangle, Star,
-  FileText, Ruler, ScanEye, Puzzle, MessageSquare,
+  FileText, Ruler, ScanEye, Puzzle, MessageSquare, XCircle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -233,6 +233,32 @@ export default function UvPrintingPage() {
           <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help preparing your artwork?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our pre-press team can review your files and advise on the optimal print setup for your acrylic products.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== COMMON DESIGN MISTAKES SECTION ========== */}
+      <section className="bg-gray-50" aria-labelledby="uv-mistakes-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="uv-mistakes-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Common Design Mistakes to Avoid</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Understanding common artwork preparation issues helps achieve professional print quality and avoid production delays.</p></div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Low Resolution Artwork", desc: "Images below 300dpi at print size appear pixelated and unprofessional. Always provide high-resolution source files for photo-quality UV printing on acrylic." },
+              { title: "Missing Bleed", desc: "Artwork without bleed may show unwanted edges after cutting. Include adequate bleed area around print boundaries to ensure clean, edge-to-edge results." },
+              { title: "Unconverted Fonts", desc: "Text not outlined may substitute with different fonts. Convert all text to outlines or embed fonts in your artwork file to guarantee correct typography." },
+              { title: "Wrong Color Mode", desc: "RGB files may shift colors when printed in CMYK. Design in CMYK color space and provide Pantone references for brand-critical color matching." },
+              { title: "Ignoring White Ink Strategy", desc: "Not planning white underlay for clear acrylic can result in washed-out colors. Specify white ink requirements — full underlay, spot white, or transparent effects." },
+              { title: "Skipping Engineering Review", desc: "Pre-press check prevents costly reprints. Our team can review your artwork files and provide print proofs for approval before production runs." },
+            ].map((item) => (
+              <div key={item.title} className="group rounded-xl border border-rose-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3"><XCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" aria-hidden="true" /><div><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p></div></div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Good design starts with good communication.</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team is happy to review your artwork before production.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>

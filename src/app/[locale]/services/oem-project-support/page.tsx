@@ -6,7 +6,7 @@ import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   FileCheck, Search, ClipboardList, BarChart3, MessageSquare, Users, AlertTriangle,
   Layers, Star,
-  FileText, Ruler, ScanEye, Puzzle,
+  FileText, Ruler, ScanEye, Puzzle, XCircle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -233,6 +233,32 @@ export default function QualityControlPage() {
           <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help setting quality standards?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can help define appropriate quality criteria and inspection plans for your custom acrylic products.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== COMMON DESIGN MISTAKES SECTION ========== */}
+      <section className="bg-gray-50" aria-labelledby="qc-mistakes-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="qc-mistakes-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Common Design Mistakes to Avoid</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Understanding common quality issues helps establish effective inspection processes and ensure products meet expectations.</p></div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Vague Acceptance Criteria", desc: "\"Good quality\" is not a measurable standard. Define specific, measurable acceptance criteria for critical dimensions, surface quality and functional requirements." },
+              { title: "No Inspection Documentation", desc: "Without records, quality trends cannot be tracked. Structured documentation supports traceability and helps identify systematic issues before they affect entire production runs." },
+              { title: "Skipping In-Process Checks", desc: "Waiting until final QC catches issues too late. Implement inspection points at key production stages when corrections are still cost-effective and feasible." },
+              { title: "No Reference Samples", desc: "Without physical benchmarks, quality judgments become subjective. Approved reference samples provide a tangible standard that aligns expectations across teams." },
+              { title: "Inconsistent Measurement Methods", desc: "Different tools and techniques produce different results. Standardize measurement equipment and methods to ensure consistent, comparable quality data." },
+              { title: "Skipping Engineering Review", desc: "Early QC planning prevents systematic issues and reduces rejection rates. Our engineers can help establish appropriate quality protocols for your project." },
+            ].map((item) => (
+              <div key={item.title} className="group rounded-xl border border-rose-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3"><XCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" aria-hidden="true" /><div><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p></div></div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Good design starts with good communication.</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team is happy to review your drawings before production.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>

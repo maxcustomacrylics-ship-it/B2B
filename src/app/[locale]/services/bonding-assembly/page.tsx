@@ -6,7 +6,7 @@ import {
   ArrowRight, Upload, Cog, Wrench, ShieldCheck, Globe,
   Box, Package, Puzzle, ClipboardCheck, Truck, Hammer, AlertTriangle,
   Layers, Star,
-  FileText, Ruler, ScanEye, MessageSquare,
+  FileText, Ruler, ScanEye, MessageSquare, XCircle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -233,6 +233,32 @@ export default function AssemblyPage() {
           <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
             <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need help reviewing your design?</h3>
             <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can review your product design and recommend the optimal assembly and packaging approach.</p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== COMMON DESIGN MISTAKES SECTION ========== */}
+      <section className="bg-gray-50" aria-labelledby="assembly-mistakes-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]"><h2 id="assembly-mistakes-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Common Design Mistakes to Avoid</h2><p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Understanding common assembly issues helps streamline production, reduce labor costs and improve final product quality.</p></div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "No Alignment Features", desc: "Parts without guides or registration features are harder to assemble consistently. Include slots, tabs or alignment marks to ensure accurate, repeatable assembly." },
+              { title: "Overlooking Bond Strength", desc: "Joint designs must account for load requirements. Solvent-bonded joints achieve approximately 80% of base material strength — verify this is adequate for your application." },
+              { title: "Mixed Material Compatibility", desc: "Some adhesives and solvents do not work with certain materials. Confirm bonding compatibility when combining acrylic with PETG, polycarbonate or other substrates." },
+              { title: "Inadequate Packaging Protection", desc: "Insufficient protection leads to shipping damage. Design packaging requirements alongside product design to ensure finished goods arrive in perfect condition." },
+              { title: "Missing Hardware Specifications", desc: "Unspecified hardware causes procurement delays. Define screw types, thread sizes, insert specifications and finish requirements early in the design process." },
+              { title: "Skipping Engineering Review", desc: "Early review streamlines assembly sequence and reduces labor cost. Our engineers can recommend optimal joining methods and hardware for your specific product." },
+            ].map((item) => (
+              <div key={item.title} className="group rounded-xl border border-rose-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3"><XCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" aria-hidden="true" /><div><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p></div></div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Good design starts with good communication.</h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team is happy to review your drawings before production.</p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>

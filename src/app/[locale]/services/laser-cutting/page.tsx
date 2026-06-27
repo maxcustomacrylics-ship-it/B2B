@@ -33,6 +33,7 @@ import {
   Puzzle,
   MessageSquare,
   Lightbulb,
+  XCircle,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -795,6 +796,55 @@ export default function LaserCuttingPage() {
         </Container>
       </section>
       {/* ========== END DESIGN GUIDELINES SECTION ========== */}
+
+      {/* ========== COMMON DESIGN MISTAKES SECTION ========== */}
+      <section className="bg-gray-50" aria-labelledby="mistakes-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="max-w-[720px]">
+            <h2 id="mistakes-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
+              Common Design Mistakes to Avoid
+            </h2>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Understanding common design issues helps reduce revisions, improve
+              manufacturing efficiency and achieve better finished products.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Avoid Raster Images", desc: "Use vector drawings whenever possible. Raster images cannot be accurately converted to toolpaths and may result in jagged or imprecise cut edges." },
+              { title: "Tiny Holes", desc: "Very small holes may not be suitable depending on material thickness. As a guideline, hole diameter should be at least equal to material thickness for clean results." },
+              { title: "Overly Complex Geometry", desc: "Simplify unnecessary design details when appropriate. Excessive complexity increases processing time and may not add proportional value to the finished product." },
+              { title: "Insufficient Edge Distance", desc: "Leave adequate spacing between cut features. Features placed too close together can cause material warping or weaken the finished part." },
+              { title: "Ignoring Material Properties", desc: "Different materials perform differently during fabrication. Cast and extruded acrylic, for example, respond differently to laser cutting and edge finishing." },
+              { title: "Skipping Engineering Review", desc: "Early engineering feedback helps avoid costly revisions. A quick design review before production can identify potential issues and save significant time and expense." },
+            ].map((item) => (
+              <div key={item.title} className="group rounded-xl border border-rose-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex items-start gap-3">
+                  <XCircle className="h-5 w-5 text-rose-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3>
+                    <p className="mt-1.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
+            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">
+              Good design starts with good communication.
+            </h3>
+            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">
+              Our engineering team is happy to review your drawings before production.
+            </p>
+            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
+              <Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing
+            </Link>
+          </div>
+        </Container>
+      </section>
+      {/* ========== END COMMON DESIGN MISTAKES SECTION ========== */}
     </>
   );
 }
