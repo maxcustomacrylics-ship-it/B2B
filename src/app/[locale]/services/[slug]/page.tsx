@@ -135,6 +135,28 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </section>
 
+        {/* When to Choose */}
+        <section className="mt-28">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 className="text-2xl font-bold text-[#0F2744] sm:text-3xl">When Should You Choose {s.title}?</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto">{s.title} is an excellent choice for many custom acrylic applications, but selecting the right process depends on your design, material and project requirements.</p>
+          </div>
+          <div className="grid gap-10 lg:grid-cols-2">
+            <div>
+              <h3 className="text-lg font-semibold text-[#0F2744] mb-5">Best Applications</h3>
+              <div className="space-y-3">
+                {[{t:"Intricate Shapes",d:"Ideal for complex contours and detailed cut patterns."},{t:"Smooth Edge Finish",d:"Produces clean polished edges on suitable acrylic materials."},{t:"Fast Prototyping",d:"Suitable for prototype development and low-volume production."},{t:"Retail Displays",d:"Perfect for display stands, signage and branded fixtures."},{t:"Custom Fabrication",d:"Supports highly customized acrylic components."},{t:"Efficient Production",d:"Suitable for repeat production with consistent quality."}].map((x)=>(<div key={x.t} className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4"><span className="text-xl shrink-0">✓</span><div><h4 className="font-semibold text-[#0F2744] text-sm">{x.t}</h4><p className="text-xs text-gray-500 mt-0.5">{x.d}</p></div></div>))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-[#0F2744] mb-5">Consider Other Processes If</h3>
+              <div className="space-y-3">
+                {[{t:"Deep Grooves Required",d:"Consider CNC Machining."},{t:"Thick Material Processing",d:"Alternative machining methods may be more suitable."},{t:"Threaded Features",d:"Secondary machining may be required."},{t:"Three-Dimensional Machining",d:"CNC machining is often recommended."}].map((x)=>(<Link key={x.t} href="/services/cnc-machining" className="flex items-start gap-3 rounded-xl border border-amber-100 bg-amber-50/50 p-4 group"><span className="text-lg shrink-0">⚠</span><div className="flex-1"><h4 className="font-semibold text-[#0F2744] text-sm">{x.t}</h4><p className="text-xs text-gray-500 mt-0.5">{x.d}</p></div></Link>))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Materials We Process */}
         <section className="mt-28" aria-labelledby="materials-heading">
           <div className="max-w-[1280px] mx-auto text-center mb-12">
