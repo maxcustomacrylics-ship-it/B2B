@@ -331,10 +331,9 @@ export default function LaserCuttingPage() {
             </p>
           </div>
 
-          {/* Desktop: Comparison Table | Mobile: Stacked Cards */}
-          <div className="mt-10 hidden lg:block">
-            {/* ——— Desktop Table ——— */}
-            <div className="rounded-2xl border border-gray-200 overflow-hidden">
+          {/* Comparison Table — responsive */}
+          <div className="mt-10 overflow-x-auto">
+            <div className="rounded-2xl border border-gray-200 overflow-hidden min-w-[640px]">
               {/* Header */}
               <div className="grid grid-cols-[220px_1fr_1fr] bg-[#0F2744] text-white">
                 <div className="px-6 py-4 text-sm font-semibold">Feature</div>
@@ -449,95 +448,6 @@ export default function LaserCuttingPage() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* ——— Mobile: Stacked Cards ——— */}
-          <div className="mt-8 lg:hidden space-y-4">
-            {[
-              {
-                icon: Layers,
-                label: "Suitable Materials",
-                laser: "Cast & extruded acrylic, PETG, polycarbonate, PVC",
-                cnc: "Cast & extruded acrylic, PETG, polycarbonate, PVC, ABS",
-                laserBest: true,
-              },
-              {
-                icon: PenTool,
-                label: "Complex Shapes",
-                laser: "Excellent for intricate 2D profiles and fine details",
-                cnc: "Good for 2D; excels at 3D contours and pockets",
-              },
-              {
-                icon: Sparkles,
-                label: "Edge Finish",
-                laser: "Flame-polished, smooth as-cut finish directly from machine",
-                cnc: "Machined finish; may require secondary polishing",
-                laserBest: true,
-              },
-              {
-                icon: Timer,
-                label: "Production Speed",
-                laser: "Fast processing; no physical tooling or setup required",
-                cnc: "Slower initial setup; faster on thick materials",
-                laserBest: true,
-              },
-              {
-                icon: FlaskConical,
-                label: "Prototype Support",
-                laser: "Excellent — zero tooling cost, ideal for sampling",
-                cnc: "Good — requires CAM programming for each design",
-                laserBest: true,
-              },
-              {
-                icon: Pen,
-                label: "Engraving Capability",
-                laser: "Excellent — raster and vector engraving built in",
-                cnc: "Possible with specialized engraving bits and toolpaths",
-                laserBest: true,
-              },
-              {
-                icon: Drill,
-                label: "Deep Machining",
-                laser: "Limited to laser-rated material thickness, typically ≤25mm",
-                cnc: "Excellent — machines acrylic up to 50mm thickness",
-                cncBest: true,
-              },
-              {
-                icon: Box,
-                label: "3D Features",
-                laser: "Not available — 2D profile cutting only",
-                cnc: "Excellent — beveled edges, pockets, threaded holes, contours",
-                cncBest: true,
-              },
-              {
-                icon: Target,
-                label: "Typical Applications",
-                laser: "Displays, signage, decorative panels, POP, awards",
-                cnc: "Structural parts, enclosures, machine guards, threaded assemblies",
-              },
-            ].map((row) => (
-              <div
-                key={row.label}
-                className="rounded-xl border border-gray-200 bg-white overflow-hidden shadow-sm"
-              >
-                {/* Mobile Header */}
-                <div className="flex items-center gap-2 px-5 py-3 bg-gray-50 border-b border-gray-100">
-                  <row.icon className="h-4 w-4 text-gray-400" aria-hidden="true" />
-                  <span className="text-sm font-semibold text-[#0F2744]">{row.label}</span>
-                </div>
-                {/* Mobile Rows */}
-                <div className="grid grid-cols-2 divide-x divide-gray-100">
-                  <div className="p-4">
-                    <span className="text-xs font-semibold text-[#0F2744] uppercase tracking-wide">Laser Cutting</span>
-                    <p className="mt-1 text-sm text-gray-500 leading-relaxed">{row.laser}</p>
-                  </div>
-                  <div className="p-4">
-                    <span className="text-xs font-semibold text-[#0F2744] uppercase tracking-wide">CNC Machining</span>
-                    <p className="mt-1 text-sm text-gray-500 leading-relaxed">{row.cnc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
 
           {/* Bottom Info Box */}
