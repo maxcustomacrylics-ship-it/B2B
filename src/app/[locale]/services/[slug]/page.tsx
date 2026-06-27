@@ -303,10 +303,43 @@ export default async function ServicePage({ params }: Props) {
           <div className="space-y-4 max-w-3xl">{s.faqs.map((f,i)=>(<div key={i} className="rounded-xl border border-gray-200 bg-white p-5"><h3 className="font-semibold text-[#0F2744]">{f.question}</h3><p className="mt-2 text-sm text-gray-500">{f.answer}</p></div>))}</div>
         </div>
 
-        {/* Related Industries */}
-        <div className="mt-16"><h2 className="text-2xl font-bold text-[#0F2744] mb-6">Industries Using {s.title}</h2>
-          <div className="flex flex-wrap gap-2">{[{n:"Retail Display",s:"retail-display"},{n:"Cosmetics",s:"cosmetics-display"},{n:"Hotel Hospitality",s:"hotel-hospitality"},{n:"Medical",s:"medical-healthcare"},{n:"Electronics",s:"electronics-industry"},{n:"Museum",s:"museum-art-gallery"}].map((ind)=>(<Link key={ind.s} href={`/industries/${ind.s}`} className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors">{ind.n}</Link>))}</div>
-        </div>
+        {/* Industries We Support */}
+        <section className="mt-28" aria-labelledby="industries-heading">
+          <div className="max-w-[1280px] mx-auto text-center mb-12">
+            <h2 id="industries-heading" className="text-2xl font-bold text-[#0F2744] sm:text-3xl">Industries We Support</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Precision acrylic {s.title.toLowerCase()} is widely used across various industries to manufacture high-quality custom acrylic products for commercial, retail and industrial applications.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { name: "Retail Display", slug: "retail-display", products: ["Display Stand","Display Box","POP Display"], desc: "Custom display fixtures, product showcases and point-of-purchase displays for retail environments.", emoji: "🏪" },
+              { name: "Cosmetics", slug: "cosmetics-display", products: ["Counter Display","Tester Unit","Makeup Organizer"], desc: "Premium acrylic displays and organizers for beauty and cosmetic brands worldwide.", emoji: "💄" },
+              { name: "Jewelry", slug: "jewelry-display", products: ["Ring Display","Watch Stand","Display Case"], desc: "Luxury display stands, showcases and presentation accessories for fine jewelry.", emoji: "💍" },
+              { name: "Medical", slug: "medical-healthcare", products: ["Equipment Cover","Protective Barrier","Signage"], desc: "Precision acrylic components for healthcare, laboratory and medical equipment.", emoji: "🏥" },
+              { name: "Restaurant", slug: "restaurant-hospitality", products: ["Menu Holder","Table Sign","Food Display"], desc: "Menu holders, countertop displays, protective panels and signage for hospitality.", emoji: "🍽" },
+              { name: "Hotel", slug: "hotel-hospitality", products: ["Room Sign","Amenity Tray","Brochure Holder"], desc: "Custom acrylic signage, room accessories and hospitality display solutions.", emoji: "🏨" },
+              { name: "Museum", slug: "museum-art-gallery", products: ["Display Vitrine","Exhibit Stand","Info Panel"], desc: "Protective display cases, exhibit stands and information panels for cultural institutions.", emoji: "🏛" },
+              { name: "Electronics", slug: "electronics-industry", products: ["Device Stand","Protective Cover","Demo Fixture"], desc: "Product display stands, demonstration fixtures and protective components for electronics.", emoji: "📱" },
+            ].map((ind) => (
+              <Link key={ind.slug} href={`/industries/${ind.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg transition-all flex flex-col">
+                <div className="aspect-[4/3] bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center overflow-hidden relative">
+                  <span className="text-6xl opacity-30 transition-transform duration-300 group-hover:scale-110 select-none">{ind.emoji}</span>
+                </div>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-semibold text-[#0F2744]">{ind.name}</h3>
+                  <p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1">{ind.desc}</p>
+                  <div className="mt-3 pt-3 border-t border-gray-100">
+                    <span className="text-[10px] text-gray-400 uppercase tracking-wide">Typical Products</span>
+                    <div className="mt-1.5 flex flex-wrap gap-1">{ind.products.map((p)=>(<span key={p} className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">{p}</span>))}</div>
+                  </div>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" /></span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Related Services + CTA */}
         <div className="mt-16 grid gap-10 lg:grid-cols-3">
