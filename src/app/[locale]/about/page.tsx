@@ -144,19 +144,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Why trust us */}
-        <div className="mt-16 bg-gray-50 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-[#0F2744] text-center">Why Businesses Trust Us</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {v:"15+",l:"Years Experience"},
-              {v:"30+",l:"Countries Served"},
-              {v:"200+",l:"Projects Delivered"},
-              {v:"24h",l:"Response Time"},
-            ].map((s,i)=>(<div key={i} className="text-center"><div className="text-4xl font-bold text-[#0F2744]">{s.v}</div><div className="mt-1 text-sm text-gray-500">{s.l}</div></div>))}
-          </div>
-        </div>
-
         {/* CTA */}
         <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white">
           <h2 className="text-2xl font-bold">Start Your Project Today</h2>
