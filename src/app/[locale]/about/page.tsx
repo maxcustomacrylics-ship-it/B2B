@@ -122,14 +122,25 @@ export default function AboutPage() {
 
         {/* How We Work */}
         <div className="mt-16">
-          <h2 className="text-2xl font-bold text-[#0F2744] text-center">How We Work</h2>
-          <div className="mt-8 max-w-3xl mx-auto space-y-4">
+          <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl text-center">How We Work</h2>
+          <div className="mt-10 grid gap-0 sm:grid-cols-4 max-w-4xl mx-auto">
             {[
-              {step:"01",t:"You Share Your Requirements",d:"Send us your drawings, specifications, reference samples, or even a rough sketch. Our engineering team reviews everything and provides initial feedback within 24 hours."},
-              {step:"02",t:"We Develop the Manufacturing Plan",d:"We select the right materials, determine the optimal fabrication processes, identify the best manufacturing partner for your project, and prepare a detailed quotation with transparent pricing and timeline."},
-              {step:"03",t:"We Manage Production & Quality",d:"We coordinate all manufacturing stages, conduct quality inspections at key checkpoints, and keep you updated throughout. You receive inspection reports and photos — no surprises."},
-              {step:"04",t:"We Handle Packaging & Delivery",d:"Products are professionally packed with protective materials, export documentation is prepared, and shipping is arranged via your preferred method. We manage the logistics so you don't have to."},
-            ].map((s,i)=>(<div key={i} className="flex gap-4 rounded-xl border border-gray-200 bg-white p-5"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0F2744] text-white text-sm font-bold">{s.step}</div><div><h3 className="font-semibold text-[#0F2744]">{s.t}</h3><p className="mt-1 text-sm text-gray-500">{s.d}</p></div></div>))}
+              { step: "01", title: "Share Your Requirements", desc: "Send us your drawings or project brief." },
+              { step: "02", title: "Engineering Review", desc: "We assess manufacturability and provide a quotation." },
+              { step: "03", title: "Production Coordination", desc: "We manage manufacturing and quality inspection." },
+              { step: "04", title: "Delivery", desc: "Products are packed and shipped to your destination." },
+            ].map((s, i) => (
+              <div key={i} className="relative flex flex-col items-center text-center px-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0F2744] text-white text-sm font-bold">{s.step}</div>
+                {i < 3 && (
+                  <div className="hidden sm:block absolute top-6 left-[calc(50%+24px)] w-full h-px bg-gray-200">
+                    <ArrowRight className="absolute -top-1.5 -right-1 h-4 w-4 text-gray-300" aria-hidden="true" />
+                  </div>
+                )}
+                <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{s.title}</h3>
+                <p className="mt-1 text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 
