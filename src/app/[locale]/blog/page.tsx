@@ -127,6 +127,34 @@ export default async function BlogPage() {
           ))}
         </div>
       </Container>
+
+      {/* ========== FINAL CTA ========== */}
+      <section className="bg-white" aria-labelledby="blog-cta">
+        <Container className="py-20 lg:py-28">
+          <div className="max-w-[640px] mx-auto text-center">
+            <h2 id="blog-cta" className="text-3xl font-bold text-[#0F2744] sm:text-4xl lg:text-5xl">
+              Need Help With Your Acrylic Project?
+            </h2>
+            <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Whether you're planning a new product or looking for technical
+              guidance, we're here to help.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Call to action buttons">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-8 py-4 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
+                Request a Quote
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </Link>
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-8 py-4 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+                Upload Your Drawing
+              </Link>
+            </div>
+            <p className="mt-8 text-sm text-gray-400">
+              Our team typically responds within one business day.
+            </p>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
