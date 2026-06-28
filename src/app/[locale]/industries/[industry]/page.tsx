@@ -53,8 +53,8 @@ export default async function IndustryPage({ params }: Props) {
               <h1 id="industry-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
                 {d.h1}
               </h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
-                {d.intro}
+              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">
+                {d.heroSubtitle}
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Link
@@ -74,19 +74,12 @@ export default async function IndustryPage({ params }: Props) {
               </div>
             </div>
             <div className="relative" aria-hidden="true">
-              <div className="grid grid-cols-3 gap-2.5">
-                {d.applications.slice(0, 6).map((app, i) => (
-                  <div
-                    key={i}
-                    className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br shadow-sm relative flex items-center justify-center ${
-                      ["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50","from-amber-100 to-amber-200/50","from-purple-100 to-purple-200/50"][i % 6]
-                    }`}
-                  >
-                    <span className="text-[10px] text-gray-500 font-medium text-center px-1 leading-tight">{app}</span>
-                  </div>
-                ))}
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
+                <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+                </svg>
               </div>
-              <span className="sr-only">Custom acrylic solutions for {d.name} applications</span>
+              <span className="sr-only">{d.name} application — custom acrylic solutions</span>
             </div>
           </div>
         </Container>
