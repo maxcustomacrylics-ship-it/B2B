@@ -18,32 +18,16 @@ export default function UvPrintingPage() {
   return (
     <>
       {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-slate-50 overflow-hidden" aria-labelledby="uv-hero-heading">
-        <Container className="py-14 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-12 items-center min-h-[520px]">
-            <div className="order-2 lg:order-1 relative" aria-hidden="true">
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-2 pt-8">
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-red-100 to-red-200/50" />
-                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200/50" />
-                </div>
-                <div className="space-y-2">
-                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-yellow-100 to-yellow-200/50" />
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-cyan-100 to-cyan-200/50" />
-                </div>
-              </div>
-              <span className="sr-only">UV digital printing on acrylic — CMYK + White for vibrant branded displays</span>
-            </div>
-            <div className="order-1 lg:order-2">
-              <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "UV Printing" }]} />
-              <h1 id="uv-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">UV Digital Printing on Acrylic</h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">Full-color CMYK + White direct-to-acrylic printing at 1440dpi. Durable, vibrant graphics for branded displays, signage and personalised products.</p>
-              <p className="mt-3 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">Our engineering team reviews every project and coordinates the most suitable printing process to deliver vivid, production-ready acrylic products.</p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3" role="group" aria-label="Call to action buttons">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Request a quote for UV printed acrylic products">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Upload your artwork for UV printing quotation"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
-              </div>
-            </div>
+      <section className="relative bg-gradient-to-br from-[#0F2744] via-[#1E3A5F] to-[#0F2744] overflow-hidden" aria-labelledby="uv-printing-hero-heading">
+        <div className="absolute inset-0 opacity-5"><div className="grid grid-cols-6 gap-2 h-full p-8">{[...Array(18)].map((_,i)=>(<div key={i} className="bg-blue-400 rounded-full" />))}</div></div>
+        <Container className="relative py-20 lg:py-28 text-center">
+          <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "UV Digital" }]} />
+          <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-blue-300 tracking-wide mt-6">Full-Color CMYK + White</span>
+          <h1 id="uv-printing-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">UV Digital Printing on Acrylic</h1>
+          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Full-color CMYK + White direct-to-acrylic printing at 1440dpi. Durable, vibrant graphics for branded displays, signage and personalised products.</p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center" role="group" aria-label="Call to action buttons">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>

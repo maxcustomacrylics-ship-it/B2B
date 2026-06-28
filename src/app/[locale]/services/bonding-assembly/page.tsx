@@ -19,50 +19,16 @@ export default function AssemblyPage() {
   return (
     <>
       {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="assembly-hero-heading">
-        <Container className="py-14 lg:py-20">
-          <div className="grid gap-8 lg:grid-cols-[4fr_6fr] lg:gap-12 items-center min-h-[480px]">
-            <div>
-              <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Assembly & Packaging" }]} />
-              <h1 id="assembly-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
-                Professional Acrylic Assembly & Packaging
-              </h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
-                Complete product assembly including hardware integration, bonding, quality inspection and export-ready packaging — finished goods delivered to your door.
-              </p>
-              <p className="mt-3 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
-                Our engineering team coordinates every step of the assembly and packaging process to deliver retail-ready acrylic products with consistent quality and worldwide delivery support.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3" role="group" aria-label="Call to action buttons">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Request a quote for acrylic assembly and packaging">
-                  Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Upload your drawing for assembly quotation">
-                  <Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing
-                </Link>
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:gap-6 text-sm text-gray-500">
-                <span className="flex items-center gap-1.5"><Cog className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Engineering Review</span>
-                <span className="flex items-center gap-1.5"><Wrench className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Custom Manufacturing</span>
-                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Quality Inspection</span>
-                <span className="flex items-center gap-1.5"><Globe className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Worldwide Delivery</span>
-              </div>
-            </div>
-            <div className="relative" aria-hidden="true">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
-                <div className="text-center select-none">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
-                    <svg className="w-10 h-10 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                      <line x1="12" y1="22.08" x2="12" y2="12" />
-                    </svg>
-                  </div>
-                  <p className="text-xs text-gray-400 tracking-wide uppercase">Complete Assembly & Export Packaging</p>
-                </div>
-              </div>
-              <span className="sr-only">Professional acrylic assembly and packaging service with hardware integration and export-ready packaging</span>
-            </div>
+      <section className="relative bg-gradient-to-br from-[#0F2744] via-[#1E3A5F] to-[#0F2744] overflow-hidden" aria-labelledby="bonding-assembly-hero-heading">
+        <div className="absolute inset-0 opacity-5"><div className="grid grid-cols-6 gap-2 h-full p-8">{[...Array(18)].map((_,i)=>(<div key={i} className="bg-blue-400 rounded-full" />))}</div></div>
+        <Container className="relative py-20 lg:py-28 text-center">
+          <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Professional Acrylic" }]} />
+          <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-blue-300 tracking-wide mt-6">Complete Assembly & Export Packaging</span>
+          <h1 id="bonding-assembly-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">Professional Acrylic Assembly & Packaging</h1>
+          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Complete product assembly including hardware integration, bonding, quality inspection and export-ready packaging — finished goods delivered to your door.</p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center" role="group" aria-label="Call to action buttons">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>

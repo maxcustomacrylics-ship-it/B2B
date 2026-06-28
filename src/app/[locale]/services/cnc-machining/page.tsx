@@ -20,28 +20,18 @@ export default function CncMachiningPage() {
   return (
     <>
       {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-white" aria-labelledby="cnc-hero-heading">
-        <Container className="py-12 lg:py-16">
-          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "CNC Machining" }]} />
-          <div className="mt-6 max-w-3xl mx-auto text-center">
-            <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 tracking-wide">3D Acrylic Machining</span>
-            <h1 id="cnc-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Precision CNC Acrylic Machining Services</h1>
-            <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Multi-axis CNC routing for 3D acrylic parts including beveled edges, threaded holes and contoured surfaces for structural and industrial applications.</p>
-            <p className="mt-3 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Our engineering team reviews every project and coordinates the most suitable manufacturing process to deliver accurate, production-ready acrylic components.</p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center" role="group" aria-label="Call to action buttons">
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Request a quote for custom acrylic CNC machining">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Upload your drawing for CNC machining quotation"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
-            </div>
+      <section className="relative bg-gradient-to-br from-[#0F2744] via-[#1E3A5F] to-[#0F2744] overflow-hidden" aria-labelledby="cnc-machining-hero-heading">
+        <div className="absolute inset-0 opacity-5"><div className="grid grid-cols-6 gap-2 h-full p-8">{[...Array(18)].map((_,i)=>(<div key={i} className="bg-blue-400 rounded-full" />))}</div></div>
+        <Container className="relative py-20 lg:py-28 text-center">
+          <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Precision CNC" }]} />
+          <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-blue-300 tracking-wide mt-6">3D Acrylic Machining</span>
+          <h1 id="cnc-machining-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">Precision CNC Acrylic Machining Services</h1>
+          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Multi-axis CNC routing for 3D acrylic parts including beveled edges, threaded holes and contoured surfaces for structural and industrial applications.</p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center" role="group" aria-label="Call to action buttons">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
-        <div className="w-full aspect-[21/9] lg:aspect-[3/1] bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100 flex items-center justify-center" aria-hidden="true">
-          <div className="grid grid-cols-4 gap-3 max-w-2xl">
-            {[
-              {icon:"🧊",label:"3D"}, {icon:"🔩",label:"Threads"}, {icon:"📏",label:"Bevel"}, {icon:"⚙️",label:"Precision"},
-            ].map((t,i)=>(<div key={i} className="aspect-square rounded-2xl bg-white/60 flex flex-col items-center justify-center shadow-sm"><span className="text-2xl">{t.icon}</span><span className="text-[10px] text-gray-400 mt-1">{t.label}</span></div>))}
-          </div>
-        </div>
-        <span className="sr-only">CNC machining service for precision acrylic components with 3D contouring and threaded features</span>
       </section>
 
       {/* ========== WHEN TO CHOOSE SECTION ========== */}
