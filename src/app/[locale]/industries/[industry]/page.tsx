@@ -82,15 +82,15 @@ export default async function IndustryPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* ========== 2. RECOMMENDED PRODUCTS ========== */}
-      <section className="bg-white" aria-labelledby="products-heading">
+      {/* ========== 2. FEATURED SOLUTIONS ========== */}
+      <section className="bg-white" aria-labelledby="solutions-heading">
         <Container className="py-16 lg:py-20">
           <div className="max-w-[720px]">
-            <h2 id="products-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
-              Recommended Products
+            <h2 id="solutions-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
+              Featured Solutions
             </h2>
             <p className="mt-3 text-gray-500 leading-relaxed">
-              Our most popular custom acrylic products for {d.name.toLowerCase()} applications. Every product can be tailored to your specifications.
+              Popular custom acrylic solutions for {d.name.toLowerCase()} applications. Every item can be tailored to your specifications.
             </p>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
