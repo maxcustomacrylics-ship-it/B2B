@@ -7,9 +7,6 @@ import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
 import { getIndustry } from "@/data/industry-pages";
-import { Eye, Shield, LayoutGrid, ShieldCheck } from "lucide-react";
-
-const needIcons = [Eye, Shield, LayoutGrid, ShieldCheck];
 
 type Props = { params: Promise<{ industry: string }> };
 
@@ -85,37 +82,7 @@ export default async function IndustryPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* ========== 2. INDUSTRY NEEDS ========== */}
-      <section className="bg-gray-50" aria-labelledby="needs-heading">
-        <Container className="py-16 lg:py-20">
-          <div className="max-w-[720px]">
-            <h2 id="needs-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
-              Industry Needs
-            </h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">
-              Understanding the specific requirements of {d.name.toLowerCase()} helps us recommend the right materials, processes and finishes for your project.
-            </p>
-          </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl">
-            {d.needs.map((need, i) => {
-              const Icon = needIcons[i];
-              return (
-                <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm flex items-start gap-4">
-                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
-                    <Icon className="h-5 w-5 text-[#0F2744]" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#0F2744]">{need.title}</h3>
-                    <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{need.desc}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* ========== 3. RECOMMENDED PRODUCTS ========== */}
+      {/* ========== 2. RECOMMENDED PRODUCTS ========== */}
       <section className="bg-white" aria-labelledby="products-heading">
         <Container className="py-16 lg:py-20">
           <div className="max-w-[720px]">
@@ -153,7 +120,7 @@ export default async function IndustryPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* ========== 4. RECOMMENDED CAPABILITIES ========== */}
+      {/* ========== 3. RECOMMENDED CAPABILITIES ========== */}
       <section className="bg-gray-50" aria-labelledby="capabilities-heading">
         <Container className="py-16 lg:py-20">
           <div className="max-w-[720px]">
@@ -185,7 +152,7 @@ export default async function IndustryPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* ========== 5. FINAL CTA ========== */}
+      {/* ========== 4. FINAL CTA ========== */}
       <section className="bg-white" aria-labelledby="cta-heading">
         <Container className="py-20 lg:py-28">
           <div className="max-w-[640px] mx-auto text-center">
