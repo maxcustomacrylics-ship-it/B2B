@@ -143,23 +143,23 @@ export default async function IndustryPage({ params }: Props) {
             </p>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {d.commonProducts.map((product, i) => (
+            {d.featuredProducts.map((product, i) => (
               <Link
-                key={i}
-                href="/products"
+                key={product.slug}
+                href={`/products/${product.slug}`}
                 className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
               >
-                <div className={`aspect-[16/10] bg-gradient-to-br flex items-center justify-center ${
-                  ["from-blue-50 to-blue-100/50","from-sky-50 to-sky-100/50","from-indigo-50 to-indigo-100/50","from-emerald-50 to-emerald-100/50","from-amber-50 to-amber-100/50","from-purple-50 to-purple-100/50"][i % 6]
+                <div className={`aspect-[16/10] bg-gradient-to-br flex items-center justify-center relative ${
+                  ["from-blue-50 to-blue-200/50","from-sky-50 to-sky-200/50","from-indigo-50 to-indigo-200/50","from-emerald-50 to-emerald-200/50","from-amber-50 to-amber-200/50","from-purple-50 to-purple-200/50"][i % 6]
                 }`}>
-                  <svg className="w-10 h-10 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                  <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
                 </div>
-                <div className="p-4 flex flex-col flex-1">
+                <div className="p-4">
                   <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">
-                    {product}
+                    {product.name}
                   </h3>
                   <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">
-                    View Products
+                    Learn More
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                   </span>
                 </div>
