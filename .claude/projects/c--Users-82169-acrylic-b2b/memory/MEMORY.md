@@ -1,0 +1,1 @@
+- [Service Pages Sync](service-pages-sync.md) — New sections added to one service page must be replicated across all 6 with adapted content

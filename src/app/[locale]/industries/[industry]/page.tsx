@@ -7,6 +7,9 @@ import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
 import { getIndustry } from "@/data/industry-pages";
+import { Eye, Shield, LayoutGrid, ShieldCheck } from "lucide-react";
+
+const needIcons = [Eye, Shield, LayoutGrid, ShieldCheck];
 
 type Props = { params: Promise<{ industry: string }> };
 
@@ -110,17 +113,20 @@ export default async function IndustryPage({ params }: Props) {
             </p>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl">
-            {d.needs.map((need, i) => (
-              <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm flex items-start gap-4">
-                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-xl">
-                  {["📐","🛡","🎯","⚡"][i]}
+            {d.needs.map((need, i) => {
+              const Icon = needIcons[i];
+              return (
+                <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm flex items-start gap-4">
+                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
+                    <Icon className="h-5 w-5 text-[#0F2744]" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#0F2744]">{need.title}</h3>
+                    <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{need.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-[#0F2744]">{need.title}</h3>
-                  <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{need.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Container>
       </section>
