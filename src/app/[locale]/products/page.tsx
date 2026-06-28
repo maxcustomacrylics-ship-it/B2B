@@ -66,18 +66,18 @@ export default async function ProductsPage() {
             <div className="relative" aria-hidden="true">
               <div className="grid grid-cols-3 gap-2.5">
                 {[
-                  { icon: "🖼", color: "from-blue-100 to-blue-50/50", label: "Displays" },
-                  { icon: "📦", color: "from-sky-100 to-sky-50/50", label: "Boxes" },
-                  { icon: "🪧", color: "from-indigo-100 to-indigo-50/50", label: "Signage" },
-                  { icon: "🏆", color: "from-amber-100 to-amber-50/50", label: "Awards" },
-                  { icon: "🛍", color: "from-emerald-100 to-emerald-50/50", label: "Retail" },
-                  { icon: "📋", color: "from-purple-100 to-purple-50/50", label: "Stands" },
-                  { icon: "💎", color: "from-rose-100 to-rose-50/50", label: "Premium" },
-                  { icon: "🔧", color: "from-teal-100 to-teal-50/50", label: "Custom" },
+                  { color: "from-blue-100 to-blue-200/60", label: "Displays" },
+                  { color: "from-sky-100 to-sky-200/60", label: "Boxes" },
+                  { color: "from-indigo-100 to-indigo-200/60", label: "Signage" },
+                  { color: "from-amber-100 to-amber-200/60", label: "Awards" },
+                  { color: "from-emerald-100 to-emerald-200/60", label: "Retail" },
+                  { color: "from-purple-100 to-purple-200/60", label: "Stands" },
+                  { color: "from-rose-100 to-rose-200/60", label: "Premium" },
+                  { color: "from-teal-100 to-teal-200/60", label: "Custom" },
                 ].map((img, i) => (
-                  <div key={i} className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${img.color} flex flex-col items-center justify-center shadow-sm`}>
-                    <span className="text-2xl sm:text-3xl select-none">{img.icon}</span>
-                    <span className="mt-1 text-[9px] text-gray-400 font-medium">{img.label}</span>
+                  <div key={i} className={`aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${img.color} shadow-sm relative`}>
+                    <svg className="absolute inset-0 m-auto w-6 h-6 text-gray-400/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                    <span className="absolute bottom-1.5 left-0 right-0 text-center text-[9px] text-gray-400 font-medium">{img.label}</span>
                   </div>
                 ))}
               </div>
@@ -108,48 +108,42 @@ export default async function ProductsPage() {
                 slug: "display-solutions",
                 desc: "Custom acrylic displays, stands and presentation fixtures for retail, exhibition and commercial environments.",
                 count: 12,
-                icon: "🖼",
-                color: "from-blue-100 to-blue-50",
+                color: "from-blue-100 to-blue-200/60",
               },
               {
                 title: "Signage",
                 slug: "signage",
                 desc: "Indoor and outdoor acrylic signage including wayfinding signs, branded panels and illuminated displays.",
                 count: 8,
-                icon: "🪧",
-                color: "from-indigo-100 to-indigo-50",
+                color: "from-indigo-100 to-indigo-200/60",
               },
               {
                 title: "Storage & Organization",
                 slug: "storage-organization",
                 desc: "Acrylic boxes, cases, trays and organizational products for retail, office and home applications.",
                 count: 10,
-                icon: "📦",
-                color: "from-sky-100 to-sky-50",
+                color: "from-sky-100 to-sky-200/60",
               },
               {
                 title: "Retail Fixtures",
                 slug: "retail-fixtures",
                 desc: "Point-of-purchase displays, shelving, brochure holders and merchandising fixtures for retail environments.",
                 count: 15,
-                icon: "🏪",
-                color: "from-emerald-100 to-emerald-50",
+                color: "from-emerald-100 to-emerald-200/60",
               },
               {
                 title: "Protective Products",
                 slug: "protective-products",
                 desc: "Acrylic barriers, protective panels, machine guards and safety shields for commercial and industrial use.",
                 count: 6,
-                icon: "🛡",
-                color: "from-amber-100 to-amber-50",
+                color: "from-amber-100 to-amber-200/60",
               },
               {
                 title: "Custom Components",
                 slug: "custom-components",
                 desc: "Bespoke acrylic parts, precision-cut components and custom-fabricated items built to your exact specifications.",
                 count: 20,
-                icon: "🔧",
-                color: "from-purple-100 to-purple-50",
+                color: "from-purple-100 to-purple-200/60",
               },
             ].map((cat) => (
               <Link
@@ -157,8 +151,8 @@ export default async function ProductsPage() {
                 href={`/products/${cat.slug}`}
                 className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
               >
-                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} flex items-center justify-center`}>
-                  <span className="text-5xl select-none group-hover:scale-110 transition-transform duration-300">{cat.icon}</span>
+                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} flex items-center justify-center relative`}>
+                  <svg className="w-10 h-10 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-start justify-between gap-3">
@@ -211,19 +205,17 @@ export default async function ProductsPage() {
               >
                 {/* Product Image — gradient placeholder */}
                 <div className={[
-                  "aspect-[4/3] bg-gradient-to-br flex items-center justify-center",
-                  "from-blue-50 to-blue-100",
-                  "from-sky-50 to-sky-100",
-                  "from-indigo-50 to-indigo-100",
-                  "from-emerald-50 to-emerald-100",
-                  "from-amber-50 to-amber-100",
-                  "from-purple-50 to-purple-100",
-                  "from-rose-50 to-rose-100",
-                  "from-teal-50 to-teal-100",
+                  "aspect-[4/3] bg-gradient-to-br flex items-center justify-center relative",
+                  "from-blue-50 to-blue-200/50",
+                  "from-sky-50 to-sky-200/50",
+                  "from-indigo-50 to-indigo-200/50",
+                  "from-emerald-50 to-emerald-200/50",
+                  "from-amber-50 to-amber-200/50",
+                  "from-purple-50 to-purple-200/50",
+                  "from-rose-50 to-rose-200/50",
+                  "from-teal-50 to-teal-200/50",
                 ][i % 8]}>
-                  <span className="text-4xl select-none group-hover:scale-110 transition-transform duration-300">
-                    {["🖼","📦","🪧","🏆","🛍","📋","💎","🔧"][i % 8]}
-                  </span>
+                  <svg className="w-8 h-8 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
                 </div>
 
                 {/* Content */}
