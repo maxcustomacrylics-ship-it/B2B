@@ -34,11 +34,12 @@ export const mainNav: NavItem[] = [
 ];
 
 export const footerProducts: NavItem[] = [
-  { label: "Acrylic Displays", href: "/products/acrylic-displays" },
-  { label: "Acrylic Boxes", href: "/products/acrylic-boxes" },
-  { label: "Acrylic Signage", href: "/products/acrylic-signage" },
-  { label: "Acrylic Home & Office", href: "/products/acrylic-home-office" },
-  { label: "Acrylic Awards & Gifts", href: "/products/acrylic-awards-gifts" },
+  { label: "Display Solutions", href: "/products" },
+  { label: "Signage", href: "/products" },
+  { label: "Storage & Organization", href: "/products" },
+  { label: "Retail Fixtures", href: "/products" },
+  { label: "Protective Products", href: "/products" },
+  { label: "Custom Components", href: "/products" },
 ];
 
 export const footerServices: NavItem[] = [
@@ -46,16 +47,24 @@ export const footerServices: NavItem[] = [
   { label: "CNC Machining", href: "/services/cnc-machining" },
   { label: "Diamond Polishing", href: "/services/diamond-polishing" },
   { label: "UV Printing", href: "/services/uv-printing" },
-  { label: "Assembly", href: "/services/bonding-assembly" },
-  { label: "OEM Project Support", href: "/services/oem-project-support" },
+  { label: "Assembly & Packaging", href: "/services/bonding-assembly" },
+  { label: "Quality Control", href: "/services/oem-project-support" },
+];
+
+export const footerIndustries: NavItem[] = [
+  { label: "Retail Display", href: "/industries/retail-display" },
+  { label: "Cosmetics", href: "/industries/cosmetics-display" },
+  { label: "Jewelry", href: "/industries/jewelry-display" },
+  { label: "Medical", href: "/industries/medical-healthcare" },
+  { label: "Restaurant", href: "/industries/restaurant-hospitality" },
+  { label: "Hotel", href: "/industries/hotel-hospitality" },
 ];
 
 export const footerCompany: NavItem[] = [
   { label: "About Us", href: "/about" },
   { label: "Projects", href: "/projects" },
-  { label: "Resources", href: "/blog" },
+  { label: "Knowledge Center", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Industries", href: "/custom-solutions/industries" },
 ];
 
 export const footerLegal: NavItem[] = [

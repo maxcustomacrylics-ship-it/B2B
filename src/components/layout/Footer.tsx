@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Container from "@/components/ui/Container";
-import { footerProducts, footerServices, footerCompany, footerLegal } from "@/data/navigation";
+import { footerServices, footerIndustries, footerCompany, footerLegal } from "@/data/navigation";
 import { useSettings } from "@/components/providers/SettingsProvider";
 
 export default function Footer() {
@@ -13,25 +13,15 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <Container className="py-16">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-6">
           {/* About */}
-          <div>
+          <div className="lg:col-span-2">
             <Link href="/" className="text-xl font-bold text-white">
               {settings.companyName}
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-gray-400">
-              {t("aboutText")}
+            <p className="mt-4 text-sm leading-relaxed text-gray-400 max-w-sm">
+              Engineering-driven custom acrylic solutions — from design review to worldwide delivery.
             </p>
-          </div>
-
-          {/* Products */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Products</h3>
-            <ul className="mt-4 space-y-2">
-              {footerProducts.map((item) => (
-                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
-              ))}
-            </ul>
           </div>
 
           {/* Capabilities */}
@@ -39,6 +29,16 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Capabilities</h3>
             <ul className="mt-4 space-y-2">
               {footerServices.map((item) => (
+                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Industries */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Industries</h3>
+            <ul className="mt-4 space-y-2">
+              {footerIndustries.map((item) => (
                 <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
               ))}
             </ul>
@@ -56,20 +56,10 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">{t("contactUs")}</h3>
-            <ul className="mt-4 space-y-3 text-sm text-gray-400">
-              <li>{settings.address}</li>
-              <li>
-                <a href={`tel:${settings.phone}`} className="hover:text-white transition-colors">
-                  {settings.phone}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${settings.email}`} className="hover:text-white transition-colors">
-                  {settings.email}
-                </a>
-              </li>
-              <li>{settings.businessHours}</li>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
+            <ul className="mt-4 space-y-2 text-sm text-gray-400">
+              <li><a href={`mailto:${settings.email}`} className="hover:text-white transition-colors">{settings.email}</a></li>
+              <li><a href={`tel:${settings.phone}`} className="hover:text-white transition-colors">{settings.phone}</a></li>
             </ul>
           </div>
         </div>
