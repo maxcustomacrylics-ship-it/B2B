@@ -13,18 +13,7 @@ export const mainNav: NavItem[] = [
       { label: "Quality Control", href: "/services/oem-project-support" },
     ],
   },
-  {
-    label: "products", href: "",
-    children: [
-      { label: "Acrylic Display", href: "/products/acrylic-displays" },
-      { label: "Acrylic Box", href: "/products/acrylic-boxes" },
-      { label: "Acrylic Sign", href: "/products/acrylic-signage" },
-      { label: "Acrylic Stand", href: "/products/acrylic-displays" },
-      { label: "Acrylic Tray", href: "/products/acrylic-home-office" },
-      { label: "Acrylic Shelf", href: "/products/acrylic-home-office" },
-      { label: "Custom Acrylic Parts", href: "/products/acrylic-awards-gifts" },
-    ],
-  },
+  { label: "products", href: "/products" },
   {
     label: "industries", href: "",
     children: [
