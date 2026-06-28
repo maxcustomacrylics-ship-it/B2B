@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
-import { Check, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us | Max Custom Acrylics",
@@ -57,24 +57,34 @@ export default function AboutPage() {
       </section>
 
       <Container className="pb-16 lg:pb-24">
-        {/* What We Do */}
-        <div className="mt-0 grid gap-10 lg:grid-cols-2">
+        {/* Who We Are */}
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
           <div>
-            <h2 className="text-2xl font-bold text-[#0F2744]">What We Do</h2>
-            <p className="mt-4 text-gray-500 leading-relaxed">
-              We are an engineering-driven custom acrylic solutions provider. Rather than operating a single factory, we work with a network of specialized manufacturing partners — each selected for their expertise in specific processes. This approach gives our clients access to the right manufacturing capability for every project, with consistent quality control and professional project management throughout.
+            <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Who We Are</h2>
+            <p className="mt-6 text-base text-gray-500 leading-relaxed sm:text-lg">
+              We help international businesses develop custom acrylic products
+              by combining engineering expertise with coordinated production
+              management. As your engineering and project partner, we handle
+              design review, supplier coordination, quality inspection, and
+              global delivery — so you receive finished products that meet your
+              specifications without the complexity of managing overseas
+              production yourself.
             </p>
-            <p className="mt-4 text-gray-500 leading-relaxed">
-              Our role is to bridge the gap between your requirements and manufacturing execution. We handle engineering review, material selection, production coordination, quality inspection, packaging, and shipping — so you receive finished products that meet your specifications without managing overseas production yourself.
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+              Rather than operating a single facility, we work with specialized
+              production partners — each selected for their expertise in specific
+              acrylic fabrication processes. This approach gives you access to
+              the right capability for every project, with consistent quality
+              control and professional project management throughout.
             </p>
           </div>
-          <div className="space-y-4">
-            {[
-              {t:"Engineering Support",d:"Design review, material recommendations, and manufacturability analysis for every project."},
-              {t:"Manufacturing Network",d:"Access to specialized production partners — each selected for their expertise in specific acrylic fabrication processes."},
-              {t:"Quality Control",d:"Multi-stage inspection including incoming materials, in-process checks, and final inspection with documented reports."},
-              {t:"Global Delivery",d:"Sea freight, air freight, and express courier to 30+ countries. Full export documentation included."},
-            ].map((item,i)=>(<div key={i} className="flex gap-3"><Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" /><div><h3 className="font-semibold text-[#0F2744]">{item.t}</h3><p className="text-sm text-gray-500 mt-1">{item.d}</p></div></div>))}
+          <div className="relative" aria-hidden="true">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
+              <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+            </div>
+            <span className="sr-only">Engineering collaboration for custom acrylic product development</span>
           </div>
         </div>
 
