@@ -19,49 +19,18 @@ export default function DiamondPolishingPage() {
   return (
     <>
       {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="dp-hero-heading">
-        <Container className="py-14 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center min-h-[520px] lg:min-h-[560px]">
-            <div>
-              <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Diamond Polishing" }]} />
-              <h1 id="dp-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
-                Premium Diamond Edge Polishing for Acrylic
-              </h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
-                Optical-grade edge finishing using progressive diamond abrasives — the premium choice for luxury displays, awards and high-end retail products.
-              </p>
-              <p className="mt-3 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[620px]">
-                Our engineering team reviews every project and coordinates the most suitable finishing process to deliver flawless, production-ready acrylic products with consistent quality and worldwide delivery support.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3" role="group" aria-label="Call to action buttons">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Request a quote for diamond polished acrylic products">
-                  Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2" aria-label="Upload your drawing for diamond polishing quotation">
-                  <Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing
-                </Link>
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:gap-6 text-sm text-gray-500">
-                <span className="flex items-center gap-1.5"><Cog className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Engineering Review</span>
-                <span className="flex items-center gap-1.5"><Wrench className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Custom Manufacturing</span>
-                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Quality Inspection</span>
-                <span className="flex items-center gap-1.5"><Globe className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" /> Worldwide Delivery</span>
-              </div>
-            </div>
-            <div className="relative" aria-hidden="true">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100 flex items-center justify-center">
-                <div className="text-center select-none">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/80 shadow-sm mb-4">
-                    <svg className="w-10 h-10 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" fillOpacity="0.15" />
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  </div>
-                  <p className="text-xs text-gray-400 tracking-wide uppercase">Optical-Grade Diamond Polishing</p>
-                </div>
-              </div>
-              <span className="sr-only">Diamond edge polishing service for optical-grade acrylic products with glass-like clarity</span>
-            </div>
+      <section className="relative bg-gradient-to-br from-[#0F2744] via-[#1E3A5F] to-[#0F2744] overflow-hidden" aria-labelledby="dp-hero-heading">
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-6 gap-2 h-full p-8">{[...Array(18)].map((_,i)=>(<div key={i} className="bg-amber-400 rounded-full" />))}</div>
+        </div>
+        <Container className="relative py-20 lg:py-28 text-center">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Diamond Polishing" }]} />
+          <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-amber-300 tracking-wide mt-6">Optical-Grade Premium Finish</span>
+          <h1 id="dp-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">Premium Diamond Edge Polishing for Acrylic</h1>
+          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Optical-grade edge finishing using progressive diamond abrasives — the premium choice for luxury displays, awards and high-end retail products.</p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center" role="group" aria-label="Call to action buttons">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-amber-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]" aria-label="Request a quote for diamond polished acrylic products">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white" aria-label="Upload your drawing for diamond polishing quotation"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
           </div>
         </Container>
       </section>

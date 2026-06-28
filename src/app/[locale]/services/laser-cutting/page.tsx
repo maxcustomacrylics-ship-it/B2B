@@ -57,18 +57,9 @@ export default function LaserCuttingPage() {
             {/* —— Left Column —— */}
             <div>
               {/* Breadcrumb */}
-              <Breadcrumb
-                items={[
-                  { label: "Home", href: "/" },
-                  { label: "Laser Cutting" },
-                ]}
-              />
-
-              {/* H1 */}
-              <h1
-                id="laser-cutting-hero-heading"
-                className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight"
-              >
+              <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Laser Cutting" }]} />
+              <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 tracking-wide mt-4">Precision Fabrication</span>
+              <h1 id="laser-cutting-hero-heading" className="mt-3 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
                 Custom Acrylic Laser Cutting Services
               </h1>
 

@@ -19,9 +19,9 @@ export default function QualityControlPage() {
   return (
     <>
       {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="qc-hero-heading">
+      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-white" aria-labelledby="qc-hero-heading">
         <Container className="py-14 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center min-h-[520px] lg:min-h-[560px]">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center min-h-[480px]">
             <div>
               <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Quality Control" }]} />
               <h1 id="qc-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
