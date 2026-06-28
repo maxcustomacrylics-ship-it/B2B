@@ -75,7 +75,7 @@ export default async function ProjectsPage() {
                   {p.title}
                 </h3>
                 <p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1 line-clamp-2">
-                  {p.description || `${p.industry} — ${p.client}`}
+                  {`${p.industry} project for ${p.client}`}
                 </p>
                 <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">
                   View Project
