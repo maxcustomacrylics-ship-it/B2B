@@ -237,6 +237,58 @@ export default async function ProductsPage() {
         </Container>
       </section>
       {/* ========== END FEATURED PRODUCTS SECTION ========== */}
+
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 lg:py-24 bg-gray-50" aria-labelledby="products-faq-heading">
+        <Container>
+          <div className="text-center mb-12">
+            <h2 id="products-faq-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
+              Frequently Asked Questions
+            </h2>
+            <p className="mt-3 text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              Find answers to common questions about ordering custom acrylic products.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                q: "Can I customize the dimensions and design of any product?",
+                a: "Yes. Every product can be customized to your exact dimensions, material preference and finish requirements. Simply provide your specifications or drawings and our engineering team will review them before production."
+              },
+              {
+                q: "What is the typical lead time for custom acrylic products?",
+                a: "Standard lead time is 12–18 business days depending on product complexity and order quantity. Rush orders can often be accommodated — please discuss your timeline with our team during quotation."
+              },
+              {
+                q: "Do you provide samples before full production?",
+                a: "Yes, we recommend pre-production samples for approval. This allows you to verify dimensions, material quality and finish before we proceed with the full order."
+              },
+              {
+                q: "What information do I need to provide for a quotation?",
+                a: "Drawings or sketches with dimensions, desired material and finish, order quantity, and any specific requirements. If you only have a concept, our engineering team can help develop production-ready designs."
+              },
+              {
+                q: "Do you offer bulk pricing for larger orders?",
+                a: "Yes, pricing is tiered based on order quantity. Larger volumes benefit from production efficiencies and reduced per-unit costs. Contact our team for a detailed quotation tailored to your quantity."
+              },
+              {
+                q: "What quality checks are performed before shipping?",
+                a: "We conduct multi-stage inspection including dimensional verification, visual quality checks and documented photo reports. Pre-shipment approval is available so you know exactly what you're receiving."
+              },
+            ].map((faq, i) => (
+              <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3">
+                  <span>{faq.q}</span>
+                  <span className="shrink-0 text-gray-400 group-open:hidden text-lg leading-none mt-0.5">+</span>
+                  <span className="shrink-0 text-gray-400 hidden group-open:block text-lg leading-none mt-0.5">−</span>
+                </summary>
+                <p className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </Container>
+      </section>
+      {/* ========== END FAQ SECTION ========== */}
     </>
   );
 }
