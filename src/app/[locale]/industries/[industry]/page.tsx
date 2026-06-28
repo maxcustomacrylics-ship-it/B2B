@@ -120,39 +120,7 @@ export default async function IndustryPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* ========== 3. RECOMMENDED CAPABILITIES ========== */}
-      <section className="bg-gray-50" aria-labelledby="capabilities-heading">
-        <Container className="py-16 lg:py-20">
-          <div className="max-w-[720px]">
-            <h2 id="capabilities-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
-              Recommended Capabilities
-            </h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">
-              Our engineering team coordinates the most suitable manufacturing processes for {d.name.toLowerCase()} projects.
-            </p>
-          </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {d.recommendedCapabilities.map((cap) => (
-              <Link
-                key={cap.slug}
-                href={`/services/${cap.slug}`}
-                className="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-center"
-              >
-                <span className="text-3xl select-none">{cap.icon}</span>
-                <h3 className="mt-3 text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">
-                  {cap.name}
-                </h3>
-                <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">
-                  Learn More
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ========== 4. FINAL CTA ========== */}
+      {/* ========== 3. FINAL CTA ========== */}
       <section className="bg-white" aria-labelledby="cta-heading">
         <Container className="py-20 lg:py-28">
           <div className="max-w-[640px] mx-auto text-center">
