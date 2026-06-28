@@ -15,41 +15,25 @@ export default async function ProjectsPage() {
   return (
     <>
       {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="projects-hero">
-        <Container className="py-12 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-            <div>
-              <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Projects" }]} />
-              <h1 id="projects-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
-                Featured Projects
-              </h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">
-                Explore a selection of custom acrylic projects developed for
-                retail, hospitality, commercial and industrial applications.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
-                  Request a Quote
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </Link>
-                <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
-                  View Products
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </Link>
-              </div>
-            </div>
-            <div className="relative" aria-hidden="true">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
-                {projects[0]?.image ? (
-                  <img src={projects[0].image} alt="" className="h-full w-full object-cover" />
-                ) : (
-                  <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-                  </svg>
-                )}
-              </div>
-              <span className="sr-only">Featured custom acrylic project example</span>
-            </div>
+      <section className="relative bg-slate-900 overflow-hidden" aria-labelledby="projects-hero">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0F2744] via-[#1a3a5c] to-slate-900" />
+        <div className="absolute inset-0 opacity-10">
+          <div className="grid grid-cols-4 gap-1 h-full">
+            {Array.from({length:12}).map((_,i)=>(<div key={i} className={`${i%3===0?'bg-blue-400':i%3===1?'bg-sky-400':'bg-indigo-400'} rounded-sm opacity-20`} />))}
+          </div>
+        </div>
+        <Container className="relative py-20 lg:py-28 text-center">
+          <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Projects" }]} />
+          <h1 id="projects-hero" className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">
+            Featured Projects
+          </h1>
+          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[560px] mx-auto">
+            Explore a selection of custom acrylic projects developed for retail,
+            hospitality, commercial and industrial applications.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+            <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">View Products<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
           </div>
         </Container>
       </section>

@@ -20,40 +20,30 @@ export default function AboutPage() {
     <>
       <SchemaOrg data={[orgSchema, bcSchema]} />
       {/* ========== HERO ========== */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="about-hero">
-        <Container className="py-12 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-            <div>
-              <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "About Us" }]} />
-              <h1 id="about-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
-                About Max Custom Acrylics
-              </h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">
-                We help businesses develop custom acrylic products through
-                engineering support, coordinated manufacturing and quality-focused
-                project management.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
-                  Request a Quote
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">
-                  Contact Us
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </Link>
-              </div>
-            </div>
-            <div className="relative" aria-hidden="true">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
-                <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="9" x2="14" y2="9"/>
-                </svg>
-              </div>
-              <span className="sr-only">Engineering collaboration and product development</span>
+      <section className="relative bg-white" aria-labelledby="about-hero">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "About Us" }]} />
+          <div className="mt-6 max-w-3xl mx-auto text-center">
+            <h1 id="about-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
+              About Max Custom Acrylics
+            </h1>
+            <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[640px] mx-auto">
+              We help businesses develop custom acrylic products through
+              engineering support, coordinated manufacturing and quality-focused
+              project management.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Contact Us<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
             </div>
           </div>
         </Container>
+        <div className="w-full aspect-[21/9] lg:aspect-[3/1] bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center -mt-6" aria-hidden="true">
+          <svg className="w-20 h-20 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="9" x2="14" y2="9"/>
+          </svg>
+        </div>
+        <span className="sr-only">Engineering collaboration and product development</span>
       </section>
 
       <Container className="pb-16 lg:pb-24">
