@@ -120,7 +120,39 @@ export default async function IndustryPage({ params }: Props) {
         </Container>
       </section>
 
-      {/* ========== 3. FINAL CTA ========== */}
+      {/* ========== 3. APPLICATION GALLERY ========== */}
+      <section className="bg-gray-50" aria-labelledby="gallery-heading">
+        <Container className="py-16 lg:py-20">
+          <div className="max-w-[720px]">
+            <h2 id="gallery-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
+              Application Gallery
+            </h2>
+            <p className="mt-3 text-gray-500 leading-relaxed">
+              Real-world applications of custom acrylic solutions in {d.name.toLowerCase()} environments.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {d.applicationGallery.map((scene, i) => (
+              <div
+                key={i}
+                className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br shadow-sm"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${
+                  ["from-blue-100 to-blue-200/40","from-sky-100 to-sky-200/40","from-indigo-100 to-indigo-200/40","from-emerald-100 to-emerald-200/40","from-amber-100 to-amber-200/40","from-purple-100 to-purple-200/40"][i % 6]
+                }`} />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg className="w-12 h-12 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
+                  <span className="text-sm font-semibold text-white">{scene}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== 4. FINAL CTA ========== */}
       <section className="bg-white" aria-labelledby="cta-heading">
         <Container className="py-20 lg:py-28">
           <div className="max-w-[640px] mx-auto text-center">
