@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Cog, Package, ShieldCheck, MessageCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us | Max Custom Acrylics",
@@ -85,6 +85,29 @@ export default function AboutPage() {
               </svg>
             </div>
             <span className="sr-only">Engineering collaboration for custom acrylic product development</span>
+          </div>
+        </div>
+
+        {/* Why Work With Us */}
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl text-center">Why Work With Us</h2>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl mx-auto">
+            {[
+              { icon: Cog, title: "Engineering Support", desc: "Design review and manufacturability analysis for every project." },
+              { icon: Package, title: "Flexible Production", desc: "From prototypes to full production runs with consistent quality." },
+              { icon: ShieldCheck, title: "Quality Control", desc: "Multi-stage inspection with documented reports at every checkpoint." },
+              { icon: MessageCircle, title: "Responsive Communication", desc: "Clear updates and timely responses throughout your project." },
+            ].map((item, i) => (
+              <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm flex items-start gap-4">
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <item.icon className="h-5 w-5 text-[#0F2744]" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3>
+                  <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
