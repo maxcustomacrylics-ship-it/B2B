@@ -56,8 +56,9 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      <Container className="pb-16 lg:pb-24">
         {/* What We Do */}
-        <div className="mt-16 grid gap-10 lg:grid-cols-2">
+        <div className="mt-0 grid gap-10 lg:grid-cols-2">
           <div>
             <h2 className="text-2xl font-bold text-[#0F2744]">What We Do</h2>
             <p className="mt-4 text-gray-500 leading-relaxed">
