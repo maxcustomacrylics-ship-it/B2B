@@ -28,15 +28,7 @@ export const mainNav: NavItem[] = [
     ],
   },
   { label: "projects", href: "/projects" },
-  {
-    label: "resources", href: "",
-    children: [
-      { label: "Blog", href: "/blog" },
-      { label: "Buying Guide", href: "/blog" },
-      { label: "Design Guide", href: "/blog" },
-      { label: "FAQ", href: "/#faq" },
-    ],
-  },
+  { label: "resources", href: "/blog" },
   { label: "about", href: "/about" },
   { label: "contact", href: "/contact" },
 ];
