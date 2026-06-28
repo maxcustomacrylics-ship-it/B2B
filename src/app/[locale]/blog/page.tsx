@@ -4,7 +4,6 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import BlogCard from "@/components/blog/BlogCard";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import {
   generateItemListSchema,
@@ -75,17 +74,57 @@ export default async function BlogPage() {
         </Container>
       </section>
 
-      {/* ========== ARTICLES ========== */}
-      <Container className="pb-16 lg:pb-24">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div className="lg:col-span-2 space-y-8">
-            {posts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+      {/* ========== FEATURED GUIDES ========== */}
+      <section className="bg-gray-50" aria-labelledby="guides-heading">
+        <Container className="py-16 lg:py-20">
+          <div className="mb-12">
+            <h2 id="guides-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Featured Guides</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">
+              Explore our most popular resources to help you plan and specify custom acrylic projects.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {[
+              { title: "Buying Guides", slug: "buying-guides", desc: "What to look for when sourcing custom acrylic products.", color: "from-blue-100 to-blue-200/50" },
+              { title: "Material Guides", slug: "material-guides", desc: "Understand acrylic grades, properties and selection criteria.", color: "from-emerald-100 to-emerald-200/50" },
+              { title: "Design Ideas", slug: "design-ideas", desc: "Inspiration and practical concepts for your next project.", color: "from-amber-100 to-amber-200/50" },
+              { title: "Manufacturing Tips", slug: "manufacturing-tips", desc: "Practical advice for better fabrication and finishing results.", color: "from-purple-100 to-purple-200/50" },
+            ].map((guide) => (
+              <Link
+                key={guide.slug}
+                href="/blog"
+                className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
+              >
+                <div className={`aspect-[16/9] bg-gradient-to-br ${guide.color} flex items-center justify-center relative`}>
+                  <svg className="w-12 h-12 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                  </svg>
+                </div>
+                <div className="p-5 flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{guide.title}</h3>
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors shrink-0">
+                    Learn More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
-          <div className="lg:col-span-1">
-            <BlogSidebar />
-          </div>
+        </Container>
+      </section>
+
+      {/* ========== ARTICLES ========== */}
+      <Container className="py-16 lg:py-20">
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Latest Articles</h2>
+          <p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">
+            Practical guides, design insights, and manufacturing knowledge for custom acrylic projects.
+          </p>
+        </div>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <BlogCard key={post.slug} post={post} />
+          ))}
         </div>
       </Container>
     </>
