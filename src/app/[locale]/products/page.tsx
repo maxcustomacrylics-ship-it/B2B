@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { getProducts } from "@/lib/data-store";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("products");
@@ -19,6 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ProductsPage() {
   const t = await getTranslations("products");
+  const allProducts = await getProducts();
 
   return (
     <>
@@ -183,6 +185,66 @@ export default async function ProductsPage() {
         </Container>
       </section>
       {/* ========== END PRODUCT CATEGORIES SECTION ========== */}
+
+      {/* ========== FEATURED PRODUCTS SECTION ========== */}
+      <section className="bg-white" aria-labelledby="featured-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="flex items-end justify-between mb-12">
+            <div className="max-w-[620px]">
+              <h2 id="featured-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
+                Featured Products
+              </h2>
+              <p className="mt-3 text-gray-500 leading-relaxed">
+                A selection of popular custom acrylic products. Every item can
+                be customized to your specifications with engineering support
+                throughout the process.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {allProducts.slice(0, 8).map((product, i) => (
+              <Link
+                key={product.slug}
+                href={`/products/${product.slug}`}
+                className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
+              >
+                {/* Product Image — gradient placeholder */}
+                <div className={[
+                  "aspect-[4/3] bg-gradient-to-br flex items-center justify-center",
+                  "from-blue-50 to-blue-100",
+                  "from-sky-50 to-sky-100",
+                  "from-indigo-50 to-indigo-100",
+                  "from-emerald-50 to-emerald-100",
+                  "from-amber-50 to-amber-100",
+                  "from-purple-50 to-purple-100",
+                  "from-rose-50 to-rose-100",
+                  "from-teal-50 to-teal-100",
+                ][i % 8]}>
+                  <span className="text-4xl select-none group-hover:scale-110 transition-transform duration-300">
+                    {["🖼","📦","🪧","🏆","🛍","📋","💎","🔧"][i % 8]}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors line-clamp-2">
+                    {product.name}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-gray-500 leading-relaxed flex-1 line-clamp-2">
+                    {product.description}
+                  </p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">
+                    Learn More
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+      {/* ========== END FEATURED PRODUCTS SECTION ========== */}
     </>
   );
 }
