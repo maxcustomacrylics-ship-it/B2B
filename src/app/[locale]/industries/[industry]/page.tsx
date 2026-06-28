@@ -103,23 +103,23 @@ export default async function IndustryPage({ params }: Props) {
         <Container className="py-16 lg:py-20">
           <div className="max-w-[720px]">
             <h2 id="needs-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">
-              {d.name} Industry Needs
+              Industry Needs
             </h2>
             <p className="mt-3 text-gray-500 leading-relaxed">
               Understanding the specific requirements of {d.name.toLowerCase()} helps us recommend the right materials, processes and finishes for your project.
             </p>
           </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {d.applications.slice(0, 6).map((need, i) => (
-              <div key={i} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex items-start gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F2744" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 max-w-3xl">
+            {d.needs.map((need, i) => (
+              <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm flex items-start gap-4">
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-xl">
+                  {["📐","🛡","🎯","⚡"][i]}
                 </div>
-                <span className="text-sm text-gray-600 leading-relaxed">{need}</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-[#0F2744]">{need.title}</h3>
+                  <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{need.desc}</p>
+                </div>
               </div>
-            ))}
-            {d.applications.length < 6 && Array.from({ length: 6 - d.applications.length }).map((_, i) => (
-              <div key={`empty-${i}`} className="hidden sm:block" />
             ))}
           </div>
         </Container>
