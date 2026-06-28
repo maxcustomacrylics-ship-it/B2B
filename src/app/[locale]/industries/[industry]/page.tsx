@@ -13,15 +13,6 @@ const needIcons = [Eye, Shield, LayoutGrid, ShieldCheck];
 
 type Props = { params: Promise<{ industry: string }> };
 
-const capabilities = [
-  { name: "Laser Cutting", slug: "laser-cutting", icon: "🔬" },
-  { name: "CNC Machining", slug: "cnc-machining", icon: "⚙️" },
-  { name: "Diamond Polishing", slug: "diamond-polishing", icon: "💎" },
-  { name: "UV Printing", slug: "uv-printing", icon: "🎨" },
-  { name: "Assembly & Packaging", slug: "bonding-assembly", icon: "📦" },
-  { name: "Quality Control", slug: "oem-project-support", icon: "🛡" },
-];
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { industry } = await params;
   const d = getIndustry(industry);
@@ -180,23 +171,21 @@ export default async function IndustryPage({ params }: Props) {
               Our engineering team coordinates the most suitable manufacturing processes for {d.name.toLowerCase()} projects.
             </p>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {capabilities.map((cap) => (
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {d.recommendedCapabilities.map((cap) => (
               <Link
                 key={cap.slug}
                 href={`/services/${cap.slug}`}
-                className="group rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all flex items-start gap-4"
+                className="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-blue-200 transition-all text-center"
               >
-                <span className="text-2xl select-none">{cap.icon}</span>
-                <div>
-                  <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">
-                    {cap.name}
-                  </h3>
-                  <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">
-                    Learn More
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </span>
-                </div>
+                <span className="text-3xl select-none">{cap.icon}</span>
+                <h3 className="mt-3 text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">
+                  {cap.name}
+                </h3>
+                <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">
+                  Learn More
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </span>
               </Link>
             ))}
           </div>
