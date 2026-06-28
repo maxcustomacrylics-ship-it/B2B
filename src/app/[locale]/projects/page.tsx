@@ -86,6 +86,40 @@ export default async function ProjectsPage() {
           ))}
         </div>
       </Container>
+
+      {/* ========== PROJECT GALLERY ========== */}
+      <section className="bg-gray-50" aria-labelledby="gallery-heading">
+        <Container className="py-16 lg:py-24">
+          <div className="mb-12">
+            <h2 id="gallery-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Project Gallery</h2>
+            <p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">
+              Browse more custom acrylic projects across industries and applications.
+            </p>
+          </div>
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
+            {projects.slice(0, 9).map((p, i) => (
+              <Link
+                key={p.slug}
+                href={`/projects/${p.slug}`}
+                className="group block break-inside-avoid rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className={`bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center ${
+                  i % 3 === 0 ? "aspect-[4/3]" : i % 3 === 1 ? "aspect-square" : "aspect-[3/4]"
+                }`}>
+                  {p.image ? (
+                    <img src={p.image} alt="" className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  ) : (
+                    <svg className="w-10 h-10 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                  )}
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                  <span className="text-sm font-semibold text-white">{p.title}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
