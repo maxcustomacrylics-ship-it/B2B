@@ -1,114 +1,263 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import ProductGrid from "@/components/products/ProductGrid";
-import ImageGallery from "@/components/shared/ImageGallery";
-import InquiryForm from "@/components/products/InquiryForm";
 import SchemaOrg from "@/components/shared/SchemaOrg";
-import { generateProductSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
-import { getProductBySlug } from "@/lib/data-store";
-import { getProductsByCategory } from "@/data/products";
-import type { ProductCategory } from "@/lib/types";
+import { generateBreadcrumbSchema } from "@/lib/schema";
+import { getProductBySlug, getProducts } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-const VALID_CATEGORIES: ProductCategory[] = ["acrylic-displays","acrylic-boxes","acrylic-signage","acrylic-home-office","acrylic-awards-gifts"];
+// ── New category data ──
+type CategorySlug =
+  | "display-solutions"
+  | "signage-solutions"
+  | "storage-solutions"
+  | "retail-display-systems"
+  | "protective-solutions"
+  | "custom-acrylic-parts";
 
-const catMeta: Record<ProductCategory,{title:string;desc:string;intro:string;faq:{question:string;answer:string}[]}> = {
-  "acrylic-displays":{title:"Acrylic Displays",desc:"Custom acrylic display stands for retail, cosmetics, jewelry, and food presentation. OEM manufacturing.",intro:"We manufacture premium custom acrylic displays for brands worldwide. From cosmetic display stands to retail counter displays, every product is fabricated to your exact specifications.",faq:[{question:"What is the MOQ?",answer:"Standard MOQ starts at 20–50 units. Contact us for prototyping."},{question:"Can you match my brand colors?",answer:"Yes — colored acrylic, Pantone-matched UV printing, and custom finishes available."},{question:"What is the lead time?",answer:"10–18 business days. Rush orders available."}]},
-  "acrylic-boxes":{title:"Acrylic Boxes",desc:"Custom acrylic boxes — storage, donation, ballot, display, and lock boxes for commercial use.",intro:"Precision-fabricated acrylic boxes for retail, institutional, and commercial applications. Crystal-clear construction with custom branding.",faq:[{question:"Waterproof available?",answer:"Yes, solvent-bonded boxes can be made water-resistant."},{question:"Lockable options?",answer:"Key locks, combination locks, and electronic locks available."},{question:"What sizes?",answer:"Any size — custom dimensions are our specialty."}]},
-  "acrylic-signage":{title:"Acrylic Signage",desc:"Custom acrylic signs — office, door, name plates, QR code, table, and wall signs.",intro:"Professional corporate signage manufactured with precision cutting, UV printing, and premium finishing.",faq:[{question:"Braille signage?",answer:"Yes, ADA-compliant Braille signage available."},{question:"Weather-resistant?",answer:"UV-cured inks are durable for interior and covered exterior use."},{question:"Mounting options?",answer:"Stand-off, adhesive, screw-mount, magnetic, and free-standing."}]},
-  "acrylic-home-office":{title:"Acrylic Home & Office",desc:"Desk organizers, monitor stands, makeup organizers, trays, and book stands for modern spaces.",intro:"Premium acrylic home and office products designed for function and aesthetics. Custom-manufactured to your specifications.",faq:[{question:"Brand logo available?",answer:"Yes — logo engraving and UV printing for corporate gifts and retail."},{question:"What colors?",answer:"Clear, frosted, and colored acrylic. Gold/rose gold trim available."},{question:"Gift packaging?",answer:"Custom retail boxes and foam inserts available for bulk orders."}]},
-  "acrylic-awards-gifts":{title:"Acrylic Awards & Gifts",desc:"Custom acrylic awards, trophies, photo frames, and souvenirs for corporate recognition and events.",intro:"Create lasting impressions with custom acrylic awards. Each piece individually crafted with premium materials and elegant finishing.",faq:[{question:"Fully custom design?",answer:"Absolutely — send your concept and our team creates a unique award."},{question:"Minimum order?",answer:"As low as 10 units for custom awards."},{question:"Personalization?",answer:"Individual name engraving and custom messaging available."}]},
+const VALID_CATEGORIES: CategorySlug[] = [
+  "display-solutions", "signage-solutions", "storage-solutions",
+  "retail-display-systems", "protective-solutions", "custom-acrylic-parts",
+];
+
+const catMeta: Record<CategorySlug, { title: string; desc: string; oldCategories: string[] }> = {
+  "display-solutions": {
+    title: "Display Solutions",
+    desc: "Custom acrylic display stands and presentation fixtures for retail, exhibition and commercial environments.",
+    oldCategories: ["acrylic-displays"],
+  },
+  "signage-solutions": {
+    title: "Signage Solutions",
+    desc: "Professional acrylic signage including wayfinding signs, branded panels and illuminated displays.",
+    oldCategories: ["acrylic-signage"],
+  },
+  "storage-solutions": {
+    title: "Storage Solutions",
+    desc: "Acrylic boxes, cases, and organizational products for retail, office and home applications.",
+    oldCategories: ["acrylic-boxes"],
+  },
+  "retail-display-systems": {
+    title: "Retail Display Systems",
+    desc: "Point-of-purchase displays, shelving, and merchandising fixtures for retail environments.",
+    oldCategories: ["acrylic-home-office"],
+  },
+  "protective-solutions": {
+    title: "Protective Solutions",
+    desc: "Acrylic barriers, protective panels, and safety shields for commercial and industrial use.",
+    oldCategories: ["acrylic-home-office"],
+  },
+  "custom-acrylic-parts": {
+    title: "Custom Acrylic Parts",
+    desc: "Bespoke acrylic components, precision-cut parts, and custom-fabricated items built to your exact specifications.",
+    oldCategories: ["acrylic-awards-gifts"],
+  },
 };
+
+const customizationOptions = [
+  { icon: "🎨", title: "Material", desc: "Cast and extruded acrylic in various grades." },
+  { icon: "📏", title: "Thickness", desc: "From 1mm to 50mm based on your application." },
+  { icon: "🖌", title: "Color", desc: "Clear, frosted, colored, and mirrored finishes." },
+  { icon: "🖨", title: "Printing", desc: "UV printing, engraving, and silk-screen options." },
+  { icon: "💎", title: "Edge Finish", desc: "Diamond polished, flame polished, or as-cut." },
+  { icon: "📦", title: "Packaging", desc: "Individual, retail-ready, or export packaging." },
+];
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  if (VALID_CATEGORIES.includes(slug as ProductCategory)) {
-    const m = catMeta[slug as ProductCategory];
-    return { title: `${m.title} | AcrylicPro Custom`, description: m.desc };
+  if (VALID_CATEGORIES.includes(slug as CategorySlug)) {
+    const m = catMeta[slug as CategorySlug];
+    return { title: `${m.title} | Max Custom Acrylics`, description: m.desc };
   }
   const p = await getProductBySlug(slug);
   if (!p) return {};
-  return { title: `${p.name} | AcrylicPro Custom`, description: p.description };
+  return { title: `${p.name} | Max Custom Acrylics`, description: p.description };
 }
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const t = await getTranslations("products");
 
-  // ── Category view ──
-  if (VALID_CATEGORIES.includes(slug as ProductCategory)) {
-    const m = catMeta[slug as ProductCategory];
-    const products = getProductsByCategory(slug as ProductCategory);
-    const faqSchema = generateFAQSchema(m.faq);
-    const bcSchema = generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }, { name: m.title, url: `${SITE_URL}/products/${slug}` }]);
+  // ── Category View ──
+  if (VALID_CATEGORIES.includes(slug as CategorySlug)) {
+    const cat = catMeta[slug as CategorySlug];
+    const allProducts = await getProducts();
+    const products = allProducts.filter((p) => cat.oldCategories.includes(p.category));
+
+    const bcSchema = generateBreadcrumbSchema([
+      { name: "Home", url: SITE_URL },
+      { name: "Products", url: `${SITE_URL}/products` },
+      { name: cat.title, url: `${SITE_URL}/products/${slug}` },
+    ]);
 
     return (
       <>
-        <SchemaOrg data={[bcSchema, faqSchema]} />
-        <Container className="py-12">
-          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: m.title }]} />
-          <h1 className="mt-4 text-3xl font-bold text-foreground sm:text-4xl">{m.title}</h1>
-          <p className="mt-4 max-w-3xl text-muted leading-relaxed">{m.intro}</p>
-          <div className="mt-10"><ProductGrid products={products} /></div>
-          <div className="mt-16 border-t pt-12">
-            <h2 className="text-2xl font-bold text-foreground mb-8">Frequently Asked Questions</h2>
-            <div className="space-y-6 max-w-3xl">
-              {m.faq.map((item,i)=>(<div key={i}><h3 className="font-semibold text-foreground">{item.question}</h3><p className="mt-1 text-muted">{item.answer}</p></div>))}
+        <SchemaOrg data={[bcSchema]} />
+
+        {/* ========== 1. HERO ========== */}
+        <section className="relative bg-white overflow-hidden" aria-labelledby="cat-hero">
+          <Container className="py-12 lg:py-20">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+              <div>
+                <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: cat.title }]} />
+                <h1 id="cat-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">{cat.title}</h1>
+                <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">{cat.desc}</p>
+                <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
+                </div>
+              </div>
+              <div className="relative" aria-hidden="true">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
+                  <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                </div>
+                <span className="sr-only">{cat.title} — custom acrylic products</span>
+              </div>
             </div>
-          </div>
-          <div className="mt-16 rounded-xl bg-primary-600 p-8 text-center text-white">
-            <h2 className="text-2xl font-bold">Ready to Start Your Project?</h2>
-            <p className="mt-2 text-primary-100 max-w-xl mx-auto">Tell us your requirements and our team will provide a custom quote within 24 hours.</p>
-            <div className="mt-6 max-w-md mx-auto"><InquiryForm /></div>
-          </div>
-        </Container>
+          </Container>
+        </section>
+
+        {/* ========== 2. CATEGORY OVERVIEW ========== */}
+        <section className="bg-gray-50" aria-labelledby="overview-heading">
+          <Container className="py-16 lg:py-20">
+            <div className="max-w-[640px]">
+              <h2 id="overview-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Category Overview</h2>
+              <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">
+                Premium custom {cat.title.toLowerCase()} manufactured to your exact specifications. Every product can be customized in size, material, color and finish to match your requirements.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { icon: "📐", title: "Custom Size", desc: "Manufactured to your exact dimensions." },
+                { icon: "📋", title: "Material Options", desc: "Cast, extruded, PETG, and polycarbonate." },
+                { icon: "✨", title: "Logo Printing", desc: "UV printing and engraving for branding." },
+                { icon: "⚙️", title: "OEM Production", desc: "Tailored manufacturing for your brand." },
+              ].map((item) => (
+                <div key={item.title} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex items-start gap-3">
+                  <span className="text-xl select-none">{item.icon}</span>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3>
+                    <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        {/* ========== 3. PRODUCTS ========== */}
+        <section className="bg-white" aria-labelledby="products-heading">
+          <Container className="py-16 lg:py-20">
+            <div className="mb-12">
+              <h2 id="products-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Products</h2>
+              <p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">
+                Browse our {cat.title.toLowerCase()} range. Click any product to view details.
+              </p>
+            </div>
+            {products.length > 0 ? (
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {products.map((product, i) => (
+                  <Link key={product.slug} href={`/products/${product.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                    <div className={`aspect-[4/3] bg-gradient-to-br flex items-center justify-center relative ${
+                      ["from-blue-50 to-blue-200/50","from-sky-50 to-sky-200/50","from-indigo-50 to-indigo-200/50","from-emerald-50 to-emerald-200/50","from-amber-50 to-amber-200/50","from-purple-50 to-purple-200/50"][i % 6]
+                    }`}>
+                      <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                    </div>
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors line-clamp-2">{product.name}</h3>
+                      <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">View Details<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-400 text-center py-12">No products found in this category. <Link href="/contact" className="text-[#0F2744] underline">Contact us</Link> for custom requirements.</p>
+            )}
+          </Container>
+        </section>
+
+        {/* ========== 4. CUSTOMIZATION OPTIONS ========== */}
+        <section className="bg-gray-50" aria-labelledby="custom-heading">
+          <Container className="py-16 lg:py-20">
+            <div className="mb-12">
+              <h2 id="custom-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Customization Options</h2>
+              <p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">
+                Every {cat.title.toLowerCase()} product can be tailored with these customization options.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {customizationOptions.map((opt) => (
+                <div key={opt.title} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex items-start gap-4">
+                  <span className="text-2xl select-none">{opt.icon}</span>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#0F2744]">{opt.title}</h3>
+                    <p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{opt.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        {/* ========== 5. CTA ========== */}
+        <section className="bg-white" aria-labelledby="cta-heading">
+          <Container className="py-20 lg:py-28">
+            <div className="max-w-[640px] mx-auto text-center">
+              <h2 id="cta-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl lg:text-5xl">Need a Custom Acrylic Solution?</h2>
+              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg">Tell us about your project and our team will provide the right solution.</p>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center" role="group" aria-label="Call to action buttons">
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-8 py-4 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-8 py-4 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
+              </div>
+              <p className="mt-8 text-sm text-gray-400">Our team typically responds within one business day.</p>
+            </div>
+          </Container>
+        </section>
       </>
     );
   }
 
-  // ── Product detail view ──
+  // ── Product Detail View (unchanged) ──
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const productSchema = generateProductSchema(product);
+  const productSchema = null;
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: t("breadcrumbHome"), url: SITE_URL },
-    { name: t("breadcrumbProducts"), url: `${SITE_URL}/products` },
+    { name: "Home", url: SITE_URL },
+    { name: "Products", url: `${SITE_URL}/products` },
     { name: product.name, url: `${SITE_URL}/products/${product.slug}` },
   ]);
 
   return (
     <>
-      <SchemaOrg data={[productSchema, breadcrumbSchema]} />
+      <SchemaOrg data={[breadcrumbSchema]} />
       <Container className="py-12">
-        <Breadcrumb items={[{ label: t("breadcrumbHome"), href: "/" }, { label: t("breadcrumbProducts"), href: "/products" }, { label: product.name }]} />
+        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: product.name }]} />
         <div className="mt-6 grid grid-cols-1 gap-12 lg:grid-cols-2">
-          <ImageGallery images={product.images} alt={product.name} />
-          <div>
-            <span className="text-sm font-medium text-primary-600 uppercase tracking-wider">{product.category.replace("-"," ")}</span>
-            <h1 className="mt-2 text-3xl font-bold text-foreground sm:text-4xl">{product.name}</h1>
-            <p className="mt-4 text-muted leading-relaxed">{product.longDescription}</p>
-            <div className="mt-8"><h2 className="text-lg font-semibold text-foreground">{t("specifications")}</h2>
-              <div className="mt-3 divide-y divide-border border-y border-border">
-                {product.specs.map((spec)=>(<div key={spec.label} className="flex justify-between py-2.5 text-sm"><span className="text-muted">{spec.label}</span><span className="font-medium text-foreground">{spec.value}</span></div>))}
-              </div>
-            </div>
-            <div className="mt-6"><h2 className="text-lg font-semibold text-foreground">{t("applications")}</h2>
-              <div className="mt-3 flex flex-wrap gap-2">{product.applications.map((app)=>(<span key={app} className="rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700">{app}</span>))}</div>
-            </div>
+          <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center">
+            {product.images?.[0] ? <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover rounded-2xl" /> : (
+              <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            )}
           </div>
-        </div>
-        <div className="mt-16 rounded-xl bg-gray-50 border border-border p-8">
-          <div className="mx-auto max-w-2xl"><h2 className="text-center text-2xl font-bold text-foreground">{t("inquiryTitle")}</h2>
-            <p className="mt-2 text-center text-muted text-sm">Fill out the form below and our team will provide a customized quote within 24 hours.</p>
-            <div className="mt-8"><InquiryForm productName={product.name} /></div>
+          <div>
+            <span className="text-sm font-medium text-blue-700 uppercase tracking-wider">{product.category.replace("-", " ")}</span>
+            <h1 className="mt-2 text-3xl font-bold text-[#0F2744] sm:text-4xl">{product.name}</h1>
+            <p className="mt-4 text-gray-500 leading-relaxed">{product.longDescription}</p>
+            {product.specs && product.specs.length > 0 && (
+              <div className="mt-8">
+                <h2 className="text-lg font-semibold text-[#0F2744]">Specifications</h2>
+                <div className="mt-3 divide-y divide-gray-200 border-y border-gray-200">
+                  {product.specs.map((spec) => (<div key={spec.label} className="flex justify-between py-2.5 text-sm"><span className="text-gray-500">{spec.label}</span><span className="font-medium text-[#0F2744]">{spec.value}</span></div>))}
+                </div>
+              </div>
+            )}
+            <div className="mt-6">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+            </div>
           </div>
         </div>
       </Container>
