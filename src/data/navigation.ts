@@ -14,19 +14,6 @@ export const mainNav: NavItem[] = [
     ],
   },
   { label: "products", href: "/products" },
-  {
-    label: "industries", href: "",
-    children: [
-      { label: "Retail Display", href: "/industries/retail-display" },
-      { label: "Cosmetics", href: "/industries/cosmetics-display" },
-      { label: "Jewelry", href: "/industries/jewelry-display" },
-      { label: "Medical", href: "/industries/medical-healthcare" },
-      { label: "Restaurant", href: "/industries/restaurant-hospitality" },
-      { label: "Hotel", href: "/industries/hotel-hospitality" },
-      { label: "Museum", href: "/industries/museum-art-gallery" },
-      { label: "Electronics", href: "/industries/electronics-industry" },
-    ],
-  },
   { label: "projects", href: "/projects" },
   { label: "resources", href: "/blog" },
   { label: "about", href: "/about" },
@@ -49,15 +36,6 @@ export const footerServices: NavItem[] = [
   { label: "UV Printing", href: "/services/uv-printing" },
   { label: "Assembly & Packaging", href: "/services/bonding-assembly" },
   { label: "Quality Control", href: "/services/oem-project-support" },
-];
-
-export const footerIndustries: NavItem[] = [
-  { label: "Retail Display", href: "/industries/retail-display" },
-  { label: "Cosmetics", href: "/industries/cosmetics-display" },
-  { label: "Jewelry", href: "/industries/jewelry-display" },
-  { label: "Medical", href: "/industries/medical-healthcare" },
-  { label: "Restaurant", href: "/industries/restaurant-hospitality" },
-  { label: "Hotel", href: "/industries/hotel-hospitality" },
 ];
 
 export const footerCompany: NavItem[] = [

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Container from "@/components/ui/Container";
-import { footerServices, footerIndustries, footerCompany, footerLegal } from "@/data/navigation";
+import { footerServices, footerCompany, footerLegal } from "@/data/navigation";
 import { useSettings } from "@/components/providers/SettingsProvider";
 
 export default function Footer() {
@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <Container className="py-16">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* About */}
           <div className="lg:col-span-2">
             <Link href="/" className="text-xl font-bold text-white">
@@ -29,16 +29,6 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Capabilities</h3>
             <ul className="mt-4 space-y-2">
               {footerServices.map((item) => (
-                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Industries */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Industries</h3>
-            <ul className="mt-4 space-y-2">
-              {footerIndustries.map((item) => (
                 <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
               ))}
             </ul>
