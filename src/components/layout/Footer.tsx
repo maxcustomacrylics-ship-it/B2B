@@ -1,73 +1,84 @@
-"use client";
-
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 import Container from "@/components/ui/Container";
 import { footerServices, footerCompany, footerLegal } from "@/data/navigation";
-import { useSettings } from "@/components/providers/SettingsProvider";
+
+const productLinks = [
+  { label: "Custom Acrylic Products", href: "/products/custom-acrylic-products" },
+  { label: "Acrylic Displays", href: "/products/acrylic-displays-2" },
+  { label: "Acrylic Boxes", href: "/products/acrylic-boxes-2" },
+  { label: "Acrylic Signs", href: "/products/acrylic-signs-2" },
+  { label: "Acrylic Trays & Shelves", href: "/products/acrylic-trays-shelves" },
+  { label: "Protective Products", href: "/products/protective-products-2" },
+];
 
 export default function Footer() {
-  const t = useTranslations("footer");
-  const settings = useSettings();
-
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <Container className="py-16">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
-          {/* About */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="text-xl font-bold text-white">
-              {settings.companyName}
+    <footer className="bg-gray-950 text-gray-400">
+      {/* Main footer */}
+      <Container className="py-20">
+        <div className="grid grid-cols-2 gap-10 lg:grid-cols-5">
+          {/* Brand */}
+          <div className="col-span-2 lg:col-span-2">
+            <Link href="/" className="text-2xl font-bold text-white tracking-tight">
+              Max Custom Acrylics
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-gray-400 max-w-sm">
-              Engineering-driven custom acrylic solutions — from design review to worldwide delivery.
+            <p className="mt-4 text-sm leading-relaxed text-gray-400 max-w-xs">
+              Premium custom acrylic products engineered for your business. From design review to worldwide delivery.
             </p>
+            <div className="mt-6 flex items-center gap-4 text-sm">
+              <a href="mailto:info@maxcustomacrylics.com" className="hover:text-white transition-colors">info@maxcustomacrylics.com</a>
+            </div>
+          </div>
+
+          {/* Products */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 mb-4">Products</h4>
+            <ul className="space-y-2.5">
+              {productLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Capabilities */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Capabilities</h3>
-            <ul className="mt-4 space-y-2">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 mb-4">Capabilities</h4>
+            <ul className="space-y-2.5">
               {footerServices.map((item) => (
-                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link>
+                </li>
               ))}
             </ul>
           </div>
 
           {/* Company */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
-            <ul className="mt-4 space-y-2">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-300 mb-4">Company</h4>
+            <ul className="space-y-2.5">
               {footerCompany.map((item) => (
-                <li key={item.href}><Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link></li>
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">{item.label}</Link>
+                </li>
               ))}
             </ul>
           </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
-            <ul className="mt-4 space-y-2 text-sm text-gray-400">
-              <li><a href={`mailto:${settings.email}`} className="hover:text-white transition-colors">{settings.email}</a></li>
-              <li><a href={`tel:${settings.phone}`} className="hover:text-white transition-colors">{settings.phone}</a></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Legal Links */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="flex justify-center gap-x-6 text-xs text-gray-500 overflow-x-auto">
-            {footerLegal.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-white transition-colors">
-                {item.label}
-              </Link>
-            ))}
-          </div>
-          <div className="mt-4 text-center text-sm text-gray-500">
-            <p>{t("copyright")}</p>
-          </div>
         </div>
       </Container>
+
+      {/* Bottom bar */}
+      <div className="border-t border-gray-800">
+        <Container className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} Max Custom Acrylics. All rights reserved.</p>
+          <div className="flex gap-x-6 text-xs text-gray-500">
+            {footerLegal.map((item) => (
+              <Link key={item.href} href={item.href} className="hover:text-white transition-colors">{item.label}</Link>
+            ))}
+          </div>
+        </Container>
+      </div>
     </footer>
   );
 }
