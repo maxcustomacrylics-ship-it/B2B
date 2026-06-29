@@ -505,14 +505,7 @@ export default function LaserCuttingPage() {
                     {mat.desc}
                   </p>
 
-                  {/* Learn More */}
-                  <Link
-                    href={`/materials/${mat.slug}`}
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors"
-                  >
-                    Learn More
-                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                  </Link>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#0F2744]">Learn More</span>
                 </div>
               </div>
             ))}

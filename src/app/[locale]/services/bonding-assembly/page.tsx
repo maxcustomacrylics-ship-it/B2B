@@ -138,7 +138,7 @@ export default function AssemblyPage() {
                     ))}
                   </div>
                   <p className="mt-3 text-sm text-gray-500 leading-relaxed">{mat.desc}</p>
-                  <Link href={`/materials/${mat.slug}`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#0F2744] hover:text-blue-700 transition-colors">Learn More<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#0F2744]">Learn More</span>
                 </div>
               </div>
             ))}
