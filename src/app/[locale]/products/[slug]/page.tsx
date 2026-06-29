@@ -19,13 +19,6 @@ const customizationOptions = [
   { icon: "📦", title: "Packaging", desc: "Individual, retail-ready, or export packaging." },
 ];
 
-const highlightCards = [
-  { icon: "📐", title: "Fully Customizable", desc: "Every dimension tailored to your specifications." },
-  { icon: "💎", title: "Premium Acrylic Material", desc: "High-clarity cast and extruded acrylic options." },
-  { icon: "⚙️", title: "Precision Manufacturing", desc: "Laser cutting, CNC machining and quality inspection." },
-  { icon: "🤝", title: "OEM & ODM Available", desc: "Custom manufacturing for your brand requirements." },
-];
-
 // ── Category slug mapping ──
 const catMap: Record<string, { title: string; desc: string; oldCats: string[] }> = {
   "custom-acrylic-products": { title: "Custom Acrylic Products", desc: "From concept to finished product, we manufacture completely customized acrylic products based on your drawings and business requirements.", oldCats: ["acrylic-displays","acrylic-boxes","acrylic-signage","acrylic-home-office","acrylic-awards-gifts"] },
@@ -170,38 +163,36 @@ export default async function ProductPage({ params }: Props) {
       <SchemaOrg data={[bcSchema]} />
 
       {/* HERO */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="prod-hero">
-        <Container className="py-12 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center">
-                {product.images?.[0] ? <img src={product.images[0]} alt="" className="h-full w-full object-cover rounded-2xl" /> : <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+      <section className="relative bg-white border-b border-gray-100" aria-labelledby="prod-hero">
+        <Container className="py-8 lg:py-10">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: product.name }]} />
+          <div className="mt-4 grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
+            <div>
+              <h1 id="prod-hero" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl lg:text-5xl">{product.name}</h1>
+              <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-[480px]">{product.description}</p>
+              <div className="mt-5 grid grid-cols-2 gap-2 max-w-[400px]">
+                {[
+                  { icon: "📐", label: "Custom Size" },
+                  { icon: "🤝", label: "OEM Available" },
+                  { icon: "💎", label: "Premium Acrylic" },
+                  { icon: "⚡", label: "Fast Response" },
+                ].map((h) => (
+                  <div key={h.label} className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="text-sm select-none">{h.icon}</span>
+                    {h.label}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
               </div>
             </div>
-            <div className="order-1 lg:order-2">
-              <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: product.name }]} />
-              <h1 id="prod-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">{product.name}</h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">{product.description}</p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Drawing</Link>
+            <div className="relative">
+              <div className="aspect-[4/3] rounded-2xl bg-gray-50 flex items-center justify-center overflow-hidden">
+                {product.images?.[0] ? <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" /> : <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* PRODUCT HIGHLIGHTS */}
-      <section className="bg-gray-50" aria-labelledby="highlights-heading">
-        <Container className="py-16 lg:py-20">
-          <div className="mb-12"><h2 id="highlights-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl text-center">Product Highlights</h2></div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {highlightCards.map((item) => (
-              <div key={item.title} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex items-start gap-3">
-                <span className="text-xl select-none">{item.icon}</span>
-                <div><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p></div>
-              </div>
-            ))}
           </div>
         </Container>
       </section>
