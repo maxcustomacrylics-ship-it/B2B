@@ -181,7 +181,7 @@ export default async function HomePage() {
             <h2 id="process-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">How We Work</h2>
             <p className="mt-3 text-gray-500 leading-relaxed">A proven process from your initial inquiry to final delivery.</p>
           </div>
-          <div className="flex flex-wrap gap-3 sm:gap-4 justify-between max-w-3xl">
+          <div className="flex flex-wrap items-start justify-center gap-6 sm:gap-10 max-w-4xl mx-auto">
             {[
               { step: "01", title: "Inquiry", icon: "💬" },
               { step: "02", title: "Design", icon: "📐" },
@@ -189,11 +189,10 @@ export default async function HomePage() {
               { step: "04", title: "Production", icon: "⚙️" },
               { step: "05", title: "Delivery", icon: "🚢" },
             ].map((s, i) => (
-              <div key={s.step} className="flex flex-col items-center text-center">
-                <span className="text-2xl">{s.icon}</span>
-                <span className="mt-2 text-xs font-bold text-gray-300">{s.step}</span>
-                <span className="mt-1 text-sm font-semibold text-[#0F2744]">{s.title}</span>
-                {i < 4 && <svg className="hidden sm:block mt-2 h-4 w-4 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>}
+              <div key={s.step} className="flex flex-col items-center text-center w-[100px] sm:w-[120px]">
+                <span className="text-5xl sm:text-6xl">{s.icon}</span>
+                <span className="mt-3 text-xs font-bold text-gray-300 tracking-wider">{s.step}</span>
+                <span className="mt-2 text-sm font-semibold text-[#0F2744]">{s.title}</span>
               </div>
             ))}
           </div>
