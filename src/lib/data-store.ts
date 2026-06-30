@@ -267,39 +267,47 @@ export async function saveTestimonials(testimonials: Testimonial[]): Promise<voi
 // ═══════════════════════════════════════════
 
 export async function getSettings(): Promise<Settings> {
+  // Always read local JSON first — it's the source of truth
+  const sp = path.join(DATA_DIR, "settings.json");
+  let localSettings: Settings | null = null;
+  try {
+    if (fs.existsSync(sp)) localSettings = JSON.parse(fs.readFileSync(sp, "utf-8"));
+  } catch {}
+
+  // Merge with Supabase if available (for remote overrides)
   if (hasSupabase()) {
-    const { data, error } = await getSupabase()!.from("settings").select("*");
-    if (error) { console.error("[supabase] getSettings:", error); return defaultSettings; }
-    const map: Record<string, string> = {};
-    for (const row of data || []) map[row.key] = row.value;
-    return { ...defaultSettings, ...map };
+    try {
+      const { data, error } = await getSupabase()!.from("settings").select("*");
+      if (!error && data) {
+        const map: Record<string, string> = {};
+        for (const row of data) map[row.key] = row.value;
+        return { ...defaultSettings, ...localSettings, ...map };
+      }
+    } catch {}
   }
 
-  const sp = path.join(DATA_DIR, "settings.json");
-  try {
-    if (fs.existsSync(sp)) return JSON.parse(fs.readFileSync(sp, "utf-8"));
-  } catch {}
-  return defaultSettings;
+  return localSettings || defaultSettings;
 }
 
 export async function saveSettings(settings: Settings): Promise<void> {
-  if (hasSupabase()) {
-    const rows = Object.entries(settings).map(([key, value]) => ({
-      key,
-      value,
-      updated_at: new Date().toISOString(),
-    }));
-
-    // Delete all existing, then insert new batch — more reliable than upsert
-    const sb = getSupabase()!;
-    await sb.from("settings").delete().neq("key", "__never__"); // deletes all
-    const { error } = await sb.from("settings").insert(rows);
-    if (error) console.error("[supabase] saveSettings:", error);
-    return;
-  }
-
+  // Always write to local JSON file
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "settings.json"), JSON.stringify(settings, null, 2), "utf-8");
+
+  // Also sync to Supabase if available
+  if (hasSupabase()) {
+    try {
+      const rows = Object.entries(settings).map(([key, value]) => ({
+        key,
+        value,
+        updated_at: new Date().toISOString(),
+      }));
+      const sb = getSupabase()!;
+      await sb.from("settings").delete().neq("key", "__never__");
+      const { error } = await sb.from("settings").insert(rows);
+      if (error) console.error("[supabase] saveSettings:", error);
+    } catch (e) { console.error("[supabase] saveSettings failed:", e); }
+  }
 }
 
 // ═══════════════════════════════════════════
