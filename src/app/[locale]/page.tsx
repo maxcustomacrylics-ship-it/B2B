@@ -181,7 +181,7 @@ export default async function HomePage() {
             <h2 id="process-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">How We Work</h2>
             <p className="mt-3 text-gray-500 leading-relaxed">A proven process from your initial inquiry to final delivery.</p>
           </div>
-          <div className="flex flex-wrap items-start justify-center gap-6 sm:gap-10 max-w-4xl mx-auto">
+          <div className="flex flex-wrap items-start justify-center gap-2 sm:gap-3 max-w-4xl mx-auto">
             {[
               { step: "01", title: "Inquiry", icon: "💬" },
               { step: "02", title: "Design", icon: "📐" },
@@ -189,10 +189,13 @@ export default async function HomePage() {
               { step: "04", title: "Production", icon: "⚙️" },
               { step: "05", title: "Delivery", icon: "🚢" },
             ].map((s, i) => (
-              <div key={s.step} className="flex flex-col items-center text-center w-[100px] sm:w-[120px]">
-                <span className="text-5xl sm:text-6xl">{s.icon}</span>
-                <span className="mt-3 text-xs font-bold text-gray-300 tracking-wider">{s.step}</span>
-                <span className="mt-2 text-sm font-semibold text-[#0F2744]">{s.title}</span>
+              <div key={s.step} className="flex items-center">
+                <div className="flex flex-col items-center text-center w-[90px] sm:w-[110px]">
+                  <span className="text-5xl sm:text-6xl">{s.icon}</span>
+                  <span className="mt-3 text-xs font-bold text-gray-300 tracking-wider">{s.step}</span>
+                  <span className="mt-2 text-sm font-semibold text-[#0F2744]">{s.title}</span>
+                </div>
+                {i < 4 && <span className="text-2xl text-gray-300 mx-1 sm:mx-2 mb-8">→</span>}
               </div>
             ))}
           </div>
