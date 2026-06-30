@@ -301,16 +301,29 @@ export async function saveSettings(settings: Settings): Promise<void> {
     fs.writeFileSync(fp, JSON.stringify(settings, null, 2), "utf-8");
   } catch (e) { console.error("[settings] Local save failed:", e); }
 
-  // Also sync to Supabase using admin client (bypasses RLS)
-  const sb = getSupabaseAdmin() || getSupabase();
-  if (sb) {
+  // Sync to Supabase using direct REST API (most reliable)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseKey) {
     try {
-      const rows = Object.entries(settings).map(([key, value]) => ({
-        key, value, updated_at: new Date().toISOString(),
-      }));
-      await sb.from("settings").delete().neq("key", "__never__");
-      await sb.from("settings").insert(rows);
-    } catch (e) { console.error("[supabase] saveSettings failed:", e); }
+      // Delete all existing
+      await fetch(`${supabaseUrl}/rest/v1/settings?key=neq.__never__`, {
+        method: "DELETE",
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+      });
+      // Insert new rows in batches
+      const entries = Object.entries(settings);
+      for (let i = 0; i < entries.length; i += 50) {
+        const batch = entries.slice(i, i + 50).map(([key, value]) => ({
+          key, value, updated_at: new Date().toISOString(),
+        }));
+        await fetch(`${supabaseUrl}/rest/v1/settings`, {
+          method: "POST",
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(batch),
+        });
+      }
+    } catch (e) { console.error("[settings] Supabase sync failed:", e); }
   }
 }
 
