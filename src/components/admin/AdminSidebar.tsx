@@ -3,14 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Package, Wrench, Briefcase, FileText, MessageSquare, Settings, Image, ArrowLeft, LogOut, Globe } from "lucide-react";
+import { LayoutDashboard, Package, Wrench, Briefcase, FileText, MessageSquare, Settings, ArrowLeft, LogOut, Globe, User, Menu, Info } from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/settings", label: "Homepage", icon: Globe },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/services", label: "Capabilities", icon: Wrench },
   { href: "/admin/cases", label: "Projects", icon: Briefcase },
-  { href: "/admin/blogs", label: "Resources", icon: FileText },
+  { href: "/admin/blogs", label: "Knowledge Center", icon: FileText },
+  { href: "/admin/about", label: "About Page", icon: Info },
+  { href: "/admin/navigation", label: "Navigation", icon: Menu },
   { href: "/admin/messages", label: "Site Copy", icon: MessageSquare },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];

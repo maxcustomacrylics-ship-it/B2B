@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
-import { getBlogPosts, getCaseStudies } from "@/lib/data-store";
+import { getBlogPosts, getCaseStudies, getSettings } from "@/lib/data-store";
 
 export const metadata: Metadata = {
   title: "Custom Acrylic Products Designed Around Your Business | Max Custom Acrylics",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const posts = await getBlogPosts();
   const projects = await getCaseStudies();
+  const s = await getSettings();
 
   return (
     <div className="bg-white text-slate-900">
