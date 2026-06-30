@@ -212,14 +212,18 @@ export default function AdminSettingsPage() {
             <SettingsImageField label="Main Hero Image" value={form.heroImg || ""} onChange={(v) => update("heroImg", v)} />
           </div>
           <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Product Category Images</h2>
-            <p className="text-xs text-gray-500 mb-4">Upload images via Products editor. Images will appear on product cards when available.</p>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us (4 Images)</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[{n:1,l:"Fully Customized"},{n:2,l:"Premium Materials"},{n:3,l:"OEM & ODM"},{n:4,l:"Worldwide Delivery"}].map((x) => (
+                <SettingsImageField key={x.n} label={x.l} value={form[`whyImg${x.n}`] || ""} onChange={(v) => update(`whyImg${x.n}`, v)} />
+              ))}
+            </div>
           </div>
           <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Additional Images</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {[1,2,3,4].map((n) => (
-                <SettingsImageField key={n} label={`Image ${n}`} value={form[`img${n}`] || ""} onChange={(v) => update(`img${n}`, v)} />
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (6 Images)</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {[{n:1,l:"Laser Cutting"},{n:2,l:"CNC Machining"},{n:3,l:"Diamond Polishing"},{n:4,l:"UV Printing"},{n:5,l:"Thermoforming"},{n:6,l:"Assembly"}].map((x) => (
+                <SettingsImageField key={x.n} label={x.l} value={form[`capImg${x.n}`] || ""} onChange={(v) => update(`capImg${x.n}`, v)} />
               ))}
             </div>
           </div>
