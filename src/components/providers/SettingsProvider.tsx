@@ -2,29 +2,7 @@
 
 import { createContext, useContext } from "react";
 
-export type Settings = {
-  companyName: string;
-  phone: string;
-  email: string;
-  address: string;
-  whatsapp: string;
-  businessHours: string;
-  heroHeadline: string;
-  heroSubheadline: string;
-  heroBadge: string;
-  ctaTitle: string;
-  ctaSubtitle: string;
-  ctaButton: string;
-  heroImg1: string; heroImg2: string; heroImg3: string; heroImg4: string;
-  factoryImg1: string; factoryImg2: string; factoryImg3: string; factoryImg4: string; factoryImg5: string;
-  statYears: string; statArea: string; statCountries: string; statProducts: string;
-  heroBtnPrimaryUrl: string; heroBtnSecondaryUrl: string;
-  factoryTitle: string; factoryDesc: string;
-  blogTitle: string; blogDesc: string;
-  rfqTitle: string; rfqDesc: string; rfqSuccess: string;
-  catImg1: string; catImg2: string; catImg3: string; catImg4: string;
-  capImg1: string; capImg2: string; capImg3: string; capImg4: string; capImg5: string;
-};
+export type Settings = Record<string, string>;
 
 const SettingsContext = createContext<Settings | null>(null);
 
