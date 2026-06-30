@@ -1,7 +1,7 @@
 import "server-only";
 import fs from "fs";
 import path from "path";
-import { getSupabase, hasSupabase } from "@/lib/supabase";
+import { getSupabase, getSupabaseAdmin, hasSupabase } from "@/lib/supabase";
 import type { Product, Service, CaseStudy, BlogPost, Testimonial, PricingConfig } from "@/lib/types";
 
 // ─── Seed data ───
@@ -294,13 +294,13 @@ export async function saveSettings(settings: Settings): Promise<void> {
     fs.writeFileSync(fp, JSON.stringify(settings, null, 2), "utf-8");
   } catch (e) { console.error("[settings] Local save failed:", e); }
 
-  // Also sync to Supabase if available
-  if (hasSupabase()) {
+  // Also sync to Supabase using admin client (bypasses RLS)
+  const sb = getSupabaseAdmin() || getSupabase();
+  if (sb) {
     try {
       const rows = Object.entries(settings).map(([key, value]) => ({
         key, value, updated_at: new Date().toISOString(),
       }));
-      const sb = getSupabase()!;
       await sb.from("settings").delete().neq("key", "__never__");
       await sb.from("settings").insert(rows);
     } catch (e) { console.error("[supabase] saveSettings failed:", e); }
