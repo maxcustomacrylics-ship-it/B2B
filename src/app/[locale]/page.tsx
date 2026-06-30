@@ -42,7 +42,7 @@ export default async function HomePage() {
             </div>
             <div aria-hidden="true">
               <div className="aspect-[4/3] rounded-[24px] bg-gradient-to-br from-blue-50 via-slate-100 to-blue-100 flex items-center justify-center overflow-hidden shadow-lg">
-                <svg className="w-20 h-20 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                {s.heroImg ? <img src={s.heroImg} alt="" className="w-full h-full object-cover" /> : <svg className="w-20 h-20 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
               </div>
             </div>
           </div>
