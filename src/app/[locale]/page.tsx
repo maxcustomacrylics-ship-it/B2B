@@ -89,13 +89,15 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: "📐", title: "Fully Customized", desc: "Every product manufactured to your exact specifications." },
-              { icon: "💎", title: "Premium Materials", desc: "High-clarity cast and extruded acrylic options." },
-              { icon: "🤝", title: "OEM & ODM Support", desc: "Custom manufacturing for your brand requirements." },
-              { icon: "🌐", title: "Worldwide Delivery", desc: "Export-ready packaging to over 30 countries." },
+              { title: "Fully Customized", desc: "Every product manufactured to your exact specifications.", color: "from-blue-100 to-blue-200/50" },
+              { title: "Premium Materials", desc: "High-clarity cast and extruded acrylic options.", color: "from-sky-100 to-sky-200/50" },
+              { title: "OEM & ODM Support", desc: "Custom manufacturing for your brand requirements.", color: "from-indigo-100 to-indigo-200/50" },
+              { title: "Worldwide Delivery", desc: "Export-ready packaging to over 30 countries.", color: "from-emerald-100 to-emerald-200/50" },
             ].map((item) => (
               <div key={item.title} className="text-center">
-                <span className="text-4xl select-none">{item.icon}</span>
+                <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center`}>
+                  <svg className="w-8 h-8 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                </div>
                 <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{item.title}</h3>
                 <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
               </div>
@@ -113,16 +115,16 @@ export default async function HomePage() {
           </div>
           <div className="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 snap-x">
             {[
-              { title: "Laser Cutting", slug: "/services/laser-cutting", icon: "🔬", color: "from-blue-100 to-blue-200/60" },
-              { title: "CNC Machining", slug: "/services/cnc-machining", icon: "⚙️", color: "from-slate-100 to-slate-200/60" },
-              { title: "Diamond Polishing", slug: "/services/diamond-polishing", icon: "💎", color: "from-amber-100 to-amber-200/60" },
-              { title: "UV Printing", slug: "/services/uv-printing", icon: "🎨", color: "from-purple-100 to-purple-200/60" },
-              { title: "Thermoforming", slug: "/services/laser-cutting", icon: "🔥", color: "from-rose-100 to-rose-200/60" },
-              { title: "Assembly", slug: "/services/bonding-assembly", icon: "📦", color: "from-emerald-100 to-emerald-200/60" },
+              { title: "Laser Cutting", slug: "/services/laser-cutting", color: "from-blue-100 to-blue-200/60" },
+              { title: "CNC Machining", slug: "/services/cnc-machining", color: "from-slate-100 to-slate-200/60" },
+              { title: "Diamond Polishing", slug: "/services/diamond-polishing", color: "from-amber-100 to-amber-200/60" },
+              { title: "UV Printing", slug: "/services/uv-printing", color: "from-purple-100 to-purple-200/60" },
+              { title: "Thermoforming", slug: "/services/laser-cutting", color: "from-rose-100 to-rose-200/60" },
+              { title: "Assembly", slug: "/services/bonding-assembly", color: "from-emerald-100 to-emerald-200/60" },
             ].map((cap) => (
               <Link key={cap.title} href={cap.slug} className="group flex-shrink-0 w-[220px] snap-start rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className={`aspect-[4/3] bg-gradient-to-br ${cap.color} flex items-center justify-center`}>
-                  <span className="text-3xl select-none group-hover:scale-110 transition-transform">{cap.icon}</span>
+                  <svg className="w-10 h-10 text-gray-400/25 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cap.title}</h3>
