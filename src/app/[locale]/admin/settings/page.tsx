@@ -80,9 +80,10 @@ export default function AdminSettingsPage() {
     setSaving(true);
     try {
       const res = await fetch("/api/admin/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) showToast("Settings saved successfully");
-      else showToast("Failed to save", "error");
-    } catch { showToast("Failed to save", "error"); }
+      else showToast(data.error || "Failed to save", "error");
+    } catch (e: any) { showToast(e.message || "Failed to save", "error"); }
     finally { setSaving(false); }
   }
 

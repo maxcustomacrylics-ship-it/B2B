@@ -291,8 +291,15 @@ export async function getSettings(): Promise<Settings> {
 
 export async function saveSettings(settings: Settings): Promise<void> {
   // Always write to local JSON file
-  ensureDir(DATA_DIR);
-  fs.writeFileSync(path.join(DATA_DIR, "settings.json"), JSON.stringify(settings, null, 2), "utf-8");
+  try {
+    ensureDir(DATA_DIR);
+    const fp = path.join(DATA_DIR, "settings.json");
+    fs.writeFileSync(fp, JSON.stringify(settings, null, 2), "utf-8");
+    console.log("[settings] Saved to", fp, "with", Object.keys(settings).length, "keys");
+  } catch (e) {
+    console.error("[settings] Local save failed:", e);
+    throw e;
+  }
 
   // Also sync to Supabase if available
   if (hasSupabase()) {
