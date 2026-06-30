@@ -3,245 +3,116 @@
 import { useState, useEffect } from "react";
 import { showToast } from "@/components/admin/Toast";
 import SettingsImageField from "@/components/admin/SettingsImageField";
-import { Save, Globe, Image, Type, Layout } from "lucide-react";
-
-type Settings = Record<string, string>;
+import { Save, Globe, Image, Type } from "lucide-react";
 
 export default function AdminSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState<Settings>({});
-  const [activeTab, setActiveTab] = useState("homepage");
+  const [form, setForm] = useState<Record<string, string>>({});
+  const [tab, setTab] = useState("text");
 
   useEffect(() => { fetchSettings(); }, []);
 
   async function fetchSettings() {
     try {
       const res = await fetch("/api/admin/settings");
-      const data = await res.json();
+      const d = await res.json();
       setForm({
-        companyName: data.companyName || "",
-        email: data.email || "",
-        phone: data.phone || "",
-        whatsapp: data.whatsapp || "",
         // Hero
-        heroHeadline: data.heroHeadline || "Custom Acrylic Products Designed Around Your Business",
-        heroSubheadline: data.heroSubheadline || "From concept to delivery, we manufacture premium custom acrylic products for retail, commercial and industrial applications.",
-        heroBadge: data.heroBadge || "Engineering & Project Partner",
-        heroImg: data.heroImg || "",
-        // Why Choose Us
-        whyTitle: data.whyTitle || "Why Choose Max Custom Acrylic",
-        whySub: data.whySub || "Engineering-driven approach with quality management throughout your project.",
-        why1Title: data.why1Title || "Fully Customized",
-        why1Desc: data.why1Desc || "Every product manufactured to your exact specifications.",
-        why2Title: data.why2Title || "Premium Materials",
-        why2Desc: data.why2Desc || "High-clarity cast and extruded acrylic options.",
-        why3Title: data.why3Title || "OEM & ODM Support",
-        why3Desc: data.why3Desc || "Custom manufacturing for your brand requirements.",
-        why4Title: data.why4Title || "Worldwide Delivery",
-        why4Desc: data.why4Desc || "Export-ready packaging to over 30 countries.",
+        heroHeadline: d.heroHeadline || "", heroSubheadline: d.heroSubheadline || "",
+        // Categories
+        catTitle: d.catTitle || "", catSub: d.catSub || "",
+        // Why Us
+        whyTitle: d.whyTitle || "", whySub: d.whySub || "",
+        why1Title: d.why1Title || "", why1Desc: d.why1Desc || "",
+        why2Title: d.why2Title || "", why2Desc: d.why2Desc || "",
+        why3Title: d.why3Title || "", why3Desc: d.why3Desc || "",
+        why4Title: d.why4Title || "", why4Desc: d.why4Desc || "",
         // Capabilities
-        capTitle: data.capTitle || "Manufacturing Capabilities",
-        capSub: data.capSub || "Comprehensive acrylic fabrication coordinated through engineering and quality management.",
-        // Product Categories
-        catTitle: data.catTitle || "What We Make",
-        catSub: data.catSub || "Browse our range of custom acrylic products designed for commercial and industrial applications.",
-        // Featured Projects
-        projTitle: data.projTitle || "Featured Projects",
-        projSub: data.projSub || "Custom acrylic solutions delivered for clients worldwide.",
+        capTitle: d.capTitle || "", capSub: d.capSub || "",
+        // Projects
+        projTitle: d.projTitle || "", projSub: d.projSub || "",
         // Process
-        procTitle: data.procTitle || "How We Work",
-        procSub: data.procSub || "A proven process from your initial inquiry to final delivery.",
+        procTitle: d.procTitle || "", procSub: d.procSub || "",
         // Insights
-        insTitle: data.insTitle || "Industry Insights",
-        insSub: data.insSub || "Practical guides and design ideas for custom acrylic projects.",
+        insTitle: d.insTitle || "", insSub: d.insSub || "",
         // FAQ
-        faq1Q: data.faq1Q || "Can all products be customized?",
-        faq1A: data.faq1A || "Yes. Every product can be customized in dimensions, material, color, finish, and branding to match your exact requirements.",
-        faq2Q: data.faq2Q || "What is your MOQ?",
-        faq2A: data.faq2A || "MOQ is flexible. We handle single prototypes to full production runs.",
-        faq3Q: data.faq3Q || "Can you manufacture from drawings?",
-        faq3A: data.faq3A || "Absolutely. Send us your CAD files, sketches, or reference samples. Our engineering team will review and provide a quotation within 24 hours.",
-        faq4Q: data.faq4Q || "What is your lead time?",
-        faq4A: data.faq4A || "Standard lead time is 10–18 business days depending on complexity and quantity.",
-        // Final CTA
-        ctaTitle: data.ctaTitle || "Let's Build Your Next Acrylic Project",
-        ctaSub: data.ctaSub || "Tell us your ideas and we'll provide the right acrylic solution.",
+        faq1Q: d.faq1Q || "", faq1A: d.faq1A || "",
+        faq2Q: d.faq2Q || "", faq2A: d.faq2A || "",
+        faq3Q: d.faq3Q || "", faq3A: d.faq3A || "",
+        faq4Q: d.faq4Q || "", faq4A: d.faq4A || "",
+        // CTA
+        ctaTitle: d.ctaTitle || "", ctaSub: d.ctaSub || "",
+        // Images
+        heroImg: d.heroImg || "",
+        whyImg1: d.whyImg1 || "", whyImg2: d.whyImg2 || "", whyImg3: d.whyImg3 || "", whyImg4: d.whyImg4 || "",
+        capImg1: d.capImg1 || "", capImg2: d.capImg2 || "", capImg3: d.capImg3 || "", capImg4: d.capImg4 || "", capImg5: d.capImg5 || "", capImg6: d.capImg6 || "",
+        // Contact
+        companyName: d.companyName || "", email: d.email || "", phone: d.phone || "", whatsapp: d.whatsapp || "",
       });
-    } catch { showToast("Failed to load settings", "error"); }
+    } catch { showToast("Failed to load", "error"); }
     finally { setLoading(false); }
   }
 
-  function update(field: string, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }
+  function update(f: string, v: string) { setForm((p) => ({ ...p, [f]: v })); }
 
-  async function handleSave() {
+  async function save() {
     setSaving(true);
     try {
       const res = await fetch("/api/admin/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok) showToast("Settings saved successfully");
-      else showToast(data.error || "Failed to save", "error");
-    } catch (e: any) { showToast(e.message || "Failed to save", "error"); }
+      const d = await res.json().catch(() => ({}));
+      if (res.ok) showToast("Saved — refresh homepage to see changes");
+      else showToast(d.error || "Save failed", "error");
+    } catch (e: any) { showToast(e.message || "Save failed", "error"); }
     finally { setSaving(false); }
   }
 
   if (loading) return <div className="flex items-center justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" /></div>;
 
-  const tabs = [
-    { id: "homepage", label: "Homepage", icon: Layout },
-    { id: "images", label: "Images", icon: Image },
-    { id: "contact", label: "Contact Info", icon: Globe },
-  ];
-
-  const inputClass = "block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500";
-  const sectionClass = "rounded-xl bg-white shadow-sm border border-gray-200 p-6";
+  const inp = "block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500";
+  const sec = "rounded-xl bg-white shadow-sm border border-gray-200 p-6";
+  const F = ({ label, field, textarea }: { label: string; field: string; textarea?: boolean }) => (
+    <div><label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+      {textarea ? <textarea value={form[field] || ""} onChange={(e) => update(field, e.target.value)} rows={2} className={inp} /> : <input type="text" value={form[field] || ""} onChange={(e) => update(field, e.target.value)} className={inp} />}</div>
+  );
 
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <div><h1 className="text-2xl font-bold text-gray-900">Site Settings</h1><p className="mt-1 text-sm text-gray-500">Manage content, images and contact information</p></div>
-        <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50">
-          <Save className="h-4 w-4" />{saving ? "Saving..." : "Save All"}
-        </button>
+        <div><h1 className="text-2xl font-bold text-gray-900">Homepage Settings</h1><p className="mt-1 text-sm text-gray-500">Every field below controls text on the homepage</p></div>
+        <button onClick={save} disabled={saving} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"><Save className="h-4 w-4" />{saving ? "Saving..." : "Save All"}</button>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-1 mb-8 bg-gray-100 rounded-lg p-1 w-fit">
-        {tabs.map((tab) => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors ${activeTab === tab.id ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
-            <tab.icon className="h-4 w-4" />{tab.label}
-          </button>
-        ))}
-      </div>
+        {[{ id: "text", label: "Text Content", icon: Type }, { id: "images", label: "Images", icon: Image }, { id: "contact", label: "Contact", icon: Globe }].map((t) => (
+          <button key={t.id} onClick={() => setTab(t.id)} className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors ${tab === t.id ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}><t.icon className="h-4 w-4" />{t.label}</button>
+        ))}</div>
 
-      {/* ===== HOMEPAGE TAB ===== */}
-      {activeTab === "homepage" && (
+      {tab === "text" && (
         <div className="space-y-6">
-          {/* Hero */}
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2"><Type className="h-5 w-5 text-blue-600" /> Hero Section</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Badge</label><input type="text" value={form.heroBadge} onChange={(e) => update("heroBadge", e.target.value)} className={inputClass} placeholder="Engineering & Project Partner" /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Headline</label><input type="text" value={form.heroHeadline} onChange={(e) => update("heroHeadline", e.target.value)} className={inputClass} /></div>
-              <div className="sm:col-span-2"><label className="block text-sm font-medium text-gray-700 mb-1">Description</label><textarea value={form.heroSubheadline} onChange={(e) => update("heroSubheadline", e.target.value)} rows={2} className={inputClass} /></div>
-            </div>
-          </div>
-
-          {/* Why Choose Us */}
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us</h2>
-            <div className="grid gap-4 sm:grid-cols-2 mb-6">
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Title</label><input type="text" value={form.whyTitle} onChange={(e) => update("whyTitle", e.target.value)} className={inputClass} /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label><input type="text" value={form.whySub} onChange={(e) => update("whySub", e.target.value)} className={inputClass} /></div>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[1,2,3,4].map((n) => (
-                <div key={n} className="border border-gray-200 rounded-lg p-4">
-                  <p className="text-xs font-medium text-gray-400 mb-2">Card {n}</p>
-                  <div className="space-y-2">
-                    <input type="text" value={form[`why${n}Title`] || ""} onChange={(e) => update(`why${n}Title`, e.target.value)} className={inputClass} placeholder="Title" />
-                    <input type="text" value={form[`why${n}Desc`] || ""} onChange={(e) => update(`why${n}Desc`, e.target.value)} className={inputClass} placeholder="Description" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Capabilities */}
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities Section</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Title</label><input type="text" value={form.capTitle} onChange={(e) => update("capTitle", e.target.value)} className={inputClass} /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label><input type="text" value={form.capSub} onChange={(e) => update("capSub", e.target.value)} className={inputClass} /></div>
-            </div>
-          </div>
-
-          {/* Product Categories */}
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories Section</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Title</label><input type="text" value={form.catTitle} onChange={(e) => update("catTitle", e.target.value)} className={inputClass} /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label><input type="text" value={form.catSub} onChange={(e) => update("catSub", e.target.value)} className={inputClass} /></div>
-            </div>
-          </div>
-
-          {/* Projects / Process / Insights */}
-          {[ ["proj","Featured Projects"], ["proc","How We Work"], ["ins","Industry Insights"] ].map(([key,label]) => (
-            <div key={key} className={sectionClass}>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">{label} Section</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div><label className="block text-sm font-medium text-gray-700 mb-1">Title</label><input type="text" value={form[`${key}Title`] || ""} onChange={(e) => update(`${key}Title`, e.target.value)} className={inputClass} /></div>
-                <div><label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label><input type="text" value={form[`${key}Sub`] || ""} onChange={(e) => update(`${key}Sub`, e.target.value)} className={inputClass} /></div>
-              </div>
-            </div>
-          ))}
-
-          {/* FAQ */}
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">FAQ Section (4 Questions)</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[1,2,3,4].map((n) => (
-                <div key={n} className="border border-gray-200 rounded-lg p-4">
-                  <p className="text-xs font-medium text-gray-400 mb-2">Question {n}</p>
-                  <div className="space-y-2">
-                    <input type="text" value={form[`faq${n}Q`] || ""} onChange={(e) => update(`faq${n}Q`, e.target.value)} className={inputClass} placeholder="Question" />
-                    <textarea value={form[`faq${n}A`] || ""} onChange={(e) => update(`faq${n}A`, e.target.value)} rows={2} className={inputClass} placeholder="Answer" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Final CTA Section</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Title</label><input type="text" value={form.ctaTitle} onChange={(e) => update("ctaTitle", e.target.value)} className={inputClass} /></div>
-              <div><label className="block text-sm font-medium text-gray-700 mb-1">Subtitle</label><input type="text" value={form.ctaSub} onChange={(e) => update("ctaSub", e.target.value)} className={inputClass} /></div>
-            </div>
-          </div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Hero</h2><div className="grid gap-4"><F label="Headline" field="heroHeadline" /><F label="Description" field="heroSubheadline" textarea /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="catTitle" /><F label="Subtitle" field="catSub" /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="whyTitle" /><F label="Subtitle" field="whySub" /></div>
+            <div className="grid gap-4 sm:grid-cols-2 mt-4">{[1, 2, 3, 4].map((n) => (<div key={n} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-2">Card {n}</p><F label="Title" field={`why${n}Title`} /><div className="mt-2"><F label="Description" field={`why${n}Desc`} /></div></div>))}</div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="capTitle" /><F label="Subtitle" field="capSub" /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Featured Projects</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="projTitle" /><F label="Subtitle" field="projSub" /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">How We Work</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="procTitle" /><F label="Subtitle" field="procSub" /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Industry Insights</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="insTitle" /><F label="Subtitle" field="insSub" /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">FAQ</h2><div className="grid gap-4 sm:grid-cols-2">{[1, 2, 3, 4].map((n) => (<div key={n} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-2">Question {n}</p><F label="Question" field={`faq${n}Q`} /><div className="mt-2"><F label="Answer" field={`faq${n}A`} textarea /></div></div>))}</div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Final CTA</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="ctaTitle" /><F label="Subtitle" field="ctaSub" /></div></div>
         </div>
       )}
 
-      {/* ===== IMAGES TAB ===== */}
-      {activeTab === "images" && (
+      {tab === "images" && (
         <div className="space-y-6">
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Image</h2>
-            <SettingsImageField label="Main Hero Image" value={form.heroImg || ""} onChange={(v) => update("heroImg", v)} />
-          </div>
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us (4 Images)</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {[{n:1,l:"Fully Customized"},{n:2,l:"Premium Materials"},{n:3,l:"OEM & ODM"},{n:4,l:"Worldwide Delivery"}].map((x) => (
-                <SettingsImageField key={x.n} label={x.l} value={form[`whyImg${x.n}`] || ""} onChange={(v) => update(`whyImg${x.n}`, v)} />
-              ))}
-            </div>
-          </div>
-          <div className={sectionClass}>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (6 Images)</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {[{n:1,l:"Laser Cutting"},{n:2,l:"CNC Machining"},{n:3,l:"Diamond Polishing"},{n:4,l:"UV Printing"},{n:5,l:"Thermoforming"},{n:6,l:"Assembly"}].map((x) => (
-                <SettingsImageField key={x.n} label={x.l} value={form[`capImg${x.n}`] || ""} onChange={(v) => update(`capImg${x.n}`, v)} />
-              ))}
-            </div>
-          </div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Image</h2><SettingsImageField label="Hero" value={form.heroImg || ""} onChange={(v) => update("heroImg", v)} /></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us (4)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Fully Customized", "Premium Materials", "OEM & ODM", "Worldwide Delivery"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`whyImg${i + 1}`] || ""} onChange={(v) => update(`whyImg${i + 1}`, v)} />))}</div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (6)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{["Laser Cutting", "CNC Machining", "Diamond Polishing", "UV Printing", "Thermoforming", "Assembly"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`capImg${i + 1}`] || ""} onChange={(v) => update(`capImg${i + 1}`, v)} />))}</div></div>
         </div>
       )}
 
-      {/* ===== CONTACT TAB ===== */}
-      {activeTab === "contact" && (
-        <div className={sectionClass}>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div><label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label><input type="text" value={form.companyName} onChange={(e) => update("companyName", e.target.value)} className={inputClass} /></div>
-            <div><label className="block text-sm font-medium text-gray-700 mb-1">Email</label><input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputClass} /></div>
-            <div><label className="block text-sm font-medium text-gray-700 mb-1">Phone</label><input type="text" value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputClass} /></div>
-            <div><label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp</label><input type="text" value={form.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} className={inputClass} placeholder="Country code + number" /></div>
-          </div>
-        </div>
+      {tab === "contact" && (
+        <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Info</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Company" field="companyName" /><F label="Email" field="email" /><F label="Phone" field="phone" /><F label="WhatsApp" field="whatsapp" /></div></div>
       )}
     </div>
   );

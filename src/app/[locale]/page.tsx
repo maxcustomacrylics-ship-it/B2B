@@ -27,8 +27,7 @@ export default async function HomePage() {
                 {s.heroHeadline || "Custom Acrylic Products Designed Around Your Business"}
               </h1>
               <p className="mt-6 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[520px]">
-                From concept to delivery, we manufacture premium custom acrylic
-                products for retail, commercial and industrial applications.
+                {s.heroSubheadline || "From concept to delivery, we manufacture premium custom acrylic products for retail, commercial and industrial applications."}
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F2744] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">
@@ -54,8 +53,8 @@ export default async function HomePage() {
       <section className="bg-gray-50" aria-labelledby="categories-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
-            <h2 id="categories-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">What We Make</h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">Browse our range of custom acrylic products designed for commercial and industrial applications.</p>
+            <h2 id="categories-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.catTitle || "What We Make"}</h2>
+            <p className="mt-3 text-gray-500 leading-relaxed">{s.catSub || "Browse our range of custom acrylic products designed for commercial and industrial applications."}</p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
@@ -84,15 +83,15 @@ export default async function HomePage() {
       <section className="bg-white" aria-labelledby="why-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
-            <h2 id="why-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">Why Choose Max Custom Acrylic</h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">Engineering-driven approach with quality management throughout your project.</p>
+            <h2 id="why-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.whyTitle || "Why Choose Max Custom Acrylic"}</h2>
+            <p className="mt-3 text-gray-500 leading-relaxed">{s.whySub || "Engineering-driven approach with quality management throughout your project."}</p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Fully Customized", desc: "Every product manufactured to your exact specifications.", color: "from-blue-100 to-blue-200/50", imgKey: "whyImg1" },
-              { title: "Premium Materials", desc: "High-clarity cast and extruded acrylic options.", color: "from-sky-100 to-sky-200/50", imgKey: "whyImg2" },
-              { title: "OEM & ODM Support", desc: "Custom manufacturing for your brand requirements.", color: "from-indigo-100 to-indigo-200/50", imgKey: "whyImg3" },
-              { title: "Worldwide Delivery", desc: "Export-ready packaging to over 30 countries.", color: "from-emerald-100 to-emerald-200/50", imgKey: "whyImg4" },
+              { title: s.why1Title || "Fully Customized", desc: s.why1Desc || "Every product manufactured to your exact specifications.", color: "from-blue-100 to-blue-200/50", imgKey: "whyImg1" },
+              { title: s.why2Title || "Premium Materials", desc: s.why2Desc || "High-clarity cast and extruded acrylic options.", color: "from-sky-100 to-sky-200/50", imgKey: "whyImg2" },
+              { title: s.why3Title || "OEM & ODM Support", desc: s.why3Desc || "Custom manufacturing for your brand requirements.", color: "from-indigo-100 to-indigo-200/50", imgKey: "whyImg3" },
+              { title: s.why4Title || "Worldwide Delivery", desc: s.why4Desc || "Export-ready packaging to over 30 countries.", color: "from-emerald-100 to-emerald-200/50", imgKey: "whyImg4" },
             ].map((item) => (
               <div key={item.title} className="text-center">
                 <div className={`w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
@@ -110,8 +109,8 @@ export default async function HomePage() {
       <section className="bg-gray-50" aria-labelledby="cap-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
-            <h2 id="cap-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">Manufacturing Capabilities</h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">Comprehensive acrylic fabrication coordinated through engineering and quality management.</p>
+            <h2 id="cap-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.capTitle || "Manufacturing Capabilities"}</h2>
+            <p className="mt-3 text-gray-500 leading-relaxed">{s.capSub || "Comprehensive acrylic fabrication coordinated through engineering and quality management."}</p>
           </div>
           <div className="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 snap-x">
             {[
@@ -140,8 +139,8 @@ export default async function HomePage() {
       <section className="bg-white" aria-labelledby="projects-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
-            <h2 id="projects-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">Featured Projects</h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">Custom acrylic solutions delivered for clients worldwide.</p>
+            <h2 id="projects-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.projTitle || "Featured Projects"}</h2>
+            <p className="mt-3 text-gray-500 leading-relaxed">{s.projSub || "Custom acrylic solutions delivered for clients worldwide."}</p>
           </div>
           <div className="grid gap-6 lg:grid-cols-2">
             {projects[0] && (
@@ -178,8 +177,8 @@ export default async function HomePage() {
       <section className="bg-gray-50" aria-labelledby="process-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
-            <h2 id="process-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">How We Work</h2>
-            <p className="mt-3 text-gray-500 leading-relaxed">A proven process from your initial inquiry to final delivery.</p>
+            <h2 id="process-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.procTitle || "How We Work"}</h2>
+            <p className="mt-3 text-gray-500 leading-relaxed">{s.procSub || "A proven process from your initial inquiry to final delivery."}</p>
           </div>
           <div className="flex flex-wrap items-start justify-center gap-2 sm:gap-3 max-w-4xl mx-auto">
             {[
@@ -207,8 +206,8 @@ export default async function HomePage() {
         <Container className="py-[120px]">
           <div className="flex items-end justify-between mb-12">
             <div className="max-w-[520px]">
-              <h2 id="insights-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">Industry Insights</h2>
-              <p className="mt-3 text-gray-500 leading-relaxed">Practical guides and design ideas for custom acrylic projects.</p>
+              <h2 id="insights-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.insTitle || "Industry Insights"}</h2>
+              <p className="mt-3 text-gray-500 leading-relaxed">{s.insSub || "Practical guides and design ideas for custom acrylic projects."}</p>
             </div>
             <Link href="/blog" className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors shrink-0">View All Articles<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
           </div>
@@ -236,10 +235,10 @@ export default async function HomePage() {
           </div>
           <div className="max-w-3xl grid gap-4 sm:grid-cols-2">
             {[
-              { q: "Can all products be customized?", a: "Yes. Every product can be customized in dimensions, material, color, finish, and branding to match your exact requirements." },
-              { q: "What is your MOQ?", a: "MOQ is flexible. We handle single prototypes to full production runs. Contact us to discuss your specific project needs." },
-              { q: "Can you manufacture from drawings?", a: "Absolutely. Send us your CAD files, sketches, or reference samples. Our engineering team will review and provide a quotation within 24 hours." },
-              { q: "What is your lead time?", a: "Standard lead time is 10–18 business days depending on complexity and quantity. Rush orders can often be accommodated." },
+              { q: s.faq1Q || "Can all products be customized?", a: s.faq1A || "Yes. Every product can be customized in dimensions, material, color, finish, and branding." },
+              { q: s.faq2Q || "What is your MOQ?", a: s.faq2A || "MOQ is flexible. We handle single prototypes to full production runs." },
+              { q: s.faq3Q || "Can you manufacture from drawings?", a: s.faq3A || "Absolutely. Send us your CAD files, sketches, or reference samples." },
+              { q: s.faq4Q || "What is your lead time?", a: s.faq4A || "Standard lead time is 10–18 business days depending on complexity and quantity." },
             ].map((faq, i) => (
               <details key={i} className="group rounded-xl border border-gray-200 bg-white [&_summary::-webkit-details-marker]:hidden">
                 <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-[#0F2744] list-none flex items-start justify-between gap-3">
