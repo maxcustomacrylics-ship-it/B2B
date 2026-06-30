@@ -95,8 +95,8 @@ export default async function HomePage() {
               { title: "Worldwide Delivery", desc: "Export-ready packaging to over 30 countries.", color: "from-emerald-100 to-emerald-200/50", imgKey: "whyImg4" },
             ].map((item) => (
               <div key={item.title} className="text-center">
-                <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
-                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt="" className="w-full h-full object-cover" /> : <svg className="w-8 h-8 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                <div className={`w-28 h-28 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
+                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt="" className="w-full h-full object-cover" /> : <svg className="w-10 h-10 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{item.title}</h3>
                 <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
