@@ -95,7 +95,7 @@ export default async function HomePage() {
               { title: "Worldwide Delivery", desc: "Export-ready packaging to over 30 countries.", color: "from-emerald-100 to-emerald-200/50", imgKey: "whyImg4" },
             ].map((item) => (
               <div key={item.title} className="text-center">
-                <div className={`w-56 h-56 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
+                <div className={`w-32 h-32 sm:w-44 sm:h-44 lg:w-56 lg:h-56 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
                   {s[item.imgKey] ? <img src={s[item.imgKey]} alt="" className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{item.title}</h3>
