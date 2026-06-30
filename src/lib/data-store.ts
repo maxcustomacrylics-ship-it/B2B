@@ -268,22 +268,29 @@ export async function saveTestimonials(testimonials: Testimonial[]): Promise<voi
 // ═══════════════════════════════════════════
 
 export async function getSettings(): Promise<Settings> {
-  // Read local JSON first (always the source of truth)
-  let local: Settings = {};
-  const sp = path.join(DATA_DIR, "settings.json");
-  try { if (fs.existsSync(sp)) local = JSON.parse(fs.readFileSync(sp, "utf-8")); } catch {}
+  let result: Settings = { ...defaultSettings };
 
-  // Merge with Supabase if available
-  if (hasSupabase()) {
+  // Try Supabase first — use direct fetch to avoid client creation issues
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseKey) {
     try {
-      const { data, error } = await getSupabase()!.from("settings").select("*");
-      if (!error && data) {
-        for (const row of data) local[row.key] = row.value;
+      const res = await fetch(`${supabaseUrl}/rest/v1/settings?select=*`, {
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const rows = await res.json();
+        for (const row of rows) result[row.key] = row.value;
       }
-    } catch {}
+    } catch { /* fall through to local */ }
   }
 
-  return { ...defaultSettings, ...local };
+  // Merge local JSON
+  const sp = path.join(DATA_DIR, "settings.json");
+  try { if (fs.existsSync(sp)) { const local = JSON.parse(fs.readFileSync(sp, "utf-8")); result = { ...result, ...local }; } } catch {}
+
+  return result;
 }
 
 export async function saveSettings(settings: Settings): Promise<void> {
