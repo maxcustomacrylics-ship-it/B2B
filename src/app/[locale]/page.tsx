@@ -22,7 +22,7 @@ export default async function HomePage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 items-center">
             <div>
               <h1 id="hero-heading" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-[1.08]">
-                Custom Acrylic Products<br />Designed Around Your Business
+                {s.heroHeadline || "Custom Acrylic Products Designed Around Your Business"}
               </h1>
               <p className="mt-6 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[520px]">
                 From concept to delivery, we manufacture premium custom acrylic
@@ -251,8 +251,8 @@ export default async function HomePage() {
       {/* ========== 9. FINAL CTA ========== */}
       <section className="bg-[#0F2744]" aria-labelledby="cta-heading">
         <Container className="py-[120px] text-center">
-          <h2 id="cta-heading" className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">Let's Build Your Next Acrylic Project</h2>
-          <p className="mt-5 text-lg text-blue-200 leading-relaxed max-w-[560px] mx-auto">Tell us your ideas and we'll provide the right acrylic solution.</p>
+          <h2 id="cta-heading" className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">{s.ctaTitle || "Let's Build Your Next Acrylic Project"}</h2>
+          <p className="mt-5 text-lg text-blue-200 leading-relaxed max-w-[560px] mx-auto">{s.ctaSub || "Tell us your ideas and we'll provide the right acrylic solution."}</p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-transparent px-8 py-4 text-sm font-semibold text-white hover:bg-white/10 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
