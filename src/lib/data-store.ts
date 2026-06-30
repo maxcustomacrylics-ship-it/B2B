@@ -20,8 +20,9 @@ import {
 } from "@/data/pricing";
 
 // ─── Config ───
-const DATA_DIR = path.join(process.cwd(), "src", "data");
-const MSG_DIR = path.join(process.cwd(), "src", "messages");
+// Vercel read-only FS: use /tmp; local dev: use src/data
+const DATA_DIR = process.env.VERCEL ? "/tmp/data" : path.join(process.cwd(), "src", "data");
+const MSG_DIR = process.env.VERCEL ? "/tmp/messages" : path.join(process.cwd(), "src", "messages");
 
 // ─── Types ───
 export type Settings = Record<string, string>;
@@ -267,52 +268,41 @@ export async function saveTestimonials(testimonials: Testimonial[]): Promise<voi
 // ═══════════════════════════════════════════
 
 export async function getSettings(): Promise<Settings> {
-  // Always read local JSON first — it's the source of truth
+  // Read local JSON first (always the source of truth)
+  let local: Settings = {};
   const sp = path.join(DATA_DIR, "settings.json");
-  let localSettings: Settings | null = null;
-  try {
-    if (fs.existsSync(sp)) localSettings = JSON.parse(fs.readFileSync(sp, "utf-8"));
-  } catch {}
+  try { if (fs.existsSync(sp)) local = JSON.parse(fs.readFileSync(sp, "utf-8")); } catch {}
 
-  // Merge with Supabase if available (for remote overrides)
+  // Merge with Supabase if available
   if (hasSupabase()) {
     try {
       const { data, error } = await getSupabase()!.from("settings").select("*");
       if (!error && data) {
-        const map: Record<string, string> = {};
-        for (const row of data) map[row.key] = row.value;
-        return { ...defaultSettings, ...localSettings, ...map };
+        for (const row of data) local[row.key] = row.value;
       }
     } catch {}
   }
 
-  return localSettings || defaultSettings;
+  return { ...defaultSettings, ...local };
 }
 
 export async function saveSettings(settings: Settings): Promise<void> {
-  // Always write to local JSON file
+  // Always try local file first (/tmp on Vercel, src/data locally)
   try {
     ensureDir(DATA_DIR);
     const fp = path.join(DATA_DIR, "settings.json");
     fs.writeFileSync(fp, JSON.stringify(settings, null, 2), "utf-8");
-    console.log("[settings] Saved to", fp, "with", Object.keys(settings).length, "keys");
-  } catch (e) {
-    console.error("[settings] Local save failed:", e);
-    throw e;
-  }
+  } catch (e) { console.error("[settings] Local save failed:", e); }
 
   // Also sync to Supabase if available
   if (hasSupabase()) {
     try {
       const rows = Object.entries(settings).map(([key, value]) => ({
-        key,
-        value,
-        updated_at: new Date().toISOString(),
+        key, value, updated_at: new Date().toISOString(),
       }));
       const sb = getSupabase()!;
       await sb.from("settings").delete().neq("key", "__never__");
-      const { error } = await sb.from("settings").insert(rows);
-      if (error) console.error("[supabase] saveSettings:", error);
+      await sb.from("settings").insert(rows);
     } catch (e) { console.error("[supabase] saveSettings failed:", e); }
   }
 }
