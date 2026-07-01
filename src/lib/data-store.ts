@@ -94,16 +94,21 @@ function camelToSnake(record: Record<string, unknown>): Record<string, unknown> 
 
 export async function getProducts(): Promise<Product[]> {
   if (hasSupabase()) {
-    const { data, error } = await getSupabase()!.from("products").select("*").order("id", { ascending: false });
-    if (error) { console.error("[supabase] getProducts:", error); return []; }
-    return (data || []).map((r) => snakeToCamel(r) as unknown as Product);
+    try {
+      const { data, error } = await getSupabase()!.from("products").select("*").order("id", { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r) => snakeToCamel(r) as unknown as Product);
+      }
+    } catch {}
   }
 
-  // Local fallback
+  // Local JSON fallback
   const fp = path.join(DATA_DIR, "products.json");
   try {
     if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8"));
-  } catch { /* fall through */ }
+  } catch {}
+
+  // Seed data fallback
   return seedProducts;
 }
 
@@ -166,11 +171,11 @@ export async function saveServices(services: Service[]): Promise<void> {
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
   if (hasSupabase()) {
-    const { data, error } = await getSupabase()!.from("case_studies").select("*").order("id", { ascending: false });
-    if (error) { console.error("[supabase] getCaseStudies:", error); return []; }
-    return (data || []).map((r) => snakeToCamel(r) as unknown as CaseStudy);
+    try {
+      const { data, error } = await getSupabase()!.from("case_studies").select("*").order("id", { ascending: false });
+      if (!error && data && data.length > 0) return data.map((r) => snakeToCamel(r) as unknown as CaseStudy);
+    } catch {}
   }
-
   const fp = path.join(DATA_DIR, "cases.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedCaseStudies;
@@ -202,11 +207,11 @@ export async function saveCaseStudies(cases: CaseStudy[]): Promise<void> {
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
   if (hasSupabase()) {
-    const { data, error } = await getSupabase()!.from("blog_posts").select("*").order("id", { ascending: false });
-    if (error) { console.error("[supabase] getBlogPosts:", error); return []; }
-    return (data || []).map((r) => snakeToCamel(r) as unknown as BlogPost);
+    try {
+      const { data, error } = await getSupabase()!.from("blog_posts").select("*").order("id", { ascending: false });
+      if (!error && data && data.length > 0) return data.map((r) => snakeToCamel(r) as unknown as BlogPost);
+    } catch {}
   }
-
   const fp = path.join(DATA_DIR, "blogs.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedBlogPosts;
