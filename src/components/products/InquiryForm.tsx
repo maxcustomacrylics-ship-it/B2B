@@ -75,20 +75,24 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
     setStatus("idle");
     setErrorMsg("");
 
-    const payload = {
-      name: data.name,
-      email: data.email,
-      company: data.company,
-      phone: data.phone || "",
-      productInterest: productName || data.productInterest || "",
-      message: data.message,
-    };
+    // Build FormData for file upload support
+    const payload = new FormData();
+    payload.append("name", data.name);
+    payload.append("email", data.email);
+    payload.append("company", data.company);
+    payload.append("phone", data.phone || "");
+    payload.append("productInterest", productName || data.productInterest || "");
+    payload.append("message", data.message);
+
+    const fileInput = (e.target as HTMLFormElement).querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput?.files?.[0]) {
+      payload.append("drawing", fileInput.files[0]);
+    }
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: payload,
       });
 
       if (res.ok) {
@@ -216,12 +220,12 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
       {/* Message */}
       <div>
         <label className="block text-sm font-medium text-foreground mb-1">
-          {t("message")} <span className="text-red-500">*</span>
+          Project Description <span className="text-red-500">*</span>
         </label>
         <textarea
           name="message"
-          rows={5}
-          placeholder={t("messagePlaceholder")}
+          rows={4}
+          placeholder="Describe your project requirements, quantities, timeline, material preferences..."
           className={`${inputClass("message")} resize-y`}
           onBlur={() => handleBlur("message")}
           onChange={(e) => handleChange("message", e.target.value)}
@@ -235,6 +239,21 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
           <span className={`text-xs ${charCount < 5 ? "text-gray-400" : "text-green-600"}`}>
             {charCount}/5 min
           </span>
+        </div>
+      </div>
+
+      {/* File Upload */}
+      <div>
+        <label className="block text-sm font-medium text-foreground mb-1">
+          Upload Drawing / Design File
+        </label>
+        <div className="mt-1 flex items-center gap-3">
+          <label className="inline-flex items-center gap-2 rounded-lg border-2 border-dashed border-gray-300 px-4 py-3 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 cursor-pointer transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+            Choose File
+            <input type="file" name="drawing" accept=".pdf,.dwg,.dxf,.ai,.eps,.step,.iges,.stl,.jpg,.jpeg,.png,.webp" className="hidden" />
+          </label>
+          <span className="text-xs text-gray-400">PDF, DWG, DXF, AI, STEP, JPG, PNG (max 10MB)</span>
         </div>
       </div>
 
