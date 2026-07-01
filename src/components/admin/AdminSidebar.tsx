@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Package, Wrench, Briefcase, FileText, MessageSquare, Settings, ArrowLeft, LogOut, Globe, User, Menu, Info } from "lucide-react";
+import { LayoutDashboard, Package, Wrench, Briefcase, FileText, Settings, ArrowLeft, LogOut, Globe, Menu, Info, Scale } from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -14,8 +14,7 @@ const navItems = [
   { href: "/admin/blogs", label: "Knowledge Center", icon: FileText },
   { href: "/admin/about", label: "About Page", icon: Info },
   { href: "/admin/navigation", label: "Navigation", icon: Menu },
-  { href: "/admin/messages", label: "Site Copy", icon: MessageSquare },
-  { href: "/admin/settings", label: "Settings", icon: Settings },
+  { href: "/admin/messages", label: "Legal Pages", icon: Scale },
 ];
 
 export default function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
