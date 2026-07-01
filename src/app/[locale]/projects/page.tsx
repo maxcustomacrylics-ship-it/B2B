@@ -14,6 +14,17 @@ export default async function ProjectsPage() {
 
   return (
     <>
+      {/* ========== HERO ========== */}
+      <section className="relative bg-white" aria-labelledby="projects-hero">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
+          <div className="mt-6 max-w-3xl">
+            <h1 id="projects-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Featured Projects</h1>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Explore a selection of custom acrylic projects developed for retail, hospitality, commercial and industrial applications.</p>
+          </div>
+        </Container>
+      </section>
+
       {/* ========== FEATURED PROJECTS ========== */}
       <Container className="pb-16 lg:pb-24">
         <div className="mb-12">

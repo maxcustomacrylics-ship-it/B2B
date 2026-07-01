@@ -39,33 +39,12 @@ export default async function BlogPage() {
       <SchemaOrg data={[itemListSchema, breadcrumbSchema]} />
 
       {/* ========== HERO ========== */}
-      <section className="relative bg-slate-50 overflow-hidden" aria-labelledby="knowledge-hero">
-        <Container className="py-12 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-12 items-center">
-            <div className="order-2 lg:order-1" aria-hidden="true">
-              <div className="grid grid-cols-2 gap-2">
-                <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200/50" />
-                <div className="space-y-2">
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-indigo-100 to-indigo-200/50" />
-                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-sky-100 to-sky-200/50" />
-                </div>
-              </div>
-              <span className="sr-only">Knowledge Center — practical guides and design resources</span>
-            </div>
-            <div className="order-1 lg:order-2">
-              <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Knowledge Center" }]} />
-              <h1 id="knowledge-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">
-                Knowledge Center
-              </h1>
-              <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">
-                Explore practical guides, design ideas, material knowledge and
-                manufacturing insights for custom acrylic projects.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/blog" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Browse Articles<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-              </div>
-            </div>
+      <section className="relative bg-white" aria-labelledby="knowledge-hero">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Knowledge Center" }]} />
+          <div className="mt-6 max-w-3xl">
+            <h1 id="knowledge-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Knowledge Center</h1>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Explore practical guides, design ideas, material knowledge and manufacturing insights for custom acrylic projects.</p>
           </div>
         </Container>
       </section>

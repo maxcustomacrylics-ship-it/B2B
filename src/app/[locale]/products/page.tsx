@@ -21,12 +21,12 @@ export default function ProductsPage() {
   return (
     <>
       {/* ========== HERO ========== */}
-      <section className="relative bg-white overflow-hidden" aria-labelledby="products-hero">
-        <Container className="py-12 lg:py-20">
+      <section className="relative bg-white" aria-labelledby="products-hero">
+        <Container className="py-12 lg:py-16">
           <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products" }]} />
-          <div className="mt-4 text-center">
+          <div className="mt-6 max-w-3xl">
             <h1 id="products-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Custom Acrylic Products</h1>
-            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Explore our range of custom acrylic products. Every product can be customized to your specifications, dimensions and branding requirements.</p>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Explore our range of custom acrylic products. Every product can be customized to your specifications, dimensions and branding requirements.</p>
           </div>
         </Container>
       </section>
