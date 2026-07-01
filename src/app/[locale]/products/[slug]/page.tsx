@@ -162,93 +162,41 @@ export default async function ProductPage({ params }: Props) {
     <>
       <SchemaOrg data={[bcSchema]} />
 
-      {/* HERO */}
-      <section className="relative bg-white border-b border-gray-100" aria-labelledby="prod-hero">
-        <Container className="py-8 lg:py-10">
-          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: product.name }]} />
-          <div className="mt-4 grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-            <div>
-              <h1 id="prod-hero" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl lg:text-5xl">{product.name}</h1>
-              <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-[480px]">{product.description}</p>
-              <div className="mt-5 grid grid-cols-2 gap-2 max-w-[400px]">
-                {[
-                  { icon: "📐", label: "Custom Size" },
-                  { icon: "🤝", label: "OEM Available" },
-                  { icon: "💎", label: "Premium Acrylic" },
-                  { icon: "⚡", label: "Fast Response" },
-                ].map((h) => (
-                  <div key={h.label} className="flex items-center gap-2 text-xs text-gray-500">
-                    <span className="text-sm select-none">{h.icon}</span>
-                    {h.label}
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
-              </div>
+      <Container className="py-8 lg:py-12">
+        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: product.name }]} />
+        <h1 className="mt-4 text-3xl font-bold text-[#0F2744] sm:text-4xl">{product.name}</h1>
+        <p className="mt-2 text-sm text-gray-500 max-w-2xl">{product.description}</p>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-2">
+          {/* Left: Gallery */}
+          <div>
+            <div className="grid grid-cols-2 gap-3">
+              {["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50"].map((c, i) => (
+                <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
+              ))}
             </div>
-            <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-gray-50 flex items-center justify-center overflow-hidden">
-                {product.images?.[0] ? <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" /> : <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
-              </div>
+            <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
+              {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
+                <span key={h.label} className="flex items-center gap-1.5"><span>{h.icon}</span>{h.label}</span>
+              ))}
             </div>
           </div>
-        </Container>
-      </section>
 
-      {/* GALLERY */}
-      <section className="bg-white" aria-labelledby="gallery-heading">
-        <Container className="py-16 lg:py-20">
-          <div className="mb-12"><h2 id="gallery-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl text-center">Gallery</h2></div>
-          <div className="grid grid-cols-3 gap-3">
-            {["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50","from-amber-100 to-amber-200/50","from-purple-100 to-purple-200/50"].map((c, i) => (
-              <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* CUSTOMIZATION OPTIONS */}
-      <section className="bg-gray-50" aria-labelledby="custom-heading">
-        <Container className="py-16 lg:py-20">
-          <div className="mb-12"><h2 id="custom-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl text-center">Customization Options</h2></div>
-          <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
-            {[{label:"Dimensions",value:"Fully customizable to your specifications."},{label:"Thickness",value:"1mm to 25mm depending on application."},{label:"Material",value:"Cast acrylic, extruded acrylic, PETG."},{label:"Color",value:"Clear, frosted, colored, mirrored options."},{label:"Printing",value:"UV printing, engraving, silk-screen available."},{label:"Packaging",value:"Individual, retail, or export-ready packaging."}].map((s) => (
-              <div key={s.label} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-                <dt className="text-sm font-semibold text-[#0F2744]">{s.label}</dt>
-                <dd className="mt-1 text-sm text-gray-500 leading-relaxed">{s.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </Container>
-      </section>
-
-      {/* QUICK SPECS */}
-      <section className="bg-white" aria-labelledby="specs-heading">
-        <Container className="py-16 lg:py-20">
-          <div className="mb-12"><h2 id="specs-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl text-center">Quick Specifications</h2></div>
-          <div className="max-w-2xl mx-auto divide-y divide-gray-200 border-y border-gray-200">
-            {product.specs.map((s) => (
-              <div key={s.label} className="flex justify-between py-3 text-sm"><span className="text-gray-500">{s.label}</span><span className="font-medium text-[#0F2744]">{s.value}</span></div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-gray-50" aria-labelledby="prod-cta-heading">
-        <Container className="py-20 lg:py-28">
-          <div className="max-w-[640px] mx-auto text-center">
-            <h2 id="prod-cta-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl lg:text-5xl">Need a Custom Acrylic Product?</h2>
-            <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg">Tell us about your project and we'll provide the right solution.</p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-8 py-4 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-8 py-4 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Drawing</Link>
+          {/* Right: Quick Specifications */}
+          <div>
+            <h2 className="text-lg font-semibold text-[#0F2744] mb-4">Quick Specifications</h2>
+            <div className="divide-y divide-gray-200 border-y border-gray-200">
+              {product.specs.map((s) => (
+                <div key={s.label} className="flex justify-between py-3 text-sm"><span className="text-gray-500">{s.label}</span><span className="font-medium text-[#0F2744]">{s.value}</span></div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
             </div>
           </div>
-        </Container>
-      </section>
+        </div>
+      </Container>
     </>
   );
 }
