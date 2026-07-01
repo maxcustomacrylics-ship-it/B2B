@@ -22,23 +22,6 @@ export default async function DiamondPolishingPage() {
   const s = await getSettings();
   return (
     <>
-      {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-gradient-to-br from-[#0F2744] via-[#1E3A5F] to-[#0F2744] overflow-hidden" aria-labelledby="dp-hero-heading">
-        <div className="absolute inset-0 opacity-5">
-          <div className="grid grid-cols-6 gap-2 h-full p-8">{[...Array(18)].map((_,i)=>(<div key={i} className="bg-amber-400 rounded-full" />))}</div>
-        </div>
-        <Container className="relative py-20 lg:py-28 text-center">
-          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Diamond Polishing" }]} />
-          <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-amber-300 tracking-wide mt-6">Optical-Grade Premium Finish</span>
-          <h1 id="dp-hero-heading" className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">Premium Diamond Edge Polishing for Acrylic</h1>
-          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[640px] mx-auto">Optical-grade edge finishing using progressive diamond abrasives — the premium choice for luxury displays, awards and high-end retail products.</p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center" role="group" aria-label="Call to action buttons">
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-amber-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]" aria-label="Request a quote for diamond polished acrylic products">Request a Quote <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white" aria-label="Upload your drawing for diamond polishing quotation"><Upload className="h-4 w-4" aria-hidden="true" /> Upload Your Drawing</Link>
-          </div>
-        </Container>
-      </section>
-
       {/* ========== WHEN TO CHOOSE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="dp-when-heading">
         <Container className="py-16 lg:py-24">
