@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -10,6 +11,29 @@ import WhatsAppButton from "@/components/shared/WhatsAppButton";
 import MobileCTABar from "@/components/shared/MobileCTABar";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.maxcustomacrylics.com"),
+  title: {
+    default: "Max Custom Acrylics — Custom Acrylic Solutions",
+    template: "%s | Max Custom Acrylics",
+  },
+  description: "Premium custom acrylic products engineered for your business. From design review to worldwide delivery — displays, boxes, signs, trays, and protective products.",
+  openGraph: {
+    type: "website",
+    siteName: "Max Custom Acrylics",
+    title: "Max Custom Acrylics — Custom Acrylic Solutions",
+    description: "Premium custom acrylic products engineered for your business. Engineering support, quality inspection, worldwide delivery.",
+    url: "https://www.maxcustomacrylics.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Max Custom Acrylics — Custom Acrylic Solutions",
+    description: "Premium custom acrylic products engineered for your business.",
+  },
+  robots: { index: true, follow: true },
+  alternates: { canonical: "https://www.maxcustomacrylics.com" },
+};
 
 type Props = {
   children: React.ReactNode;
