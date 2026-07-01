@@ -19,14 +19,14 @@ export default async function ProjectsPage() {
         <Container className="py-12 lg:py-16">
           <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
           <div className="mt-6 max-w-3xl">
-            <h1 id="projects-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Featured Projects</h1>
+            <h1 id="projects-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Projects</h1>
             <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Explore a selection of custom acrylic projects developed for retail, hospitality, commercial and industrial applications.</p>
           </div>
         </Container>
       </section>
 
       {/* ========== FEATURED PROJECTS ========== */}
-      <Container className="pb-16 lg:pb-24">
+      <Container className="py-16 lg:py-20">
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Featured Projects</h2>
           <p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">
