@@ -87,7 +87,7 @@ export default async function HomePage() {
             ].map((item) => (
               <div key={item.title} className="text-center">
                 <div className={`w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
-                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt="" className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt={item.title} className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{item.title}</h3>
                 <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
@@ -115,7 +115,7 @@ export default async function HomePage() {
             ].map((cap) => (
               <Link key={cap.title} href={cap.slug} className="group flex-shrink-0 w-[220px] snap-start rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className={`aspect-[4/3] bg-gradient-to-br ${cap.color} flex items-center justify-center`}>
-                  {s[cap.imgKey] ? <img src={s[cap.imgKey]} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                  {s[cap.imgKey] ? <img src={s[cap.imgKey]} alt={cap.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cap.title}</h3>
@@ -138,7 +138,7 @@ export default async function HomePage() {
             {projects[0] && (
               <Link href={`/projects/${projects[0].slug}`} className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow lg:row-span-2">
                 <div className="aspect-[4/5] lg:aspect-auto lg:h-full bg-gradient-to-br from-blue-100 to-blue-200/50 flex items-center justify-center">
-                  {projects[0].image ? <img src={projects[0].image} alt="" className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700" /> : <svg className="w-16 h-16 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                  {projects[0].image ? <img src={projects[0].image} alt={projects[0].title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700" /> : <svg className="w-16 h-16 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
                   <span className="text-xs font-medium text-blue-200">{projects[0].industry}</span>
@@ -151,7 +151,7 @@ export default async function HomePage() {
               {projects.slice(1, 3).map((p, i) => (
                 <Link key={p.slug} href={`/projects/${p.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex">
                   <div className={`w-2/5 bg-gradient-to-br flex items-center justify-center shrink-0 ${["from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50"][i]}`}>
-                    {p.image ? <img src={p.image} alt="" className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-8 h-8 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                    {p.image ? <img src={p.image} alt={p.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-8 h-8 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                   </div>
                   <div className="p-4 flex flex-col justify-center flex-1">
                     <span className="text-xs text-gray-400">{p.industry}</span>
@@ -207,7 +207,7 @@ export default async function HomePage() {
             {posts.slice(0, 2).map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="aspect-[16/9] bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center">
-                  {post.image ? <img src={post.image} alt="" className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-12 h-12 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                  {post.image ? <img src={post.image} alt={post.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-12 h-12 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors line-clamp-2">{post.title}</h3>

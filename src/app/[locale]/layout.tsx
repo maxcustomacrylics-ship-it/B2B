@@ -32,7 +32,10 @@ export const metadata: Metadata = {
     description: "Premium custom acrylic products engineered for your business.",
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://www.maxcustomacrylics.com" },
+  alternates: {
+    canonical: "https://www.maxcustomacrylics.com",
+    languages: { en: "https://www.maxcustomacrylics.com/en" },
+  },
 };
 
 type Props = {
