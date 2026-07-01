@@ -14,30 +14,6 @@ export default async function ProjectsPage() {
 
   return (
     <>
-      {/* ========== HERO SECTION ========== */}
-      <section className="relative bg-slate-900 overflow-hidden" aria-labelledby="projects-hero">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0F2744] via-[#1a3a5c] to-slate-900" />
-        <div className="absolute inset-0 opacity-10">
-          <div className="grid grid-cols-4 gap-1 h-full">
-            {Array.from({length:12}).map((_,i)=>(<div key={i} className={`${i%3===0?'bg-blue-400':i%3===1?'bg-sky-400':'bg-indigo-400'} rounded-sm opacity-20`} />))}
-          </div>
-        </div>
-        <Container className="relative py-20 lg:py-28 text-center">
-          <Breadcrumb items={[{ label: "Home", href: "/" },{ label: "Projects" }]} />
-          <h1 id="projects-hero" className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">
-            Featured Projects
-          </h1>
-          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[560px] mx-auto">
-            Explore a selection of custom acrylic projects developed for retail,
-            hospitality, commercial and industrial applications.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F2744]">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-            <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white/30 bg-transparent px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white">View Products<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-          </div>
-        </Container>
-      </section>
-
       {/* ========== FEATURED PROJECTS ========== */}
       <Container className="pb-16 lg:pb-24">
         <div className="mb-12">
