@@ -11,6 +11,7 @@ export const mainNav: NavItem[] = [
       { label: "UV Printing", href: "/services/uv-printing" },
       { label: "Assembly & Packaging", href: "/services/bonding-assembly" },
       { label: "Quality Control", href: "/services/oem-project-support" },
+      { label: "Materials", href: "/materials" },
     ],
   },
   { label: "products", href: "/products" },
@@ -36,6 +37,7 @@ export const footerServices: NavItem[] = [
   { label: "UV Printing", href: "/services/uv-printing" },
   { label: "Assembly & Packaging", href: "/services/bonding-assembly" },
   { label: "Quality Control", href: "/services/oem-project-support" },
+  { label: "Materials", href: "/materials" },
 ];
 
 export const footerCompany: NavItem[] = [
