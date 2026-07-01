@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import { getSettings } from "@/lib/data-store";
+
+export const dynamic = "force-dynamic";
 import {
   ArrowRight,
   Upload,
@@ -43,7 +46,8 @@ export const metadata: Metadata = {
     "Precision laser cutting solutions for custom acrylic displays, signage, retail fixtures, protective panels and industrial components. Engineering review, quality inspection, worldwide delivery.",
 };
 
-export default function LaserCuttingPage() {
+export default async function LaserCuttingPage() {
+  const s = await getSettings();
   return (
     <>
       {/* ========== HERO SECTION ========== */}
@@ -395,60 +399,12 @@ export default function LaserCuttingPage() {
           {/* Material Cards — 3 × 2 grid */}
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              {
-                name: "Cast Acrylic",
-                rating: 5,
-                badge: "Excellent",
-                color: "from-blue-100 to-blue-50",
-                bestFor: ["Luxury displays", "Signage", "Display cases"],
-                desc: "Premium optical clarity with superior surface hardness. The preferred choice for high-end display products, awards and architectural applications requiring flawless transparency.",
-                slug: "cast-acrylic",
-              },
-              {
-                name: "Extruded Acrylic",
-                rating: 4,
-                badge: "Very Good",
-                color: "from-sky-100 to-sky-50",
-                bestFor: ["General fabrication", "Retail displays"],
-                desc: "Consistent thickness with good optical properties at an economical price point. Ideal for volume production of retail fixtures, POP displays and standard signage.",
-                slug: "extruded-acrylic",
-              },
-              {
-                name: "PETG",
-                rating: 4,
-                badge: "Very Good",
-                color: "from-emerald-100 to-emerald-50",
-                bestFor: ["Protective panels", "Medical applications"],
-                desc: "Excellent impact resistance with good clarity and formability. Suitable for protective barriers, medical device housings and retail fixtures requiring durability.",
-                slug: "petg",
-              },
-              {
-                name: "Polycarbonate",
-                rating: 3,
-                badge: "Moderate",
-                color: "from-amber-100 to-amber-50",
-                bestFor: ["Impact-resistant components", "Industrial guards"],
-                desc: "Maximum impact strength and heat resistance among clear plastics. Used for machine guards, safety components and industrial applications where durability is critical.",
-                slug: "polycarbonate",
-              },
-              {
-                name: "PVC Foam Board",
-                rating: 3,
-                badge: "Moderate",
-                color: "from-purple-100 to-purple-50",
-                bestFor: ["Indoor signage", "Exhibitions"],
-                desc: "Lightweight, cost-effective substrate for indoor signage, exhibition displays and temporary installations. Easy to print and fabricate.",
-                slug: "pvc-foam-board",
-              },
-              {
-                name: "ABS",
-                rating: 2,
-                badge: "Limited",
-                color: "from-rose-100 to-rose-50",
-                bestFor: ["Functional engineering parts"],
-                desc: "Tough, rigid engineering plastic for functional components. Suitable for structural parts and industrial applications where optical clarity is not required.",
-                slug: "abs",
-              },
+              { name: s.mat1Name || "Cast Acrylic", rating: Number(s.mat1Rating) || 5, badge: s.mat1Badge || "Excellent", color: "from-blue-100 to-blue-50", bestFor: (s.mat1BestFor || "Luxury displays, Signage, Display cases").split(",").map((t: string) => t.trim()), desc: s.mat1Desc || "Premium optical clarity with superior surface hardness.", slug: "cast-acrylic" },
+              { name: s.mat2Name || "Extruded Acrylic", rating: Number(s.mat2Rating) || 4, badge: s.mat2Badge || "Very Good", color: "from-sky-100 to-sky-50", bestFor: (s.mat2BestFor || "General fabrication, Retail displays").split(",").map((t: string) => t.trim()), desc: s.mat2Desc || "Consistent thickness with good optical properties.", slug: "extruded-acrylic" },
+              { name: s.mat3Name || "PETG", rating: Number(s.mat3Rating) || 4, badge: s.mat3Badge || "Very Good", color: "from-emerald-100 to-emerald-50", bestFor: (s.mat3BestFor || "Protective panels, Medical applications").split(",").map((t: string) => t.trim()), desc: s.mat3Desc || "Excellent impact resistance with good clarity.", slug: "petg" },
+              { name: s.mat4Name || "Polycarbonate", rating: Number(s.mat4Rating) || 3, badge: s.mat4Badge || "Moderate", color: "from-amber-100 to-amber-50", bestFor: (s.mat4BestFor || "Impact-resistant components, Industrial guards").split(",").map((t: string) => t.trim()), desc: s.mat4Desc || "Maximum impact strength and heat resistance.", slug: "polycarbonate" },
+              { name: s.mat5Name || "PVC Foam Board", rating: Number(s.mat5Rating) || 3, badge: s.mat5Badge || "Moderate", color: "from-purple-100 to-purple-50", bestFor: (s.mat5BestFor || "Indoor signage, Exhibitions").split(",").map((t: string) => t.trim()), desc: s.mat5Desc || "Lightweight, cost-effective substrate.", slug: "pvc-foam-board" },
+              { name: s.mat6Name || "ABS", rating: Number(s.mat6Rating) || 2, badge: s.mat6Badge || "Limited", color: "from-rose-100 to-rose-50", bestFor: (s.mat6BestFor || "Functional engineering parts").split(",").map((t: string) => t.trim()), desc: s.mat6Desc || "Tough, rigid engineering plastic.", slug: "abs" },
             ].map((mat) => (
               <div
                 key={mat.name}

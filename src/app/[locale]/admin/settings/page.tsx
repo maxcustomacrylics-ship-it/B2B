@@ -84,7 +84,7 @@ export default function AdminSettingsPage() {
       </div>
 
       <div className="flex gap-1 mb-8 bg-gray-100 rounded-lg p-1 w-fit">
-        {[{ id: "text", label: "Text Content", icon: Type }, { id: "images", label: "Images", icon: Image }, { id: "contact", label: "Contact", icon: Globe }].map((t) => (
+        {[{ id: "text", label: "Text Content", icon: Type }, { id: "images", label: "Images", icon: Image }, { id: "materials", label: "Materials", icon: Globe }, { id: "contact", label: "Contact", icon: Globe }].map((t) => (
           <button key={t.id} onClick={() => setTab(t.id)} className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors ${tab === t.id ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}><t.icon className="h-4 w-4" />{t.label}</button>
         ))}</div>
 
@@ -108,6 +108,29 @@ export default function AdminSettingsPage() {
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Image</h2><SettingsImageField label="Hero" value={form.heroImg || ""} onChange={(v) => update("heroImg", v)} /></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us (4)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Fully Customized", "Premium Materials", "OEM & ODM", "Worldwide Delivery"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`whyImg${i + 1}`] || ""} onChange={(v) => update(`whyImg${i + 1}`, v)} />))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (6)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{["Laser Cutting", "CNC Machining", "Diamond Polishing", "UV Printing", "Thermoforming", "Assembly"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`capImg${i + 1}`] || ""} onChange={(v) => update(`capImg${i + 1}`, v)} />))}</div></div>
+        </div>
+      )}
+
+      {tab === "materials" && (
+        <div className="space-y-6">
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Material Compatibility (All Service Pages)</h2><p className="text-xs text-gray-500 mb-4">These materials appear in the Material Compatibility section of all 6 capability pages.</p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { n: 1, name: "Cast Acrylic" }, { n: 2, name: "Extruded Acrylic" }, { n: 3, name: "PETG" },
+                { n: 4, name: "Polycarbonate" }, { n: 5, name: "PVC Foam Board" }, { n: 6, name: "ABS" },
+              ].map((m) => (
+                <div key={m.n} className="border rounded-lg p-4">
+                  <p className="text-sm font-semibold text-[#0F2744] mb-3">{m.name}</p>
+                  <div className="space-y-2">
+                    <div><label className="text-xs text-gray-400">Rating (1-5)</label><input type="number" min="1" max="5" value={form[`mat${m.n}Rating`] || ""} onChange={(e) => update(`mat${m.n}Rating`, e.target.value)} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Badge Text</label><input type="text" value={form[`mat${m.n}Badge`] || ""} onChange={(e) => update(`mat${m.n}Badge`, e.target.value)} className={inp} placeholder="Excellent" /></div>
+                    <div><label className="text-xs text-gray-400">Best For (comma-separated)</label><input type="text" value={form[`mat${m.n}BestFor`] || ""} onChange={(e) => update(`mat${m.n}BestFor`, e.target.value)} className={inp} placeholder="Luxury displays, Signage" /></div>
+                    <div><label className="text-xs text-gray-400">Description</label><textarea value={form[`mat${m.n}Desc`] || ""} onChange={(e) => update(`mat${m.n}Desc`, e.target.value)} rows={2} className={inp} /></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
