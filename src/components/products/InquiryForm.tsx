@@ -134,6 +134,22 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      {/* File Upload — First */}
+      <div className="rounded-xl border-2 border-dashed border-blue-300 bg-blue-50/50 p-5">
+        <label className="block text-sm font-semibold text-[#0F2744] mb-2">
+          📐 Upload Your Drawing / Design File
+        </label>
+        <p className="text-xs text-gray-500 mb-3">Attach your drawing, sketch or reference image for a faster quotation</p>
+        <div className="flex items-center gap-3">
+          <label className="inline-flex items-center gap-2 rounded-lg bg-white border border-gray-300 px-5 py-3 text-sm font-medium text-[#0F2744] hover:bg-gray-50 cursor-pointer transition-colors shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+            Choose File
+            <input type="file" name="drawing" accept=".pdf,.dwg,.dxf,.ai,.eps,.step,.iges,.stl,.jpg,.jpeg,.png,.webp" className="hidden" />
+          </label>
+          <span className="text-xs text-gray-400">PDF, DWG, DXF, AI, STEP, JPG, PNG (max 10MB)</span>
+        </div>
+      </div>
+
       {/* Name */}
       <div>
         <label className="block text-sm font-medium text-foreground mb-1">
@@ -239,21 +255,6 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
           <span className={`text-xs ${charCount < 5 ? "text-gray-400" : "text-green-600"}`}>
             {charCount}/5 min
           </span>
-        </div>
-      </div>
-
-      {/* File Upload */}
-      <div>
-        <label className="block text-sm font-medium text-foreground mb-1">
-          Upload Drawing / Design File
-        </label>
-        <div className="mt-1 flex items-center gap-3">
-          <label className="inline-flex items-center gap-2 rounded-lg border-2 border-dashed border-gray-300 px-4 py-3 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 cursor-pointer transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
-            Choose File
-            <input type="file" name="drawing" accept=".pdf,.dwg,.dxf,.ai,.eps,.step,.iges,.stl,.jpg,.jpeg,.png,.webp" className="hidden" />
-          </label>
-          <span className="text-xs text-gray-400">PDF, DWG, DXF, AI, STEP, JPG, PNG (max 10MB)</span>
         </div>
       </div>
 
