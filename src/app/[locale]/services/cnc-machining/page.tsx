@@ -23,7 +23,18 @@ export default async function CncMachiningPage() {
   const s = await getSettings();
   return (
     <>
-      {/* ========== WHEN TO CHOOSE SECTION ========== */}
+            {/* ========== HERO SECTION ========== */}
+      <section className="relative bg-white" aria-labelledby="cnc-machining-hero-heading">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Precision CNC Acrylic" }]} />
+          <div className="mt-6 max-w-3xl">
+            <h1 id="cnc-machining-hero-heading" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Precision CNC Acrylic Machining Services</h1>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Multi-axis CNC routing for 3D acrylic parts including beveled edges, threaded holes and contoured surfaces for structural and industrial applications.</p>
+          </div>
+        </Container>
+      </section>
+
+{/* ========== WHEN TO CHOOSE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="cnc-when-heading">
         <Container className="py-16 lg:py-24">
           <div className="max-w-[720px]">

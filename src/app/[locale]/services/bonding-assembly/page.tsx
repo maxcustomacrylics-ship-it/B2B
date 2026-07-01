@@ -22,7 +22,18 @@ export default async function AssemblyPage() {
   const s = await getSettings();
   return (
     <>
-      {/* ========== WHEN TO CHOOSE SECTION ========== */}
+            {/* ========== HERO SECTION ========== */}
+      <section className="relative bg-white" aria-labelledby="bonding-assembly-hero-heading">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Professional Acrylic Assembly" }]} />
+          <div className="mt-6 max-w-3xl">
+            <h1 id="bonding-assembly-hero-heading" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Professional Acrylic Assembly & Packaging</h1>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Complete product assembly including hardware integration, bonding, quality inspection and export-ready packaging — finished goods delivered to your door.</p>
+          </div>
+        </Container>
+      </section>
+
+{/* ========== WHEN TO CHOOSE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="assembly-when-heading">
         <Container className="py-16 lg:py-24">
           <div className="max-w-[720px]">

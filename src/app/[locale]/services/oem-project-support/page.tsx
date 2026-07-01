@@ -22,7 +22,18 @@ export default async function QualityControlPage() {
   const s = await getSettings();
   return (
     <>
-      {/* ========== WHEN TO CHOOSE SECTION ========== */}
+            {/* ========== HERO SECTION ========== */}
+      <section className="relative bg-white" aria-labelledby="oem-project-support-hero-heading">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Acrylic Quality Control" }]} />
+          <div className="mt-6 max-w-3xl">
+            <h1 id="oem-project-support-hero-heading" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">Acrylic Quality Control & Project Support</h1>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Multi-stage inspection throughout production with documented reports — from incoming materials to pre-shipment approval.</p>
+          </div>
+        </Container>
+      </section>
+
+{/* ========== WHEN TO CHOOSE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="qc-when-heading">
         <Container className="py-16 lg:py-24">
           <div className="max-w-[720px]">

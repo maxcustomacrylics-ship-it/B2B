@@ -21,7 +21,18 @@ export default async function UvPrintingPage() {
   const s = await getSettings();
   return (
     <>
-      {/* ========== WHEN TO CHOOSE SECTION ========== */}
+            {/* ========== HERO SECTION ========== */}
+      <section className="relative bg-white" aria-labelledby="uv-printing-hero-heading">
+        <Container className="py-12 lg:py-16">
+          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "UV Digital Printing" }]} />
+          <div className="mt-6 max-w-3xl">
+            <h1 id="uv-printing-hero-heading" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">UV Digital Printing on Acrylic</h1>
+            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Full-color CMYK + White direct-to-acrylic printing at 1440dpi. Durable, vibrant graphics for branded displays, signage and personalised products.</p>
+          </div>
+        </Container>
+      </section>
+
+{/* ========== WHEN TO CHOOSE SECTION ========== */}
       <section className="bg-gray-50" aria-labelledby="uv-when-heading">
         <Container className="py-16 lg:py-24">
           <div className="max-w-[720px]">
