@@ -211,55 +211,7 @@ export default async function CncMachiningPage() {
       </section>
       {/* ========== END COMPARISON SECTION ========== */}
 
-      {/* ========== MATERIAL COMPATIBILITY SECTION ========== */}
-      <section className="bg-gray-50" aria-labelledby="cnc-materials-heading">
-        <Container className="py-16 lg:py-24">
-          <div className="max-w-[720px]">
-            <h2 id="cnc-materials-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Material Compatibility</h2>
-            <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Choosing the appropriate material is essential for achieving the desired appearance, durability and manufacturing performance. Our engineering team can recommend suitable materials based on your application.</p>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { name: s.mat1Name || "Cast Acrylic", rating: Number(s.mat1Rating) || 5, badge: s.mat1Badge || "Excellent", color: "from-blue-100 to-blue-50", bestFor: (s.mat1BestFor || "Luxury displays, Signage, Display cases").split(",").map((t) => t.trim()), desc: s.mat1Desc || "Premium optical clarity with superior surface hardness.", slug: "cast-acrylic" },
-              { name: s.mat2Name || "Extruded Acrylic", rating: Number(s.mat2Rating) || 4, badge: s.mat2Badge || "Very Good", color: "from-sky-100 to-sky-50", bestFor: (s.mat2BestFor || "General fabrication, Retail displays").split(",").map((t) => t.trim()), desc: s.mat2Desc || "Consistent thickness with good optical properties.", slug: "extruded-acrylic" },
-              { name: s.mat3Name || "PETG", rating: Number(s.mat3Rating) || 4, badge: s.mat3Badge || "Very Good", color: "from-emerald-100 to-emerald-50", bestFor: (s.mat3BestFor || "Protective panels, Medical applications").split(",").map((t) => t.trim()), desc: s.mat3Desc || "Excellent impact resistance with good clarity.", slug: "petg" },
-              { name: s.mat4Name || "Polycarbonate", rating: Number(s.mat4Rating) || 3, badge: s.mat4Badge || "Moderate", color: "from-amber-100 to-amber-50", bestFor: (s.mat4BestFor || "Impact-resistant components, Industrial guards").split(",").map((t) => t.trim()), desc: s.mat4Desc || "Maximum impact strength and heat resistance.", slug: "polycarbonate" },
-              { name: s.mat5Name || "PVC Foam Board", rating: Number(s.mat5Rating) || 3, badge: s.mat5Badge || "Moderate", color: "from-purple-100 to-purple-50", bestFor: (s.mat5BestFor || "Indoor signage, Exhibitions").split(",").map((t) => t.trim()), desc: s.mat5Desc || "Lightweight, cost-effective substrate.", slug: "pvc-foam-board" },
-              { name: s.mat6Name || "ABS", rating: Number(s.mat6Rating) || 2, badge: s.mat6Badge || "Limited", color: "from-rose-100 to-rose-50", bestFor: (s.mat6BestFor || "Functional engineering parts").split(",").map((t) => t.trim()), desc: s.mat6Desc || "Tough, rigid engineering plastic.", slug: "abs" },
-            ].map((mat) => (
-              <div key={mat.name} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className={`aspect-[16/9] bg-gradient-to-br ${mat.color} flex items-center justify-center`}>
-                  <div className="text-center select-none">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/70 shadow-sm">
-                      <Layers className="h-6 w-6 text-[#0F2744]" aria-hidden="true" />
-                    </div>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-1.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} className={`h-3.5 w-3.5 ${i < mat.rating ? "fill-amber-400 text-amber-400" : "fill-none text-gray-200"}`} aria-hidden="true" />
-                    ))}
-                    <span className="ml-1.5 text-xs font-medium text-gray-500">{mat.badge}</span>
-                  </div>
-                  <h3 className="mt-3 text-lg font-semibold text-[#0F2744]">{mat.name}</h3>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {mat.bestFor.map((tag) => (
-                      <span key={tag} className="inline-block rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">{tag}</span>
-                    ))}
-                  </div>
-                  <p className="mt-3 text-sm text-gray-500 leading-relaxed">{mat.desc}</p>
-                                  </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-14 rounded-2xl border border-blue-200 bg-blue-50/60 p-8 md:p-10 text-center">
-            <h3 className="text-xl font-bold text-[#0F2744] sm:text-2xl">Need Help Choosing Materials?</h3>
-            <p className="mt-2 text-gray-500 max-w-lg mx-auto leading-relaxed">Our engineering team can recommend the most suitable material based on your product design, application and manufacturing requirements.</p>
-            <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2744] focus-visible:ring-offset-2">Contact Engineering Team<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
-          </div>
-        </Container>
-      </section>
+      {/* ========== 
 
       {/* ========== DESIGN GUIDELINES SECTION ========== */}
       <section className="bg-white" aria-labelledby="cnc-design-heading">
