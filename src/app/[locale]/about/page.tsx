@@ -4,15 +4,19 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
+import { getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 import { ArrowRight, Cog, Package, ShieldCheck, MessageCircle } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "About Us | Max Custom Acrylics",
   description: "Max Custom Acrylics helps businesses source and develop high-quality custom acrylic products by coordinating engineering, production, quality inspection and international logistics through carefully selected manufacturing partners.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const s = await getSettings();
   const orgSchema = generateOrganizationSchema();
   const bcSchema = generateBreadcrumbSchema([{ name: "Home", url: SITE_URL },{ name: "About Us", url: `${SITE_URL}/about` }]);
 
@@ -38,10 +42,8 @@ export default function AboutPage() {
             </div>
           </div>
         </Container>
-        <div className="w-full aspect-[21/9] lg:aspect-[3/1] bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center -mt-6" aria-hidden="true">
-          <svg className="w-20 h-20 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="9" x2="14" y2="9"/>
-          </svg>
+        <div className="w-full aspect-[21/9] lg:aspect-[3/1] bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center -mt-6 overflow-hidden" aria-hidden="true">
+          {s.aboutHeroImg ? <img src={s.aboutHeroImg} alt="" className="w-full h-full object-cover" /> : <svg className="w-20 h-20 text-gray-300/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="9" x2="14" y2="9"/></svg>}
         </div>
         <span className="sr-only">Engineering collaboration and product development</span>
       </section>
@@ -70,9 +72,7 @@ export default function AboutPage() {
           </div>
           <div className="relative" aria-hidden="true">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
-              <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-              </svg>
+              {s.aboutWhoImg ? <img src={s.aboutWhoImg} alt="" className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
             </div>
             <span className="sr-only">Engineering collaboration for custom acrylic product development</span>
           </div>

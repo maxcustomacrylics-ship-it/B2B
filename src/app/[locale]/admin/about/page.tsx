@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { showToast } from "@/components/admin/Toast";
-import { Save, Type } from "lucide-react";
+import { Save, Type, Image } from "lucide-react";
+import SettingsImageField from "@/components/admin/SettingsImageField";
 
 export default function AdminAboutPage() {
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,8 @@ export default function AdminAboutPage() {
         step3Desc: d.aboutStep3Desc || "We manage manufacturing and quality inspection.",
         step4Title: d.aboutStep4Title || "Delivery",
         step4Desc: d.aboutStep4Desc || "Products are packed and shipped to your destination.",
+        aboutHeroImg: d.aboutHeroImg || "",
+        aboutWhoImg: d.aboutWhoImg || "",
       });
     } catch { showToast("Failed to load", "error"); }
     finally { setLoading(false); }
@@ -109,6 +112,14 @@ export default function AdminAboutPage() {
             {[1,2,3,4].map((n) => (<div key={n} className="border border-gray-200 rounded-lg p-4"><p className="text-xs font-medium text-gray-400 mb-2">Step {n}</p>
               <div className="space-y-2"><input type="text" value={form[`step${n}Title`]} onChange={(e) => update(`step${n}Title`, e.target.value)} className={inp} placeholder="Title" />
                 <input type="text" value={form[`step${n}Desc`]} onChange={(e) => update(`step${n}Desc`, e.target.value)} className={inp} placeholder="Description" /></div></div>))}
+          </div>
+        </div>
+        {/* Images */}
+        <div className={sec}>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2"><Image className="h-5 w-5 text-blue-600" /> Page Images</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <SettingsImageField label="Hero Banner (full-width)" value={form.aboutHeroImg || ""} onChange={(v) => update("aboutHeroImg", v)} />
+            <SettingsImageField label="Who We Are (side image)" value={form.aboutWhoImg || ""} onChange={(v) => update("aboutWhoImg", v)} />
           </div>
         </div>
       </div>
