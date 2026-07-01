@@ -11,8 +11,8 @@ import { ArrowRight, Cog, Package, ShieldCheck, MessageCircle } from "lucide-rea
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "About Us | Max Custom Acrylics",
-  description: "Max Custom Acrylics helps businesses source and develop high-quality custom acrylic products by coordinating engineering, production, quality inspection and international logistics through carefully selected manufacturing partners.",
+  title: "About Us — Max Custom Acrylics",
+  description: "We help businesses develop custom acrylic products through engineering support, coordinated manufacturing and quality-focused project management.",
 };
 
 export default async function AboutPage() {

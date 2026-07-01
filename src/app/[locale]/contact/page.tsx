@@ -1,7 +1,5 @@
-import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import InquiryForm from "@/components/products/InquiryForm";
 import SchemaOrg from "@/components/shared/SchemaOrg";
@@ -10,52 +8,47 @@ import { SITE_URL } from "@/lib/utils";
 import { getSettings } from "@/lib/data-store";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("contact");
-
-  return {
-    title: t("title"),
-    description: t("subtitle"),
-    openGraph: {
-      title: `${t("title")} | AcrylicPro Custom`,
-      description: t("subtitle"),
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: "Contact Us — Custom Acrylic Solutions",
+  description: "Get in touch for custom acrylic products. Request a quote, upload drawings, or contact our engineering team for project support.",
+  openGraph: {
+    title: "Contact Us | Max Custom Acrylics",
+    description: "Get in touch for custom acrylic products. Request a quote, upload drawings, or contact our engineering team.",
+    type: "website",
+  },
+};
 
 export default async function ContactPage() {
-  const t = await getTranslations("contact");
   const settings = await getSettings();
   const orgSchema = generateOrganizationSchema();
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: SITE_URL },
-    { name: t("title"), url: `${SITE_URL}/contact` },
+    { name: "Contact Us", url: `${SITE_URL}/contact` },
   ]);
 
   const contactItems = [
     { icon: Phone, label: "Phone", value: settings.phone, href: `tel:${settings.phone}` },
     { icon: Mail, label: "Email", value: settings.email, href: `mailto:${settings.email}` },
     { icon: MessageCircle, label: "WhatsApp", value: settings.phone, href: `https://wa.me/${settings.whatsapp}` },
-    { icon: MapPin, label: t("address"), value: settings.address, href: "#" },
-    { icon: Clock, label: t("hours"), value: settings.businessHours, href: "#" },
+    { icon: MapPin, label: "Address", value: settings.address, href: "#" },
+    { icon: Clock, label: "Hours", value: settings.businessHours, href: "#" },
   ];
 
   return (
     <>
       <SchemaOrg data={[orgSchema, breadcrumbSchema]} />
       <Container className="py-12">
-        <Breadcrumb
-          items={[{ label: "Home", href: "/" }, { label: t("title") }]}
-        />
-        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
+        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Contact Us" }]} />
+        <div className="mt-6 max-w-3xl">
+          <h1 className="text-4xl font-bold text-[#0F2744] sm:text-5xl">Contact Us</h1>
+          <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Get in touch for custom acrylic products. Request a quote, upload drawings, or contact our engineering team.</p>
+        </div>
 
         <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Form */}
           <div>
-            <h2 className="text-xl font-semibold text-foreground">
-              {t("formTitle")}
-            </h2>
-            <p className="mt-2 text-sm text-muted">{t("formSubtitle")}</p>
+            <h2 className="text-xl font-semibold text-[#0F2744]">Send Us a Message</h2>
+            <p className="mt-2 text-sm text-gray-500">Fill out the form and our team will respond within 24 hours.</p>
             <div className="mt-6">
               <InquiryForm />
             </div>

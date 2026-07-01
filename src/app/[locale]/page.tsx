@@ -6,8 +6,8 @@ import { getBlogPosts, getCaseStudies, getSettings } from "@/lib/data-store";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Custom Acrylic Products Designed Around Your Business | Max Custom Acrylics",
-  description: "From concept to delivery, we manufacture premium custom acrylic products for retail, commercial and industrial applications. Engineering support, quality inspection, worldwide delivery.",
+  title: "Custom Acrylic Products — Max Custom Acrylics",
+  description: "Premium custom acrylic products for retail, commercial and industrial applications. Engineering support, quality inspection, worldwide delivery.",
 };
 
 export default async function HomePage() {
