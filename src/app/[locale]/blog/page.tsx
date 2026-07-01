@@ -81,14 +81,14 @@ export default async function BlogPage() {
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
             {[
-              { title: "Buying Guides", slug: "buying-guides", desc: "What to look for when sourcing custom acrylic products.", color: "from-blue-100 to-blue-200/50" },
-              { title: "Material Guides", slug: "material-guides", desc: "Understand acrylic grades, properties and selection criteria.", color: "from-emerald-100 to-emerald-200/50" },
-              { title: "Design Ideas", slug: "design-ideas", desc: "Inspiration and practical concepts for your next project.", color: "from-amber-100 to-amber-200/50" },
-              { title: "Manufacturing Tips", slug: "manufacturing-tips", desc: "Practical advice for better fabrication and finishing results.", color: "from-purple-100 to-purple-200/50" },
+              { title: "Buying Guides", slug: "buying-guides", desc: "What to look for when sourcing custom acrylic products.", color: "from-blue-100 to-blue-200/50", href: "/blog/guides/buying-guides" },
+              { title: "Material Guides", slug: "material-guides", desc: "Understand acrylic grades, properties and selection criteria.", color: "from-emerald-100 to-emerald-200/50", href: "/blog/guides/material-guides" },
+              { title: "Design Ideas", slug: "design-ideas", desc: "Inspiration and practical concepts for your next project.", color: "from-amber-100 to-amber-200/50", href: "/blog/guides/design-ideas" },
+              { title: "Manufacturing Tips", slug: "manufacturing-tips", desc: "Practical advice for better fabrication and finishing results.", color: "from-purple-100 to-purple-200/50", href: "/blog/guides/manufacturing-tips" },
             ].map((guide) => (
               <Link
                 key={guide.slug}
-                href="/blog"
+                href={guide.href || "/blog"}
                 className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
               >
                 <div className={`aspect-[16/9] bg-gradient-to-br ${guide.color} flex items-center justify-center relative`}>
