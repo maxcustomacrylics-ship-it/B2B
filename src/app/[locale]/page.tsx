@@ -19,32 +19,24 @@ export default async function HomePage() {
     <div className="bg-white text-slate-900">
 
       {/* ========== 1. HERO ========== */}
-      <section className="relative bg-white" aria-labelledby="hero-heading">
-        <Container className="py-16 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 items-center">
-            <div>
-              <h1 id="hero-heading" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-[1.08]">
-                {s.heroHeadline || "Custom Acrylic Products Designed Around Your Business"}
-              </h1>
-              <p className="mt-6 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[520px]">
-                {s.heroSubheadline || "From concept to delivery, we manufacture premium custom acrylic products for retail, commercial and industrial applications."}
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F2744] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">
-                  Request a Quote
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </Link>
-                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-gray-200 bg-white px-7 py-3.5 text-sm font-semibold text-[#0F2744] hover:border-[#0F2744] hover:bg-blue-50 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
-                  Upload Your Drawing
-                </Link>
-              </div>
-            </div>
-            <div aria-hidden="true">
-              <div className="aspect-[4/3] rounded-[24px] bg-gradient-to-br from-blue-50 via-slate-100 to-blue-100 flex items-center justify-center overflow-hidden shadow-lg">
-                {s.heroImg ? <img src={s.heroImg} alt="" className="w-full h-full object-cover" /> : <svg className="w-20 h-20 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
-              </div>
-            </div>
+      <section className="relative bg-slate-900 overflow-hidden" aria-labelledby="hero-heading">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0F2744] via-[#1a3a5c] to-slate-900" />
+        <div className="absolute inset-0 opacity-10">
+          <div className="grid grid-cols-4 gap-1 h-full">
+            {Array.from({length:12}).map((_,i)=>(<div key={i} className={`${i%3===0?'bg-blue-400':i%3===1?'bg-sky-400':'bg-indigo-400'} rounded-sm opacity-20`} />))}
+          </div>
+        </div>
+        <Container className="relative py-20 lg:py-28 text-center">
+          <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-blue-300 tracking-wide mb-4">{s.heroBadge || "Engineering & Project Partner"}</span>
+          <h1 id="hero-heading" className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-[56px] lg:leading-tight">
+            {s.heroHeadline || "Custom Acrylic Products Designed Around Your Business"}
+          </h1>
+          <p className="mt-5 text-base text-blue-200 leading-relaxed sm:text-lg max-w-[560px] mx-auto">
+            {s.heroSubheadline || "From concept to delivery, we manufacture premium custom acrylic products for retail, commercial and industrial applications."}
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+            <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-transparent px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors">View Products<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
           </div>
         </Container>
       </section>
