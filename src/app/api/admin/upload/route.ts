@@ -25,22 +25,27 @@ export async function POST(request: Request) {
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
     const fileName = `${timestamp}-${safeName}`;
 
-    // Try Supabase first, fall back to local
+    // Always save locally first
+    const isVercel = !!process.env.VERCEL;
+    const uploadsDir = isVercel ? "/tmp/uploads" : path.join(process.cwd(), "public", "uploads");
+    await mkdir(uploadsDir, { recursive: true });
+    const localPath = path.join(uploadsDir, fileName);
+    await writeFile(localPath, buffer);
+
+    // Try Supabase for public URL (works on Vercel)
     if (hasSupabase()) {
-      const sb = getSupabase()!;
-      const { error } = await sb.storage.from("images").upload(`uploads/${fileName}`, buffer, { contentType: file.type, upsert: false });
-      if (!error) {
-        const { data: urlData } = sb.storage.from("images").getPublicUrl(`uploads/${fileName}`);
-        return NextResponse.json({ url: urlData.publicUrl });
-      }
-      console.warn("[upload] Supabase failed, falling back to local");
+      try {
+        const sb = getSupabase()!;
+        const { error } = await sb.storage.from("images").upload(`uploads/${fileName}`, buffer, { contentType: file.type, upsert: true });
+        if (!error) {
+          const { data: urlData } = sb.storage.from("images").getPublicUrl(`uploads/${fileName}`);
+          return NextResponse.json({ url: urlData.publicUrl });
+        }
+      } catch {}
     }
 
-    // Local storage fallback
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
-    await writeFile(path.join(uploadsDir, fileName), buffer);
-    return NextResponse.json({ url: `/uploads/${fileName}` });
+    // Fallback: return local URL (works on dev, not Vercel)
+    return NextResponse.json({ url: isVercel ? "" : `/uploads/${fileName}` });
 
   } catch (err: any) {
     console.error("[upload] Error:", err);

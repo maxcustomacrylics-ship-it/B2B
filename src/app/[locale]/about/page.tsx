@@ -58,7 +58,7 @@ export default async function AboutPage() {
           </div>
           <div className="relative" aria-hidden="true">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
-              {s.aboutWhoImg ? <img src={s.aboutWhoImg} alt="" className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+              {s.aboutWhoImg ? <img src={s.aboutWhoImg} alt="Engineering collaboration and custom acrylic solutions" className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
             </div>
             <span className="sr-only">Engineering collaboration for custom acrylic product development</span>
           </div>
