@@ -6,6 +6,7 @@ import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/schema"
 import { getBlogPosts, getCaseStudies, getSettings } from "@/lib/data-store";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Custom Acrylic Products — Max Custom Acrylics",
