@@ -57,9 +57,9 @@ export default async function ContactPage() {
           {/* Contact Info */}
           <div>
             <h2 className="text-xl font-semibold text-foreground">
-              {t("infoTitle")}
+              Contact Information
             </h2>
-            <p className="mt-2 text-sm text-muted">{t("infoSubtitle")}</p>
+            <p className="mt-2 text-sm text-muted">Reach out through any of these channels</p>
 
             <div className="mt-6 space-y-6">
               {contactItems.map((item) => (
