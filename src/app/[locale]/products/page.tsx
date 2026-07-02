@@ -4,7 +4,10 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/schema";
+import { getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Custom Acrylic Products | Max Custom Acrylics",
@@ -12,15 +15,16 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { title: "Custom Acrylic Products", slug: "custom-acrylic-products", desc: "Fully customized acrylic products designed according to your drawings, ideas and project requirements.", color: "from-blue-100 to-blue-200/60" },
-  { title: "Acrylic Displays", slug: "acrylic-displays-2", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", color: "from-sky-100 to-sky-200/60" },
-  { title: "Acrylic Boxes", slug: "acrylic-boxes-2", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", color: "from-indigo-100 to-indigo-200/60" },
-  { title: "Acrylic Signs", slug: "acrylic-signs-2", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", color: "from-emerald-100 to-emerald-200/60" },
-  { title: "Acrylic Trays & Shelves", slug: "acrylic-trays-shelves", desc: "Functional acrylic trays and shelving solutions for retail, office and commercial environments.", color: "from-amber-100 to-amber-200/60" },
-  { title: "Protective Products", slug: "protective-products-2", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", color: "from-purple-100 to-purple-200/60" },
+  { title: "Custom Acrylic Products", slug: "custom-acrylic-products", desc: "Fully customized acrylic products designed according to your drawings, ideas and project requirements.", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
+  { title: "Acrylic Displays", slug: "acrylic-displays-2", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", color: "from-sky-100 to-sky-200/60", imgKey: "catImg2" },
+  { title: "Acrylic Boxes", slug: "acrylic-boxes-2", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", color: "from-indigo-100 to-indigo-200/60", imgKey: "catImg3" },
+  { title: "Acrylic Signs", slug: "acrylic-signs-2", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },
+  { title: "Acrylic Trays & Shelves", slug: "acrylic-trays-shelves", desc: "Functional acrylic trays and shelving solutions for retail, office and commercial environments.", color: "from-amber-100 to-amber-200/60", imgKey: "catImg5" },
+  { title: "Protective Products", slug: "protective-products-2", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
 ];
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const s = await getSettings();
   return (
     <>
       <SchemaOrg data={[generateOrganizationSchema(), generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }])]} />
@@ -45,8 +49,8 @@ export default function ProductsPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((cat) => (
               <Link key={cat.slug} href={`/products/${cat.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} flex items-center justify-center relative`}>
-                  <svg className="w-10 h-10 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <div className={`relative overflow-hidden bg-gradient-to-br ${cat.color}`} style={{ paddingBottom: "62.5%" }}>
+                  {s[cat.imgKey] ? <img src={s[cat.imgKey]} alt={cat.title} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }} /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-10 h-10 text-gray-400/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="text-lg font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cat.title}</h3>
