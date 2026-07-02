@@ -67,6 +67,23 @@ export default async function ProductPage({ params }: Props) {
           </Container>
         </section>
 
+        {/* 2. PRODUCT COLLECTION */}
+        <section className="bg-white" aria-labelledby="products-heading">
+          <Container className="py-16 lg:py-20">
+            <div className="mb-12"><h2 id="products-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Product Collection</h2><p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">Browse our {cat.title.toLowerCase()} range. Click any product to view details.</p></div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {products.map((p, i) => (
+                <Link key={p.slug} href={`/products/${p.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                  <div className={`aspect-[4/3] bg-gradient-to-br flex items-center justify-center ${["from-blue-50 to-blue-200/50","from-sky-50 to-sky-200/50","from-indigo-50 to-indigo-200/50","from-emerald-50 to-emerald-200/50"][i % 4]}`}>
+                    <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                  </div>
+                  <div className="p-4"><h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{p.name}</h3><span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">View Details<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </section>
+
         {/* ========== CUSTOMIZATION SERVICES ========== */}
         <section className="bg-white" aria-labelledby="services-heading">
           <Container className="py-[120px]">
@@ -74,7 +91,6 @@ export default async function ProductPage({ params }: Props) {
               <h2 id="services-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">Customization Services</h2>
               <p className="mt-3 text-gray-500 leading-relaxed">From concept to delivery, we provide complete custom acrylic manufacturing services tailored to your project.</p>
             </div>
-
             <div className="grid grid-cols-2 gap-0 md:grid-cols-3 lg:grid-cols-6 border border-gray-200 rounded-2xl overflow-hidden divide-x divide-gray-100">
               {[
                 { step: "01", icon: "📐", title: "Design Review", desc: "Review drawings and optimize product structure before production." },
@@ -92,29 +108,11 @@ export default async function ProductPage({ params }: Props) {
                 </div>
               ))}
             </div>
-
             <div className="mt-10 text-center">
               <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors">
                 Need a fully customized solution?
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </Link>
-            </div>
-          </Container>
-        </section>
-
-        {/* 2. PRODUCT COLLECTION */}
-        <section className="bg-white" aria-labelledby="products-heading">
-          <Container className="py-16 lg:py-20">
-            <div className="mb-12"><h2 id="products-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Product Collection</h2><p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">Browse our {cat.title.toLowerCase()} range. Click any product to view details.</p></div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {products.map((p, i) => (
-                <Link key={p.slug} href={`/products/${p.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                  <div className={`aspect-[4/3] bg-gradient-to-br flex items-center justify-center ${["from-blue-50 to-blue-200/50","from-sky-50 to-sky-200/50","from-indigo-50 to-indigo-200/50","from-emerald-50 to-emerald-200/50"][i % 4]}`}>
-                    <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                  </div>
-                  <div className="p-4"><h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{p.name}</h3><span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">View Details<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
-                </Link>
-              ))}
             </div>
           </Container>
         </section>
