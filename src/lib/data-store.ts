@@ -144,34 +144,61 @@ export async function saveProducts(products: Product[]): Promise<void> {
 }
 
 // ═══════════════════════════════════════════
+//  SHARED HELPERS
+// ═══════════════════════════════════════════
+
+function getSupabaseHeaders(): Record<string, string> | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  return { url, key };
+}
+
+async function supabaseGet(table: string): Promise<any[] | null> {
+  const h = getSupabaseHeaders();
+  if (!h) return null;
+  try {
+    const res = await fetch(`${h.url}/rest/v1/${table}?select=*`, {
+      headers: { apikey: h.key, Authorization: `Bearer ${h.key}` },
+      cache: "no-store",
+    });
+    if (res.ok) return await res.json();
+  } catch {}
+  return null;
+}
+
+async function supabaseUpsert(table: string, rows: Record<string, unknown>[], conflictKey: string): Promise<void> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return;
+  try {
+    for (let i = 0; i < rows.length; i += 50) {
+      const batch = rows.slice(i, i + 50).map((r) => ({ ...r, updated_at: new Date().toISOString() }));
+      await fetch(`${url}/rest/v1/${table}`, {
+        method: "POST",
+        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+        body: JSON.stringify(batch),
+      });
+    }
+  } catch (e) { console.error(`[supabase] ${table} upsert failed:`, e); }
+}
+
+// ═══════════════════════════════════════════
 //  SERVICES
 // ═══════════════════════════════════════════
 
 export async function getServices(): Promise<Service[]> {
-  if (hasSupabase()) {
-    const { data, error } = await getSupabase()!.from("services").select("*").order("id", { ascending: true });
-    if (error) { console.error("[supabase] getServices:", error); return []; }
-    return (data || []).map((r) => snakeToCamel(r) as unknown as Service);
-  }
-
+  const supabase = await supabaseGet("services");
+  if (supabase) return supabase.map((r) => snakeToCamel(r) as unknown as Service);
   const fp = path.join(DATA_DIR, "services.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedServices;
 }
 
 export async function saveServices(services: Service[]): Promise<void> {
-  if (hasSupabase()) {
-    for (const s of services) {
-      const row = camelToSnake(s as unknown as Record<string, unknown>);
-      row.updated_at = new Date().toISOString();
-      const { error } = await getSupabase()!.from("services").upsert(row, { onConflict: "slug" });
-      if (error) console.error("[supabase] saveServices:", error);
-    }
-    return;
-  }
-
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "services.json"), JSON.stringify(services, null, 2), "utf-8");
+  await supabaseUpsert("services", services.map((s) => camelToSnake(s as unknown as Record<string, unknown>)), "slug");
 }
 
 // ═══════════════════════════════════════════
@@ -179,12 +206,8 @@ export async function saveServices(services: Service[]): Promise<void> {
 // ═══════════════════════════════════════════
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
-  if (hasSupabase()) {
-    try {
-      const { data, error } = await getSupabase()!.from("case_studies").select("*").order("id", { ascending: false });
-      if (!error && data && data.length > 0) return data.map((r) => snakeToCamel(r) as unknown as CaseStudy);
-    } catch {}
-  }
+  const supabase = await supabaseGet("case_studies");
+  if (supabase) return supabase.map((r) => snakeToCamel(r) as unknown as CaseStudy);
   const fp = path.join(DATA_DIR, "cases.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedCaseStudies;
@@ -196,18 +219,9 @@ export async function getCaseBySlug(slug: string): Promise<CaseStudy | undefined
 }
 
 export async function saveCaseStudies(cases: CaseStudy[]): Promise<void> {
-  if (hasSupabase()) {
-    for (const c of cases) {
-      const row = camelToSnake(c as unknown as Record<string, unknown>);
-      row.updated_at = new Date().toISOString();
-      const { error } = await getSupabase()!.from("case_studies").upsert(row, { onConflict: "slug" });
-      if (error) console.error("[supabase] saveCaseStudies:", error);
-    }
-    return;
-  }
-
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "cases.json"), JSON.stringify(cases, null, 2), "utf-8");
+  await supabaseUpsert("case_studies", cases.map((c) => camelToSnake(c as unknown as Record<string, unknown>)), "slug");
 }
 
 // ═══════════════════════════════════════════
@@ -215,12 +229,8 @@ export async function saveCaseStudies(cases: CaseStudy[]): Promise<void> {
 // ═══════════════════════════════════════════
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  if (hasSupabase()) {
-    try {
-      const { data, error } = await getSupabase()!.from("blog_posts").select("*").order("id", { ascending: false });
-      if (!error && data && data.length > 0) return data.map((r) => snakeToCamel(r) as unknown as BlogPost);
-    } catch {}
-  }
+  const supabase = await supabaseGet("blog_posts");
+  if (supabase) return supabase.map((r) => snakeToCamel(r) as unknown as BlogPost);
   const fp = path.join(DATA_DIR, "blogs.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedBlogPosts;
@@ -232,18 +242,9 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 }
 
 export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
-  if (hasSupabase()) {
-    for (const p of posts) {
-      const row = camelToSnake(p as unknown as Record<string, unknown>);
-      row.updated_at = new Date().toISOString();
-      const { error } = await getSupabase()!.from("blog_posts").upsert(row, { onConflict: "slug" });
-      if (error) console.error("[supabase] saveBlogPosts:", error);
-    }
-    return;
-  }
-
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "blogs.json"), JSON.stringify(posts, null, 2), "utf-8");
+  await supabaseUpsert("blog_posts", posts.map((p) => camelToSnake(p as unknown as Record<string, unknown>)), "slug");
 }
 
 // ═══════════════════════════════════════════
@@ -251,30 +252,17 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
 // ═══════════════════════════════════════════
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  if (hasSupabase()) {
-    const { data, error } = await getSupabase()!.from("testimonials").select("*").order("id", { ascending: true });
-    if (error) { console.error("[supabase] getTestimonials:", error); return []; }
-    return (data || []).map((r) => snakeToCamel(r) as unknown as Testimonial);
-  }
-
+  const supabase = await supabaseGet("testimonials");
+  if (supabase) return supabase.map((r) => snakeToCamel(r) as unknown as Testimonial);
   const fp = path.join(DATA_DIR, "testimonials.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedTestimonials;
 }
 
 export async function saveTestimonials(testimonials: Testimonial[]): Promise<void> {
-  if (hasSupabase()) {
-    for (const t of testimonials) {
-      const row = camelToSnake(t as unknown as Record<string, unknown>);
-      row.updated_at = new Date().toISOString();
-      const { error } = await getSupabase()!.from("testimonials").upsert(row, { onConflict: "id" });
-      if (error) console.error("[supabase] saveTestimonials:", error);
-    }
-    return;
-  }
-
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "testimonials.json"), JSON.stringify(testimonials, null, 2), "utf-8");
+  await supabaseUpsert("testimonials", testimonials.map((t) => camelToSnake(t as unknown as Record<string, unknown>)), "id");
 }
 
 // ═══════════════════════════════════════════
