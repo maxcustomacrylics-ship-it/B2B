@@ -48,6 +48,7 @@ export default function AdminSettingsPage() {
         whyImg1: d.whyImg1 || "", whyImg2: d.whyImg2 || "", whyImg3: d.whyImg3 || "", whyImg4: d.whyImg4 || "",
         capImg1: d.capImg1 || "", capImg2: d.capImg2 || "", capImg3: d.capImg3 || "", capImg4: d.capImg4 || "", capImg5: d.capImg5 || "", capImg6: d.capImg6 || "",
         catImg1: d.catImg1 || "", catImg2: d.catImg2 || "", catImg3: d.catImg3 || "", catImg4: d.catImg4 || "", catImg5: d.catImg5 || "", catImg6: d.catImg6 || "",
+        materialsList: d.materialsList || "",
         // Contact
         companyName: d.companyName || "", email: d.email || "", phone: d.phone || "", whatsapp: d.whatsapp || "",
       });
