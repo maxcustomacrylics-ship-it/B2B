@@ -115,20 +115,18 @@ export default function AdminSettingsPage() {
 
       {tab === "materials" && (
         <div className="space-y-6">
-          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Material Compatibility (All Service Pages)</h2><p className="text-xs text-gray-500 mb-4">These materials appear in the Material Compatibility section of all 6 capability pages.</p>
+          <div className={sec}><div className="flex items-center justify-between mb-4"><h2 className="text-lg font-semibold text-gray-900">Material Compatibility</h2><button onClick={() => { const list = JSON.parse(form.materialsList || "[]"); list.push({ name: "New Material", rating: "3", badge: "Moderate", bestFor: "", desc: "" }); update("materialsList", JSON.stringify(list)); }} className="text-sm text-blue-600 hover:underline">+ Add Material</button></div><p className="text-xs text-gray-500 mb-4">Manage material names, ratings, and content. Changes appear on /materials and service pages.</p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                { n: 1, name: "Cast Acrylic" }, { n: 2, name: "Extruded Acrylic" }, { n: 3, name: "PETG" },
-                { n: 4, name: "Polycarbonate" }, { n: 5, name: "PVC Foam Board" }, { n: 6, name: "ABS" },
-              ].map((m) => (
-                <div key={m.n} className="border rounded-lg p-4">
-                  <p className="text-sm font-semibold text-[#0F2744] mb-3">{m.name}</p>
-                  <div className="space-y-2">
-                    <div><label className="text-xs text-gray-400">Rating (1-5)</label><input type="number" min="1" max="5" value={form[`mat${m.n}Rating`] || ""} onChange={(e) => update(`mat${m.n}Rating`, e.target.value)} className={inp} /></div>
-                    <div><label className="text-xs text-gray-400">Badge Text</label><input type="text" value={form[`mat${m.n}Badge`] || ""} onChange={(e) => update(`mat${m.n}Badge`, e.target.value)} className={inp} placeholder="Excellent" /></div>
-                    <div><label className="text-xs text-gray-400">Best For (comma-separated)</label><input type="text" value={form[`mat${m.n}BestFor`] || ""} onChange={(e) => update(`mat${m.n}BestFor`, e.target.value)} className={inp} placeholder="Luxury displays, Signage" /></div>
-                    <div><label className="text-xs text-gray-400">Description</label><textarea value={form[`mat${m.n}Desc`] || ""} onChange={(e) => update(`mat${m.n}Desc`, e.target.value)} rows={2} className={inp} /></div>
-                    <div><SettingsImageField label="Image" value={form[`mat${m.n}Img`] || ""} onChange={(v) => update(`mat${m.n}Img`, v)} /></div>
+              {(JSON.parse(form.materialsList || '[{"name":"Cast Acrylic","rating":"5","badge":"Excellent","bestFor":"Luxury displays, Signage, Display cases","desc":"Premium optical clarity with superior surface hardness."},{"name":"Extruded Acrylic","rating":"4","badge":"Very Good","bestFor":"General fabrication, Retail displays","desc":"Consistent thickness with good optical properties."},{"name":"PETG","rating":"4","badge":"Very Good","bestFor":"Protective panels, Medical applications","desc":"Excellent impact resistance with good clarity."},{"name":"Polycarbonate","rating":"3","badge":"Moderate","bestFor":"Impact-resistant components, Industrial guards","desc":"Maximum impact strength and heat resistance."},{"name":"PVC Foam Board","rating":"3","badge":"Moderate","bestFor":"Indoor signage, Exhibitions","desc":"Lightweight, cost-effective substrate."},{"name":"ABS","rating":"2","badge":"Limited","bestFor":"Functional engineering parts","desc":"Tough, rigid engineering plastic."}]') as any[]).map((m: any, i: number) => (
+                <div key={i} className="border rounded-lg p-4 relative">
+                  <button onClick={() => { const list = JSON.parse(form.materialsList || "[]"); list.splice(i, 1); update("materialsList", JSON.stringify(list)); }} className="absolute top-2 right-2 text-xs text-red-500 hover:underline">Remove</button>
+                  <div className="space-y-2 pt-2">
+                    <div><label className="text-xs text-gray-400">Name</label><input type="text" value={m.name || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].name = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Rating (1-5)</label><input type="number" min="1" max="5" value={m.rating || "3"} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].rating = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Badge Text</label><input type="text" value={m.badge || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].badge = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Best For (comma-separated)</label><input type="text" value={m.bestFor || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].bestFor = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Description</label><textarea value={m.desc || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].desc = e.target.value; update("materialsList", JSON.stringify(list)); }} rows={2} className={inp} /></div>
+                    <div><SettingsImageField label="Image" value={m.img || ""} onChange={(v) => { const list = JSON.parse(form.materialsList || "[]"); list[i].img = v; update("materialsList", JSON.stringify(list)); }} /></div>
                   </div>
                 </div>
               ))}

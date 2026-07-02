@@ -15,14 +15,31 @@ export const metadata: Metadata = {
 export default async function MaterialsPage() {
   const s = await getSettings();
 
-  const materials = [
-    { name: s.mat1Name || "Cast Acrylic", rating: Number(s.mat1Rating) || 5, badge: s.mat1Badge || "Excellent", color: "from-blue-100 to-blue-200/60", imgKey: "mat1Img", bestFor: (s.mat1BestFor || "Luxury displays, Signage, Display cases").split(",").map((t: string) => t.trim()), desc: s.mat1Desc || "Premium optical clarity with superior surface hardness." },
-    { name: s.mat2Name || "Extruded Acrylic", rating: Number(s.mat2Rating) || 4, badge: s.mat2Badge || "Very Good", color: "from-sky-100 to-sky-200/60", imgKey: "mat2Img", bestFor: (s.mat2BestFor || "General fabrication, Retail displays").split(",").map((t: string) => t.trim()), desc: s.mat2Desc || "Consistent thickness with good optical properties at an economical price point." },
-    { name: s.mat3Name || "PETG", rating: Number(s.mat3Rating) || 4, badge: s.mat3Badge || "Very Good", color: "from-emerald-100 to-emerald-200/60", imgKey: "mat3Img", bestFor: (s.mat3BestFor || "Protective panels, Medical applications").split(",").map((t: string) => t.trim()), desc: s.mat3Desc || "Excellent impact resistance with good clarity and formability." },
-    { name: s.mat4Name || "Polycarbonate", rating: Number(s.mat4Rating) || 3, badge: s.mat4Badge || "Moderate", color: "from-amber-100 to-amber-200/60", imgKey: "mat4Img", bestFor: (s.mat4BestFor || "Impact-resistant components, Industrial guards").split(",").map((t: string) => t.trim()), desc: s.mat4Desc || "Maximum impact strength and heat resistance among clear plastics." },
-    { name: s.mat5Name || "PVC Foam Board", rating: Number(s.mat5Rating) || 3, badge: s.mat5Badge || "Moderate", color: "from-purple-100 to-purple-200/60", imgKey: "mat5Img", bestFor: (s.mat5BestFor || "Indoor signage, Exhibitions").split(",").map((t: string) => t.trim()), desc: s.mat5Desc || "Lightweight, cost-effective substrate for indoor signage." },
-    { name: s.mat6Name || "ABS", rating: Number(s.mat6Rating) || 2, badge: s.mat6Badge || "Limited", color: "from-rose-100 to-rose-200/60", imgKey: "mat6Img", bestFor: (s.mat6BestFor || "Functional engineering parts").split(",").map((t: string) => t.trim()), desc: s.mat6Desc || "Tough, rigid engineering plastic for functional components." },
+  const defaultMaterials = [
+    { name: "Cast Acrylic", rating: 5, badge: "Excellent", color: "from-blue-100 to-blue-200/60", bestFor: ["Luxury displays", "Signage", "Display cases"], desc: "Premium optical clarity with superior surface hardness." },
+    { name: "Extruded Acrylic", rating: 4, badge: "Very Good", color: "from-sky-100 to-sky-200/60", bestFor: ["General fabrication", "Retail displays"], desc: "Consistent thickness with good optical properties." },
+    { name: "PETG", rating: 4, badge: "Very Good", color: "from-emerald-100 to-emerald-200/60", bestFor: ["Protective panels", "Medical applications"], desc: "Excellent impact resistance with good clarity." },
+    { name: "Polycarbonate", rating: 3, badge: "Moderate", color: "from-amber-100 to-amber-200/60", bestFor: ["Impact-resistant components", "Industrial guards"], desc: "Maximum impact strength and heat resistance." },
+    { name: "PVC Foam Board", rating: 3, badge: "Moderate", color: "from-purple-100 to-purple-200/60", bestFor: ["Indoor signage", "Exhibitions"], desc: "Lightweight, cost-effective substrate." },
+    { name: "ABS", rating: 2, badge: "Limited", color: "from-rose-100 to-rose-200/60", bestFor: ["Functional engineering parts"], desc: "Tough, rigid engineering plastic." },
   ];
+
+  let materials = defaultMaterials;
+  try {
+    const list = JSON.parse(s.materialsList || "");
+    if (Array.isArray(list) && list.length > 0) {
+      const colors = ["from-blue-100 to-blue-200/60", "from-sky-100 to-sky-200/60", "from-emerald-100 to-emerald-200/60", "from-amber-100 to-amber-200/60", "from-purple-100 to-purple-200/60", "from-rose-100 to-rose-200/60"];
+      materials = list.map((m: any, i: number) => ({
+        name: m.name || "Material",
+        rating: Number(m.rating) || 3,
+        badge: m.badge || "Moderate",
+        color: colors[i % colors.length],
+        bestFor: (m.bestFor || "").split(",").map((t: string) => t.trim()).filter(Boolean),
+        desc: m.desc || "",
+        img: m.img || "",
+      }));
+    }
+  } catch {}
 
   return (
     <>
@@ -44,7 +61,7 @@ export default async function MaterialsPage() {
             {materials.map((mat) => (
               <div key={mat.name} className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm flex flex-col">
                 <div className={`aspect-[16/9] bg-gradient-to-br ${mat.color} flex items-center justify-center overflow-hidden`}>
-                  {s[mat.imgKey] ? <img src={s[mat.imgKey]} alt={mat.name} className="w-full h-full object-cover" /> : (
+                  {mat.img ? <img src={mat.img} alt={mat.name} className="w-full h-full object-cover" /> : (
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/70 shadow-sm">
                       <svg className="w-6 h-6 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/></svg>
                     </div>
