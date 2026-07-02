@@ -47,6 +47,7 @@ export default function AdminSettingsPage() {
         heroImg: d.heroImg || "",
         whyImg1: d.whyImg1 || "", whyImg2: d.whyImg2 || "", whyImg3: d.whyImg3 || "", whyImg4: d.whyImg4 || "",
         capImg1: d.capImg1 || "", capImg2: d.capImg2 || "", capImg3: d.capImg3 || "", capImg4: d.capImg4 || "", capImg5: d.capImg5 || "", capImg6: d.capImg6 || "",
+        catImg1: d.catImg1 || "", catImg2: d.catImg2 || "", catImg3: d.catImg3 || "", catImg4: d.catImg4 || "", catImg5: d.catImg5 || "", catImg6: d.catImg6 || "",
         // Contact
         companyName: d.companyName || "", email: d.email || "", phone: d.phone || "", whatsapp: d.whatsapp || "",
       });
@@ -108,6 +109,7 @@ export default function AdminSettingsPage() {
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Image</h2><SettingsImageField label="Hero" value={form.heroImg || ""} onChange={(v) => update("heroImg", v)} /></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us (4)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Fully Customized", "Premium Materials", "OEM & ODM", "Worldwide Delivery"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`whyImg${i + 1}`] || ""} onChange={(v) => update(`whyImg${i + 1}`, v)} />))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (6)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{["Laser Cutting", "CNC Machining", "Diamond Polishing", "UV Printing", "Thermoforming", "Assembly"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`capImg${i + 1}`] || ""} onChange={(v) => update(`capImg${i + 1}`, v)} />))}</div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories (6)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{["Custom Acrylic Products", "Acrylic Displays", "Acrylic Boxes", "Acrylic Signs", "Trays & Shelves", "Protective Products"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`catImg${i + 1}`] || ""} onChange={(v) => update(`catImg${i + 1}`, v)} />))}</div></div>
         </div>
       )}
 

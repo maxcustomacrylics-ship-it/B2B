@@ -57,16 +57,16 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "Custom Acrylic Products", slug: "/products/custom-acrylic-products", color: "from-blue-100 to-blue-200/60" },
-              { title: "Acrylic Displays", slug: "/products/acrylic-displays-2", color: "from-sky-100 to-sky-200/60" },
-              { title: "Acrylic Boxes", slug: "/products/acrylic-boxes-2", color: "from-indigo-100 to-indigo-200/60" },
-              { title: "Acrylic Signs", slug: "/products/acrylic-signs-2", color: "from-emerald-100 to-emerald-200/60" },
-              { title: "Acrylic Trays & Shelves", slug: "/products/acrylic-trays-shelves", color: "from-amber-100 to-amber-200/60" },
-              { title: "Protective Products", slug: "/products/protective-products-2", color: "from-purple-100 to-purple-200/60" },
+              { title: "Custom Acrylic Products", slug: "/products/custom-acrylic-products", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
+              { title: "Acrylic Displays", slug: "/products/acrylic-displays-2", color: "from-sky-100 to-sky-200/60", imgKey: "catImg2" },
+              { title: "Acrylic Boxes", slug: "/products/acrylic-boxes-2", color: "from-indigo-100 to-indigo-200/60", imgKey: "catImg3" },
+              { title: "Acrylic Signs", slug: "/products/acrylic-signs-2", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },
+              { title: "Acrylic Trays & Shelves", slug: "/products/acrylic-trays-shelves", color: "from-amber-100 to-amber-200/60", imgKey: "catImg5" },
+              { title: "Protective Products", slug: "/products/protective-products-2", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
             ].map((cat) => (
               <Link key={cat.slug} href={cat.slug} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} flex items-center justify-center relative`}>
-                  <svg className="w-12 h-12 text-gray-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} flex items-center justify-center relative overflow-hidden`}>
+                  {s[cat.imgKey] ? <img src={s[cat.imgKey]} alt={cat.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-12 h-12 text-gray-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                 </div>
                 <div className="p-5">
                   <h3 className="text-base font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cat.title}</h3>
