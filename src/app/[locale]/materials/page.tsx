@@ -16,12 +16,12 @@ export default async function MaterialsPage() {
   const s = await getSettings();
 
   const materials = [
-    { name: s.mat1Name || "Cast Acrylic", rating: Number(s.mat1Rating) || 5, badge: s.mat1Badge || "Excellent", color: "from-blue-100 to-blue-200/60", bestFor: (s.mat1BestFor || "Luxury displays, Signage, Display cases").split(",").map((t: string) => t.trim()), desc: s.mat1Desc || "Premium optical clarity with superior surface hardness. The preferred choice for high-end display products, awards and architectural applications requiring flawless transparency." },
-    { name: s.mat2Name || "Extruded Acrylic", rating: Number(s.mat2Rating) || 4, badge: s.mat2Badge || "Very Good", color: "from-sky-100 to-sky-200/60", bestFor: (s.mat2BestFor || "General fabrication, Retail displays").split(",").map((t: string) => t.trim()), desc: s.mat2Desc || "Consistent thickness with good optical properties at an economical price point. Ideal for volume production of retail fixtures, POP displays and standard signage." },
-    { name: s.mat3Name || "PETG", rating: Number(s.mat3Rating) || 4, badge: s.mat3Badge || "Very Good", color: "from-emerald-100 to-emerald-200/60", bestFor: (s.mat3BestFor || "Protective panels, Medical applications").split(",").map((t: string) => t.trim()), desc: s.mat3Desc || "Excellent impact resistance with good clarity and formability. Suitable for protective barriers, medical device housings and retail fixtures requiring durability." },
-    { name: s.mat4Name || "Polycarbonate", rating: Number(s.mat4Rating) || 3, badge: s.mat4Badge || "Moderate", color: "from-amber-100 to-amber-200/60", bestFor: (s.mat4BestFor || "Impact-resistant components, Industrial guards").split(",").map((t: string) => t.trim()), desc: s.mat4Desc || "Maximum impact strength and heat resistance among clear plastics. Used for machine guards, safety components and industrial applications where durability is critical." },
-    { name: s.mat5Name || "PVC Foam Board", rating: Number(s.mat5Rating) || 3, badge: s.mat5Badge || "Moderate", color: "from-purple-100 to-purple-200/60", bestFor: (s.mat5BestFor || "Indoor signage, Exhibitions").split(",").map((t: string) => t.trim()), desc: s.mat5Desc || "Lightweight, cost-effective substrate for indoor signage, exhibition displays and temporary installations. Easy to print and fabricate." },
-    { name: s.mat6Name || "ABS", rating: Number(s.mat6Rating) || 2, badge: s.mat6Badge || "Limited", color: "from-rose-100 to-rose-200/60", bestFor: (s.mat6BestFor || "Functional engineering parts").split(",").map((t: string) => t.trim()), desc: s.mat6Desc || "Tough, rigid engineering plastic for functional components. Suitable for structural parts and industrial applications where optical clarity is not required." },
+    { name: s.mat1Name || "Cast Acrylic", rating: Number(s.mat1Rating) || 5, badge: s.mat1Badge || "Excellent", color: "from-blue-100 to-blue-200/60", imgKey: "mat1Img", bestFor: (s.mat1BestFor || "Luxury displays, Signage, Display cases").split(",").map((t: string) => t.trim()), desc: s.mat1Desc || "Premium optical clarity with superior surface hardness." },
+    { name: s.mat2Name || "Extruded Acrylic", rating: Number(s.mat2Rating) || 4, badge: s.mat2Badge || "Very Good", color: "from-sky-100 to-sky-200/60", imgKey: "mat2Img", bestFor: (s.mat2BestFor || "General fabrication, Retail displays").split(",").map((t: string) => t.trim()), desc: s.mat2Desc || "Consistent thickness with good optical properties at an economical price point." },
+    { name: s.mat3Name || "PETG", rating: Number(s.mat3Rating) || 4, badge: s.mat3Badge || "Very Good", color: "from-emerald-100 to-emerald-200/60", imgKey: "mat3Img", bestFor: (s.mat3BestFor || "Protective panels, Medical applications").split(",").map((t: string) => t.trim()), desc: s.mat3Desc || "Excellent impact resistance with good clarity and formability." },
+    { name: s.mat4Name || "Polycarbonate", rating: Number(s.mat4Rating) || 3, badge: s.mat4Badge || "Moderate", color: "from-amber-100 to-amber-200/60", imgKey: "mat4Img", bestFor: (s.mat4BestFor || "Impact-resistant components, Industrial guards").split(",").map((t: string) => t.trim()), desc: s.mat4Desc || "Maximum impact strength and heat resistance among clear plastics." },
+    { name: s.mat5Name || "PVC Foam Board", rating: Number(s.mat5Rating) || 3, badge: s.mat5Badge || "Moderate", color: "from-purple-100 to-purple-200/60", imgKey: "mat5Img", bestFor: (s.mat5BestFor || "Indoor signage, Exhibitions").split(",").map((t: string) => t.trim()), desc: s.mat5Desc || "Lightweight, cost-effective substrate for indoor signage." },
+    { name: s.mat6Name || "ABS", rating: Number(s.mat6Rating) || 2, badge: s.mat6Badge || "Limited", color: "from-rose-100 to-rose-200/60", imgKey: "mat6Img", bestFor: (s.mat6BestFor || "Functional engineering parts").split(",").map((t: string) => t.trim()), desc: s.mat6Desc || "Tough, rigid engineering plastic for functional components." },
   ];
 
   return (
@@ -43,12 +43,12 @@ export default async function MaterialsPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {materials.map((mat) => (
               <div key={mat.name} className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm flex flex-col">
-                <div className={`aspect-[16/9] bg-gradient-to-br ${mat.color} flex items-center justify-center`}>
-                  <div className="text-center">
+                <div className={`aspect-[16/9] bg-gradient-to-br ${mat.color} flex items-center justify-center overflow-hidden`}>
+                  {s[mat.imgKey] ? <img src={s[mat.imgKey]} alt={mat.name} className="w-full h-full object-cover" /> : (
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/70 shadow-sm">
-                      <svg className="w-6 h-6 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>
+                      <svg className="w-6 h-6 text-[#0F2744]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/></svg>
                     </div>
-                  </div>
+                  )}
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-center gap-1.5">

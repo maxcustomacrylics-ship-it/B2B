@@ -126,6 +126,7 @@ export default function AdminSettingsPage() {
                     <div><label className="text-xs text-gray-400">Badge Text</label><input type="text" value={form[`mat${m.n}Badge`] || ""} onChange={(e) => update(`mat${m.n}Badge`, e.target.value)} className={inp} placeholder="Excellent" /></div>
                     <div><label className="text-xs text-gray-400">Best For (comma-separated)</label><input type="text" value={form[`mat${m.n}BestFor`] || ""} onChange={(e) => update(`mat${m.n}BestFor`, e.target.value)} className={inp} placeholder="Luxury displays, Signage" /></div>
                     <div><label className="text-xs text-gray-400">Description</label><textarea value={form[`mat${m.n}Desc`] || ""} onChange={(e) => update(`mat${m.n}Desc`, e.target.value)} rows={2} className={inp} /></div>
+                    <div><SettingsImageField label="Image" value={form[`mat${m.n}Img`] || ""} onChange={(v) => update(`mat${m.n}Img`, v)} /></div>
                   </div>
                 </div>
               ))}
