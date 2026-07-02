@@ -9,12 +9,12 @@ import SettingsImageField from "@/components/admin/SettingsImageField";
 import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
-const CATEGORIES: ProductCategory[] = [
-  "acrylic-displays",
-  "acrylic-boxes",
-  "acrylic-signage",
-  "acrylic-home-office",
-  "acrylic-awards-gifts",
+const CATEGORIES = [
+  { value: "acrylic-displays", label: "Custom Acrylic Products / Displays" },
+  { value: "acrylic-boxes", label: "Acrylic Boxes" },
+  { value: "acrylic-signage", label: "Acrylic Signs" },
+  { value: "acrylic-home-office", label: "Acrylic Trays & Shelves" },
+  { value: "acrylic-awards-gifts", label: "Protective Products" },
 ];
 
 export default function AdminEditProductPage() {
@@ -28,7 +28,7 @@ export default function AdminEditProductPage() {
 
   const [form, setForm] = useState({
     name: "",
-    category: "acrylic-displays" as ProductCategory,
+    category: "acrylic-displays",
     description: "",
     longDescription: "",
     images: [] as string[],
@@ -177,8 +177,8 @@ export default function AdminEditProductPage() {
                 className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
               >
                 {CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
                   </option>
                 ))}
               </select>

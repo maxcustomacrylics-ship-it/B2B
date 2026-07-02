@@ -7,6 +7,14 @@ import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import { Package, Plus, Pencil, Trash2, Star } from "lucide-react";
 import type { Product } from "@/lib/types";
 
+const catLabel: Record<string, string> = {
+  "acrylic-displays": "Custom Acrylic / Displays",
+  "acrylic-boxes": "Acrylic Boxes",
+  "acrylic-signage": "Acrylic Signs",
+  "acrylic-home-office": "Trays & Shelves",
+  "acrylic-awards-gifts": "Protective Products",
+};
+
 export default function AdminProductsPage() {
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
@@ -101,7 +109,7 @@ export default function AdminProductsPage() {
                     {product.name}
                   </td>
                   <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                    {product.category}
+                    {catLabel[product.category] || product.category}
                   </td>
                   <td className="whitespace-nowrap px-6 py-4 text-sm">
                     {product.featured ? (
