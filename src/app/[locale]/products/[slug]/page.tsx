@@ -79,6 +79,41 @@ export default async function ProductPage({ params }: Props) {
           </Container>
         </section>
 
+        {/* ========== CUSTOMIZATION SERVICES ========== */}
+        <section className="bg-white" aria-labelledby="services-heading">
+          <Container className="py-[120px]">
+            <div className="max-w-[640px] mb-12">
+              <h2 id="services-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">Customization Services</h2>
+              <p className="mt-3 text-gray-500 leading-relaxed">From concept to delivery, we provide complete custom acrylic manufacturing services tailored to your project.</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-0 md:grid-cols-3 lg:grid-cols-6 border border-gray-200 rounded-2xl overflow-hidden divide-x divide-gray-100">
+              {[
+                { step: "01", icon: "📐", title: "Design Review", desc: "Review drawings and optimize product structure before production." },
+                { step: "02", icon: "📋", title: "Material Selection", desc: "Recommend the best acrylic material, thickness and finish." },
+                { step: "03", icon: "⚙️", title: "Custom Engineering", desc: "Develop custom solutions based on your application requirements." },
+                { step: "04", icon: "🔬", title: "Prototype Development", desc: "Produce samples for testing and design verification." },
+                { step: "05", icon: "🏭", title: "Precision Manufacturing", desc: "Laser cutting, CNC machining, polishing, printing and assembly." },
+                { step: "06", icon: "📦", title: "Packaging & Delivery", desc: "Secure packaging with worldwide shipping support." },
+              ].map((s) => (
+                <div key={s.step} className="group flex flex-col items-center text-center p-6 sm:p-8 hover:bg-gray-50/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-sm">
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-gray-300 uppercase">{s.step}</span>
+                  <span className="mt-3 text-3xl select-none">{s.icon}</span>
+                  <h3 className="mt-3 text-sm font-semibold text-[#0F2744]">{s.title}</h3>
+                  <p className="mt-1.5 text-xs text-gray-500 leading-relaxed max-w-[140px]">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors">
+                Need a fully customized solution?
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </Link>
+            </div>
+          </Container>
+        </section>
+
         {/* 2. OVERVIEW */}
         <section className="bg-gray-50" aria-labelledby="overview-heading">
           <Container className="py-16 lg:py-20">
