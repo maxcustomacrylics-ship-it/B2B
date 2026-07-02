@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import SchemaOrg from "@/components/shared/SchemaOrg";
+import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/schema";
 import { getBlogPosts, getCaseStudies, getSettings } from "@/lib/data-store";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +17,13 @@ export default async function HomePage() {
   const projects = await getCaseStudies();
   const s = await getSettings();
 
+  const orgSchema = generateOrganizationSchema();
+  const webSiteSchema = generateWebSiteSchema();
+
   return (
-    <div className="bg-white text-slate-900">
+    <>
+      <SchemaOrg data={[orgSchema, webSiteSchema]} />
+      <div className="bg-white text-slate-900">
 
       {/* ========== 1. HERO ========== */}
       <section className="relative bg-slate-900 overflow-hidden" aria-labelledby="hero-heading">
@@ -259,5 +266,6 @@ export default async function HomePage() {
       </section>
 
     </div>
+    </>
   );
 }

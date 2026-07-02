@@ -41,9 +41,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Custom Acrylic Laser Cutting Services | Max Custom Acrylics",
+  title: "Custom Acrylic Laser Cutting Services",
   description:
-    "Precision laser cutting solutions for custom acrylic displays, signage, retail fixtures, protective panels and industrial components. Engineering review, quality inspection, worldwide delivery.",
+    "Precision CO₂ laser cutting for acrylic displays, signage, retail fixtures and industrial components. ±0.1mm tolerance, worldwide delivery.",
 };
 
 export default async function LaserCuttingPage() {

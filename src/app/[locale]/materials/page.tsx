@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Material Compatibility | Max Custom Acrylics",
-  description: "Premium acrylic material compatibility guide — cast acrylic, extruded acrylic, PETG, polycarbonate, PVC foam board, and ABS. Material selection for laser cutting, CNC machining, and fabrication.",
+  description: "Cast acrylic, extruded acrylic, PETG, polycarbonate, PVC foam board, and ABS — material compatibility for laser cutting and CNC machining.",
 };
 
 export default async function MaterialsPage() {

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import SchemaOrg from "@/components/shared/SchemaOrg";
+import { generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Custom Acrylic Products | Max Custom Acrylics",
@@ -20,6 +23,7 @@ const categories = [
 export default function ProductsPage() {
   return (
     <>
+      <SchemaOrg data={[generateOrganizationSchema(), generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }])]} />
       {/* ========== HERO ========== */}
       <section className="relative bg-white" aria-labelledby="products-hero">
         <Container className="py-12 lg:py-16">

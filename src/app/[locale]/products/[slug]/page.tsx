@@ -35,11 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   if (catMap[slug]) {
     const c = catMap[slug];
-    return { title: `${c.title} | Max Custom Acrylics`, description: c.desc, openGraph: { title: `${c.title} | Max Custom Acrylics`, description: c.desc } };
+    return { title: `${c.title} | Max Custom Acrylics`, description: c.desc, openGraph: { type: "website", title: `${c.title} | Max Custom Acrylics`, description: c.desc } };
   }
   const p = await getProductBySlug(slug);
   if (!p) return {};
-  return { title: `${p.name} | Max Custom Acrylics`, description: p.description, openGraph: { title: `${p.name} | Max Custom Acrylics`, description: p.description } };
+  return { title: `${p.name} | Max Custom Acrylics`, description: p.description, openGraph: { type: "website", title: `${p.name} | Max Custom Acrylics`, description: p.description } };
 }
 
 export default async function ProductPage({ params }: Props) {
