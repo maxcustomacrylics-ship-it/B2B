@@ -16,12 +16,12 @@ export default async function MaterialsPage() {
   const s = await getSettings();
 
   const defaultMaterials = [
-    { name: "Cast Acrylic", rating: 5, badge: "Excellent", color: "from-blue-100 to-blue-200/60", bestFor: ["Luxury displays", "Signage", "Display cases"], desc: "Premium optical clarity with superior surface hardness." },
-    { name: "Extruded Acrylic", rating: 4, badge: "Very Good", color: "from-sky-100 to-sky-200/60", bestFor: ["General fabrication", "Retail displays"], desc: "Consistent thickness with good optical properties." },
-    { name: "PETG", rating: 4, badge: "Very Good", color: "from-emerald-100 to-emerald-200/60", bestFor: ["Protective panels", "Medical applications"], desc: "Excellent impact resistance with good clarity." },
-    { name: "Polycarbonate", rating: 3, badge: "Moderate", color: "from-amber-100 to-amber-200/60", bestFor: ["Impact-resistant components", "Industrial guards"], desc: "Maximum impact strength and heat resistance." },
-    { name: "PVC Foam Board", rating: 3, badge: "Moderate", color: "from-purple-100 to-purple-200/60", bestFor: ["Indoor signage", "Exhibitions"], desc: "Lightweight, cost-effective substrate." },
-    { name: "ABS", rating: 2, badge: "Limited", color: "from-rose-100 to-rose-200/60", bestFor: ["Functional engineering parts"], desc: "Tough, rigid engineering plastic." },
+    { name: "Cast Acrylic", rating: 5, badge: "Excellent", color: "from-blue-100 to-blue-200/60", bestFor: ["Luxury displays", "Signage", "Display cases"], desc: "Premium optical clarity with superior surface hardness.", img: "" },
+    { name: "Extruded Acrylic", rating: 4, badge: "Very Good", color: "from-sky-100 to-sky-200/60", bestFor: ["General fabrication", "Retail displays"], desc: "Consistent thickness with good optical properties.", img: "" },
+    { name: "PETG", rating: 4, badge: "Very Good", color: "from-emerald-100 to-emerald-200/60", bestFor: ["Protective panels", "Medical applications"], desc: "Excellent impact resistance with good clarity.", img: "" },
+    { name: "Polycarbonate", rating: 3, badge: "Moderate", color: "from-amber-100 to-amber-200/60", bestFor: ["Impact-resistant components", "Industrial guards"], desc: "Maximum impact strength and heat resistance.", img: "" },
+    { name: "PVC Foam Board", rating: 3, badge: "Moderate", color: "from-purple-100 to-purple-200/60", bestFor: ["Indoor signage", "Exhibitions"], desc: "Lightweight, cost-effective substrate.", img: "" },
+    { name: "ABS", rating: 2, badge: "Limited", color: "from-rose-100 to-rose-200/60", bestFor: ["Functional engineering parts"], desc: "Tough, rigid engineering plastic.", img: "" },
   ];
 
   let materials = defaultMaterials;
