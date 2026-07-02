@@ -5,10 +5,22 @@ import { showToast } from "@/components/admin/Toast";
 import SettingsImageField from "@/components/admin/SettingsImageField";
 import { Save, Globe, Image, Type } from "lucide-react";
 
+type MaterialItem = { name: string; rating: string; badge: string; bestFor: string; desc: string; img: string };
+
+const defaultMaterials: MaterialItem[] = [
+  { name: "Cast Acrylic", rating: "5", badge: "Excellent", bestFor: "Luxury displays, Signage, Display cases", desc: "Premium optical clarity with superior surface hardness.", img: "" },
+  { name: "Extruded Acrylic", rating: "4", badge: "Very Good", bestFor: "General fabrication, Retail displays", desc: "Consistent thickness with good optical properties.", img: "" },
+  { name: "PETG", rating: "4", badge: "Very Good", bestFor: "Protective panels, Medical applications", desc: "Excellent impact resistance with good clarity.", img: "" },
+  { name: "Polycarbonate", rating: "3", badge: "Moderate", bestFor: "Impact-resistant components, Industrial guards", desc: "Maximum impact strength and heat resistance.", img: "" },
+  { name: "PVC Foam Board", rating: "3", badge: "Moderate", bestFor: "Indoor signage, Exhibitions", desc: "Lightweight, cost-effective substrate.", img: "" },
+  { name: "ABS", rating: "2", badge: "Limited", bestFor: "Functional engineering parts", desc: "Tough, rigid engineering plastic.", img: "" },
+];
+
 export default function AdminSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState<Record<string, string>>({});
+  const [materials, setMaterials] = useState<MaterialItem[]>([]);
   const [tab, setTab] = useState("text");
 
   useEffect(() => { fetchSettings(); }, []);
@@ -52,6 +64,12 @@ export default function AdminSettingsPage() {
         // Contact
         companyName: d.companyName || "", email: d.email || "", phone: d.phone || "", whatsapp: d.whatsapp || "",
       });
+      // Parse materials list
+      try {
+        const list = JSON.parse(d.materialsList || "");
+        if (Array.isArray(list) && list.length > 0) setMaterials(list);
+        else setMaterials(defaultMaterials);
+      } catch { setMaterials(defaultMaterials); }
     } catch { showToast("Failed to load", "error"); }
     finally { setLoading(false); }
   }
@@ -61,7 +79,8 @@ export default function AdminSettingsPage() {
   async function save() {
     setSaving(true);
     try {
-      const res = await fetch("/api/admin/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      const payload = { ...form, materialsList: JSON.stringify(materials) };
+      const res = await fetch("/api/admin/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const d = await res.json().catch(() => ({}));
       if (res.ok) showToast("Saved — refresh homepage to see changes");
       else showToast(d.error || "Save failed", "error");
@@ -116,18 +135,18 @@ export default function AdminSettingsPage() {
 
       {tab === "materials" && (
         <div className="space-y-6">
-          <div className={sec}><div className="flex items-center justify-between mb-4"><h2 className="text-lg font-semibold text-gray-900">Material Compatibility</h2><button onClick={() => { const list = JSON.parse(form.materialsList || "[]"); list.push({ name: "New Material", rating: "3", badge: "Moderate", bestFor: "", desc: "" }); update("materialsList", JSON.stringify(list)); }} className="text-sm text-blue-600 hover:underline">+ Add Material</button></div><p className="text-xs text-gray-500 mb-4">Manage material names, ratings, and content. Changes appear on /materials and service pages.</p>
+          <div className={sec}><div className="flex items-center justify-between mb-4"><h2 className="text-lg font-semibold text-gray-900">Material Compatibility</h2><button onClick={() => setMaterials([...materials, { name: "New Material", rating: "3", badge: "Moderate", bestFor: "", desc: "", img: "" }])} className="text-sm text-blue-600 hover:underline">+ Add Material</button></div><p className="text-xs text-gray-500 mb-4">Manage material names, ratings, and content. Changes appear on /materials and service pages.</p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {(JSON.parse(form.materialsList || '[{"name":"Cast Acrylic","rating":"5","badge":"Excellent","bestFor":"Luxury displays, Signage, Display cases","desc":"Premium optical clarity with superior surface hardness."},{"name":"Extruded Acrylic","rating":"4","badge":"Very Good","bestFor":"General fabrication, Retail displays","desc":"Consistent thickness with good optical properties."},{"name":"PETG","rating":"4","badge":"Very Good","bestFor":"Protective panels, Medical applications","desc":"Excellent impact resistance with good clarity."},{"name":"Polycarbonate","rating":"3","badge":"Moderate","bestFor":"Impact-resistant components, Industrial guards","desc":"Maximum impact strength and heat resistance."},{"name":"PVC Foam Board","rating":"3","badge":"Moderate","bestFor":"Indoor signage, Exhibitions","desc":"Lightweight, cost-effective substrate."},{"name":"ABS","rating":"2","badge":"Limited","bestFor":"Functional engineering parts","desc":"Tough, rigid engineering plastic."}]') as any[]).map((m: any, i: number) => (
+              {materials.map((m, i) => (
                 <div key={i} className="border rounded-lg p-4 relative">
-                  <button onClick={() => { const list = JSON.parse(form.materialsList || "[]"); list.splice(i, 1); update("materialsList", JSON.stringify(list)); }} className="absolute top-2 right-2 text-xs text-red-500 hover:underline">Remove</button>
+                  <button onClick={() => setMaterials(materials.filter((_, j) => j !== i))} className="absolute top-2 right-2 text-xs text-red-500 hover:underline">Remove</button>
                   <div className="space-y-2 pt-2">
-                    <div><label className="text-xs text-gray-400">Name</label><input type="text" value={m.name || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].name = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
-                    <div><label className="text-xs text-gray-400">Rating (1-5)</label><input type="number" min="1" max="5" value={m.rating || "3"} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].rating = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
-                    <div><label className="text-xs text-gray-400">Badge Text</label><input type="text" value={m.badge || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].badge = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
-                    <div><label className="text-xs text-gray-400">Best For (comma-separated)</label><input type="text" value={m.bestFor || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].bestFor = e.target.value; update("materialsList", JSON.stringify(list)); }} className={inp} /></div>
-                    <div><label className="text-xs text-gray-400">Description</label><textarea value={m.desc || ""} onChange={(e) => { const list = JSON.parse(form.materialsList || "[]"); list[i].desc = e.target.value; update("materialsList", JSON.stringify(list)); }} rows={2} className={inp} /></div>
-                    <div><SettingsImageField label="Image" value={m.img || ""} onChange={(v) => { const list = JSON.parse(form.materialsList || "[]"); list[i].img = v; update("materialsList", JSON.stringify(list)); }} /></div>
+                    <div><label className="text-xs text-gray-400">Name</label><input type="text" value={m.name} onChange={(e) => { const n = [...materials]; n[i].name = e.target.value; setMaterials(n); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Rating (1-5)</label><input type="number" min="1" max="5" value={m.rating} onChange={(e) => { const n = [...materials]; n[i].rating = e.target.value; setMaterials(n); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Badge Text</label><input type="text" value={m.badge} onChange={(e) => { const n = [...materials]; n[i].badge = e.target.value; setMaterials(n); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Best For (comma-separated)</label><input type="text" value={m.bestFor} onChange={(e) => { const n = [...materials]; n[i].bestFor = e.target.value; setMaterials(n); }} className={inp} /></div>
+                    <div><label className="text-xs text-gray-400">Description</label><textarea value={m.desc} onChange={(e) => { const n = [...materials]; n[i].desc = e.target.value; setMaterials(n); }} rows={2} className={inp} /></div>
+                    <div><SettingsImageField label="Image" value={m.img} onChange={(v) => { const n = [...materials]; n[i].img = v; setMaterials(n); }} /></div>
                   </div>
                 </div>
               ))}
