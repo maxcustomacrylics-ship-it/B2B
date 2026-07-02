@@ -57,24 +57,12 @@ export default async function ProductPage({ params }: Props) {
         <SchemaOrg data={[bcSchema]} />
 
         {/* 1. HERO */}
-        <section className="relative bg-white overflow-hidden" aria-labelledby="cat-hero">
-          <Container className="py-12 lg:py-20">
-            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
-              <div>
-                <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: cat.title }]} />
-                <h1 id="cat-hero" className="mt-4 text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">{cat.title}</h1>
-                <p className="mt-5 text-base text-gray-500 leading-relaxed sm:text-lg max-w-[560px]">{cat.desc}</p>
-                <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-6 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
-                </div>
-              </div>
-              <div className="relative" aria-hidden="true">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 flex items-center justify-center shadow-sm">
-                  <svg className="w-16 h-16 text-gray-300/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                </div>
-                <span className="sr-only">{cat.title} — custom acrylic products</span>
-              </div>
+        <section className="relative bg-white" aria-labelledby="cat-hero">
+          <Container className="py-12 lg:py-16">
+            <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: cat.title }]} />
+            <div className="mt-6 max-w-3xl">
+              <h1 id="cat-hero" className="text-4xl font-bold tracking-tight text-[#0F2744] sm:text-5xl lg:text-[56px] lg:leading-tight">{cat.title}</h1>
+              <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">{cat.desc}</p>
             </div>
           </Container>
         </section>
