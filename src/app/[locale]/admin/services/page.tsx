@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { showToast } from "@/components/admin/Toast";
 import { Wrench, Save } from "lucide-react";
+import SettingsImageField from "@/components/admin/SettingsImageField";
 
 const serviceList = [
   { slug: "laser-cutting", name: "Laser Cutting" },
@@ -117,7 +118,10 @@ export default function AdminServicesPage() {
         </div>
 
         {/* Design Guidelines */}
-        <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Design Guidelines (5 tips)</h2><div className="grid gap-3 sm:grid-cols-2">{[...Array(5)].map((_, i) => (<div key={i} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-1">Tip {i + 1}</p><input type="text" value={form[`${p}_designTitle${i + 1}`] || ""} onChange={(e) => update(`${p}_designTitle${i + 1}`, e.target.value)} className={inp} placeholder="Title" /><input type="text" value={form[`${p}_designDesc${i + 1}`] || ""} onChange={(e) => update(`${p}_designDesc${i + 1}`, e.target.value)} className={`${inp} mt-1`} placeholder="Description" /></div>))}</div></div>
+        <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Design Guidelines (5 tips)</h2><div className="grid gap-3 sm:grid-cols-2">{[...Array(5)].map((_, i) => (<div key={i} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-1">Tip {i + 1}</p><input type="text" value={form[`${p}_designTitle${i + 1}`] || ""} onChange={(e) => update(`${p}_designTitle${i + 1}`, e.target.value)} className={inp} placeholder="Title" /><input type="text" value={form[`${p}_designDesc${i + 1}`] || ""} onChange={(e) => update(`${p}_designDesc${i + 1}`, e.target.value)} className={`${inp} mt-1`} placeholder="Description" /></div>))}</div>
+          <div className="mt-4"><h3 className="text-sm font-medium text-gray-700 mb-2">Illustration Image</h3>
+            <SettingsImageField label="Design Guidelines Illustration" value={form[`${p}_designImg`] || ""} onChange={(v) => update(`${p}_designImg`, v)} />
+          </div></div>
 
         {/* Common Mistakes */}
         <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Common Design Mistakes (6 tips)</h2><div className="grid gap-3 sm:grid-cols-2">{[...Array(6)].map((_, i) => (<div key={i} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-1">Mistake {i + 1}</p><input type="text" value={form[`${p}_mistakeTitle${i + 1}`] || ""} onChange={(e) => update(`${p}_mistakeTitle${i + 1}`, e.target.value)} className={inp} placeholder="Title" /><input type="text" value={form[`${p}_mistakeDesc${i + 1}`] || ""} onChange={(e) => update(`${p}_mistakeDesc${i + 1}`, e.target.value)} className={`${inp} mt-1`} placeholder="Description" /></div>))}</div></div>
