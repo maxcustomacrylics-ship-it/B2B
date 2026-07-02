@@ -131,12 +131,12 @@ export async function saveProducts(products: Product[]): Promise<void> {
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
-      for (const p of products) {
-        const row = { ...p, updated_at: new Date().toISOString() };
-        await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}`, {
-          method: "PATCH",
-          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
-          body: JSON.stringify(row),
+      const rows = products.map((p) => ({ ...p, updated_at: new Date().toISOString() }));
+      for (let i = 0; i < rows.length; i += 50) {
+        await fetch(`${supabaseUrl}/rest/v1/products`, {
+          method: "POST",
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+          body: JSON.stringify(rows.slice(i, i + 50)),
         });
       }
     } catch (e) { console.error("[supabase] saveProducts failed:", e); }
