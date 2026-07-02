@@ -66,8 +66,8 @@ export default async function HomePage() {
               { title: "Protective Products", slug: "/products/protective-products-2", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
             ].map((cat) => (
               <Link key={cat.slug} href={cat.slug} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} relative overflow-hidden`}>
-                  {s[cat.imgKey] ? <img src={s[cat.imgKey]} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-12 h-12 text-gray-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
+                <div className={`relative overflow-hidden bg-gradient-to-br ${cat.color}`} style={{ paddingBottom: "62.5%" }}>
+                  {s[cat.imgKey] ? <img src={s[cat.imgKey]} alt={cat.title} className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" style={{ position: "absolute" }} /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-12 h-12 text-gray-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
                 </div>
                 <div className="p-5">
                   <h3 className="text-base font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cat.title}</h3>
@@ -95,7 +95,7 @@ export default async function HomePage() {
             ].map((item) => (
               <div key={item.title} className="text-center">
                 <div className={`w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 mx-auto rounded-2xl bg-gradient-to-br ${item.color} relative overflow-hidden`}>
-                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt={item.title} className="absolute inset-0 w-full h-full object-cover" /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
+                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt={item.title} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }} /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{item.title}</h3>
                 <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
