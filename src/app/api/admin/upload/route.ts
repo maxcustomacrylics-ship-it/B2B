@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { getSupabase, hasSupabase } from "@/lib/supabase";
-import { requireAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -10,9 +9,6 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "i
 const MAX_SIZE = 5 * 1024 * 1024;
 
 export async function POST(request: Request) {
-  const unauth = await requireAdmin();
-  if (unauth) return unauth;
-
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
