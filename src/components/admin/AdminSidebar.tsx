@@ -14,7 +14,7 @@ const navItems = [
   { href: "/admin/blogs", label: "Knowledge Center", icon: FileText },
   { href: "/admin/about", label: "About Page", icon: Info },
   { href: "/admin/navigation", label: "Navigation", icon: Menu },
-  { href: "/admin/messages", label: "Legal Pages", icon: Scale },
+  { href: "/admin/legal", label: "Legal Pages", icon: Scale },
 ];
 
 export default function AdminSidebar({ onNavigate }: { onNavigate?: () => void }) {
