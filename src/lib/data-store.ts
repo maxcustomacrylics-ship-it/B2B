@@ -93,27 +93,27 @@ function camelToSnake(record: Record<string, unknown>): Record<string, unknown> 
 // ═══════════════════════════════════════════
 
 export async function getProducts(): Promise<Product[]> {
-  // Read local JSON first — source of truth
-  const fp = path.join(DATA_DIR, "products.json");
-  let local: Product[] | null = null;
-  try { if (fs.existsSync(fp)) local = JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
-
-  // Merge with Supabase if available
-  if (hasSupabase()) {
+  // Try Supabase REST API first
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseKey) {
     try {
-      const sb = getSupabase();
-      if (!sb) return local || seedProducts;
-      const { data, error } = await sb.from("products").select("*").order("id", { ascending: false });
-      if (!error && data && data.length > 0) {
-        const supabaseProducts = data.map((r) => snakeToCamel(r) as unknown as Product);
-        // Supabase takes priority over local
-        return supabaseProducts;
+      const res = await fetch(`${supabaseUrl}/rest/v1/products?select=*&order=id.desc`, {
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.length > 0) return data.map((r: any) => snakeToCamel(r) as unknown as Product);
       }
     } catch {}
   }
 
-  // Return local or seed data
-  return local || seedProducts;
+  // Read local JSON
+  const fp = path.join(DATA_DIR, "products.json");
+  try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+
+  return seedProducts;
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
@@ -122,18 +122,22 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
 }
 
 export async function saveProducts(products: Product[]): Promise<void> {
-  // Always save to local JSON as reliable backup
+  // Always save to local JSON
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 
-  // Also sync to Supabase
-  if (hasSupabase()) {
+  // Sync to Supabase via REST API
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseKey) {
     try {
       for (const p of products) {
-        const row = camelToSnake(p as unknown as Record<string, unknown>);
-        row.updated_at = new Date().toISOString();
-        const { error } = await getSupabase()!.from("products").upsert(row, { onConflict: "slug" });
-        if (error) console.error("[supabase] saveProducts:", error);
+        const row = { ...p, updated_at: new Date().toISOString() };
+        await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}`, {
+          method: "PATCH",
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(row),
+        });
       }
     } catch (e) { console.error("[supabase] saveProducts failed:", e); }
   }
