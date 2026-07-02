@@ -102,30 +102,7 @@ export default async function ProductPage({ params }: Props) {
           </Container>
         </section>
 
-        {/* 2. OVERVIEW */}
-        <section className="bg-gray-50" aria-labelledby="overview-heading">
-          <Container className="py-16 lg:py-20">
-            <div className="max-w-[640px]">
-              <h2 id="overview-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Overview</h2>
-              <p className="mt-4 text-base text-gray-500 leading-relaxed sm:text-lg">Premium {cat.title.toLowerCase()} manufactured to your exact specifications. Every product can be customized in size, material, color and finish.</p>
-            </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { icon: "📐", title: "Custom Sizes", desc: "Manufactured to your exact dimensions." },
-                { icon: "📋", title: "Material Options", desc: "Cast, extruded, PETG, polycarbonate." },
-                { icon: "✨", title: "Logo Printing", desc: "UV printing and engraving for branding." },
-                { icon: "⚙️", title: "OEM Available", desc: "Tailored manufacturing for your brand." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm flex items-start gap-3">
-                  <span className="text-xl select-none">{item.icon}</span>
-                  <div><h3 className="text-sm font-semibold text-[#0F2744]">{item.title}</h3><p className="mt-0.5 text-sm text-gray-500 leading-relaxed">{item.desc}</p></div>
-                </div>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-        {/* 3. PRODUCT COLLECTION */}
+        {/* 2. PRODUCT COLLECTION */}
         <section className="bg-white" aria-labelledby="products-heading">
           <Container className="py-16 lg:py-20">
             <div className="mb-12"><h2 id="products-heading" className="text-3xl font-bold text-[#0F2744] sm:text-4xl">Product Collection</h2><p className="mt-3 text-gray-500 max-w-2xl leading-relaxed">Browse our {cat.title.toLowerCase()} range. Click any product to view details.</p></div>
