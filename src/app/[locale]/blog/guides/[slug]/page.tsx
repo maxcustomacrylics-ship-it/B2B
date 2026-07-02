@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import SchemaOrg from "@/components/shared/SchemaOrg";
+import { generateBreadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/utils";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
