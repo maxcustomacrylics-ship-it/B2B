@@ -65,8 +65,8 @@ export default async function HomePage() {
               { title: "Protective Products", slug: "/products/protective-products-2", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
             ].map((cat) => (
               <Link key={cat.slug} href={cat.slug} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
-                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} flex items-center justify-center relative overflow-hidden`}>
-                  {s[cat.imgKey] ? <img src={s[cat.imgKey]} alt={cat.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-12 h-12 text-gray-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                <div className={`aspect-[16/10] bg-gradient-to-br ${cat.color} relative overflow-hidden`}>
+                  {s[cat.imgKey] ? <img src={s[cat.imgKey]} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-12 h-12 text-gray-400/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
                 </div>
                 <div className="p-5">
                   <h3 className="text-base font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cat.title}</h3>
@@ -93,8 +93,8 @@ export default async function HomePage() {
               { title: s.why4Title || "Worldwide Delivery", desc: s.why4Desc || "Export-ready packaging to over 30 countries.", color: "from-emerald-100 to-emerald-200/50", imgKey: "whyImg4" },
             ].map((item) => (
               <div key={item.title} className="text-center">
-                <div className={`w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 mx-auto rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center overflow-hidden`}>
-                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt={item.title} className="w-full h-full object-cover" /> : <svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                <div className={`w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 mx-auto rounded-2xl bg-gradient-to-br ${item.color} relative overflow-hidden`}>
+                  {s[item.imgKey] ? <img src={s[item.imgKey]} alt={item.title} className="absolute inset-0 w-full h-full object-cover" /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-16 h-16 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
                 </div>
                 <h3 className="mt-4 text-sm font-semibold text-[#0F2744]">{item.title}</h3>
                 <p className="mt-1 text-sm text-gray-500 leading-relaxed">{item.desc}</p>
@@ -121,8 +121,8 @@ export default async function HomePage() {
               { title: "Assembly", slug: "/services/bonding-assembly", color: "from-emerald-100 to-emerald-200/60", imgKey: "capImg6" },
             ].map((cap) => (
               <Link key={cap.title} href={cap.slug} className="group flex-shrink-0 w-[220px] snap-start rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
-                <div className={`aspect-[4/3] bg-gradient-to-br ${cap.color} flex items-center justify-center`}>
-                  {s[cap.imgKey] ? <img src={s[cap.imgKey]} alt={cap.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                <div className={`aspect-[4/3] bg-gradient-to-br ${cap.color} relative overflow-hidden`}>
+                  {s[cap.imgKey] ? <img src={s[cap.imgKey]} alt={cap.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <div className="absolute inset-0 flex items-center justify-center"><svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>}
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{cap.title}</h3>
