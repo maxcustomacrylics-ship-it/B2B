@@ -114,12 +114,13 @@ export default async function HomePage() {
           </div>
           <div className="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 snap-x">
             {[
-              { title: "Laser Cutting", slug: "/services/laser-cutting", color: "from-blue-100 to-blue-200/60", imgKey: "capImg1" },
-              { title: "CNC Machining", slug: "/services/cnc-machining", color: "from-slate-100 to-slate-200/60", imgKey: "capImg2" },
-              { title: "Diamond Polishing", slug: "/services/diamond-polishing", color: "from-amber-100 to-amber-200/60", imgKey: "capImg3" },
-              { title: "UV Printing", slug: "/services/uv-printing", color: "from-purple-100 to-purple-200/60", imgKey: "capImg4" },
-              { title: "Thermoforming", slug: "/services/laser-cutting", color: "from-rose-100 to-rose-200/60", imgKey: "capImg5" },
-              { title: "Assembly", slug: "/services/bonding-assembly", color: "from-emerald-100 to-emerald-200/60", imgKey: "capImg6" },
+              { title: "Materials", slug: "/materials", color: "from-slate-100 to-slate-200/60", imgKey: "capImg1" },
+              { title: "Laser Cutting", slug: "/services/laser-cutting", color: "from-blue-100 to-blue-200/60", imgKey: "capImg2" },
+              { title: "CNC Machining", slug: "/services/cnc-machining", color: "from-indigo-100 to-indigo-200/60", imgKey: "capImg3" },
+              { title: "Diamond Polishing", slug: "/services/diamond-polishing", color: "from-amber-100 to-amber-200/60", imgKey: "capImg4" },
+              { title: "UV Printing", slug: "/services/uv-printing", color: "from-purple-100 to-purple-200/60", imgKey: "capImg5" },
+              { title: "Assembly & Packaging", slug: "/services/bonding-assembly", color: "from-emerald-100 to-emerald-200/60", imgKey: "capImg6" },
+              { title: "Quality Control", slug: "/services/oem-project-support", color: "from-teal-100 to-teal-200/60", imgKey: "capImg7" },
             ].map((cap) => (
               <Link key={cap.title} href={cap.slug} className="group flex-shrink-0 w-[220px] snap-start rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className={`aspect-[4/3] bg-gradient-to-br ${cap.color} relative overflow-hidden`}>
