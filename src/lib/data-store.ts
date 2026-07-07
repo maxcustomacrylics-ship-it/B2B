@@ -136,8 +136,8 @@ export async function saveProducts(products: Product[]): Promise<void> {
         method: "DELETE",
         headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
       });
-      // Insert current products in batches
-      const rows = products.map((p) => ({ ...p, updated_at: new Date().toISOString() }));
+      // Insert current products in batches (snake_case for Supabase)
+      const rows = products.map((p) => ({ ...camelToSnake(p as unknown as Record<string, unknown>), updated_at: new Date().toISOString() }));
       for (let i = 0; i < rows.length; i += 50) {
         await fetch(`${supabaseUrl}/rest/v1/products`, {
           method: "POST",
