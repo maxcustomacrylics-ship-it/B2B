@@ -94,8 +94,8 @@ function camelToSnake(record: Record<string, unknown>): Record<string, unknown> 
 
 export async function getProducts(): Promise<Product[]> {
   // Try Supabase REST API first
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
       const res = await fetch(`${supabaseUrl}/rest/v1/products?select=*&order=id.desc`, {
@@ -127,8 +127,8 @@ export async function saveProducts(products: Product[]): Promise<void> {
   fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 
   // Sync to Supabase: delete old, insert new (prevents stale/ghost products)
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
       // Delete all existing products
@@ -153,11 +153,11 @@ export async function saveProducts(products: Product[]): Promise<void> {
 //  SHARED HELPERS
 // ═══════════════════════════════════════════
 
-function getSupabaseHeaders(): Record<string, string> | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
-  return { url, key };
+const SUPABASE_URL = "https://xwchzipgujhughzngolj.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Y2h6aXBndWpodWdoem5nb2xqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNTM5NDMsImV4cCI6MjA5NjcyOTk0M30.JSAINuIET8-j_e_c8oxXNxP-cLxp60q2fwiXgOcXBZQ";
+
+function getSupabaseHeaders() {
+  return { url: SUPABASE_URL, key: SUPABASE_ANON_KEY };
 }
 
 async function supabaseGet(table: string): Promise<any[] | null> {
@@ -174,9 +174,8 @@ async function supabaseGet(table: string): Promise<any[] | null> {
 }
 
 async function supabaseUpsert(table: string, rows: Record<string, unknown>[], conflictKey: string): Promise<void> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return;
+  const url = SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   try {
     // Delete all existing rows
     await fetch(`${url}/rest/v1/${table}?${conflictKey}=neq.__empty__`, {
@@ -285,8 +284,8 @@ export async function getSettings(): Promise<Settings> {
   let result: Settings = { ...defaultSettings };
 
   // Try Supabase first — use direct fetch to avoid client creation issues
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
       const res = await fetch(`${supabaseUrl}/rest/v1/settings?select=*`, {
@@ -316,8 +315,8 @@ export async function saveSettings(settings: Settings): Promise<void> {
   } catch (e) { console.error("[settings] Local save failed:", e); }
 
   // Sync to Supabase using direct REST API with UPSERT
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
       const entries = Object.entries(settings);
