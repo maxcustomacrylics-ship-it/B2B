@@ -126,16 +126,22 @@ export async function saveProducts(products: Product[]): Promise<void> {
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 
-  // Sync to Supabase via REST API
+  // Sync to Supabase: delete old, insert new (prevents stale/ghost products)
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
+      // Delete all existing products
+      await fetch(`${supabaseUrl}/rest/v1/products?slug=neq.__empty__`, {
+        method: "DELETE",
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+      });
+      // Insert current products in batches
       const rows = products.map((p) => ({ ...p, updated_at: new Date().toISOString() }));
       for (let i = 0; i < rows.length; i += 50) {
         await fetch(`${supabaseUrl}/rest/v1/products`, {
           method: "POST",
-          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
           body: JSON.stringify(rows.slice(i, i + 50)),
         });
       }
@@ -172,11 +178,17 @@ async function supabaseUpsert(table: string, rows: Record<string, unknown>[], co
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return;
   try {
+    // Delete all existing rows
+    await fetch(`${url}/rest/v1/${table}?${conflictKey}=neq.__empty__`, {
+      method: "DELETE",
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    });
+    // Insert all current rows in batches
     for (let i = 0; i < rows.length; i += 50) {
       const batch = rows.slice(i, i + 50).map((r) => ({ ...r, updated_at: new Date().toISOString() }));
       await fetch(`${url}/rest/v1/${table}`, {
         method: "POST",
-        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
         body: JSON.stringify(batch),
       });
     }
