@@ -58,12 +58,12 @@ export const products: Product[] = [
   p("wall-shelf", "Wall Shelf", "acrylic-home-office", "Custom acrylic wall shelf for modern display and commercial merchandising."),
 
   // ═══ 6. Protective Products ═══
-  p("sneeze-guard", "Sneeze Guard", "acrylic-displays", "Custom acrylic sneeze guard and protective barrier for commercial counters."),
-  p("machine-guard", "Machine Guard", "acrylic-displays", "Durable acrylic machine guard for industrial safety and equipment protection."),
-  p("protective-shield", "Protective Shield", "acrylic-displays", "Custom acrylic protective shield for commercial, retail and public spaces."),
-  p("acrylic-barrier", "Acrylic Barrier", "acrylic-displays", "Freestanding acrylic barrier panel for reception desks and service counters."),
-  p("safety-screen", "Safety Screen", "acrylic-displays", "Acrylic safety screen for workplace, healthcare and public environments."),
-  p("protective-cover", "Protective Cover", "acrylic-displays", "Custom acrylic protective cover for equipment, displays and sensitive items."),
+  p("sneeze-guard", "Sneeze Guard", "acrylic-awards-gifts", "Custom acrylic sneeze guard and protective barrier for commercial counters."),
+  p("machine-guard", "Machine Guard", "acrylic-awards-gifts", "Durable acrylic machine guard for industrial safety and equipment protection."),
+  p("protective-shield", "Protective Shield", "acrylic-awards-gifts", "Custom acrylic protective shield for commercial, retail and public spaces."),
+  p("acrylic-barrier", "Acrylic Barrier", "acrylic-awards-gifts", "Freestanding acrylic barrier panel for reception desks and service counters."),
+  p("safety-screen", "Safety Screen", "acrylic-awards-gifts", "Acrylic safety screen for workplace, healthcare and public environments."),
+  p("protective-cover", "Protective Cover", "acrylic-awards-gifts", "Custom acrylic protective cover for equipment, displays and sensitive items."),
 ];
 
 export const getProductsByCategory = (category: ProductCategory) => products.filter((p) => p.category === category);

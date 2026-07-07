@@ -10,10 +10,10 @@ import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
 const CATEGORIES = [
-  { value: "acrylic-displays", label: "Custom Acrylic Products / Displays" },
-  { value: "acrylic-boxes", label: "Acrylic Boxes" },
-  { value: "acrylic-signage", label: "Acrylic Signs" },
-  { value: "acrylic-home-office", label: "Acrylic Trays & Shelves" },
+  { value: "acrylic-displays", label: "Displays & Custom Products" },
+  { value: "acrylic-boxes", label: "Boxes" },
+  { value: "acrylic-signage", label: "Signs" },
+  { value: "acrylic-home-office", label: "Trays & Shelves" },
   { value: "acrylic-awards-gifts", label: "Protective Products" },
 ];
 

@@ -8,9 +8,9 @@ import { Package, Plus, Pencil, Trash2, Star } from "lucide-react";
 import type { Product } from "@/lib/types";
 
 const catLabel: Record<string, string> = {
-  "acrylic-displays": "Custom Acrylic / Displays",
-  "acrylic-boxes": "Acrylic Boxes",
-  "acrylic-signage": "Acrylic Signs",
+  "acrylic-displays": "Displays & Custom",
+  "acrylic-boxes": "Boxes",
+  "acrylic-signage": "Signs",
   "acrylic-home-office": "Trays & Shelves",
   "acrylic-awards-gifts": "Protective Products",
 };
