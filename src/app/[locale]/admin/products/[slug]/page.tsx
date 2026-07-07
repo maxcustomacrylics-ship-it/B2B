@@ -143,19 +143,32 @@ export default function AdminEditProductPage() {
       <form onSubmit={handleSubmit} className="mt-8">
         <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 space-y-6">
           {/* Product Images */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[0, 1, 2, 3].map((i) => (
-              <SettingsImageField
-                key={i}
-                label={`Product Image ${i + 1}`}
-                value={form.images[i] || ""}
-                onChange={(url) => {
-                  const imgs = [...form.images];
-                  imgs[i] = url;
-                  updateField("images", imgs.filter(Boolean) as any);
-                }}
-              />
-            ))}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-sm font-medium text-gray-700">Product Images (1–4)</label>
+              <div className="flex gap-2">
+                {form.images.length < 4 && (
+                  <button type="button" onClick={() => updateField("images", [...form.images, ""])} className="text-xs text-blue-600 hover:underline">+ Add Image</button>
+                )}
+                {form.images.length > 1 && (
+                  <button type="button" onClick={() => updateField("images", form.images.slice(0, -1))} className="text-xs text-red-500 hover:underline">− Remove Last</button>
+                )}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {form.images.map((_, i) => (
+                <SettingsImageField
+                  key={i}
+                  label={`Image ${i + 1}`}
+                  value={form.images[i] || ""}
+                  onChange={(url) => {
+                    const imgs = [...form.images];
+                    imgs[i] = url;
+                    updateField("images", imgs.filter(Boolean) as any);
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
