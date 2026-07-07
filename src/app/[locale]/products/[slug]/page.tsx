@@ -168,10 +168,18 @@ export default async function ProductPage({ params }: Props) {
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {/* Left: Gallery */}
           <div>
-            <div className="grid grid-cols-2 gap-3">
-              {["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50"].map((c, i) => (
-                <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
-              ))}
+            <div className={`grid gap-3 ${(product.images || []).filter(Boolean).length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
+              {(product.images || []).filter(Boolean).length > 0 ? (
+                (product.images || []).filter(Boolean).map((img, i) => (
+                  <div key={i} className={`${(product.images || []).filter(Boolean).length === 1 ? "aspect-[16/9]" : i === 0 && (product.images || []).filter(Boolean).length === 3 ? "col-span-2 aspect-[16/9]" : "aspect-square"} rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden`}>
+                    <img src={img} alt={`${product.name} — image ${i + 1}`} className="w-full h-full object-cover" />
+                  </div>
+                ))
+              ) : (
+                ["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50"].map((c, i) => (
+                  <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
+                ))
+              )}
             </div>
             <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
               {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
