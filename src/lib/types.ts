@@ -3,7 +3,8 @@ export type ProductCategory =
   | "acrylic-boxes"
   | "acrylic-signage"
   | "acrylic-home-office"
-  | "acrylic-awards-gifts";
+  | "acrylic-awards-gifts"
+  | "custom-acrylic";
 
 export type Product = {
   slug: string;

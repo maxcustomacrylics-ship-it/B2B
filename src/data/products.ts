@@ -18,12 +18,12 @@ const p = (slug: string, name: string, category: ProductCategory, description: s
 
 export const products: Product[] = [
   // ═══ 1. Custom Acrylic Products ═══
-  p("custom-acrylic-display", "Custom Acrylic Display", "acrylic-displays", "Fully customized acrylic display manufactured to your exact drawings and specifications."),
-  p("custom-acrylic-box", "Custom Acrylic Box", "acrylic-boxes", "Bespoke acrylic box designed and fabricated according to your requirements."),
-  p("custom-acrylic-sign", "Custom Acrylic Sign", "acrylic-signage", "Custom acrylic sign manufactured to your design with logo printing and finishing."),
-  p("custom-acrylic-tray", "Custom Acrylic Tray", "acrylic-home-office", "Tailored acrylic tray built to your dimensions, material choice and finish."),
-  p("custom-acrylic-cover", "Custom Acrylic Cover", "acrylic-displays", "Custom-fabricated acrylic protective cover manufactured to your specifications."),
-  p("oem-acrylic-product", "OEM Acrylic Product", "acrylic-awards-gifts", "OEM acrylic product designed and produced according to your brand specifications."),
+  p("custom-acrylic-display", "Custom Acrylic Display", "custom-acrylic", "Fully customized acrylic display manufactured to your exact drawings and specifications."),
+  p("custom-acrylic-box", "Custom Acrylic Box", "custom-acrylic", "Bespoke acrylic box designed and fabricated according to your requirements."),
+  p("custom-acrylic-sign", "Custom Acrylic Sign", "custom-acrylic", "Custom acrylic sign manufactured to your design with logo printing and finishing."),
+  p("custom-acrylic-tray", "Custom Acrylic Tray", "custom-acrylic", "Tailored acrylic tray built to your dimensions, material choice and finish."),
+  p("custom-acrylic-cover", "Custom Acrylic Cover", "custom-acrylic", "Custom-fabricated acrylic protective cover manufactured to your specifications."),
+  p("oem-acrylic-product", "OEM Acrylic Product", "custom-acrylic", "OEM acrylic product designed and produced according to your brand specifications."),
 
   // ═══ 2. Acrylic Displays ═══
   p("display-stand", "Display Stand", "acrylic-displays", "Premium custom acrylic display stand for retail, exhibition and commercial presentation."),

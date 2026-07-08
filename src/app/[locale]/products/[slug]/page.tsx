@@ -21,7 +21,7 @@ const customizationOptions = [
 
 // ── Category slug mapping ──
 const catMap: Record<string, { title: string; desc: string; oldCats: string[] }> = {
-  "custom-acrylic-products": { title: "Custom Acrylic Products", desc: "From concept to finished product, we manufacture completely customized acrylic products based on your drawings and business requirements.", oldCats: ["acrylic-displays","acrylic-boxes","acrylic-signage","acrylic-home-office","acrylic-awards-gifts"] },
+  "custom-acrylic-products": { title: "Custom Acrylic Products", desc: "From concept to finished product, we manufacture completely customized acrylic products based on your drawings and business requirements.", oldCats: ["custom-acrylic"] },
   "acrylic-displays-2": { title: "Acrylic Displays", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", oldCats: ["acrylic-displays"] },
   "acrylic-boxes-2": { title: "Acrylic Boxes", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", oldCats: ["acrylic-boxes"] },
   "acrylic-signs-2": { title: "Acrylic Signs", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", oldCats: ["acrylic-signage"] },
