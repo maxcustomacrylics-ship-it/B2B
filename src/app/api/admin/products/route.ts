@@ -14,7 +14,8 @@ export async function POST(request: Request) {
 
   const body = await request.json();
   const products = await getProducts();
-  const newProduct = { ...body, slug: body.name.toLowerCase().replace(/\s+/g, "-") };
+  const maxSort = Math.max(0, ...products.map((p: any) => p.sort || 0));
+  const newProduct = { ...body, slug: body.name.toLowerCase().replace(/\s+/g, "-"), sort: maxSort + 1 };
   products.push(newProduct);
   await saveProducts(products);
   return NextResponse.json(newProduct, { status: 201 });

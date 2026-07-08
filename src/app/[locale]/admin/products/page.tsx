@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
-import { Package, Plus, Pencil, Trash2, Star } from "lucide-react";
+import { Package, Plus, Pencil, Trash2, Star, ChevronUp, ChevronDown } from "lucide-react";
 import type { Product } from "@/lib/types";
 
 const catLabel: Record<string, string> = {
@@ -36,6 +36,27 @@ export default function AdminProductsPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function moveUp(index: number) {
+    if (index === 0) return;
+    const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const a = sorted[index - 1], b = sorted[index];
+    await swapSort(a, b);
+  }
+
+  async function moveDown(index: number) {
+    const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    if (index >= sorted.length - 1) return;
+    const a = sorted[index], b = sorted[index + 1];
+    await swapSort(a, b);
+  }
+
+  async function swapSort(a: Product, b: Product) {
+    const sa = a.sort || 0, sb = b.sort || 0;
+    await fetch(`/api/admin/products/${a.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...a, sort: sb }) });
+    await fetch(`/api/admin/products/${b.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...b, sort: sa }) });
+    fetchProducts();
   }
 
   async function handleDelete(slug: string) {
@@ -89,35 +110,26 @@ export default function AdminProductsPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Featured
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
+                <th className="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              {products.map((product) => (
+              {[...products].sort((a, b) => (a.sort || 0) - (b.sort || 0)).map((product, i) => (
                 <tr key={product.slug} className="hover:bg-gray-50">
+                  <td className="whitespace-nowrap px-2 py-4 text-center text-sm">
+                    <div className="flex flex-col items-center gap-0.5">
+                      <button onClick={() => moveUp(i)} className="p-0.5 hover:bg-gray-200 rounded"><ChevronUp className="h-3 w-3 text-gray-400" /></button>
+                      <button onClick={() => moveDown(i)} className="p-0.5 hover:bg-gray-200 rounded"><ChevronDown className="h-3 w-3 text-gray-400" /></button>
+                    </div>
+                  </td>
                   <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
                     {product.name}
                   </td>
                   <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                     {catLabel[product.category] || product.category}
-                  </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-sm">
-                    {product.featured ? (
-                      <Star className="h-4 w-4 text-yellow-500" />
-                    ) : (
-                      <span className="text-gray-400">--</span>
-                    )}
                   </td>
                   <td className="whitespace-nowrap px-6 py-4 text-right text-sm">
                     <button

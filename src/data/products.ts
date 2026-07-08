@@ -1,5 +1,6 @@
 import type { Product, ProductCategory } from "@/lib/types";
 
+let sortCounter = 0;
 const p = (slug: string, name: string, category: ProductCategory, description: string): Product => ({
   slug, name, category, description,
   longDescription: description,
@@ -14,6 +15,7 @@ const p = (slug: string, name: string, category: ProductCategory, description: s
   applications: [],
   images: [],
   featured: false,
+  sort: ++sortCounter,
 });
 
 export const products: Product[] = [

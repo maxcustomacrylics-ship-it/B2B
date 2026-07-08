@@ -16,6 +16,7 @@ export type Product = {
   applications: string[];
   images: string[];
   featured: boolean;
+  sort: number;
 };
 
 export type QuoteInput = {

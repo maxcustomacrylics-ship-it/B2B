@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: Props) {
   if (catMap[slug]) {
     const cat = catMap[slug];
     const all = await getProducts();
-    const products = all.filter((p) => cat.oldCats.includes(p.category));
+    const products = all.filter((p) => cat.oldCats.includes(p.category)).sort((a, b) => (a.sort || 0) - (b.sort || 0));
     const bcSchema = generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }, { name: cat.title, url: `${SITE_URL}/products/${slug}` }]);
 
     return (
