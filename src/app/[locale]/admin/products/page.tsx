@@ -38,25 +38,26 @@ export default function AdminProductsPage() {
     }
   }
 
-  async function moveUp(index: number) {
-    if (index === 0) return;
+  async function moveUp(slug: string) {
     const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    const a = sorted[index - 1], b = sorted[index];
-    await swapSort(a, b);
-  }
-
-  async function moveDown(index: number) {
-    const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    if (index >= sorted.length - 1) return;
-    const a = sorted[index], b = sorted[index + 1];
-    await swapSort(a, b);
-  }
-
-  async function swapSort(a: Product, b: Product) {
+    const idx = sorted.findIndex((p) => p.slug === slug);
+    if (idx <= 0) return;
+    const a = sorted[idx - 1], b = sorted[idx];
     const sa = a.sort || 0, sb = b.sort || 0;
+    setProducts((prev) => prev.map((p) => p.slug === a.slug ? { ...p, sort: sb } : p.slug === b.slug ? { ...p, sort: sa } : p));
     await fetch(`/api/admin/products/${a.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...a, sort: sb }) });
     await fetch(`/api/admin/products/${b.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...b, sort: sa }) });
-    fetchProducts();
+  }
+
+  async function moveDown(slug: string) {
+    const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const idx = sorted.findIndex((p) => p.slug === slug);
+    if (idx < 0 || idx >= sorted.length - 1) return;
+    const a = sorted[idx], b = sorted[idx + 1];
+    const sa = a.sort || 0, sb = b.sort || 0;
+    setProducts((prev) => prev.map((p) => p.slug === a.slug ? { ...p, sort: sb } : p.slug === b.slug ? { ...p, sort: sa } : p));
+    await fetch(`/api/admin/products/${a.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...a, sort: sb }) });
+    await fetch(`/api/admin/products/${b.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...b, sort: sa }) });
   }
 
   async function handleDelete(slug: string) {
@@ -121,8 +122,8 @@ export default function AdminProductsPage() {
                 <tr key={product.slug} className="hover:bg-gray-50">
                   <td className="whitespace-nowrap px-2 py-4 text-center text-sm">
                     <div className="flex flex-col items-center gap-0.5">
-                      <button onClick={() => moveUp(i)} className="p-0.5 hover:bg-gray-200 rounded"><ChevronUp className="h-3 w-3 text-gray-400" /></button>
-                      <button onClick={() => moveDown(i)} className="p-0.5 hover:bg-gray-200 rounded"><ChevronDown className="h-3 w-3 text-gray-400" /></button>
+                      <button onClick={() => moveUp(product.slug)} className="p-0.5 hover:bg-gray-200 rounded"><ChevronUp className="h-3 w-3 text-gray-400" /></button>
+                      <button onClick={() => moveDown(product.slug)} className="p-0.5 hover:bg-gray-200 rounded"><ChevronDown className="h-3 w-3 text-gray-400" /></button>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
