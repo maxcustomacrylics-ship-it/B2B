@@ -33,6 +33,7 @@ export default function AdminEditProductPage() {
     description: "",
     longDescription: "",
     images: [] as string[],
+    specs: [] as { label: string; value: string }[],
     featured: false,
   });
 
@@ -55,6 +56,7 @@ export default function AdminEditProductPage() {
         description: data.description || "",
         longDescription: data.longDescription || "",
         images: data.images || [],
+        specs: data.specs || [{ label: "Material", value: "" }, { label: "Thickness", value: "" }, { label: "Finish", value: "" }, { label: "MOQ", value: "" }, { label: "Lead Time", value: "" }],
         featured: data.featured || false,
       });
     } catch {
@@ -168,6 +170,23 @@ export default function AdminEditProductPage() {
                     updateField("images", imgs.filter(Boolean) as any);
                   }}
                 />
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Specifications */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-sm font-medium text-gray-700">Quick Specifications</label>
+              <button type="button" onClick={() => updateField("specs", [...(form.specs as any[]), { label: "", value: "" }])} className="text-xs text-blue-600 hover:underline">+ Add</button>
+            </div>
+            <div className="space-y-2">
+              {(form.specs as any[] || []).map((spec: any, i: number) => (
+                <div key={i} className="flex gap-2 items-center">
+                  <input type="text" value={spec.label} onChange={(e) => { const s = [...(form.specs as any[])]; s[i].label = e.target.value; updateField("specs", s); }} className="block w-1/3 rounded-lg border border-gray-300 px-3 py-2 text-sm" placeholder="Label" />
+                  <input type="text" value={spec.value} onChange={(e) => { const s = [...(form.specs as any[])]; s[i].value = e.target.value; updateField("specs", s); }} className="block w-2/3 rounded-lg border border-gray-300 px-3 py-2 text-sm" placeholder="Value" />
+                  <button type="button" onClick={() => updateField("specs", (form.specs as any[]).filter((_: any, j: number) => j !== i))} className="text-xs text-red-500 hover:underline shrink-0">×</button>
+                </div>
               ))}
             </div>
           </div>
