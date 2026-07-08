@@ -126,23 +126,17 @@ export async function saveProducts(products: Product[]): Promise<void> {
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 
-  // Sync to Supabase: delete old, insert new (prevents stale/ghost products)
+  // Sync to Supabase: UPSERT each product individually (never delete)
   const supabaseUrl = SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
-      // Delete all existing products
-      await fetch(`${supabaseUrl}/rest/v1/products?slug=neq.__empty__`, {
-        method: "DELETE",
-        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
-      });
-      // Insert current products in batches (snake_case for Supabase)
-      const rows = products.map((p) => ({ ...camelToSnake(p as unknown as Record<string, unknown>), updated_at: new Date().toISOString() }));
-      for (let i = 0; i < rows.length; i += 50) {
+      for (const p of products) {
+        const row = { ...camelToSnake(p as unknown as Record<string, unknown>), updated_at: new Date().toISOString() };
         await fetch(`${supabaseUrl}/rest/v1/products`, {
           method: "POST",
-          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
-          body: JSON.stringify(rows.slice(i, i + 50)),
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+          body: JSON.stringify(row),
         });
       }
     } catch (e) { console.error("[supabase] saveProducts failed:", e); }
@@ -177,18 +171,12 @@ async function supabaseUpsert(table: string, rows: Record<string, unknown>[], co
   const url = SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   try {
-    // Delete all existing rows
-    await fetch(`${url}/rest/v1/${table}?${conflictKey}=neq.__empty__`, {
-      method: "DELETE",
-      headers: { apikey: key, Authorization: `Bearer ${key}` },
-    });
-    // Insert all current rows in batches
-    for (let i = 0; i < rows.length; i += 50) {
-      const batch = rows.slice(i, i + 50).map((r) => ({ ...r, updated_at: new Date().toISOString() }));
+    for (const row of rows) {
+      const r = { ...row, updated_at: new Date().toISOString() };
       await fetch(`${url}/rest/v1/${table}`, {
         method: "POST",
-        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
-        body: JSON.stringify(batch),
+        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+        body: JSON.stringify(r),
       });
     }
   } catch (e) { console.error(`[supabase] ${table} upsert failed:`, e); }
