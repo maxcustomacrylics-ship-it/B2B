@@ -5,7 +5,7 @@ import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateBreadcrumbSchema } from "@/lib/schema";
-import { getProductBySlug, getProducts } from "@/lib/data-store";
+import { getProductBySlug, getProducts, getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -49,7 +49,17 @@ export default async function ProductPage({ params }: Props) {
   if (catMap[slug]) {
     const cat = catMap[slug];
     const all = await getProducts();
-    const products = all.filter((p) => cat.oldCats.includes(p.category)).sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const settings = await getSettings();
+    let products = all.filter((p) => cat.oldCats.includes(p.category));
+    // Sort by productOrder if available
+    try {
+      const order: string[] = JSON.parse(settings.productOrder || "[]");
+      if (order.length > 0) {
+        const orderMap: Record<string, number> = {};
+        order.forEach((slug, i) => { orderMap[slug] = i; });
+        products.sort((a, b) => (orderMap[a.slug] ?? 999) - (orderMap[b.slug] ?? 999));
+      }
+    } catch {}
     const bcSchema = generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }, { name: cat.title, url: `${SITE_URL}/products/${slug}` }]);
 
     return (

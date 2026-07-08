@@ -28,9 +28,20 @@ export default function AdminProductsPage() {
 
   async function fetchProducts() {
     try {
-      const res = await fetch("/api/admin/products");
-      const data = await res.json();
+      const [prodRes, setRes] = await Promise.all([
+        fetch("/api/admin/products"),
+        fetch("/api/admin/settings"),
+      ]);
+      const data = await prodRes.json();
+      const settings = await setRes.json();
       setProducts(Array.isArray(data) ? data : []);
+      // Load order map from settings
+      try {
+        const order: string[] = JSON.parse(settings.productOrder || "[]");
+        const map: Record<string, number> = {};
+        order.forEach((slug, i) => { map[slug] = i + 1; });
+        setOrderMap(map);
+      } catch {}
     } catch {
       showToast("Failed to load products", "error");
     } finally {
@@ -38,26 +49,38 @@ export default function AdminProductsPage() {
     }
   }
 
+  const [orderMap, setOrderMap] = useState<Record<string, number>>({});
+
+  function getSorted() {
+    return [...products].sort((a, b) => (orderMap[a.slug] || 0) - (orderMap[b.slug] || 0));
+  }
+
+  async function saveOrder(sorted: Product[]) {
+    const map: Record<string, number> = {};
+    sorted.forEach((p, i) => { map[p.slug] = i + 1; });
+    setOrderMap(map);
+    // Save order to settings
+    await fetch("/api/admin/settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productOrder: JSON.stringify(sorted.map((p) => p.slug)) }),
+    });
+  }
+
   async function moveUp(slug: string) {
-    const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const sorted = getSorted();
     const idx = sorted.findIndex((p) => p.slug === slug);
     if (idx <= 0) return;
-    const a = sorted[idx - 1], b = sorted[idx];
-    const sa = a.sort || 0, sb = b.sort || 0;
-    setProducts((prev) => prev.map((p) => p.slug === a.slug ? { ...p, sort: sb } : p.slug === b.slug ? { ...p, sort: sa } : p));
-    await fetch(`/api/admin/products/${a.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...a, sort: sb }) });
-    await fetch(`/api/admin/products/${b.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...b, sort: sa }) });
+    [sorted[idx - 1], sorted[idx]] = [sorted[idx], sorted[idx - 1]];
+    await saveOrder(sorted);
   }
 
   async function moveDown(slug: string) {
-    const sorted = [...products].sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    const sorted = getSorted();
     const idx = sorted.findIndex((p) => p.slug === slug);
     if (idx < 0 || idx >= sorted.length - 1) return;
-    const a = sorted[idx], b = sorted[idx + 1];
-    const sa = a.sort || 0, sb = b.sort || 0;
-    setProducts((prev) => prev.map((p) => p.slug === a.slug ? { ...p, sort: sb } : p.slug === b.slug ? { ...p, sort: sa } : p));
-    await fetch(`/api/admin/products/${a.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...a, sort: sb }) });
-    await fetch(`/api/admin/products/${b.slug}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...b, sort: sa }) });
+    [sorted[idx], sorted[idx + 1]] = [sorted[idx + 1], sorted[idx]];
+    await saveOrder(sorted);
   }
 
   async function handleDelete(slug: string) {
@@ -118,7 +141,7 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              {[...products].sort((a, b) => (a.sort || 0) - (b.sort || 0)).map((product, i) => (
+              {getSorted().map((product, i) => (
                 <tr key={product.slug} className="hover:bg-gray-50">
                   <td className="whitespace-nowrap px-2 py-4 text-center text-sm">
                     <div className="flex flex-col items-center gap-0.5">
