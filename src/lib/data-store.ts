@@ -126,16 +126,24 @@ export async function saveProducts(products: Product[]): Promise<void> {
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 
-  // Sync to Supabase: UPSERT each product individually (never delete)
+  // Sync to Supabase: PATCH existing + POST new
   const supabaseUrl = SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
       for (const p of products) {
         const row = { ...camelToSnake(p as unknown as Record<string, unknown>), updated_at: new Date().toISOString() };
+        // Try PATCH first (update existing by slug)
+        const patchRes = await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}`, {
+          method: "PATCH",
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(row),
+        });
+        // If PATCH didn't affect any rows, POST (insert new)
+        if (patchRes.ok && patchRes.status === 200) continue;
         await fetch(`${supabaseUrl}/rest/v1/products`, {
           method: "POST",
-          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
           body: JSON.stringify(row),
         });
       }
