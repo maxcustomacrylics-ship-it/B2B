@@ -80,8 +80,8 @@ function snakeToCamel(record: Record<string, unknown>): Record<string, unknown> 
 function camelToSnake(record: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(record)) {
-    // camelCase to snake_case, skip supabase meta fields
-    if (k === "createdAt" || k === "updatedAt") continue;
+    // camelCase to snake_case, skip app-level fields not in Supabase
+    if (k === "createdAt" || k === "updatedAt" || k === "sort") continue;
     const snake = k.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
     out[snake] = v;
   }
