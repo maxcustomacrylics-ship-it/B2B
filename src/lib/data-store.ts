@@ -126,26 +126,33 @@ export async function saveProducts(products: Product[]): Promise<void> {
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
 
-  // Sync to Supabase: PATCH existing + POST new
+  // Sync to Supabase: PATCH existing (by slug) → if not found, POST new
   const supabaseUrl = SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
   if (supabaseUrl && supabaseKey) {
     try {
       for (const p of products) {
         const row = { ...camelToSnake(p as unknown as Record<string, unknown>), updated_at: new Date().toISOString() };
-        // Try PATCH first (update existing by slug)
-        const patchRes = await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}`, {
-          method: "PATCH",
-          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
-          body: JSON.stringify(row),
+        // PATCH by slug — returns 204 even if no rows matched, so check with GET first
+        const check = await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}&select=slug`, {
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
         });
-        // If PATCH didn't affect any rows, POST (insert new)
-        if (patchRes.ok && patchRes.status === 200) continue;
-        await fetch(`${supabaseUrl}/rest/v1/products`, {
-          method: "POST",
-          headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
-          body: JSON.stringify(row),
-        });
+        const exists = await check.json();
+        if (exists && Array.isArray(exists) && exists.length > 0) {
+          // Update existing
+          await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}`, {
+            method: "PATCH",
+            headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+            body: JSON.stringify(row),
+          });
+        } else {
+          // Insert new
+          await fetch(`${supabaseUrl}/rest/v1/products`, {
+            method: "POST",
+            headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+            body: JSON.stringify(row),
+          });
+        }
       }
     } catch (e) { console.error("[supabase] saveProducts failed:", e); }
   }
@@ -181,11 +188,27 @@ async function supabaseUpsert(table: string, rows: Record<string, unknown>[], co
   try {
     for (const row of rows) {
       const r = { ...row, updated_at: new Date().toISOString() };
-      await fetch(`${url}/rest/v1/${table}`, {
-        method: "POST",
-        headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
-        body: JSON.stringify(r),
+      const val = (r as any)[conflictKey];
+      // Check if exists
+      const check = await fetch(`${url}/rest/v1/${table}?${conflictKey}=eq.${val}&select=${conflictKey}`, {
+        headers: { apikey: key, Authorization: `Bearer ${key}` },
       });
+      const data = await check.json();
+      if (data && Array.isArray(data) && data.length > 0) {
+        // Update
+        await fetch(`${url}/rest/v1/${table}?${conflictKey}=eq.${val}`, {
+          method: "PATCH",
+          headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(r),
+        });
+      } else {
+        // Insert
+        await fetch(`${url}/rest/v1/${table}`, {
+          method: "POST",
+          headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(r),
+        });
+      }
     }
   } catch (e) { console.error(`[supabase] ${table} upsert failed:`, e); }
 }
