@@ -45,7 +45,8 @@ export default function AdminBlogsPage() {
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
       if (res.ok) {
         const data = await res.json();
-        updateBlog(index, "image", data.url);
+        const current = blogs[index].images || [];
+        updateBlog(index, "images" as any, JSON.stringify([...current, data.url]));
       } else {
         showToast("Image upload failed", "error");
       }
@@ -151,11 +152,11 @@ function BlogEntry({
 
   return (
     <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6">
-      {/* Image preview */}
+      {/* Images preview */}
       <div className="flex items-start gap-4 mb-4">
         <div className="h-20 w-20 shrink-0 rounded-lg border border-gray-200 overflow-hidden bg-gray-50">
-          {blog.image ? (
-            <img src={blog.image} alt={blog.title || "Blog post image"} className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+          {blog.images?.[0] ? (
+            <img src={blog.images[0]} alt={blog.title || "Blog post image"} className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
           ) : (
             <div className="flex h-full items-center justify-center text-gray-300">
               <FileText className="h-8 w-8" />
@@ -163,13 +164,15 @@ function BlogEntry({
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <label className="block text-xs font-medium text-gray-500 mb-1">Image URL</label>
+          <label className="block text-xs font-medium text-gray-500 mb-1">Images (JSON array)</label>
           <input
             type="text"
-            value={blog.image || ""}
-            onChange={(e) => updateBlog(index, "image", e.target.value)}
-            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-xs text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            placeholder="/images/blog/post.jpg or https://..."
+            value={JSON.stringify(blog.images || [])}
+            onChange={(e) => {
+              try { updateBlog(index, "images" as any, JSON.stringify(JSON.parse(e.target.value))); } catch {}
+            }}
+            className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-xs text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 font-mono"
+            placeholder='["/images/cover.jpg","/images/body1.jpg"]'
           />
         </div>
         <div className="pt-5">

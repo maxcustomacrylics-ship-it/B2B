@@ -70,10 +70,10 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
 
         {/* Cover Image */}
-        {post.image && (
+        {post.images?.[0] && (
           <div className="mt-8 mx-auto max-w-3xl">
             <img
-              src={post.image}
+              src={post.images[0]}
               alt={post.title}
               className="w-full rounded-xl object-cover aspect-video"
             />
@@ -107,6 +107,20 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="mt-8 prose prose-gray max-w-none">
             {post.content.split("\n").map((line, i) => {
+              // Inline image marker: {{image:0}}, {{image:1}}, etc.
+              const imgMatch = line.trim().match(/^\{\{image:(\d+)\}\}$/);
+              if (imgMatch) {
+                const idx = parseInt(imgMatch[1], 10);
+                const imgUrl = post.images?.[idx];
+                if (imgUrl) {
+                  return (
+                    <figure key={i} className="my-6">
+                      <img src={imgUrl} alt={`${post.title} — image ${idx + 1}`} className="w-full rounded-xl object-cover" />
+                    </figure>
+                  );
+                }
+                return null; // skip invalid image refs
+              }
               if (line.startsWith("## ")) {
                 return (
                   <h2 key={i} className="text-2xl font-bold text-foreground mt-8 mb-4">

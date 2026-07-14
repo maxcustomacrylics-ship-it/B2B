@@ -83,7 +83,7 @@ export type BlogPost = {
   category: string;
   author: string;
   date: string;
-  image: string;
+  images: string[];   // multiple images: [0]=cover, rest=body images for {{image:N}} markers
 };
 
 export type Testimonial = {

@@ -74,6 +74,19 @@ function snakeToCamel(record: Record<string, unknown>): Record<string, unknown> 
     const camel = k.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
     out[camel] = v;
   }
+  // image ↔ images compat: Supabase stores image as JSON array string or legacy plain string
+  if ("image" in out) {
+    const raw = out.image;
+    delete out.image;
+    if (typeof raw === "string" && raw.trim().startsWith("[")) {
+      try { out.images = JSON.parse(raw as string); } catch { out.images = raw ? [raw as string] : []; }
+    } else if (typeof raw === "string" && raw.trim()) {
+      out.images = [raw as string];
+    } else {
+      out.images = [];
+    }
+  }
+  if (!out.images) out.images = [];
   return out;
 }
 
@@ -82,6 +95,11 @@ function camelToSnake(record: Record<string, unknown>): Record<string, unknown> 
   for (const [k, v] of Object.entries(record)) {
     // camelCase to snake_case, skip app-level fields not in Supabase
     if (k === "createdAt" || k === "updatedAt" || k === "sort") continue;
+    // images array → image JSON string for Supabase compat (single text column)
+    if (k === "images") {
+      out.image = JSON.stringify(v);
+      continue;
+    }
     const snake = k.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
     out[snake] = v;
   }

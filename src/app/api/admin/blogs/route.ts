@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     slug,
     date: body.date || new Date().toISOString().split("T")[0],
     author: body.author || "Admin",
-    image: body.image || "",
+    images: body.images || [],
   };
 
   posts.unshift(newPost);

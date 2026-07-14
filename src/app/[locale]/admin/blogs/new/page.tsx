@@ -17,7 +17,7 @@ export default function AdminNewBlogPage() {
     author: "",
     excerpt: "",
     content: "",
-    image: "",
+    images: [] as string[],
   });
 
   function updateField(field: string, value: string) {
@@ -74,11 +74,22 @@ export default function AdminNewBlogPage() {
       <form onSubmit={handleSubmit} className="mt-8">
         <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6 space-y-6">
           <ImageUploader
-            images={form.image ? [form.image] : []}
-            onChange={(imgs) => updateField("image", imgs[0] || "")}
-            label="Cover Image"
-            multiple={false}
+            images={form.images}
+            onChange={(imgs) => updateField("images", imgs as any)}
+            label="Article Images"
+            multiple={true}
           />
+          {form.images.length > 0 && (
+            <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-xs text-blue-800 space-y-1">
+              <p className="font-semibold">📷 Image placement tips:</p>
+              <ul className="list-disc pl-4 space-y-0.5">
+                <li>Image 1 = cover (shown on blog cards)</li>
+                {form.images.map((_, i) => (
+                  <li key={i}>Image {i + 1} → paste <code className="bg-blue-100 px-1 rounded">{"{{image:" + i + "}}"}</code> in content where you want it</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <FormField label="Title *">
             <input
