@@ -133,17 +133,28 @@ export default function AdminNewBlogPage() {
               required
             />
             <p className="mt-1 text-xs text-gray-400">Supports Markdown formatting (## for headings, ** for bold, etc.)</p>
-            {form.images.length > 0 && (
-              <div className="mt-3 rounded-lg bg-blue-50 border border-blue-200 p-3 text-xs text-blue-800 space-y-1">
-                <p className="font-semibold">📷 Image placement — paste these markers in content above:</p>
-                <ul className="list-disc pl-4 space-y-0.5">
-                  <li><code className="bg-blue-100 px-1 rounded">{"{{image:0}}"}</code> = cover image (shown on blog cards)</li>
-                  {form.images.slice(1).map((_, i) => (
-                    <li key={i}><code className="bg-blue-100 px-1 rounded">{"{{image:" + (i + 1) + "}}"}</code> = Image {i + 2}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm space-y-2">
+              <p className="font-semibold text-amber-900">📷 How to insert images in your article:</p>
+              <ol className="list-decimal pl-5 space-y-1 text-amber-800">
+                <li>Upload images using the <strong>Article Images</strong> uploader at the top of this form</li>
+                <li>Paste <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:0}}"}</code> in the content above where you want the <strong>cover image</strong> (shown on blog cards)</li>
+                <li>Paste <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:1}}"}</code>, <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:2}}"}</code>, etc. where you want additional body images</li>
+              </ol>
+              {form.images.length > 0 && (
+                <div className="mt-2 pt-2 border-t border-amber-200">
+                  <p className="text-xs font-medium text-amber-700 mb-1">Your uploaded images — copy these markers:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {form.images.map((url, i) => (
+                      <span key={i} className="inline-flex items-center gap-1 bg-white border border-amber-300 rounded px-2 py-1 text-xs">
+                        <span className="font-mono font-semibold text-amber-900">{"{{image:" + i + "}}"}</span>
+                        <span className="text-amber-500">→</span>
+                        <span className="text-gray-500 truncate max-w-[120px]" title={url}>{url.split("/").pop() || `Image ${i + 1}`}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </FormField>
         </div>
 
