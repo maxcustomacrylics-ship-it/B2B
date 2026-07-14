@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/components/admin/Toast";
-import { FileText, Plus, Save, Upload } from "lucide-react";
+import ConfirmDialog from "@/components/admin/ConfirmDialog";
+import { FileText, Plus, Save, Upload, Trash2, Edit3 } from "lucide-react";
 import type { BlogPost } from "@/lib/types";
 
 export default function AdminBlogsPage() {
@@ -12,6 +13,7 @@ export default function AdminBlogsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
+  const [deleteSlug, setDeleteSlug] = useState<string | null>(null);
 
   useEffect(() => {
     fetchBlogs();
@@ -52,6 +54,23 @@ export default function AdminBlogsPage() {
       }
     } catch {
       showToast("Image upload failed", "error");
+    }
+  }
+
+  async function handleDelete() {
+    if (!deleteSlug) return;
+    try {
+      const res = await fetch(`/api/admin/blogs/${deleteSlug}`, { method: "DELETE" });
+      if (res.ok) {
+        setBlogs((prev) => prev.filter((b) => b.slug !== deleteSlug));
+        showToast("Blog post deleted");
+      } else {
+        showToast("Failed to delete blog post", "error");
+      }
+    } catch {
+      showToast("Failed to delete blog post", "error");
+    } finally {
+      setDeleteSlug(null);
     }
   }
 
@@ -119,10 +138,18 @@ export default function AdminBlogsPage() {
       ) : (
         <div className="mt-8 space-y-4">
           {blogs.map((blog, index) => (
-            <BlogEntry key={blog.slug} blog={blog} index={index} updateBlog={updateBlog} uploadImage={uploadBlogImage} />
+            <BlogEntry key={blog.slug} blog={blog} index={index} updateBlog={updateBlog} uploadImage={uploadBlogImage} onDelete={(slug) => setDeleteSlug(slug)} />
           ))}
         </div>
       )}
+
+      <ConfirmDialog
+        open={!!deleteSlug}
+        title="Delete Blog Post"
+        message="Are you sure you want to delete this blog post? This action cannot be undone."
+        onConfirm={handleDelete}
+        onCancel={() => setDeleteSlug(null)}
+      />
     </div>
   );
 }
@@ -132,12 +159,15 @@ function BlogEntry({
   index,
   updateBlog,
   uploadImage,
+  onDelete,
 }: {
   blog: BlogPost;
   index: number;
   updateBlog: (i: number, f: keyof BlogPost, v: string) => void;
   uploadImage: (i: number, file: File) => Promise<void>;
+  onDelete: (slug: string) => void;
 }) {
+  const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
 
@@ -152,6 +182,26 @@ function BlogEntry({
 
   return (
     <div className="rounded-xl bg-white shadow-sm border border-gray-200 p-6">
+      {/* Action buttons */}
+      <div className="flex items-center justify-end gap-1 mb-3 -mt-1">
+        <button
+          type="button"
+          onClick={() => router.push(`/en/admin/blogs/${blog.slug}`)}
+          className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100 transition-colors"
+        >
+          <Edit3 className="h-3 w-3" />
+          Edit
+        </button>
+        <button
+          type="button"
+          onClick={() => onDelete(blog.slug)}
+          className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 transition-colors"
+        >
+          <Trash2 className="h-3 w-3" />
+          Delete
+        </button>
+      </div>
+
       {/* Images preview */}
       <div className="flex items-start gap-4 mb-4">
         <div className="h-20 w-20 shrink-0 rounded-lg border border-gray-200 overflow-hidden bg-gray-50">
