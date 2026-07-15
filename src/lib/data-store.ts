@@ -301,8 +301,29 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
 // ═══════════════════════════════════════════
 
 export async function getGuides(): Promise<Guide[]> {
+  // Try Supabase settings table (shared across Vercel instances)
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseKey) {
+    try {
+      const res = await fetch(`${supabaseUrl}/rest/v1/settings?key=eq.guides_data&select=value`, {
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows && rows.length > 0 && rows[0].value) {
+          const parsed = JSON.parse(rows[0].value);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed as Guide[];
+        }
+      }
+    } catch {}
+  }
+
+  // Fall back to local JSON
   const fp = path.join(DATA_DIR, "guides.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+
   return seedGuides;
 }
 
@@ -312,8 +333,22 @@ export async function getGuideBySlug(slug: string): Promise<Guide | undefined> {
 }
 
 export async function saveGuides(guides: Guide[]): Promise<void> {
+  // Always save to local JSON
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "guides.json"), JSON.stringify(guides, null, 2), "utf-8");
+
+  // Sync to Supabase settings (shared storage across Vercel instances)
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseKey) {
+    try {
+      await fetch(`${supabaseUrl}/rest/v1/settings`, {
+        method: "POST",
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" },
+        body: JSON.stringify({ key: "guides_data", value: JSON.stringify(guides), updated_at: new Date().toISOString() }),
+      });
+    } catch (e) { console.error("[supabase] saveGuides failed:", e); }
+  }
 }
 
 // ═══════════════════════════════════════════
