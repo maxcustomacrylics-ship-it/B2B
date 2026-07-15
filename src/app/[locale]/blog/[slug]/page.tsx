@@ -106,87 +106,97 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           <div className="mt-8 prose prose-gray max-w-none">
-            {post.content.split("\n").map((line, i) => {
-              // ── Image markers: {{image:0}}, {{image:1}} etc. (supports : and ：) ──
-              const markerRe = /\{\{image[:：](\d+)\}\}/g;
-              const markers = [...line.matchAll(markerRe)];
+            {(() => {
+              // Inline formatter: splits "text **bold** more" into [text, <strong>bold</strong>, more]
+              function renderInline(text: string, keyPrefix: string) {
+                const parts = text.split(/(\*\*[^*]+\*\*)/g);
+                return parts.map((part, j) => {
+                  if (part.startsWith("**") && part.endsWith("**")) {
+                    return <strong key={`${keyPrefix}-b-${j}`}>{part.slice(2, -2)}</strong>;
+                  }
+                  return <span key={`${keyPrefix}-s-${j}`}>{part}</span>;
+                });
+              }
 
-              if (markers.length > 0) {
-                // Remove all markers from text, replace with images
-                const cleanText = line.replace(markerRe, "").trim();
-                const validImages = markers
-                  .map(m => ({ idx: parseInt(m[1], 10), url: post.images?.[parseInt(m[1], 10)] }))
-                  .filter(m => m.url);
+              return post.content.split("\n").map((line, i) => {
+                // ── Image markers: {{image:0}}, {{image:1}} etc. (supports : and ：) ──
+                const markerRe = /\{\{image[:：](\d+)\}\}/g;
+                const markers = [...line.matchAll(markerRe)];
 
-                // Line is ONLY image markers → render as standalone figures
-                if (!cleanText) {
-                  return validImages.map((m, j) => (
-                    <figure key={`${i}-${j}`} className="my-6">
-                      <img src={m.url} alt={`${post.title} — image ${m.idx + 1}`} className="w-full rounded-xl object-cover" />
-                    </figure>
-                  ));
-                }
+                if (markers.length > 0) {
+                  const cleanText = line.replace(markerRe, "").trim();
+                  const validImages = markers
+                    .map(m => ({ idx: parseInt(m[1], 10), url: post.images?.[parseInt(m[1], 10)] }))
+                    .filter(m => m.url);
 
-                // Line has text + markers → text above, images below
-                return (
-                  <div key={i}>
-                    <p className="text-muted leading-relaxed mt-2">{cleanText}</p>
-                    {validImages.map((m, j) => (
-                      <figure key={`${i}-img-${j}`} className="my-4">
+                  if (!cleanText) {
+                    return validImages.map((m, j) => (
+                      <figure key={`${i}-${j}`} className="my-6">
                         <img src={m.url} alt={`${post.title} — image ${m.idx + 1}`} className="w-full rounded-xl object-cover" />
                       </figure>
-                    ))}
-                  </div>
-                );
-              }
+                    ));
+                  }
 
-              if (line.startsWith("## ")) {
-                return (
-                  <h2 key={i} className="text-2xl font-bold text-foreground mt-8 mb-4">
-                    {line.replace("## ", "")}
-                  </h2>
-                );
-              }
-              if (line.startsWith("### ")) {
-                return (
-                  <h3 key={i} className="text-xl font-semibold text-foreground mt-6 mb-3">
-                    {line.replace("### ", "")}
-                  </h3>
-                );
-              }
-              if (line.startsWith("**") && line.endsWith("**")) {
-                return (
-                  <p key={i} className="font-semibold text-foreground mt-4 mb-2">
-                    {line.replace(/\*\*/g, "")}
-                  </p>
-                );
-              }
-              if (line.startsWith("- ")) {
-                return (
-                  <li key={i} className="ml-4 text-muted leading-relaxed">
-                    {line.replace("- ", "")}
-                  </li>
-                );
-              }
-              if (line.startsWith("|")) {
-                const cells = line.split("|").filter(Boolean).map((c) => c.trim());
-                if (cells.length === 2) {
                   return (
-                    <div key={i} className="flex justify-between py-1.5 text-sm border-b border-border">
-                      <span className="text-muted">{cells[0]}</span>
-                      <span className="font-medium text-foreground">{cells[1]}</span>
+                    <div key={i}>
+                      <p className="text-muted leading-relaxed mt-2">{renderInline(cleanText, `l${i}`)}</p>
+                      {validImages.map((m, j) => (
+                        <figure key={`${i}-img-${j}`} className="my-4">
+                          <img src={m.url} alt={`${post.title} — image ${m.idx + 1}`} className="w-full rounded-xl object-cover" />
+                        </figure>
+                      ))}
                     </div>
                   );
                 }
-                return null;
-              }
-              if (line.trim() === "") return <br key={i} />;
-              return (
-                <p key={i} className="text-muted leading-relaxed mt-2">
-                  {line}
-                </p>
-              );
-            })}
+
+                if (line.startsWith("# ")) {
+                  return (
+                    <h1 key={i} className="text-3xl font-bold text-foreground mt-10 mb-4">
+                      {renderInline(line.replace("# ", ""), `h1-${i}`)}
+                    </h1>
+                  );
+                }
+                if (line.startsWith("## ")) {
+                  return (
+                    <h2 key={i} className="text-2xl font-bold text-foreground mt-8 mb-4">
+                      {renderInline(line.replace("## ", ""), `h2-${i}`)}
+                    </h2>
+                  );
+                }
+                if (line.startsWith("### ")) {
+                  return (
+                    <h3 key={i} className="text-xl font-semibold text-foreground mt-6 mb-3">
+                      {renderInline(line.replace("### ", ""), `h3-${i}`)}
+                    </h3>
+                  );
+                }
+                if (line.startsWith("- ")) {
+                  return (
+                    <li key={i} className="ml-4 text-muted leading-relaxed">
+                      {renderInline(line.replace("- ", ""), `li-${i}`)}
+                    </li>
+                  );
+                }
+                if (line.startsWith("|")) {
+                  const cells = line.split("|").filter(Boolean).map((c) => c.trim());
+                  if (cells.length === 2) {
+                    return (
+                      <div key={i} className="flex justify-between py-1.5 text-sm border-b border-border">
+                        <span className="text-muted">{renderInline(cells[0], `t1-${i}`)}</span>
+                        <span className="font-medium text-foreground">{renderInline(cells[1], `t2-${i}`)}</span>
+                      </div>
+                    );
+                  }
+                  return null;
+                }
+                if (line.trim() === "") return <br key={i} />;
+                return (
+                  <p key={i} className="text-muted leading-relaxed mt-2">
+                    {renderInline(line, `p-${i}`)}
+                  </p>
+                );
+              });
+            })()}
           </div>
 
           {/* Internal Linking — Related Resources */}
