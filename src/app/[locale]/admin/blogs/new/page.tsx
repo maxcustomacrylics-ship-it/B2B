@@ -136,28 +136,42 @@ export default function AdminNewBlogPage() {
               required
             />
             <p className="mt-1 text-xs text-gray-400">Markdown: # / ## / ### for headings, **bold**, [text](url) for links</p>
-            <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm space-y-2">
-              <p className="font-semibold text-amber-900">📷 How to insert images in your article:</p>
-              <ol className="list-decimal pl-5 space-y-1 text-amber-800">
-                <li>Upload images using the <strong>Article Images</strong> uploader at the top of this form</li>
-                <li>In the content above, type <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:0}}"}</code> where you want the <strong>cover image</strong> to appear</li>
-                <li>Type <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:1}}"}</code>, <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:2}}"}</code> etc. at any position in the text — markers work <strong>inline</strong>, not just on their own line</li>
-                <li>Markers are automatically <strong>hidden</strong> on the published page — only the images show</li>
-              </ol>
-              {form.images.length > 0 && (
-                <div className="mt-2 pt-2 border-t border-amber-200">
-                  <p className="text-xs font-medium text-amber-700 mb-1">Your uploaded images — copy these markers:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {form.images.map((url, i) => (
-                      <span key={i} className="inline-flex items-center gap-1 bg-white border border-amber-300 rounded px-2 py-1 text-xs">
-                        <span className="font-mono font-semibold text-amber-900">{"{{image:" + i + "}}"}</span>
-                        <span className="text-amber-500">→</span>
-                        <span className="text-gray-500 truncate max-w-[120px]" title={url}>{url.split("/").pop() || `Image ${i + 1}`}</span>
-                      </span>
-                    ))}
+            <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm space-y-3">
+              {/* Images */}
+              <div>
+                <p className="font-semibold text-amber-900">📷 How to insert images:</p>
+                <ol className="list-decimal pl-5 space-y-1 text-amber-800 mt-1">
+                  <li>Upload images using the <strong>Article Images</strong> uploader at the top of this form</li>
+                  <li>Type <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:0}}"}</code> where you want the <strong>cover image</strong> (shown on blog cards)</li>
+                  <li>Type <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:1}}"}</code>, <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:2}}"}</code> etc. for additional images — markers work <strong>inline</strong></li>
+                  <li>Markers are automatically <strong>hidden</strong> on the published page</li>
+                </ol>
+                {form.images.length > 0 && (
+                  <div className="mt-2 pt-2 border-t border-amber-200">
+                    <p className="text-xs font-medium text-amber-700 mb-1">Your uploaded images — copy these markers:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {form.images.map((url, i) => (
+                        <span key={i} className="inline-flex items-center gap-1 bg-white border border-amber-300 rounded px-2 py-1 text-xs">
+                          <span className="font-mono font-semibold text-amber-900">{"{{image:" + i + "}}"}</span>
+                          <span className="text-amber-500">→</span>
+                          <span className="text-gray-500 truncate max-w-[120px]" title={url}>{url.split("/").pop() || `Image ${i + 1}`}</span>
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+
+              {/* Links */}
+              <div className="pt-2 border-t border-amber-200">
+                <p className="font-semibold text-amber-900">🔗 How to add links:</p>
+                <ul className="list-disc pl-5 space-y-1 text-amber-800 mt-1">
+                  <li><strong>Internal link:</strong> <code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">[Product Catalog](/products/custom-acrylic-products)</code> → links to a page on your site</li>
+                  <li><strong>External link:</strong> <code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">[Learn more](https://example.com)</code> → links to another website (opens in new tab)</li>
+                  <li>Links work <strong>anywhere</strong> — in headings, paragraphs, list items, tables</li>
+                  <li>Example paragraph: <code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">Check our [acrylic displays](/products/acrylic-displays-2) and [contact us](/contact) for a quote.</code></li>
+                </ul>
+              </div>
             </div>
           </FormField>
         </div>
