@@ -107,13 +107,28 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="mt-8 prose prose-gray max-w-none">
             {(() => {
-              // Inline formatter: splits "text **bold** more" into [text, <strong>bold</strong>, more]
-              function renderInline(text: string, keyPrefix: string) {
-                const parts = text.split(/(\*\*[^*]+\*\*)/g);
+              // Inline formatter: [text](url) → link, **text** → bold
+              function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
+                const re = /(\[.+?\]\(.+?\)|\*\*[^*]+\*\*)/g;
+                const parts = text.split(re);
                 return parts.map((part, j) => {
-                  if (part.startsWith("**") && part.endsWith("**")) {
-                    return <strong key={`${keyPrefix}-b-${j}`}>{part.slice(2, -2)}</strong>;
+                  if (!part) return null;
+                  // Link: [text](url)
+                  if (part.startsWith("[")) {
+                    const m = part.match(/^\[(.+?)\]\((.+?)\)$/);
+                    if (m) {
+                      return (
+                        <a key={`${keyPrefix}-a-${j}`} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline font-medium">
+                          {renderInline(m[1], `${keyPrefix}-a-${j}`)}
+                        </a>
+                      );
+                    }
                   }
+                  // Bold: **text**
+                  if (part.startsWith("**") && part.endsWith("**")) {
+                    return <strong key={`${keyPrefix}-b-${j}`}>{renderInline(part.slice(2, -2), `${keyPrefix}-b-${j}`)}</strong>;
+                  }
+                  // Plain text
                   return <span key={`${keyPrefix}-s-${j}`}>{part}</span>;
                 });
               }

@@ -201,7 +201,7 @@ export default function AdminEditBlogPage() {
               placeholder="Write your blog post content here. Supports Markdown formatting."
               required
             />
-            <p className="mt-1 text-xs text-gray-400">Supports Markdown formatting (## for headings, ** for bold, etc.)</p>
+            <p className="mt-1 text-xs text-gray-400">Markdown: # / ## / ### for headings, **bold**, [text](url) for links</p>
             <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm space-y-2">
               <p className="font-semibold text-amber-900">📷 How to insert images in your article:</p>
               <ol className="list-decimal pl-5 space-y-1 text-amber-800">
