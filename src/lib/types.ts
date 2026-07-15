@@ -95,6 +95,15 @@ export type Testimonial = {
   rating: number;
 };
 
+export type Guide = {
+  slug: string;
+  title: string;
+  desc: string;
+  image: string;
+  imageColor: string;
+  sections: { heading: string; content: string }[];
+};
+
 export type NavItem = {
   label: string;
   href: string;

@@ -9,8 +9,10 @@ import {
   generateItemListSchema,
   generateBreadcrumbSchema,
 } from "@/lib/schema";
-import { getBlogPosts } from "@/lib/data-store";
+import { getBlogPosts, getGuides } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -22,6 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BlogPage() {
   const t = await getTranslations("blog");
   const posts = await getBlogPosts();
+  const guides = await getGuides();
 
   const itemListSchema = generateItemListSchema(
     posts.map((p) => ({
@@ -59,21 +62,20 @@ export default async function BlogPage() {
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
-            {[
-              { title: "Buying Guides", slug: "buying-guides", desc: "What to look for when sourcing custom acrylic products.", color: "from-blue-100 to-blue-200/50", href: "/blog/guides/buying-guides" },
-              { title: "Material Guides", slug: "material-guides", desc: "Understand acrylic grades, properties and selection criteria.", color: "from-emerald-100 to-emerald-200/50", href: "/blog/guides/material-guides" },
-              { title: "Design Ideas", slug: "design-ideas", desc: "Inspiration and practical concepts for your next project.", color: "from-amber-100 to-amber-200/50", href: "/blog/guides/design-ideas" },
-              { title: "Manufacturing Tips", slug: "manufacturing-tips", desc: "Practical advice for better fabrication and finishing results.", color: "from-purple-100 to-purple-200/50", href: "/blog/guides/manufacturing-tips" },
-            ].map((guide) => (
+            {guides.map((guide) => (
               <Link
                 key={guide.slug}
-                href={guide.href || "/blog"}
+                href={`/blog/guides/${guide.slug}`}
                 className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
               >
-                <div className={`aspect-[16/9] bg-gradient-to-br ${guide.color} flex items-center justify-center relative`}>
-                  <svg className="w-12 h-12 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                  </svg>
+                <div className={`aspect-[16/9] bg-gradient-to-br ${guide.imageColor || "from-blue-100 to-blue-200/60"} flex items-center justify-center relative`}>
+                  {guide.image ? (
+                    <img src={guide.image} alt={guide.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  ) : (
+                    <svg className="w-12 h-12 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                  )}
                 </div>
                 <div className="p-5 flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{guide.title}</h3>

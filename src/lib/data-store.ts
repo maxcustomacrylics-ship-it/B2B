@@ -2,13 +2,14 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { getSupabase, getSupabaseAdmin, hasSupabase } from "@/lib/supabase";
-import type { Product, Service, CaseStudy, BlogPost, Testimonial, PricingConfig } from "@/lib/types";
+import type { Product, Service, CaseStudy, BlogPost, Guide, Testimonial, PricingConfig } from "@/lib/types";
 
 // ─── Seed data ───
 import { products as seedProducts } from "@/data/products";
 import { services as seedServices } from "@/data/services";
 import { caseStudies as seedCaseStudies } from "@/data/cases";
 import { blogPosts as seedBlogPosts } from "@/data/blogs";
+import { seedGuides } from "@/data/guides";
 import { testimonials as seedTestimonials } from "@/data/testimonials";
 import { 
   materialRates, 
@@ -293,6 +294,26 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "blogs.json"), JSON.stringify(posts, null, 2), "utf-8");
   await supabaseUpsert("blog_posts", posts.map((p) => camelToSnake(p as unknown as Record<string, unknown>)), "slug");
+}
+
+// ═══════════════════════════════════════════
+//  GUIDES (Featured Guides)
+// ═══════════════════════════════════════════
+
+export async function getGuides(): Promise<Guide[]> {
+  const fp = path.join(DATA_DIR, "guides.json");
+  try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
+  return seedGuides;
+}
+
+export async function getGuideBySlug(slug: string): Promise<Guide | undefined> {
+  const all = await getGuides();
+  return all.find((g) => g.slug === slug);
+}
+
+export async function saveGuides(guides: Guide[]): Promise<void> {
+  ensureDir(DATA_DIR);
+  fs.writeFileSync(path.join(DATA_DIR, "guides.json"), JSON.stringify(guides, null, 2), "utf-8");
 }
 
 // ═══════════════════════════════════════════
