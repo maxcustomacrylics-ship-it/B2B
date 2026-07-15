@@ -41,12 +41,18 @@ export default function AdminGuidesPage() {
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
       if (res.ok) {
         const data = await res.json();
-        updateGuide(index, "image", data.url);
+        if (data.url) {
+          updateGuide(index, "image", data.url);
+        } else {
+          const errMsg = data.error || "Server returned empty URL — storage may be unavailable";
+          showToast(`Upload failed: ${errMsg}`, "error");
+        }
       } else {
-        showToast("Image upload failed", "error");
+        const data = await res.json().catch(() => ({}));
+        showToast(`Upload failed: ${data.error || res.status}`, "error");
       }
-    } catch {
-      showToast("Image upload failed", "error");
+    } catch (e: any) {
+      showToast(`Upload error: ${e.message || "Network error"}`, "error");
     }
   }
 
