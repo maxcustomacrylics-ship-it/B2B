@@ -137,8 +137,9 @@ export default function AdminNewBlogPage() {
               <p className="font-semibold text-amber-900">📷 How to insert images in your article:</p>
               <ol className="list-decimal pl-5 space-y-1 text-amber-800">
                 <li>Upload images using the <strong>Article Images</strong> uploader at the top of this form</li>
-                <li>Paste <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:0}}"}</code> in the content above where you want the <strong>cover image</strong> (shown on blog cards)</li>
-                <li>Paste <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:1}}"}</code>, <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:2}}"}</code>, etc. where you want additional body images</li>
+                <li>In the content above, type <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:0}}"}</code> where you want the <strong>cover image</strong> to appear</li>
+                <li>Type <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:1}}"}</code>, <code className="bg-amber-100 px-1.5 py-0.5 rounded text-xs font-mono">{"{{image:2}}"}</code> etc. at any position in the text — markers work <strong>inline</strong>, not just on their own line</li>
+                <li>Markers are automatically <strong>hidden</strong> on the published page — only the images show</li>
               </ol>
               {form.images.length > 0 && (
                 <div className="mt-2 pt-2 border-t border-amber-200">

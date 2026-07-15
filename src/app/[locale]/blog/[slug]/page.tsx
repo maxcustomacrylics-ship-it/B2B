@@ -107,20 +107,39 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="mt-8 prose prose-gray max-w-none">
             {post.content.split("\n").map((line, i) => {
-              // Inline image marker: {{image:0}}, {{image:1}}, etc.
-              const imgMatch = line.trim().match(/^\{\{image:(\d+)\}\}$/);
-              if (imgMatch) {
-                const idx = parseInt(imgMatch[1], 10);
-                const imgUrl = post.images?.[idx];
-                if (imgUrl) {
-                  return (
-                    <figure key={i} className="my-6">
-                      <img src={imgUrl} alt={`${post.title} — image ${idx + 1}`} className="w-full rounded-xl object-cover" />
+              // ── Image markers: {{image:0}}, {{image:1}} etc. (supports : and ：) ──
+              const markerRe = /\{\{image[:：](\d+)\}\}/g;
+              const markers = [...line.matchAll(markerRe)];
+
+              if (markers.length > 0) {
+                // Remove all markers from text, replace with images
+                const cleanText = line.replace(markerRe, "").trim();
+                const validImages = markers
+                  .map(m => ({ idx: parseInt(m[1], 10), url: post.images?.[parseInt(m[1], 10)] }))
+                  .filter(m => m.url);
+
+                // Line is ONLY image markers → render as standalone figures
+                if (!cleanText) {
+                  return validImages.map((m, j) => (
+                    <figure key={`${i}-${j}`} className="my-6">
+                      <img src={m.url} alt={`${post.title} — image ${m.idx + 1}`} className="w-full rounded-xl object-cover" />
                     </figure>
-                  );
+                  ));
                 }
-                return null; // skip invalid image refs
+
+                // Line has text + markers → text above, images below
+                return (
+                  <div key={i}>
+                    <p className="text-muted leading-relaxed mt-2">{cleanText}</p>
+                    {validImages.map((m, j) => (
+                      <figure key={`${i}-img-${j}`} className="my-4">
+                        <img src={m.url} alt={`${post.title} — image ${m.idx + 1}`} className="w-full rounded-xl object-cover" />
+                      </figure>
+                    ))}
+                  </div>
+                );
               }
+
               if (line.startsWith("## ")) {
                 return (
                   <h2 key={i} className="text-2xl font-bold text-foreground mt-8 mb-4">
