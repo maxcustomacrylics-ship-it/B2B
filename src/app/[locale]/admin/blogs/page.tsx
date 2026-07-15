@@ -260,12 +260,16 @@ function BlogEntry({
         </div>
         <div>
           <label className="block text-xs font-medium text-gray-500 mb-1">Category</label>
-          <input
-            type="text"
+          <select
             value={blog.category}
             onChange={(e) => updateBlog(index, "category", e.target.value)}
             className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-          />
+          >
+            <option value="">Select</option>
+            {["Material Hub","Manufacturing Hub","Application Hub","Buying Guide","Design Hub","Case Studies","FAQs"].map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
         </div>
       </div>
     </div>

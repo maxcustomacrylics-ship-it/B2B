@@ -93,13 +93,16 @@ export default function AdminNewBlogPage() {
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <FormField label="Category">
-              <input
-                type="text"
+              <select
                 value={form.category}
                 onChange={(e) => updateField("category", e.target.value)}
-                className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-                placeholder="e.g. Industry Trends"
-              />
+                className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              >
+                <option value="">Select a category</option>
+                {["Material Hub","Manufacturing Hub","Application Hub","Buying Guide","Design Hub","Case Studies","FAQs"].map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
             </FormField>
 
             <FormField label="Author">
