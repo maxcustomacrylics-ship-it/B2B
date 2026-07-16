@@ -75,20 +75,24 @@ function snakeToCamel(record: Record<string, unknown>): Record<string, unknown> 
     const camel = k.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
     out[camel] = v;
   }
-  // image ↔ images compat: Supabase stores image as JSON array string or legacy plain string
-  if ("image" in out) {
-    const raw = out.image;
-    delete out.image;
+  return out;
+}
+
+/** Convert single image field (string or JSON array string) to images array — for blog posts only */
+function blogImageToArray(record: Record<string, unknown>): Record<string, unknown> {
+  if ("image" in record) {
+    const raw = record.image;
+    delete record.image;
     if (typeof raw === "string" && raw.trim().startsWith("[")) {
-      try { out.images = JSON.parse(raw as string); } catch { out.images = raw ? [raw as string] : []; }
+      try { (record as any).images = JSON.parse(raw as string); } catch { (record as any).images = raw ? [raw as string] : []; }
     } else if (typeof raw === "string" && raw.trim()) {
-      out.images = [raw as string];
+      (record as any).images = [raw as string];
     } else {
-      out.images = [];
+      (record as any).images = [];
     }
   }
-  if (!out.images) out.images = [];
-  return out;
+  if (!(record as any).images) (record as any).images = [];
+  return record;
 }
 
 function camelToSnake(record: Record<string, unknown>): Record<string, unknown> {
@@ -279,7 +283,7 @@ export async function saveCaseStudies(cases: CaseStudy[]): Promise<void> {
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const supabase = await supabaseGet("blog_posts");
-  if (supabase) return supabase.map((r) => snakeToCamel(r) as unknown as BlogPost);
+  if (supabase) return supabase.map((r) => blogImageToArray(snakeToCamel(r)) as unknown as BlogPost);
   const fp = path.join(DATA_DIR, "blogs.json");
   try { if (fs.existsSync(fp)) return JSON.parse(fs.readFileSync(fp, "utf-8")); } catch {}
   return seedBlogPosts;
