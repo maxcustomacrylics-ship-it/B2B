@@ -100,7 +100,17 @@ function camelToSnake(record: Record<string, unknown>): Record<string, unknown> 
   for (const [k, v] of Object.entries(record)) {
     // camelCase to snake_case, skip app-level fields not in Supabase
     if (k === "createdAt" || k === "updatedAt" || k === "sort") continue;
-    // images array → image JSON string for Supabase compat (single text column)
+    const snake = k.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
+    out[snake] = v;
+  }
+  return out;
+}
+
+/** Convert images array to image JSON string — for blog posts only (Supabase uses text column) */
+function blogImagesToSnake(record: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(record)) {
+    if (k === "createdAt" || k === "updatedAt" || k === "sort") continue;
     if (k === "images") {
       out.image = JSON.stringify(v);
       continue;
@@ -297,7 +307,7 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | undefined>
 export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
   ensureDir(DATA_DIR);
   fs.writeFileSync(path.join(DATA_DIR, "blogs.json"), JSON.stringify(posts, null, 2), "utf-8");
-  await supabaseUpsert("blog_posts", posts.map((p) => camelToSnake(p as unknown as Record<string, unknown>)), "slug");
+  await supabaseUpsert("blog_posts", posts.map((p) => blogImagesToSnake(p as unknown as Record<string, unknown>)), "slug");
 }
 
 // ═══════════════════════════════════════════
