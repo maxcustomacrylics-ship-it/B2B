@@ -15,6 +15,7 @@ const CATEGORIES = [
   { value: "acrylic-signage", label: "Signs" },
   { value: "acrylic-home-office", label: "Trays & Shelves" },
   { value: "acrylic-awards-gifts", label: "Protective Products" },
+  { value: "acrylic-precision-instruments", label: "Precision Instruments" },
 ];
 
 export default function AdminNewProductPage() {

@@ -21,6 +21,7 @@ const categories = [
   { title: "Acrylic Signs", slug: "acrylic-signs-2", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },
   { title: "Acrylic Trays & Shelves", slug: "acrylic-trays-shelves", desc: "Functional acrylic trays and shelving solutions for retail, office and commercial environments.", color: "from-amber-100 to-amber-200/60", imgKey: "catImg5" },
   { title: "Protective Products", slug: "protective-products-2", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
+  { title: "Precision Instruments", slug: "precision-instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", color: "from-rose-100 to-rose-200/60", imgKey: "catImg7" },
 ];
 
 export default async function ProductsPage() {

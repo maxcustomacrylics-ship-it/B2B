@@ -27,6 +27,7 @@ const catMap: Record<string, { title: string; desc: string; oldCats: string[] }>
   "acrylic-signs-2": { title: "Acrylic Signs", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", oldCats: ["acrylic-signage"] },
   "acrylic-trays-shelves": { title: "Acrylic Trays & Shelves", desc: "Functional acrylic trays and shelving solutions for retail, office and commercial environments.", oldCats: ["acrylic-home-office"] },
   "protective-products-2": { title: "Protective Products", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", oldCats: ["acrylic-awards-gifts"] },
+  "precision-instruments": { title: "Precision Instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", oldCats: ["acrylic-precision-instruments"] },
 };
 
 type Props = { params: Promise<{ slug: string }> };
