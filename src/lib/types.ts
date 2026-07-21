@@ -5,6 +5,8 @@ export type ProductCategory =
   | "acrylic-home-office"
   | "acrylic-awards-gifts"
   | "acrylic-precision-instruments"
+  | "acrylic-furniture"
+  | "acrylic-trophies"
   | "custom-acrylic";
 
 export type Product = {

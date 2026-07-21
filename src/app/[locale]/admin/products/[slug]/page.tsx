@@ -10,13 +10,15 @@ import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
 const CATEGORIES = [
-  { value: "custom-acrylic", label: "Custom Acrylic Products" },
+  { value: "acrylic-precision-instruments", label: "Precision Instruments" },
   { value: "acrylic-displays", label: "Acrylic Displays" },
   { value: "acrylic-boxes", label: "Boxes" },
   { value: "acrylic-signage", label: "Signs" },
   { value: "acrylic-home-office", label: "Trays & Shelves" },
   { value: "acrylic-awards-gifts", label: "Protective Products" },
-  { value: "acrylic-precision-instruments", label: "Precision Instruments" },
+  { value: "acrylic-furniture", label: "Acrylic Furniture" },
+  { value: "acrylic-trophies", label: "Acrylic Trophies" },
+  { value: "custom-acrylic", label: "Custom Acrylic Products" },
 ];
 
 export default function AdminEditProductPage() {

@@ -48,7 +48,7 @@ const defaultSettings: Settings = {
   factoryTitle: "How We Deliver Your Project", factoryDesc: "From initial inquiry to final delivery — a proven process backed by engineering review, quality inspection, and reliable logistics.",
   blogTitle: "Industry Insights", blogDesc: "Expert articles on acrylic manufacturing, material selection, and industry best practices.",
   rfqTitle: "Request a Free Quote", rfqDesc: "Tell us about your project and receive a detailed quotation within 24 hours. No minimum order — we handle prototypes to mass production.", rfqSuccess: "Thank you! We will get back to you within 24 hours.",
-  catImg1: "", catImg2: "", catImg3: "", catImg4: "", catImg5: "", catImg6: "", catImg7: "",
+  catImg1: "", catImg2: "", catImg3: "", catImg4: "", catImg5: "", catImg6: "", catImg7: "", catImg8: "", catImg9: "",
   capImg1: "", capImg2: "", capImg3: "", capImg4: "", capImg5: "",
 };
 

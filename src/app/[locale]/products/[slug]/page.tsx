@@ -21,13 +21,15 @@ const customizationOptions = [
 
 // ── Category slug mapping ──
 const catMap: Record<string, { title: string; desc: string; oldCats: string[] }> = {
-  "custom-acrylic-products": { title: "Custom Acrylic Products", desc: "From concept to finished product, we manufacture completely customized acrylic products based on your drawings and business requirements.", oldCats: ["custom-acrylic"] },
+  "precision-instruments": { title: "Precision Instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", oldCats: ["acrylic-precision-instruments"] },
   "acrylic-displays-2": { title: "Acrylic Displays", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", oldCats: ["acrylic-displays"] },
   "acrylic-boxes-2": { title: "Acrylic Boxes", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", oldCats: ["acrylic-boxes"] },
   "acrylic-signs-2": { title: "Acrylic Signs", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", oldCats: ["acrylic-signage"] },
   "acrylic-trays-shelves": { title: "Acrylic Trays & Shelves", desc: "Functional acrylic trays and shelving solutions for retail, office and commercial environments.", oldCats: ["acrylic-home-office"] },
   "protective-products-2": { title: "Protective Products", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", oldCats: ["acrylic-awards-gifts"] },
-  "precision-instruments": { title: "Precision Instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", oldCats: ["acrylic-precision-instruments"] },
+  "acrylic-furniture": { title: "Acrylic Furniture", desc: "Modern acrylic furniture including tables, chairs, shelves and decorative pieces for residential and commercial spaces.", oldCats: ["acrylic-furniture"] },
+  "acrylic-trophies": { title: "Acrylic Trophies", desc: "Custom acrylic trophies, plaques, and recognition awards for corporate events, competitions, and celebrations.", oldCats: ["acrylic-trophies"] },
+  "custom-acrylic-products": { title: "Custom Acrylic Products", desc: "From concept to finished product, we manufacture completely customized acrylic products based on your drawings and business requirements.", oldCats: ["custom-acrylic"] },
 };
 
 type Props = { params: Promise<{ slug: string }> };

@@ -15,13 +15,15 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { title: "Custom Acrylic Products", slug: "custom-acrylic-products", desc: "Fully customized acrylic products designed according to your drawings, ideas and project requirements.", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
+  { title: "Precision Instruments", slug: "precision-instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", color: "from-rose-100 to-rose-200/60", imgKey: "catImg7" },
   { title: "Acrylic Displays", slug: "acrylic-displays-2", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", color: "from-sky-100 to-sky-200/60", imgKey: "catImg2" },
   { title: "Acrylic Boxes", slug: "acrylic-boxes-2", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", color: "from-indigo-100 to-indigo-200/60", imgKey: "catImg3" },
   { title: "Acrylic Signs", slug: "acrylic-signs-2", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },
   { title: "Acrylic Trays & Shelves", slug: "acrylic-trays-shelves", desc: "Functional acrylic trays and shelving solutions for retail, office and commercial environments.", color: "from-amber-100 to-amber-200/60", imgKey: "catImg5" },
   { title: "Protective Products", slug: "protective-products-2", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
-  { title: "Precision Instruments", slug: "precision-instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", color: "from-rose-100 to-rose-200/60", imgKey: "catImg7" },
+  { title: "Acrylic Furniture", slug: "acrylic-furniture", desc: "Modern acrylic furniture including tables, chairs, shelves and decorative pieces for residential and commercial spaces.", color: "from-teal-100 to-teal-200/60", imgKey: "catImg8" },
+  { title: "Acrylic Trophies", slug: "acrylic-trophies", desc: "Custom acrylic trophies, plaques, and recognition awards for corporate events, competitions, and celebrations.", color: "from-yellow-100 to-yellow-200/60", imgKey: "catImg9" },
+  { title: "Custom Acrylic Products", slug: "custom-acrylic-products", desc: "Fully customized acrylic products designed according to your drawings, ideas and project requirements.", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
 ];
 
 export default async function ProductsPage() {
