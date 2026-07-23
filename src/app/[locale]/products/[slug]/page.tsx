@@ -232,7 +232,7 @@ export default async function ProductPage({ params }: Props) {
         {/* ═══════ NEW SEO ENHANCEMENT SECTIONS ═══════ */}
         <ProductSEOIntro product={product} />
         <ProductExtraImages images={allImages as ProductImage[]} productName={product.name} />
-        <ProductFeatures product={product} />
+        <ProductFeatures product={product} settings={await getSettings()} />
         <ProductSpecsTable specs={product.specs} />
         <ProductCustomization product={product} />
         <ProductManufacturing />

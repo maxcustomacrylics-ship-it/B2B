@@ -42,6 +42,8 @@ const defaultSettings: Settings = {
   ctaSubtitle: "Get a free quote within 24 hours. No minimum order required.",
   ctaButton: "Request a Quote",
   heroImg1: "", heroImg2: "", heroImg3: "", heroImg4: "",
+  whyChooseImg1: "", whyChooseImg2: "", whyChooseImg3: "", whyChooseImg4: "",
+  whyChooseImg5: "", whyChooseImg6: "", whyChooseImg7: "", whyChooseImg8: "",
   factoryImg1: "", factoryImg2: "", factoryImg3: "", factoryImg4: "", factoryImg5: "",
   statYears: "15+", statArea: "1,000+", statCountries: "30+", statProducts: "200+",
   heroBtnPrimaryUrl: "/contact", heroBtnSecondaryUrl: "/products",
