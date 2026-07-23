@@ -1,21 +1,21 @@
 import type { Product } from "@/lib/types";
 
 const DEFAULT_FEATURES = [
+  { icon: "🏭", title: "Factory Direct", desc: "No middlemen — you work directly with our ISO-certified manufacturing facility." },
+  { icon: "📐", title: "OEM & ODM", desc: "Custom manufacturing based on your drawings, samples, or concepts." },
+  { icon: "🔧", title: "Engineering Support", desc: "Our engineers review every design for manufacturability and optimization." },
+  { icon: "🔍", title: "Quality Inspection", desc: "Multi-stage QC from incoming materials to final pre-shipment inspection." },
+  { icon: "⚡", title: "Fast Quotation", desc: "Receive a detailed quote within 24 hours — no minimum order required." },
+  { icon: "🌍", title: "Worldwide Shipping", desc: "Reliable international logistics with full tracking and insurance options." },
   { icon: "✅", title: "Premium Materials", desc: "High-grade cast or extruded acrylic with superior clarity and durability." },
-  { icon: "📐", title: "Custom Dimensions", desc: "Made to your exact size requirements — width, height, and thickness." },
-  { icon: "🏭", title: "OEM & ODM Service", desc: "Full custom manufacturing based on your drawings, samples, or ideas." },
-  { icon: "🎨", title: "Multiple Finishes", desc: "Diamond polished, flame polished, frosted, colored, or mirrored surfaces." },
-  { icon: "🖨️", title: "Logo & Branding", desc: "UV printing, laser engraving, silk-screen, or dimensional lettering." },
   { icon: "📦", title: "Export Packaging", desc: "Individual polybags, foam inserts, branded boxes, or wooden crates." },
-  { icon: "⚡", title: "Fast Turnaround", desc: "Efficient production with standard lead times of 10–18 business days." },
-  { icon: "🌍", title: "Global Shipping", desc: "Reliable international logistics with full tracking and insurance options." },
 ];
 
 export default function ProductFeatures({ product }: { product: Product }) {
   return (
     <section className="mt-16" aria-labelledby="features-heading">
-      <h2 id="features-heading" className="text-2xl font-bold text-[#0F2744] mb-2">Product Features</h2>
-      <p className="text-gray-500 text-sm mb-6">What makes our {product.name.toLowerCase()} the right choice for your business.</p>
+      <h2 id="features-heading" className="text-2xl font-bold text-[#0F2744] mb-2">Why Choose Max Custom Acrylics</h2>
+      <p className="text-gray-500 text-sm mb-6">Factory direct, engineering support, and worldwide shipping — here's why businesses choose us for custom acrylic manufacturing.</p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {DEFAULT_FEATURES.map((f) => (
           <div key={f.title} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">

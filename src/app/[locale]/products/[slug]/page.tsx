@@ -60,7 +60,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   const p = await getProductBySlug(slug);
   if (!p) return {};
-  return { title: `${p.name} | Max Custom Acrylics`, description: p.description, openGraph: { type: "website", title: `${p.name} | Max Custom Acrylics`, description: p.description, images: p.images.length > 0 ? [getImgUrl(p.images[0])] : [] } };
+  return {
+    title: `${p.name} | Max Custom Acrylics`,
+    description: p.description,
+    openGraph: { type: "website", title: `${p.name} | Max Custom Acrylics`, description: p.description, images: p.images.length > 0 ? [getImgUrl(p.images[0])] : [] },
+    twitter: { card: "summary_large_image", title: `${p.name} | Max Custom Acrylics`, description: p.description, images: p.images.length > 0 ? [getImgUrl(p.images[0])] : [] },
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
