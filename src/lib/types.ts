@@ -9,6 +9,15 @@ export type ProductCategory =
   | "acrylic-trophies"
   | "custom-acrylic";
 
+export type ProductImageType = "gallery" | "detail" | "manufacturing" | "application" | "packaging";
+
+export type ProductImage = {
+  src: string;
+  alt: string;
+  title?: string;
+  type: ProductImageType;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -17,7 +26,7 @@ export type Product = {
   longDescription: string;
   specs: { label: string; value: string }[];
   applications: string[];
-  images: string[];
+  images: (string | ProductImage)[];   // string = legacy format, ProductImage = new structured format
   featured: boolean;
   sort: number;
 };

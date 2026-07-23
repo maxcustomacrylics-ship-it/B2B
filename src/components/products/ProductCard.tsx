@@ -21,7 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="aspect-square bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center relative">
         {!imgError ? (
           <Image
-            src={product.images[0] ?? ""}
+            src={typeof product.images[0] === "string" ? product.images[0] : (product.images[0] as any)?.src ?? ""}
             alt={product.name}
             fill
             className="object-cover"

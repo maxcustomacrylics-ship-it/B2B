@@ -35,7 +35,7 @@ export default function AdminEditProductPage() {
     category: "acrylic-displays",
     description: "",
     longDescription: "",
-    images: [] as string[],
+    images: [] as (string | { src: string; alt: string; title?: string; type: string })[],
     specs: [] as { label: string; value: string }[],
     featured: false,
   });
@@ -70,7 +70,7 @@ export default function AdminEditProductPage() {
     }
   }
 
-  function updateField(field: string, value: string | boolean | string[]) {
+  function updateField(field: string, value: string | boolean | any[]) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -154,7 +154,7 @@ export default function AdminEditProductPage() {
               <label className="block text-sm font-medium text-gray-700">Product Images (1–4)</label>
               <div className="flex gap-2">
                 {form.images.length < 4 && (
-                  <button type="button" onClick={() => updateField("images", [...form.images, ""])} className="text-xs text-blue-600 hover:underline">+ Add Image</button>
+                  <button type="button" onClick={() => updateField("images", [...form.images, ""] as any)} className="text-xs text-blue-600 hover:underline">+ Add Image</button>
                 )}
                 {form.images.length > 1 && (
                   <button type="button" onClick={() => updateField("images", form.images.slice(0, -1))} className="text-xs text-red-500 hover:underline">− Remove Last</button>
@@ -162,18 +162,25 @@ export default function AdminEditProductPage() {
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {form.images.map((_, i) => (
-                <SettingsImageField
-                  key={i}
-                  label={`Image ${i + 1}`}
-                  value={form.images[i] || ""}
-                  onChange={(url) => {
-                    const imgs = [...form.images];
-                    imgs[i] = url;
-                    updateField("images", imgs.filter(Boolean) as any);
-                  }}
-                />
-              ))}
+              {form.images.map((img, i) => {
+                const src = typeof img === "string" ? img : (img as any).src || "";
+                return (
+                  <SettingsImageField
+                    key={i}
+                    label={`Image ${i + 1}`}
+                    value={src}
+                    onChange={(url) => {
+                      const imgs = [...form.images] as any[];
+                      if (typeof imgs[i] === "string") {
+                        imgs[i] = url;
+                      } else {
+                        imgs[i] = { ...imgs[i], src: url };
+                      }
+                      updateField("images", imgs.filter((x: any) => typeof x === "string" ? x : x?.src));
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
 

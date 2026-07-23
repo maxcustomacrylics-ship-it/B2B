@@ -7,8 +7,17 @@ import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 import { getProductBySlug, getProducts, getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
+import type { ProductImage, ProductImageType } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
+
+const SECTION_LABELS: Record<ProductImageType, string> = {
+  gallery: "Product Details",
+  detail: "Product Details",
+  manufacturing: "How We Manufacture Your Acrylic Display",
+  application: "Applications",
+  packaging: "Safe Packaging & Global Shipping",
+};
 
 const customizationOptions = [
   { icon: "🎨", title: "Material", desc: "Cast and extruded acrylic in various grades." },
@@ -88,7 +97,7 @@ export default async function ProductPage({ params }: Props) {
               {products.map((p, i) => (
                 <Link key={p.slug} href={`/products/${p.slug}`} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
                   <div className={`aspect-[4/3] flex items-center justify-center overflow-hidden ${["bg-gradient-to-br from-blue-50 to-blue-200/50","bg-gradient-to-br from-sky-50 to-sky-200/50","bg-gradient-to-br from-indigo-50 to-indigo-200/50","bg-gradient-to-br from-emerald-50 to-emerald-200/50"][i % 4]}`}>
-                    {p.images?.[0] ? <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
+                    {p.images?.[0] ? <img src={typeof p.images[0] === "string" ? p.images[0] : (p.images[0] as ProductImage).src} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <svg className="w-10 h-10 text-gray-400/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>}
                   </div>
                   <div className="p-4"><h3 className="text-sm font-semibold text-[#0F2744] group-hover:text-blue-700 transition-colors">{p.name}</h3><span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#0F2744] group-hover:text-blue-700 transition-colors">View Details<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
                 </Link>
@@ -178,43 +187,130 @@ export default async function ProductPage({ params }: Props) {
         <h1 className="mt-4 text-3xl font-bold text-[#0F2744] sm:text-4xl">{product.name}</h1>
         <p className="mt-2 text-sm text-gray-500 max-w-2xl">{product.description}</p>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-2">
-          {/* Left: Gallery */}
-          <div>
-            <div className={`grid gap-3 ${(product.images || []).filter(Boolean).length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
-              {(product.images || []).filter(Boolean).length > 0 ? (
-                (product.images || []).filter(Boolean).map((img, i) => (
-                  <div key={i} className={`${(product.images || []).filter(Boolean).length === 1 ? "aspect-[16/9]" : i === 0 && (product.images || []).filter(Boolean).length === 3 ? "col-span-2 aspect-[16/9]" : "aspect-square"} rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden`}>
-                    <img src={img} alt={`${product.name} — image ${i + 1}`} className="w-full h-full object-cover" />
-                  </div>
-                ))
-              ) : (
-                ["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50"].map((c, i) => (
-                  <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
-                ))
-              )}
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
-              {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
-                <span key={h.label} className="flex items-center gap-1.5"><span>{h.icon}</span>{h.label}</span>
-              ))}
-            </div>
-          </div>
+        {/* ── Product Main Gallery ── */}
+        {(() => {
+          const isNewFormat = product.images.length > 0 && typeof product.images[0] === "object" && "src" in (product.images[0] as any);
+          const galleryImages = isNewFormat
+            ? (product.images as ProductImage[]).filter((i) => i.type === "gallery")
+            : [];
 
-          {/* Right: Quick Specifications */}
-          <div>
-            <h2 className="text-lg font-semibold text-[#0F2744] mb-4">Quick Specifications</h2>
-            <div className="divide-y divide-gray-200 border-y border-gray-200">
-              {product.specs.map((s) => (
-                <div key={s.label} className="flex justify-between py-3 text-sm"><span className="text-gray-500">{s.label}</span><span className="font-medium text-[#0F2744]">{s.value}</span></div>
-              ))}
+          // Old format: render simple grid
+          if (!isNewFormat) {
+            const imgs = product.images as string[];
+            return (
+              <div className="mt-8 grid gap-8 lg:grid-cols-2">
+                <div>
+                  <div className={`grid gap-3 ${imgs.filter(Boolean).length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
+                    {imgs.filter(Boolean).length > 0 ? (
+                      imgs.filter(Boolean).map((img, i) => (
+                        <div key={i} className={`${imgs.filter(Boolean).length === 1 ? "aspect-[16/9]" : i === 0 && imgs.filter(Boolean).length === 3 ? "col-span-2 aspect-[16/9]" : "aspect-square"} rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden`}>
+                          <img src={img} alt={`${product.name} — image ${i + 1}`} className="w-full h-full object-cover" />
+                        </div>
+                      ))
+                    ) : (
+                      ["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50"].map((c, i) => (
+                        <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
+                      ))
+                    )}
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
+                    {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
+                      <span key={h.label} className="flex items-center gap-1.5"><span>{h.icon}</span>{h.label}</span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-[#0F2744] mb-4">Quick Specifications</h2>
+                  <div className="divide-y divide-gray-200 border-y border-gray-200">
+                    {product.specs.map((s) => (
+                      <div key={s.label} className="flex justify-between py-3 text-sm"><span className="text-gray-500">{s.label}</span><span className="font-medium text-[#0F2744]">{s.value}</span></div>
+                    ))}
+                  </div>
+                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                    <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+                    <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          // New format: render gallery + specs side by side
+          return (
+            <div className="mt-8 grid gap-8 lg:grid-cols-2">
+              <div>
+                {galleryImages.length > 0 ? (
+                  <>
+                    {/* Main large image */}
+                    <div className="aspect-[16/9] rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden">
+                      <img src={galleryImages[0].src} alt={galleryImages[0].alt || product.name} title={galleryImages[0].title || ""} className="w-full h-full object-cover" />
+                    </div>
+                    {/* Thumbnails */}
+                    {galleryImages.length > 1 && (
+                      <div className="mt-3 grid grid-cols-4 gap-2">
+                        {galleryImages.map((img, i) => (
+                          <button key={i} className={`aspect-square rounded-lg border-2 overflow-hidden ${i === 0 ? "border-primary-500" : "border-gray-200"} bg-gradient-to-br from-blue-50 to-blue-200/50`}>
+                            <img src={img.src} alt={img.alt || `${product.name} thumbnail ${i + 1}`} title={img.title || ""} className="w-full h-full object-cover" loading="lazy" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="aspect-[16/9] rounded-xl bg-gradient-to-br from-blue-100 to-blue-200/50" />
+                )}
+                <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
+                  {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
+                    <span key={h.label} className="flex items-center gap-1.5"><span>{h.icon}</span>{h.label}</span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-[#0F2744] mb-4">Quick Specifications</h2>
+                <div className="divide-y divide-gray-200 border-y border-gray-200">
+                  {product.specs.map((s) => (
+                    <div key={s.label} className="flex justify-between py-3 text-sm"><span className="text-gray-500">{s.label}</span><span className="font-medium text-[#0F2744]">{s.value}</span></div>
+                  ))}
+                </div>
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+                  <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
+                </div>
+              </div>
             </div>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
-            </div>
-          </div>
-        </div>
+          );
+        })()}
+
+        {/* ── New format: additional image sections ── */}
+        {(() => {
+          const isNewFormat = product.images.length > 0 && typeof product.images[0] === "object" && "src" in (product.images[0] as any);
+          if (!isNewFormat) return null;
+          const allImages = product.images as ProductImage[];
+          const sectionTypes: ProductImageType[] = ["detail", "manufacturing", "application", "packaging"];
+
+          return sectionTypes.map((type) => {
+            const sectionImages = allImages.filter((i) => i.type === type && i.src);
+            if (sectionImages.length === 0) return null;
+            return (
+              <section key={type} className="mt-16">
+                <h2 className="text-2xl font-bold text-[#0F2744] mb-6">{SECTION_LABELS[type]}</h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {sectionImages.map((img, i) => (
+                    <div key={i} className="rounded-xl border border-gray-200 overflow-hidden bg-white shadow-sm">
+                      <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-200/50">
+                        <img src={img.src} alt={img.alt} title={img.title || img.alt} loading="lazy" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="p-3">
+                        {img.title && <p className="text-sm font-medium text-[#0F2744]">{img.title}</p>}
+                        <p className="text-xs text-gray-500 mt-0.5">{img.alt}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            );
+          });
+        })()}
       </Container>
     </>
   );
