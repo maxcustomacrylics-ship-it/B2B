@@ -25,12 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 antialiased">
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-NTS5E1FSF5" strategy="afterInteractive" />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-L3EWMCRBGS" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-NTS5E1FSF5');`}
+          gtag('config', 'G-L3EWMCRBGS');`}
         </Script>
         {children}
       </body>
