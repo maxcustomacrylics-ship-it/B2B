@@ -234,7 +234,7 @@ export default async function ProductPage({ params }: Props) {
         <ProductExtraImages images={allImages as ProductImage[]} productName={product.name} />
         <ProductFeatures product={product} settings={await getSettings()} />
         <ProductSpecsTable specs={product.specs} />
-        <ProductCustomization product={product} />
+        <ProductCustomization product={product} settings={await getSettings()} />
         <ProductManufacturing />
         <ProductFAQ product={product} />
         <ProductRelated current={product} allProducts={allProducts} />
