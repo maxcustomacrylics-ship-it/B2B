@@ -178,6 +178,11 @@ export default async function ProductPage({ params }: Props) {
 
   const allProducts = await getProducts();
   const allImages = product.images as (string | ProductImage)[];
+  // Gallery images: old format = all images; new format = only type "gallery"
+  const isNewFormat = allImages.length > 0 && typeof allImages[0] === "object" && "type" in allImages[0];
+  const galleryImages = isNewFormat
+    ? (allImages as ProductImage[]).filter(i => i.type === "gallery")
+    : allImages;
   const bcSchema = generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }, { name: product.name, url: `${SITE_URL}/products/${product.slug}` }]);
 
   return (
@@ -193,10 +198,10 @@ export default async function ProductPage({ params }: Props) {
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {/* Left: Gallery */}
           <div>
-            <div className={`grid gap-3 ${allImages.filter(i => getImgUrl(i)).length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
-              {allImages.filter(i => getImgUrl(i)).length > 0 ? (
-                allImages.filter(i => getImgUrl(i)).map((img, i) => (
-                  <div key={i} className={`${allImages.filter(x => getImgUrl(x)).length === 1 ? "aspect-[16/9]" : i === 0 && allImages.filter(x => getImgUrl(x)).length === 3 ? "col-span-2 aspect-[16/9]" : "aspect-square"} rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden`}>
+            <div className={`grid gap-3 ${galleryImages.filter(i => getImgUrl(i)).length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
+              {galleryImages.filter(i => getImgUrl(i)).length > 0 ? (
+                galleryImages.filter(i => getImgUrl(i)).map((img, i) => (
+                  <div key={i} className={`${galleryImages.filter(x => getImgUrl(x)).length === 1 ? "aspect-[16/9]" : i === 0 && galleryImages.filter(x => getImgUrl(x)).length === 3 ? "col-span-2 aspect-[16/9]" : "aspect-square"} rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden`}>
                     <img src={getImgUrl(img)} alt={getImgAlt(img, `${product.name} — image ${i + 1}`)} title={typeof img === "object" ? img.title || "" : ""} className="w-full h-full object-cover" />
                   </div>
                 ))
