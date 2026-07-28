@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { showToast } from "@/components/admin/Toast";
 import SettingsImageField from "@/components/admin/SettingsImageField";
+import ImageUrlField from "@/components/admin/ImageUrlField";
 import { Save, Globe, Image, Type } from "lucide-react";
 
 type MaterialItem = { name: string; rating: string; badge: string; bestFor: string; desc: string; img: string };
@@ -133,8 +134,8 @@ export default function AdminSettingsPage() {
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Image</h2><SettingsImageField label="Hero" value={form.heroImg || ""} onChange={(v) => update("heroImg", v)} /></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us (4)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Fully Customized", "Premium Materials", "OEM & ODM", "Worldwide Delivery"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`whyImg${i + 1}`] || ""} onChange={(v) => update(`whyImg${i + 1}`, v)} />))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (7)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{["Materials", "Laser Cutting", "CNC Machining", "Diamond Polishing", "UV Printing", "Assembly & Packaging", "Quality Control"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`capImg${i + 1}`] || ""} onChange={(v) => update(`capImg${i + 1}`, v)} />))}</div></div>
-          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us — Product Page (8)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Factory Direct","OEM & ODM","Engineering Support","Quality Inspection","Fast Quotation","Worldwide Shipping","Premium Materials","Export Packaging"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`whyChooseImg${i + 1}`] || ""} onChange={(v) => update(`whyChooseImg${i + 1}`, v)} />))}</div></div>
-          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Customization Options — Product Page (8)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Size","Shape","Color","Logo","Structure","Finish","Lighting","Accessories"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`customImg${i + 1}`] || ""} onChange={(v) => update(`customImg${i + 1}`, v)} />))}</div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us — Product Page (8)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Factory Direct","OEM & ODM","Engineering Support","Quality Inspection","Fast Quotation","Worldwide Shipping","Premium Materials","Export Packaging"].map((l, i) => (<ImageUrlField key={i} label={l} value={form[`whyChooseImg${i + 1}`] || ""} onChange={(v) => update(`whyChooseImg${i + 1}`, v)} />))}</div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Customization Options — Product Page (8)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Size","Shape","Color","Logo","Structure","Finish","Lighting","Accessories"].map((l, i) => (<ImageUrlField key={i} label={l} value={form[`customImg${i + 1}`] || ""} onChange={(v) => update(`customImg${i + 1}`, v)} />))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories (9)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{[
             { label: "Precision Instruments", key: "catImg7" },
             { label: "Acrylic Displays", key: "catImg2" },
