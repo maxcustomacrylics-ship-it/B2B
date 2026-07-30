@@ -5,7 +5,7 @@ import { getSupabase, hasSupabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/svg+xml"];
+const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/avif", "image/svg+xml"];
 const MAX_SIZE = 5 * 1024 * 1024;
 
 export async function POST(request: Request) {

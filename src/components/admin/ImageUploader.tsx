@@ -12,6 +12,7 @@ type Props = {
 
 export default function ImageUploader({ images, onChange, multiple = true, label = "Images" }: Props) {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -19,6 +20,7 @@ export default function ImageUploader({ images, onChange, multiple = true, label
     if (!files || files.length === 0) return;
 
     setUploading(true);
+    setError("");
     const uploadedUrls: string[] = [];
 
     for (const file of Array.from(files)) {
@@ -33,24 +35,29 @@ export default function ImageUploader({ images, onChange, multiple = true, label
 
         if (res.ok) {
           const data = await res.json();
-          uploadedUrls.push(data.url);
+          if (data.url) {
+            uploadedUrls.push(data.url);
+          } else {
+            setError("Server returned empty URL — storage may be unavailable");
+          }
         } else {
-          const err = await res.json();
-          console.error("Upload failed:", err.error || res.statusText);
+          const err = await res.json().catch(() => ({}));
+          setError(err.error || `Upload failed (HTTP ${res.status})`);
         }
-      } catch (err) {
-        console.error("Upload error:", err);
+      } catch (err: any) {
+        setError(err.message || "Network error — please try again");
       }
     }
 
-    if (multiple) {
-      onChange([...images, ...uploadedUrls]);
-    } else {
-      onChange(uploadedUrls.length > 0 ? [uploadedUrls[0]] : images);
+    if (uploadedUrls.length > 0) {
+      if (multiple) {
+        onChange([...images, ...uploadedUrls]);
+      } else {
+        onChange([uploadedUrls[0]]);
+      }
     }
 
     setUploading(false);
-    // Reset input so same file can be re-uploaded
     if (inputRef.current) inputRef.current.value = "";
   }
 
@@ -127,6 +134,7 @@ export default function ImageUploader({ images, onChange, multiple = true, label
           <span className="ml-2 text-xs text-gray-400">Upload a new image to replace</span>
         )}
       </div>
+      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
     </div>
   );
 }
