@@ -14,6 +14,27 @@ export default function SettingsImageField({ label, value, onChange }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
 
+  async function resizeIfNeeded(file: File): Promise<Blob> {
+    const MAX = 2000;
+    if (!file.type.startsWith("image/") || file.type.includes("svg")) return file;
+    if (file.size < 1 * 1024 * 1024) return file;
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w <= MAX && h <= MAX) { resolve(file); return; }
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else { w = Math.round(w * MAX / h); h = MAX; }
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d")!.drawImage(img, 0, 0, w, h);
+        canvas.toBlob((blob) => resolve(blob || file), "image/jpeg", 0.8);
+      };
+      img.onerror = () => resolve(file);
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -21,8 +42,9 @@ export default function SettingsImageField({ label, value, onChange }: Props) {
     setUploading(true);
     setError("");
 
+    const blob = await resizeIfNeeded(file);
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", blob, file.name);
 
     try {
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });

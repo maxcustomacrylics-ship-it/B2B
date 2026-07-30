@@ -15,6 +15,33 @@ export default function ImageUploader({ images, onChange, multiple = true, label
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Resize image on client side to stay under Vercel body size limit
+  async function resizeIfNeeded(file: File): Promise<Blob> {
+    const MAX = 2000; // max width/height in px
+    if (!file.type.startsWith("image/") || file.type.includes("svg")) return file;
+    if (file.size < 1 * 1024 * 1024) return file; // under 1MB, skip resize
+
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w <= MAX && h <= MAX) { resolve(file); return; }
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else { w = Math.round(w * MAX / h); h = MAX; }
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0, w, h);
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+          else resolve(file); // fallback
+        }, "image/jpeg", 0.8);
+      };
+      img.onerror = () => resolve(file);
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -25,8 +52,9 @@ export default function ImageUploader({ images, onChange, multiple = true, label
 
     for (const file of Array.from(files)) {
       try {
+        const blob = await resizeIfNeeded(file);
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file", blob, file.name);
 
         const res = await fetch("/api/admin/upload", {
           method: "POST",
