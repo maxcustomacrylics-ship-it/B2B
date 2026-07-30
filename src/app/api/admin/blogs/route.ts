@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     date: body.date || new Date().toISOString().split("T")[0],
     author: body.author || "Admin",
     images: body.images || [],
+    faq: body.faq || [],
   };
 
   posts.unshift(newPost);

@@ -216,6 +216,33 @@ export default async function BlogPostPage({ params }: Props) {
 
         </article>
 
+        {/* FAQ Section */}
+        {post.faq && post.faq.length > 0 && (
+          <section className="mt-12 max-w-3xl mx-auto" aria-labelledby="faq-heading">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": post.faq.map(f => ({
+                "@type": "Question",
+                "name": f.question,
+                "acceptedAnswer": { "@type": "Answer", "text": f.answer },
+              })),
+            }) }} />
+            <h2 id="faq-heading" className="text-2xl font-bold text-[#0F2744] mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-3">
+              {post.faq.map((item, i) => (
+                <details key={i} className="group rounded-xl border border-gray-200 bg-white" open={i === 0}>
+                  <summary className="px-5 py-4 cursor-pointer text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors flex items-center justify-between [&::-webkit-details-marker]:hidden">
+                    {item.question}
+                    <span className="text-gray-300 group-open:rotate-45 transition-transform text-lg shrink-0 ml-3">+</span>
+                  </summary>
+                  <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed">{item.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* CTA */}
         <div className="mt-16 rounded-xl bg-[#0F2744] p-8 text-center text-white max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold">Need a Custom Acrylic Solution?</h2>

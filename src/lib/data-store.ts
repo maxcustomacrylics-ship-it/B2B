@@ -82,20 +82,32 @@ function snakeToCamel(record: Record<string, unknown>): Record<string, unknown> 
   return out;
 }
 
-/** Convert single image field (string or JSON array string) to images array — for blog posts only */
+/** Convert image column (old JSON array or new JSON object) to images + faq — for blog posts only */
 function blogImageToArray(record: Record<string, unknown>): Record<string, unknown> {
   if ("image" in record) {
     const raw = record.image;
     delete record.image;
-    if (typeof raw === "string" && raw.trim().startsWith("[")) {
+    if (typeof raw === "string" && raw.trim().startsWith("{")) {
+      // New format: {"i":[...],"f":[...]}
+      try {
+        const parsed = JSON.parse(raw as string);
+        (record as any).images = Array.isArray(parsed.i) ? parsed.i : [];
+        (record as any).faq = Array.isArray(parsed.f) ? parsed.f : [];
+      } catch { (record as any).images = []; (record as any).faq = []; }
+    } else if (typeof raw === "string" && raw.trim().startsWith("[")) {
+      // Old format: JSON array of image URLs
       try { (record as any).images = JSON.parse(raw as string); } catch { (record as any).images = raw ? [raw as string] : []; }
+      (record as any).faq = [];
     } else if (typeof raw === "string" && raw.trim()) {
       (record as any).images = [raw as string];
+      (record as any).faq = [];
     } else {
       (record as any).images = [];
+      (record as any).faq = [];
     }
   }
   if (!(record as any).images) (record as any).images = [];
+  if (!(record as any).faq) (record as any).faq = [];
   return record;
 }
 
@@ -110,18 +122,20 @@ function camelToSnake(record: Record<string, unknown>): Record<string, unknown> 
   return out;
 }
 
-/** Convert images array to image JSON string — for blog posts only (Supabase uses text column) */
+/** Convert images + faq to image JSON — for blog posts only (Supabase uses text column) */
 function blogImagesToSnake(record: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
+  let images: unknown = [];
+  let faq: unknown = [];
   for (const [k, v] of Object.entries(record)) {
     if (k === "createdAt" || k === "updatedAt" || k === "sort") continue;
-    if (k === "images") {
-      out.image = JSON.stringify(v);
-      continue;
-    }
+    if (k === "images") { images = v; continue; }
+    if (k === "faq") { faq = v; continue; }
     const snake = k.replace(/[A-Z]/g, (c) => `_${c.toLowerCase()}`);
     out[snake] = v;
   }
+  // Encode images + faq into single image column as {"i":[...],"f":[...]}
+  out.image = JSON.stringify({ i: images, f: faq });
   return out;
 }
 

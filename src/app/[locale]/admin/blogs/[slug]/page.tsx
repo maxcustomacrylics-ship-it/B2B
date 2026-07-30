@@ -25,6 +25,7 @@ export default function AdminEditBlogPage() {
     excerpt: "",
     content: "",
     images: [] as string[],
+    faq: [] as { question: string; answer: string }[],
   });
 
   useEffect(() => {
@@ -47,6 +48,7 @@ export default function AdminEditBlogPage() {
         excerpt: data.excerpt || "",
         content: data.content || "",
         images: data.images || [],
+        faq: data.faq || [],
       });
     } catch {
       showToast("Failed to load blog post", "error");
@@ -56,7 +58,7 @@ export default function AdminEditBlogPage() {
     }
   }
 
-  function updateField(field: string, value: string | string[]) {
+  function updateField(field: string, value: string | string[] | any) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -202,7 +204,39 @@ export default function AdminEditBlogPage() {
               required
             />
             <p className="mt-1 text-xs text-gray-400">Markdown: # / ## / ### for headings, **bold**, [text](url) for links</p>
-            <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm space-y-3">
+          </FormField>
+
+          {/* FAQ Editor */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-sm font-medium text-gray-700">FAQ (optional)</label>
+              <button type="button" onClick={() => updateField("faq", [...form.faq, { question: "", answer: "" }])} className="text-xs text-blue-600 hover:underline">+ Add FAQ</button>
+            </div>
+            {form.faq.length === 0 ? (
+              <p className="text-xs text-gray-400">No FAQs added yet. Click &quot;+ Add FAQ&quot; to start.</p>
+            ) : (
+              <div className="space-y-3">
+                {form.faq.map((item: any, i: number) => (
+                  <div key={i} className="rounded-lg border border-gray-200 bg-gray-50/50 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-medium text-gray-500">FAQ #{i + 1}</span>
+                      <div className="flex gap-2">
+                        {i > 0 && <button type="button" onClick={() => { const f = [...form.faq]; [f[i], f[i-1]] = [f[i-1], f[i]]; updateField("faq", f as any); }} className="text-xs text-gray-500 hover:underline" title="Move up">↑</button>}
+                        {i < form.faq.length - 1 && <button type="button" onClick={() => { const f = [...form.faq]; [f[i], f[i+1]] = [f[i+1], f[i]]; updateField("faq", f as any); }} className="text-xs text-gray-500 hover:underline" title="Move down">↓</button>}
+                        <button type="button" onClick={() => updateField("faq", form.faq.filter((_: any, j: number) => j !== i) as any)} className="text-xs text-red-500 hover:underline">× Remove</button>
+                      </div>
+                    </div>
+                    <input type="text" value={item.question} onChange={(e) => { const f = [...form.faq]; f[i].question = e.target.value; updateField("faq", f as any); }}
+                      className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 mb-2" placeholder="Question" />
+                    <textarea value={item.answer} onChange={(e) => { const f = [...form.faq]; f[i].answer = e.target.value; updateField("faq", f as any); }}
+                      rows={3} className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900" placeholder="Answer" />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-4 text-sm space-y-3">
               <div>
                 <p className="font-semibold text-amber-900">📷 How to insert images:</p>
                 <ol className="list-decimal pl-5 space-y-1 text-amber-800 mt-1">
@@ -236,7 +270,6 @@ export default function AdminEditBlogPage() {
                 </ul>
               </div>
             </div>
-          </FormField>
         </div>
 
         <div className="mt-6 flex items-center gap-3">

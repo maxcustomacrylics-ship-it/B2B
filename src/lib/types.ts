@@ -95,7 +95,8 @@ export type BlogPost = {
   category: string;
   author: string;
   date: string;
-  images: string[];   // multiple images: [0]=cover, rest=body images for {{image:N}} markers
+  images: string[];
+  faq: { question: string; answer: string }[];
 };
 
 export type Testimonial = {

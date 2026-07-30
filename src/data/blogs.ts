@@ -41,6 +41,7 @@ As retail continues to evolve toward experience-driven shopping, the materials u
     author: "Michael Chen",
     date: "2026-05-15",
     images: ["/images/blog/retail-displays.jpg"],
+    faq: [],
   },
   {
     slug: "choosing-the-right-acrylic-thickness",
@@ -96,6 +97,7 @@ When in doubt, always consult with your acrylic supplier's engineering team. The
     author: "Sarah Zhang",
     date: "2026-05-10",
     images: ["/images/blog/thickness-guide.jpg"],
+    faq: [],
   },
   {
     slug: "cast-vs-extruded-acrylic",
@@ -152,6 +154,7 @@ For most premium B2B applications, we recommend cast acrylic for its superior op
     author: "David Park",
     date: "2026-04-28",
     images: ["/images/blog/cast-vs-extruded.jpg"],
+    faq: [],
   },
   {
     slug: "acrylic-sustainability-recycling",
@@ -207,6 +210,7 @@ The acrylic industry is investing heavily in sustainability R&D, including bio-b
     author: "Emma Wilson",
     date: "2026-04-15",
     images: ["/images/blog/sustainability.jpg"],
+    faq: [],
   },
   {
     slug: "maximizing-roi-custom-acrylic-displays",
@@ -279,6 +283,7 @@ Custom acrylic displays should be viewed as a revenue-generating investment, not
     author: "James Liu",
     date: "2026-03-22",
     images: ["/images/blog/roi-guide.jpg"],
+    faq: [],
   },
 ];
 
