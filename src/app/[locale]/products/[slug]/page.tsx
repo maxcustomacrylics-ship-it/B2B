@@ -7,6 +7,7 @@ import SchemaOrg from "@/components/shared/SchemaOrg";
 import { generateBreadcrumbSchema } from "@/lib/schema";
 import { getProductBySlug, getProducts, getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
+import ProductGallery from "@/components/products/ProductGallery";
 import ProductSEOIntro from "@/components/products/ProductSEOIntro";
 
 import ProductFeatures from "@/components/products/ProductFeatures";
@@ -196,21 +197,15 @@ export default async function ProductPage({ params }: Props) {
 
         {/* ═══════ EXISTING GALLERY + SPECS — UNCHANGED ═══════ */}
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
-          {/* Left: Gallery */}
+          {/* Left: Scrollable Gallery */}
           <div>
-            <div className={`grid gap-3 ${galleryImages.filter(i => getImgUrl(i)).length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
-              {galleryImages.filter(i => getImgUrl(i)).length > 0 ? (
-                galleryImages.filter(i => getImgUrl(i)).map((img, i) => (
-                  <div key={i} className={`${galleryImages.filter(x => getImgUrl(x)).length === 1 ? "aspect-[16/9]" : i === 0 && galleryImages.filter(x => getImgUrl(x)).length === 3 ? "col-span-2 aspect-[16/9]" : "aspect-square"} rounded-xl bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden`}>
-                    <img src={getImgUrl(img)} alt={getImgAlt(img, `${product.name} — image ${i + 1}`)} title={typeof img === "object" ? img.title || "" : ""} className="w-full h-full object-cover" />
-                  </div>
-                ))
-              ) : (
-                ["from-blue-100 to-blue-200/50","from-sky-100 to-sky-200/50","from-indigo-100 to-indigo-200/50","from-emerald-100 to-emerald-200/50"].map((c, i) => (
-                  <div key={i} className={`aspect-square rounded-xl bg-gradient-to-br ${c}`} />
-                ))
-              )}
-            </div>
+            <ProductGallery images={
+              galleryImages.filter(i => getImgUrl(i)).map(img => ({
+                src: getImgUrl(img),
+                alt: getImgAlt(img, `${product.name}`),
+                title: typeof img === "object" && "title" in img ? (img as ProductImage).title : "",
+              }))
+            } />
             <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
               {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
                 <span key={h.label} className="flex items-center gap-1.5"><span>{h.icon}</span>{h.label}</span>
