@@ -24,14 +24,14 @@ export default function ProductGallery({ images }: { images: GalleryImage[] }) {
   }
 
   if (images.length === 0) {
-    return <div className="aspect-[16/9] rounded-xl bg-gradient-to-br from-blue-100 to-blue-200/50" />;
+    return <div className="aspect-square rounded-xl bg-gradient-to-br from-blue-100 to-blue-200/50" />;
   }
 
   return (
     <div>
       <div ref={scrollRef} className="flex overflow-x-auto snap-x snap-mandatory rounded-xl" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
         {images.map((img, i) => (
-          <div key={i} className="snap-center shrink-0 w-full aspect-[16/9] bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden">
+          <div key={i} className="snap-center shrink-0 w-full aspect-square bg-gradient-to-br from-blue-50 to-blue-200/50 overflow-hidden">
             <img src={img.src} alt={img.alt} title={img.title || ""} className="w-full h-full object-cover" />
           </div>
         ))}
