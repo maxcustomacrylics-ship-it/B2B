@@ -8,7 +8,7 @@ import { generateBreadcrumbSchema } from "@/lib/schema";
 import { getProductBySlug, getProducts, getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 import ProductSEOIntro from "@/components/products/ProductSEOIntro";
-import ProductExtraImages from "@/components/products/ProductExtraImages";
+
 import ProductFeatures from "@/components/products/ProductFeatures";
 import ProductSpecsTable from "@/components/products/ProductSpecsTable";
 import ProductCustomization from "@/components/products/ProductCustomization";
@@ -236,7 +236,6 @@ export default async function ProductPage({ params }: Props) {
 
         {/* ═══════ NEW SEO ENHANCEMENT SECTIONS ═══════ */}
         <ProductSEOIntro product={product} />
-        <ProductExtraImages images={allImages as ProductImage[]} productName={product.name} />
         <ProductFeatures product={product} settings={await getSettings()} />
         <ProductSpecsTable specs={product.specs} />
         <ProductCustomization product={product} settings={await getSettings()} />
