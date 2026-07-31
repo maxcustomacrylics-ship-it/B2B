@@ -231,9 +231,9 @@ export default async function ProductPage({ params }: Props) {
 
         {/* ═══════ NEW SEO ENHANCEMENT SECTIONS ═══════ */}
         <ProductSEOIntro product={product} />
-        <ProductFeatures product={product} settings={await getSettings()} />
         <ProductSpecsTable specs={product.specs} />
         <ProductCustomization product={product} settings={await getSettings()} />
+        <ProductFeatures product={product} settings={await getSettings()} />
         <ProductManufacturing />
         <ProductFAQ product={product} />
         <ProductRelated current={product} allProducts={allProducts} />
