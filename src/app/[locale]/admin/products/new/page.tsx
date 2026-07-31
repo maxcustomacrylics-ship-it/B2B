@@ -22,10 +22,6 @@ const CATEGORIES = [
 
 const IMAGE_SECTIONS: { type: ProductImageType; label: string; desc: string }[] = [
   { type: "gallery", label: "Product Gallery", desc: "Main product images — front, side, angle views" },
-  { type: "detail", label: "Product Details", desc: "Close-ups: edge polishing, thickness, logo, surface finish" },
-  { type: "manufacturing", label: "Manufacturing Process", desc: "Cutting, engraving, CNC, polishing, assembly, QC" },
-  { type: "application", label: "Applications", desc: "Real usage: retail counters, exhibitions, brand promotions" },
-  { type: "packaging", label: "Packaging & Shipping", desc: "Protective packaging, cartons, pallets, shipping prep" },
 ];
 
 function newImage(type: ProductImageType): { src: string; alt: string; title: string; type: ProductImageType } {

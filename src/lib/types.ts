@@ -9,7 +9,7 @@ export type ProductCategory =
   | "acrylic-trophies"
   | "custom-acrylic";
 
-export type ProductImageType = "gallery" | "detail" | "manufacturing" | "application" | "packaging";
+export type ProductImageType = "gallery";
 
 export type ProductImage = {
   src: string;
