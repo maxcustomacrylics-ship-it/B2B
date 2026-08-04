@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getProducts, saveProducts } from "@/lib/data-store";
 import { requireAdmin } from "@/lib/auth";
+import fs from "fs";
+import path from "path";
 
 export const dynamic = "force-dynamic";
 export async function GET(
@@ -40,7 +42,7 @@ export async function DELETE(
 
   const { slug } = await params;
 
-  // Remove from Supabase directly
+  // 1. Delete from Supabase directly
   const supabaseUrl = "https://xwchzipgujhughzngolj.supabase.co";
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Y2h6aXBndWpodWdoem5nb2xqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNTM5NDMsImV4cCI6MjA5NjcyOTk0M30.JSAINuIET8-j_e_c8oxXNxP-cLxp60q2fwiXgOcXBZQ";
   try {
@@ -50,9 +52,14 @@ export async function DELETE(
     });
   } catch (e) { console.error("[supabase] delete product failed:", e); }
 
-  // Remove from local JSON
+  // 2. Update local JSON without heavy Supabase sync
+  const DATA_DIR = process.env.VERCEL ? "/tmp/data" : path.join(process.cwd(), "src", "data");
   let products = await getProducts();
   products = products.filter((p) => p.slug !== slug);
-  await saveProducts(products);
+  try {
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(path.join(DATA_DIR, "products.json"), JSON.stringify(products, null, 2), "utf-8");
+  } catch {}
+
   return NextResponse.json({ success: true });
 }
