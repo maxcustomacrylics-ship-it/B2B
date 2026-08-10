@@ -7,6 +7,7 @@ export type ProductCategory =
   | "acrylic-precision-instruments"
   | "acrylic-furniture"
   | "acrylic-trophies"
+  | "acrylic-accessories"
   | "custom-acrylic";
 
 export type ProductImageType = "gallery";

@@ -48,6 +48,7 @@ const catMap: Record<string, { title: string; desc: string; oldCats: string[] }>
   "protective-products-2": { title: "Protective Products", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", oldCats: ["acrylic-awards-gifts"] },
   "acrylic-furniture": { title: "Acrylic Furniture", desc: "Modern acrylic furniture including tables, chairs, shelves and decorative pieces for residential and commercial spaces.", oldCats: ["acrylic-furniture"] },
   "acrylic-trophies": { title: "Acrylic Trophies", desc: "Custom acrylic trophies, plaques, and recognition awards for corporate events, competitions, and celebrations.", oldCats: ["acrylic-trophies"] },
+  "acrylic-accessories": { title: "Acrylic Accessories", desc: "Premium acrylic accessories including stands, holders, organizers, and decorative accents for retail and home.", oldCats: ["acrylic-accessories"] },
   "custom-acrylic-products": { title: "Custom Acrylic Products", desc: "From concept to finished product, we manufacture completely customized acrylic products based on your drawings and business requirements.", oldCats: ["custom-acrylic"] },
 };
 

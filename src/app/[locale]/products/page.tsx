@@ -23,6 +23,7 @@ const categories = [
   { title: "Protective Products", slug: "protective-products-2", desc: "Protective acrylic panels and safety products for commercial and industrial applications.", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
   { title: "Acrylic Furniture", slug: "acrylic-furniture", desc: "Modern acrylic furniture including tables, chairs, shelves and decorative pieces for residential and commercial spaces.", color: "from-teal-100 to-teal-200/60", imgKey: "catImg8" },
   { title: "Acrylic Trophies", slug: "acrylic-trophies", desc: "Custom acrylic trophies, plaques, and recognition awards for corporate events, competitions, and celebrations.", color: "from-yellow-100 to-yellow-200/60", imgKey: "catImg9" },
+  { title: "Acrylic Accessories", slug: "acrylic-accessories", desc: "Premium acrylic accessories including stands, holders, organizers, and decorative accents for retail and home.", color: "from-orange-100 to-orange-200/60", imgKey: "catImg10" },
   { title: "Custom Acrylic Products", slug: "custom-acrylic-products", desc: "Fully customized acrylic products designed according to your drawings, ideas and project requirements.", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
 ];
 

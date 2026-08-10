@@ -9,6 +9,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   "acrylic-awards-gifts": "Acrylic Protective Products",
   "acrylic-furniture": "Acrylic Furniture",
   "acrylic-trophies": "Acrylic Trophies",
+  "acrylic-accessories": "Acrylic Accessories",
   "custom-acrylic": "Custom Acrylic Products",
 };
 

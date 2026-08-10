@@ -18,6 +18,7 @@ const CATEGORIES = [
   { value: "acrylic-awards-gifts", label: "Protective Products" },
   { value: "acrylic-furniture", label: "Acrylic Furniture" },
   { value: "acrylic-trophies", label: "Acrylic Trophies" },
+  { value: "acrylic-accessories", label: "Acrylic Accessories" },
   { value: "custom-acrylic", label: "Custom Acrylic Products" },
 ];
 
