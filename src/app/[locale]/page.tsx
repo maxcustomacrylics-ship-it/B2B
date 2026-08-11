@@ -58,12 +58,16 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "Custom Acrylic Products", slug: "/products/custom-acrylic-products", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
+              { title: "Precision Instruments", slug: "/products/precision-instruments", color: "from-rose-100 to-rose-200/60", imgKey: "catImg7" },
               { title: "Acrylic Displays", slug: "/products/acrylic-displays-2", color: "from-sky-100 to-sky-200/60", imgKey: "catImg2" },
               { title: "Acrylic Boxes", slug: "/products/acrylic-boxes-2", color: "from-indigo-100 to-indigo-200/60", imgKey: "catImg3" },
               { title: "Acrylic Signs", slug: "/products/acrylic-signs-2", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },
               { title: "Acrylic Trays & Shelves", slug: "/products/acrylic-trays-shelves", color: "from-amber-100 to-amber-200/60", imgKey: "catImg5" },
               { title: "Protective Products", slug: "/products/protective-products-2", color: "from-purple-100 to-purple-200/60", imgKey: "catImg6" },
+              { title: "Acrylic Furniture", slug: "/products/acrylic-furniture", color: "from-teal-100 to-teal-200/60", imgKey: "catImg8" },
+              { title: "Acrylic Trophies", slug: "/products/acrylic-trophies", color: "from-yellow-100 to-yellow-200/60", imgKey: "catImg9" },
+              { title: "Acrylic Accessories", slug: "/products/acrylic-accessories", color: "from-orange-100 to-orange-200/60", imgKey: "catImg10" },
+              { title: "Custom Acrylic Products", slug: "/products/custom-acrylic-products", color: "from-blue-100 to-blue-200/60", imgKey: "catImg1" },
             ].map((cat) => (
               <Link key={cat.slug} href={cat.slug} className="group rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all">
                 <div className={`relative overflow-hidden bg-gradient-to-br ${cat.color}`} style={{ paddingBottom: "62.5%" }}>
