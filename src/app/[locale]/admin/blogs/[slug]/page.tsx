@@ -269,6 +269,15 @@ export default function AdminEditBlogPage() {
                   <li>Example paragraph: <code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">Check our [acrylic displays](/products/acrylic-displays-2) and [contact us](/contact) for a quote.</code></li>
                 </ul>
               </div>
+              {/* Tables */}
+              <div className="pt-2 border-t border-amber-200">
+                <p className="font-semibold text-amber-900">📊 How to add a table:</p>
+                <ul className="list-disc pl-5 space-y-1 text-amber-800 mt-1">
+                  <li>Each row on its own line, columns separated by <code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">|</code></li>
+                  <li>Second line <code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">|---|---|</code> marks the header row</li>
+                  <li>Example:<br /><code className="bg-amber-100 px-1 py-0.5 rounded text-xs font-mono">| Material | Thickness |<br />|---|---|<br />| Cast Acrylic | 5mm |<br />| Extruded Acrylic | 3mm |</code></li>
+                </ul>
+              </div>
             </div>
         </div>
 

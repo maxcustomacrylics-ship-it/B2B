@@ -133,7 +133,76 @@ export default async function BlogPostPage({ params }: Props) {
                 });
               }
 
-              return post.content.split("\n").map((line, i) => {
+              // Pre-group consecutive table rows into table blocks
+              const lines = post.content.split("\n");
+              const blocks: { type: "line" | "table"; data: string | string[] }[] = [];
+              for (let li = 0; li < lines.length; li++) {
+                const l = lines[li];
+                const isTableRow = /^\|.+\|/.test(l) && l.split("|").filter(Boolean).length >= 2;
+                if (isTableRow) {
+                  const group: string[] = [];
+                  while (li < lines.length && /^\|.+\|/.test(lines[li])) {
+                    group.push(lines[li]);
+                    li++;
+                  }
+                  li--;
+                  blocks.push({ type: "table", data: group });
+                } else {
+                  blocks.push({ type: "line", data: l });
+                }
+              }
+
+              return blocks.map((block, bi) => {
+                // ── Table block: multi-column markdown table ──
+                if (block.type === "table") {
+                  const rows = (block.data as string[]).map(r =>
+                    r.split("|").slice(1, -1).map(c => c.trim())
+                  );
+                  const separatorIdx = rows.findIndex(r => r.every(c => /^:?-{2,}:?$/.test(c)));
+                  const header = separatorIdx > 0 ? rows[0] : null;
+                  const body = separatorIdx > 0 ? rows.slice(separatorIdx + 1) : rows;
+                  if (!header) {
+                    // No header — render as simple key-value rows (legacy 2-col)
+                    return rows.map((r, j) => {
+                      if (r.length < 2) return null;
+                      return (
+                        <div key={`t-${bi}-${j}`} className="flex justify-between py-1.5 text-sm border-b border-border">
+                          <span className="text-muted">{renderInline(r[0], `t1-${bi}-${j}`)}</span>
+                          <span className="font-medium text-foreground">{renderInline(r.slice(1).join(" "), `t2-${bi}-${j}`)}</span>
+                        </div>
+                      );
+                    });
+                  }
+                  return (
+                    <div key={`tbl-${bi}`} className="my-6 overflow-x-auto">
+                      <table className="w-full text-sm border-collapse">
+                        <thead>
+                          <tr className="bg-gray-50">
+                            {header.map((h, j) => (
+                              <th key={j} className="px-4 py-3 text-left font-semibold text-[#0F2744] border-b-2 border-gray-200">
+                                {renderInline(h, `th-${bi}-${j}`)}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {body.map((r, j) => (
+                            <tr key={j} className="hover:bg-gray-50/50">
+                              {r.map((c, k) => (
+                                <td key={k} className="px-4 py-3 text-gray-600 border-b border-gray-100">
+                                  {renderInline(c, `td-${bi}-${j}-${k}`)}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
+
+                const line = block.data as string;
+                const i = bi;
                 // ── Image markers: {{image:0}}, {{image:1}} etc. (supports : and ：) ──
                 const markerRe = /\{\{image[:：](\d+)\}\}/g;
                 const markers = [...line.matchAll(markerRe)];
@@ -206,18 +275,6 @@ export default async function BlogPostPage({ params }: Props) {
                       {renderInline(line.replace("- ", ""), `li-${i}`)}
                     </li>
                   );
-                }
-                if (line.startsWith("|")) {
-                  const cells = line.split("|").filter(Boolean).map((c) => c.trim());
-                  if (cells.length === 2) {
-                    return (
-                      <div key={i} className="flex justify-between py-1.5 text-sm border-b border-border">
-                        <span className="text-muted">{renderInline(cells[0], `t1-${i}`)}</span>
-                        <span className="font-medium text-foreground">{renderInline(cells[1], `t2-${i}`)}</span>
-                      </div>
-                    );
-                  }
-                  return null;
                 }
                 if (line.trim() === "") return <br key={i} />;
                 return (
