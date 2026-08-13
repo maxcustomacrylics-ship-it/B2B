@@ -185,6 +185,21 @@ export default async function BlogPostPage({ params }: Props) {
                     </h3>
                   );
                 }
+                // `* Title` → h2, `** Title` → h3 (asterisk heading style)
+                if (/^\*\s+/.test(line) && !/^\*\*/.test(line)) {
+                  return (
+                    <h2 key={i} className="text-2xl font-bold text-foreground mt-8 mb-4">
+                      {renderInline(line.replace(/^\*\s+/, ""), `h2-${i}`)}
+                    </h2>
+                  );
+                }
+                if (/^\*\*\s+/.test(line)) {
+                  return (
+                    <h3 key={i} className="text-xl font-semibold text-foreground mt-6 mb-3">
+                      {renderInline(line.replace(/^\*\*\s+/, ""), `h3-${i}`)}
+                    </h3>
+                  );
+                }
                 if (line.startsWith("- ")) {
                   return (
                     <li key={i} className="ml-4 text-muted leading-relaxed">

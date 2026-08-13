@@ -136,7 +136,7 @@ export default function AdminNewBlogPage() {
               placeholder="Write your blog post content here. Supports Markdown formatting."
               required
             />
-            <p className="mt-1 text-xs text-gray-400">Markdown: # / ## / ### for headings, **bold**, [text](url) for links</p>
+            <p className="mt-1 text-xs text-gray-400">Headings: # / ## / ### or * / **, **bold**, [text](url) for links</p>
           </FormField>
 
           {/* FAQ Editor */}
