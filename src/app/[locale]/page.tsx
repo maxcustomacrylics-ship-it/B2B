@@ -46,10 +46,44 @@ export default async function HomePage() {
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
             <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-transparent px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-colors">View Products<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
           </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            {["Low MOQ · From 1 Piece", "Prototype in 7 Days", "24h Quotation"].map((b) => (
+              <span key={b} className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-blue-200">
+                <svg className="h-3.5 w-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{b}
+              </span>
+            ))}
+          </div>
         </Container>
       </section>
 
-      {/* ========== 2. PRODUCT CATEGORIES ========== */}
+      {/* ========== 2. SMALL BATCH CUSTOM ========== */}
+      <section className="bg-white" aria-labelledby="smallbatch-heading">
+        <Container className="py-[120px]">
+          <div className="text-center max-w-[560px] mx-auto mb-12">
+            <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 tracking-wide mb-4">Small Batch Custom Manufacturing</span>
+            <h2 id="smallbatch-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.sbTitle || "Small Batch? No Problem."}</h2>
+            <p className="mt-4 text-gray-500 leading-relaxed">{s.sbSub || "From one-piece prototypes to small production runs — no minimum order barriers, the same engineering and quality control."}</p>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {[
+              { num: s.sb1Num || "1+", label: s.sb1Label || "Minimum Order Qty" },
+              { num: s.sb2Num || "7", label: s.sb2Label || "Days Rapid Prototype" },
+              { num: s.sb3Num || "10-18", label: s.sb3Label || "Days Batch Production" },
+              { num: s.sb4Num || "24h", label: s.sb4Label || "Quote Response" },
+            ].map((stat) => (
+              <div key={stat.label} className="rounded-2xl border border-gray-200 bg-gray-50 p-8 text-center">
+                <p className="text-4xl sm:text-5xl font-bold text-[#0F2744]">{stat.num}</p>
+                <p className="mt-3 text-sm text-gray-500">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F2744] px-8 py-4 text-sm font-semibold text-white hover:bg-blue-800 transition-colors shadow-sm">{s.sbCta || "Get Your Small-Batch Quote"}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* ========== 3. PRODUCT CATEGORIES ========== */}
       <section className="bg-gray-50" aria-labelledby="categories-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
@@ -82,7 +116,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 3. WHY CHOOSE US ========== */}
+      {/* ========== 4. WHY CHOOSE US ========== */}
       <section className="bg-white" aria-labelledby="why-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
@@ -108,7 +142,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 4. CAPABILITIES ========== */}
+      {/* ========== 5. CAPABILITIES ========== */}
       <section className="bg-gray-50" aria-labelledby="cap-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
@@ -139,7 +173,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 5. FEATURED PROJECTS ========== */}
+      {/* ========== 6. FEATURED PROJECTS ========== */}
       <section className="bg-white" aria-labelledby="projects-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
@@ -177,7 +211,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 6. PROCESS ========== */}
+      {/* ========== 7. PROCESS ========== */}
       <section className="bg-gray-50" aria-labelledby="process-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
@@ -205,7 +239,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 7. INSIGHTS ========== */}
+      {/* ========== 8. INSIGHTS ========== */}
       <section className="bg-white" aria-labelledby="insights-heading">
         <Container className="py-[120px]">
           <div className="flex items-end justify-between mb-12">
@@ -231,7 +265,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 8. FAQ ========== */}
+      {/* ========== 9. FAQ ========== */}
       <section className="bg-gray-50" aria-labelledby="faq-heading">
         <Container className="py-[120px]">
           <div className="max-w-[520px] mb-12">
@@ -240,7 +274,7 @@ export default async function HomePage() {
           <div className="max-w-3xl grid gap-4 sm:grid-cols-2">
             {[
               { q: s.faq1Q || "Can all products be customized?", a: s.faq1A || "Yes. Every product can be customized in dimensions, material, color, finish, and branding." },
-              { q: s.faq2Q || "What is your MOQ?", a: s.faq2A || "MOQ is flexible. We handle single prototypes to full production runs." },
+              { q: s.faq2Q || "What is your MOQ?", a: s.faq2A || "MOQ starts from 1 piece. Prototypes and small batches are welcome — scale up when you're ready." },
               { q: s.faq3Q || "Can you manufacture from drawings?", a: s.faq3A || "Absolutely. Send us your CAD files, sketches, or reference samples." },
               { q: s.faq4Q || "What is your lead time?", a: s.faq4A || "Standard lead time is 10–18 business days depending on complexity and quantity." },
             ].map((faq, i) => (
@@ -257,7 +291,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* ========== 9. FINAL CTA ========== */}
+      {/* ========== 10. FINAL CTA ========== */}
       <section className="bg-[#0F2744]" aria-labelledby="cta-heading">
         <Container className="py-[120px] text-center">
           <h2 id="cta-heading" className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">{s.ctaTitle || "Let's Build Your Next Acrylic Project"}</h2>
@@ -266,7 +300,7 @@ export default async function HomePage() {
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/30 bg-transparent px-8 py-4 text-sm font-semibold text-white hover:bg-white/10 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
           </div>
-          <p className="mt-8 text-sm text-blue-300/70">Our team typically responds within one business day.</p>
+          <p className="mt-8 text-sm text-blue-300/70">Low MOQ from 1 piece · 7-day prototype · 24h quote response</p>
         </Container>
       </section>
 

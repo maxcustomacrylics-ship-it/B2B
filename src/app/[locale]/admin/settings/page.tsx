@@ -55,6 +55,13 @@ export default function AdminSettingsPage() {
         faq4Q: d.faq4Q || "", faq4A: d.faq4A || "",
         // CTA
         ctaTitle: d.ctaTitle || "", ctaSub: d.ctaSub || "",
+        // Small Batch Section
+        sbTitle: d.sbTitle || "", sbSub: d.sbSub || "",
+        sb1Num: d.sb1Num || "", sb1Label: d.sb1Label || "",
+        sb2Num: d.sb2Num || "", sb2Label: d.sb2Label || "",
+        sb3Num: d.sb3Num || "", sb3Label: d.sb3Label || "",
+        sb4Num: d.sb4Num || "", sb4Label: d.sb4Label || "",
+        sbCta: d.sbCta || "",
         // Images
         heroImg: d.heroImg || "",
         whyImg1: d.whyImg1 || "", whyImg2: d.whyImg2 || "", whyImg3: d.whyImg3 || "", whyImg4: d.whyImg4 || "",
@@ -116,6 +123,9 @@ export default function AdminSettingsPage() {
       {tab === "text" && (
         <div className="space-y-6">
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Hero</h2><div className="grid gap-4"><F label="Headline" field="heroHeadline" /><F label="Description" field="heroSubheadline" textarea /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Small Batch Section</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="sbTitle" /><F label="Subtitle" field="sbSub" textarea /></div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-4">{[1, 2, 3, 4].map((n) => (<div key={n} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-2">Stat {n}</p><F label="Number" field={`sb${n}Num`} /><div className="mt-2"><F label="Label" field={`sb${n}Label`} /></div></div>))}</div>
+            <div className="mt-4"><F label="Button Text" field="sbCta" /></div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="catTitle" /><F label="Subtitle" field="catSub" /></div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="whyTitle" /><F label="Subtitle" field="whySub" /></div>
             <div className="grid gap-4 sm:grid-cols-2 mt-4">{[1, 2, 3, 4].map((n) => (<div key={n} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-2">Card {n}</p><F label="Title" field={`why${n}Title`} /><div className="mt-2"><F label="Description" field={`why${n}Desc`} /></div></div>))}</div></div>
