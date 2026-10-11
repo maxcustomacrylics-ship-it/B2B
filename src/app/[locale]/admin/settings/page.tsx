@@ -63,7 +63,7 @@ export default function AdminSettingsPage() {
         customImg1: d.customImg1 || "", customImg2: d.customImg2 || "", customImg3: d.customImg3 || "", customImg4: d.customImg4 || "",
         customImg5: d.customImg5 || "", customImg6: d.customImg6 || "", customImg7: d.customImg7 || "", customImg8: d.customImg8 || "",
         capImg1: d.capImg1 || "", capImg2: d.capImg2 || "", capImg3: d.capImg3 || "", capImg4: d.capImg4 || "", capImg5: d.capImg5 || "", capImg6: d.capImg6 || "", capImg7: d.capImg7 || "",
-        catImg1: d.catImg1 || "", catImg2: d.catImg2 || "", catImg3: d.catImg3 || "", catImg4: d.catImg4 || "", catImg5: d.catImg5 || "", catImg6: d.catImg6 || "", catImg7: d.catImg7 || "", catImg8: d.catImg8 || "", catImg9: d.catImg9 || "", catImg10: d.catImg10 || "",
+        catImg1: d.catImg1 || "", catImg2: d.catImg2 || "", catImg3: d.catImg3 || "", catImg4: d.catImg4 || "", catImg5: d.catImg5 || "", catImg6: d.catImg6 || "", catImg8: d.catImg8 || "", catImg9: d.catImg9 || "", catImg10: d.catImg10 || "",
         materialsList: d.materialsList || "",
         // Contact
         companyName: d.companyName || "", email: d.email || "", phone: d.phone || "", whatsapp: d.whatsapp || "",
@@ -135,8 +135,7 @@ export default function AdminSettingsPage() {
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Capabilities (7)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{["Materials", "Laser Cutting", "CNC Machining", "Diamond Polishing", "UV Printing", "Assembly & Packaging", "Quality Control"].map((l, i) => (<SettingsImageField key={i} label={l} value={form[`capImg${i + 1}`] || ""} onChange={(v) => update(`capImg${i + 1}`, v)} />))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Why Choose Us — Product Page (8)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Factory Direct","OEM & ODM","Engineering Support","Quality Inspection","Fast Quotation","Worldwide Shipping","Premium Materials","Export Packaging"].map((l, i) => (<SettingsImageField key={`wc-${i}`} label={l} value={form[`whyChooseImg${i + 1}`] || ""} onChange={(v) => update(`whyChooseImg${i + 1}`, v)} />))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Customization Options — Product Page (8)</h2><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{["Size","Shape","Color","Logo","Structure","Finish","Lighting","Accessories"].map((l, i) => (<SettingsImageField key={`cu-${i}`} label={l} value={form[`customImg${i + 1}`] || ""} onChange={(v) => update(`customImg${i + 1}`, v)} />))}</div></div>
-          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories (10)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{[
-            { label: "Precision Instruments", key: "catImg7" },
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Product Categories (9)</h2><div className="grid grid-cols-2 sm:grid-cols-3 gap-4">{[
             { label: "Acrylic Displays", key: "catImg2" },
             { label: "Acrylic Boxes", key: "catImg3" },
             { label: "Acrylic Signs", key: "catImg4" },

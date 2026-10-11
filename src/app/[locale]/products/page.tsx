@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 };
 
 const categories = [
-  { title: "Precision Instruments", slug: "precision-instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", color: "from-rose-100 to-rose-200/60", imgKey: "catImg7" },
   { title: "Acrylic Displays", slug: "acrylic-displays-2", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", color: "from-sky-100 to-sky-200/60", imgKey: "catImg2" },
   { title: "Acrylic Boxes", slug: "acrylic-boxes-2", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", color: "from-indigo-100 to-indigo-200/60", imgKey: "catImg3" },
   { title: "Acrylic Signs", slug: "acrylic-signs-2", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },

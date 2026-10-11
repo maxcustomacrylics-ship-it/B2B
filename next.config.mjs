@@ -17,6 +17,8 @@ const nextConfig = {
       { source: "/manufacturing", destination: "/services", permanent: true },
       { source: "/manufacturing/:path*", destination: "/services/:path*", permanent: true },
       { source: "/quote", destination: "/contact", permanent: true },
+      { source: "/products/precision-instruments", destination: "/products", permanent: true },
+      { source: "/en/products/precision-instruments", destination: "/en/products", permanent: true },
     ];
   },
 };

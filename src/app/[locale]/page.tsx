@@ -58,7 +58,6 @@ export default async function HomePage() {
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "Precision Instruments", slug: "/products/precision-instruments", color: "from-rose-100 to-rose-200/60", imgKey: "catImg7" },
               { title: "Acrylic Displays", slug: "/products/acrylic-displays-2", color: "from-sky-100 to-sky-200/60", imgKey: "catImg2" },
               { title: "Acrylic Boxes", slug: "/products/acrylic-boxes-2", color: "from-indigo-100 to-indigo-200/60", imgKey: "catImg3" },
               { title: "Acrylic Signs", slug: "/products/acrylic-signs-2", color: "from-emerald-100 to-emerald-200/60", imgKey: "catImg4" },

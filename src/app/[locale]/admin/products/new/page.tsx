@@ -9,7 +9,6 @@ import { Save, X, ImagePlus, ChevronDown, ChevronUp } from "lucide-react";
 import type { ProductImageType } from "@/lib/types";
 
 const CATEGORIES = [
-  { value: "acrylic-precision-instruments", label: "Precision Instruments" },
   { value: "acrylic-displays", label: "Acrylic Displays" },
   { value: "acrylic-boxes", label: "Boxes" },
   { value: "acrylic-signage", label: "Signs" },

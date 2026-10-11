@@ -10,7 +10,6 @@ import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
 const CATEGORIES = [
-  { value: "acrylic-precision-instruments", label: "Precision Instruments" },
   { value: "acrylic-displays", label: "Acrylic Displays" },
   { value: "acrylic-boxes", label: "Boxes" },
   { value: "acrylic-signage", label: "Signs" },

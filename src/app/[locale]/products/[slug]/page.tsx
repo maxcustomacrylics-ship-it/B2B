@@ -40,7 +40,6 @@ const customizationOptions = [
 
 // ── Category slug mapping ──
 const catMap: Record<string, { title: string; desc: string; oldCats: string[] }> = {
-  "precision-instruments": { title: "Precision Instruments", desc: "High-precision acrylic components for scientific, medical, and industrial instrument applications.", oldCats: ["acrylic-precision-instruments"] },
   "acrylic-displays-2": { title: "Acrylic Displays", desc: "Custom acrylic displays for retail, exhibitions and commercial merchandising.", oldCats: ["acrylic-displays"] },
   "acrylic-boxes-2": { title: "Acrylic Boxes", desc: "Custom acrylic boxes for display, storage, packaging and commercial applications.", oldCats: ["acrylic-boxes"] },
   "acrylic-signs-2": { title: "Acrylic Signs", desc: "Custom acrylic signs for branding, offices, retail and hospitality.", oldCats: ["acrylic-signage"] },

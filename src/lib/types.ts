@@ -4,7 +4,6 @@ export type ProductCategory =
   | "acrylic-signage"
   | "acrylic-home-office"
   | "acrylic-awards-gifts"
-  | "acrylic-precision-instruments"
   | "acrylic-furniture"
   | "acrylic-trophies"
   | "acrylic-accessories"

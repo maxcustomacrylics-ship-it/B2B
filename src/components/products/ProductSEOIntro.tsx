@@ -1,7 +1,6 @@
 import type { Product } from "@/lib/types";
 
 const CATEGORY_LABELS: Record<string, string> = {
-  "acrylic-precision-instruments": "Acrylic Precision Instruments",
   "acrylic-displays": "Acrylic Displays",
   "acrylic-boxes": "Acrylic Boxes",
   "acrylic-signage": "Acrylic Signage",
