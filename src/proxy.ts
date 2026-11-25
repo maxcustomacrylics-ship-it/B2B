@@ -20,7 +20,22 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  return intlMiddleware(request);
+  // Pass the resolved pathname down so layouts can emit a per-page canonical
+  // URL. A single site-wide canonical would tell search engines every page is
+  // a duplicate of the homepage.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", pathname);
+
+  const response = intlMiddleware(request);
+  // Re-issue the response with the extra request header when the middleware
+  // passes the request through unchanged.
+  if (response.headers.get("x-middleware-next") === "1") {
+    const headers = new Headers(request.headers);
+    headers.set("x-pathname", pathname);
+    return NextResponse.next({ request: { headers } });
+  }
+
+  return response;
 }
 
 export const config = {

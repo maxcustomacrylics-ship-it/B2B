@@ -1,14 +1,21 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { hasSupabase, getSupabase } from "@/lib/supabase";
+import { requireAdmin } from "@/lib/auth";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
+  // Diagnostics expose internal configuration — admin only.
+  const unauth = await requireAdmin();
+  if (unauth) return unauth;
+
   const info: Record<string, unknown> = {};
 
   info.hasSupabase = hasSupabase();
   info.urlSet = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
   info.keySet = Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-  info.urlPrefix = process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 30) || "(empty)";
+  info.serviceKeySet = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY);
+  info.resendKeySet = Boolean(process.env.RESEND_API_KEY);
 
   if (hasSupabase()) {
     const sb = getSupabase();
@@ -18,22 +25,7 @@ export async function GET() {
     info.queryOk = !error;
     info.queryError = error?.message || null;
     info.rowCount = data?.length || 0;
-
-    // Write test
-    const testRes = await sb!.from("settings").upsert(
-      { key: "_diag_test", value: "ok", updated_at: new Date().toISOString() },
-      { onConflict: "key" }
-    );
-    info.writeOk = !testRes.error;
-    info.writeError = testRes.error?.message || null;
   }
-
-  // Auth check
-  const ck = await cookies();
-  const token = ck.get("admin_token");
-  info.authCookiePresent = !!token;
-  info.resendKeySet = Boolean(process.env.RESEND_API_KEY);
-  info.resendKeyPrefix = process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 8) + "..." : "(not set)";
 
   return NextResponse.json(info);
 }

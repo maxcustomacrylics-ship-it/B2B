@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Max Custom Acrylics — Custom Acrylic Solutions">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F2744"/>
+      <stop offset="55%" stop-color="#1a3a5c"/>
+      <stop offset="100%" stop-color="#0b1c30"/>
+    </linearGradient>
+    <linearGradient id="acrylic" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#bae6fd" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Acrylic sheet motif -->
+  <rect x="760" y="120" width="330" height="390" rx="22" fill="url(#acrylic)" opacity="0.22"/>
+  <rect x="800" y="120" width="330" height="390" rx="22" fill="none" stroke="url(#acrylic)" stroke-width="6"/>
+  <path d="M800 210h330" stroke="url(#acrylic)" stroke-width="5" opacity="0.8"/>
+  <path d="M900 120 1030 510" stroke="url(#acrylic)" stroke-width="4" opacity="0.45"/>
+
+  <!-- Text -->
+  <text x="80" y="250" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">
+    Custom Acrylic
+  </text>
+  <text x="80" y="320" font-family="Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">
+    Solutions
+  </text>
+  <text x="80" y="382" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#7dd3fc">
+    Small batch &#183; From 1 piece &#183; Worldwide delivery
+  </text>
+
+  <rect x="80" y="430" width="120" height="6" rx="3" fill="#7dd3fc"/>
+
+  <text x="80" y="500" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="#ffffff" letter-spacing="2">
+    MAX CUSTOM ACRYLICS
+  </text>
+  <text x="80" y="540" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#94a3b8">
+    maxcustomacrylics.com
+  </text>
+</svg>

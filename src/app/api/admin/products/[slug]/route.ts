@@ -43,14 +43,19 @@ export async function DELETE(
   const { slug } = await params;
 
   // 1. Delete from Supabase directly
+  // Writes must use the service-role key — never fall back to the public anon key.
   const supabaseUrl = "https://xwchzipgujhughzngolj.supabase.co";
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Y2h6aXBndWpodWdoem5nb2xqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNTM5NDMsImV4cCI6MjA5NjcyOTk0M30.JSAINuIET8-j_e_c8oxXNxP-cLxp60q2fwiXgOcXBZQ";
-  try {
-    await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${slug}`, {
-      method: "DELETE",
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Prefer: "return=minimal" },
-    });
-  } catch (e) { console.error("[supabase] delete product failed:", e); }
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseKey) {
+    try {
+      await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${encodeURIComponent(slug)}`, {
+        method: "DELETE",
+        headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Prefer: "return=minimal" },
+      });
+    } catch (e) { console.error("[supabase] delete product failed:", e); }
+  } else {
+    console.error("[supabase] SUPABASE_SERVICE_ROLE_KEY not set — skipping direct delete");
+  }
 
   // 2. Update local JSON without heavy Supabase sync
   const DATA_DIR = process.env.VERCEL ? "/tmp/data" : path.join(process.cwd(), "src", "data");

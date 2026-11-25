@@ -186,19 +186,19 @@ export async function saveProducts(products: Product[]): Promise<void> {
 
   // Sync to Supabase: PATCH existing (by slug) → if not found, POST new
   const supabaseUrl = SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+  const supabaseKey = getSupabaseWriteKey();
   if (supabaseUrl && supabaseKey) {
     try {
       for (const p of products) {
         const row = { ...camelToSnake(p as unknown as Record<string, unknown>), updated_at: new Date().toISOString() };
         // PATCH by slug — returns 204 even if no rows matched, so check with GET first
-        const check = await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}&select=slug`, {
+        const check = await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${eqFilter(p.slug)}&select=slug`, {
           headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
         });
         const exists = await check.json();
         if (exists && Array.isArray(exists) && exists.length > 0) {
           // Update existing
-          await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${p.slug}`, {
+          await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${eqFilter(p.slug)}`, {
             method: "PATCH",
             headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
             body: JSON.stringify(row),
@@ -223,6 +223,23 @@ export async function saveProducts(products: Product[]): Promise<void> {
 const SUPABASE_URL = "https://xwchzipgujhughzngolj.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Y2h6aXBndWpodWdoem5nb2xqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNTM5NDMsImV4cCI6MjA5NjcyOTk0M30.JSAINuIET8-j_e_c8oxXNxP-cLxp60q2fwiXgOcXBZQ";
 
+/**
+ * Key used for WRITE operations against Supabase.
+ *
+ * Writes must never fall back to the public anon key — that key is embedded
+ * in the client bundle, so anyone could otherwise write to the database
+ * directly. Returns null when no service-role key is configured, which makes
+ * the caller skip the sync instead of performing an unauthorised write.
+ */
+function getSupabaseWriteKey(): string | null {
+  return process.env.SUPABASE_SERVICE_ROLE_KEY || null;
+}
+
+/** Encode a value for safe use in a PostgREST query filter. */
+function eqFilter(value: unknown): string {
+  return encodeURIComponent(String(value));
+}
+
 function getSupabaseHeaders() {
   return { url: SUPABASE_URL, key: SUPABASE_ANON_KEY };
 }
@@ -242,19 +259,23 @@ async function supabaseGet(table: string): Promise<any[] | null> {
 
 async function supabaseUpsert(table: string, rows: Record<string, unknown>[], conflictKey: string): Promise<void> {
   const url = SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+  const key = getSupabaseWriteKey();
+  if (!key) {
+    console.error("[supabase] SUPABASE_SERVICE_ROLE_KEY not set — skipping write sync");
+    return;
+  }
   try {
     for (const row of rows) {
       const r = { ...row, updated_at: new Date().toISOString() };
       const val = (r as any)[conflictKey];
       // Check if exists
-      const check = await fetch(`${url}/rest/v1/${table}?${conflictKey}=eq.${val}&select=${conflictKey}`, {
+      const check = await fetch(`${url}/rest/v1/${table}?${conflictKey}=eq.${eqFilter(val)}&select=${conflictKey}`, {
         headers: { apikey: key, Authorization: `Bearer ${key}` },
       });
       const data = await check.json();
       if (data && Array.isArray(data) && data.length > 0) {
         // Update
-        await fetch(`${url}/rest/v1/${table}?${conflictKey}=eq.${val}`, {
+        await fetch(`${url}/rest/v1/${table}?${conflictKey}=eq.${eqFilter(val)}`, {
           method: "PATCH",
           headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json", Prefer: "return=minimal" },
           body: JSON.stringify(r),
@@ -378,7 +399,7 @@ export async function saveGuides(guides: Guide[]): Promise<void> {
 
   // Sync to Supabase settings (shared storage across Vercel instances)
   const supabaseUrl = SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+  const supabaseKey = getSupabaseWriteKey();
   if (supabaseUrl && supabaseKey) {
     try {
       await fetch(`${supabaseUrl}/rest/v1/settings`, {
@@ -448,7 +469,7 @@ export async function saveSettings(settings: Settings): Promise<void> {
 
   // Sync to Supabase using direct REST API with UPSERT
   const supabaseUrl = SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+  const supabaseKey = getSupabaseWriteKey();
   if (supabaseUrl && supabaseKey) {
     try {
       const entries = Object.entries(settings);
@@ -488,16 +509,19 @@ export async function getPricingConfig(): Promise<PricingConfig> {
 }
 
 export async function savePricingConfig(config: PricingConfig): Promise<void> {
-  if (hasSupabase()) {
+  // Writes must use the service-role client — the anon client must never write.
+  const admin = getSupabaseAdmin();
+  if (admin) {
     const row = camelToSnake(config as unknown as Record<string, unknown>);
     row.id = "default";
     row.updated_at = new Date().toISOString();
-    const { error } = await getSupabase()!
+    const { error } = await admin
       .from("pricing_config")
       .upsert(row, { onConflict: "id" });
     if (error) console.error("[supabase] savePricingConfig:", error);
     return;
   }
+  console.error("[supabase] SUPABASE_SERVICE_ROLE_KEY not set — skipping pricing config save");
 }
 
 // ═══════════════════════════════════════════
@@ -522,9 +546,11 @@ export async function getMessagesData(locale = "en"): Promise<Messages> {
 }
 
 export async function saveMessagesData(messages: Messages, locale = "en"): Promise<void> {
-  if (hasSupabase()) {
+  // Writes must use the service-role client — the anon client must never write.
+  const admin = getSupabaseAdmin();
+  if (admin) {
     const key = `messages_${locale}`;
-    const { error } = await getSupabase()!.from("messages").upsert({ key, value: messages, updated_at: new Date().toISOString() }, { onConflict: "key" });
+    const { error } = await admin.from("messages").upsert({ key, value: messages, updated_at: new Date().toISOString() }, { onConflict: "key" });
     if (error) console.error("[supabase] saveMessagesData:", error);
     return;
   }

@@ -1,4 +1,5 @@
 import type { Product } from "@/lib/types";
+import { safeJsonLd } from "@/lib/jsonld";
 
 function generateFAQs(product: Product): { q: string; a: string }[] {
   const material = product.specs.find(s => s.label.toLowerCase().includes("material"))?.value || "acrylic";
@@ -33,7 +34,7 @@ export default function ProductFAQ({ product }: { product: Product }) {
 
   return (
     <section className="mt-16" aria-labelledby="faq-heading">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }} />
       <h2 id="faq-heading" className="text-2xl font-bold text-[#0F2744] mb-6">Frequently Asked Questions</h2>
       <div className="space-y-4 max-w-3xl">
         {faqs.map((faq, i) => (

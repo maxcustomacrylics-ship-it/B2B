@@ -10,6 +10,7 @@ import {
   generateArticleSchema,
   generateBreadcrumbSchema,
 } from "@/lib/schema";
+import { safeJsonLd } from "@/lib/jsonld";
 import { getBlogBySlug } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
@@ -291,7 +292,7 @@ export default async function BlogPostPage({ params }: Props) {
         {/* FAQ Section */}
         {post.faq && post.faq.length > 0 && (
           <section className="mt-12 max-w-3xl mx-auto" aria-labelledby="faq-heading">
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd({
               "@context": "https://schema.org",
               "@type": "FAQPage",
               "mainEntity": post.faq.map(f => ({

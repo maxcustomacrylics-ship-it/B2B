@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Max Custom Acrylics">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F2744"/>
+      <stop offset="100%" stop-color="#1a3a5c"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" rx="80" fill="url(#g)"/>
+  <rect x="70" y="90" width="260" height="220" rx="18" fill="none" stroke="#7dd3fc" stroke-width="14"/>
+  <path d="M70 150h260" stroke="#7dd3fc" stroke-width="14" stroke-linecap="round"/>
+  <path d="M150 90 250 310" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
+</svg>

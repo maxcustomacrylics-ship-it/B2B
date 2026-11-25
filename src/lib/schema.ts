@@ -8,7 +8,7 @@ export function generateOrganizationSchema() {
     name: SITE_NAME,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
-    logo: `${SITE_URL}/images/logo.png`,
+    logo: `${SITE_URL}/images/logo.svg`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+86-138-0000-0000",

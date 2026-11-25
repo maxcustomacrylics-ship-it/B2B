@@ -1,3 +1,5 @@
+import { safeJsonLd } from "@/lib/jsonld";
+
 type SchemaOrgProps = {
   data: Record<string, unknown> | Record<string, unknown>[];
 };
@@ -11,7 +13,7 @@ export default function SchemaOrg({ data }: SchemaOrgProps) {
         <script
           key={index}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
         />
       ))}
     </>

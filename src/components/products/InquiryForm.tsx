@@ -83,6 +83,8 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
     payload.append("phone", data.phone || "");
     payload.append("productInterest", productName || data.productInterest || "");
     payload.append("message", data.message);
+    // Honeypot: bots fill every input, humans never see this one.
+    payload.append("website", data.website || "");
 
     const fileInput = (e.target as HTMLFormElement).querySelector('input[type="file"]') as HTMLInputElement;
     if (fileInput?.files?.[0]) {
@@ -134,6 +136,12 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      {/* Honeypot — hidden from real users, filled by bots */}
+      <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website-field">Website</label>
+        <input type="text" id="website-field" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       {/* File Upload — First */}
       <div className="rounded-xl border-2 border-dashed border-blue-300 bg-blue-50/50 p-5">
         <label className="block text-sm font-semibold text-[#0F2744] mb-2">

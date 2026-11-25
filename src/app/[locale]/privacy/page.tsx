@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import { getSettings } from "@/lib/data-store";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,7 @@ export default async function PrivacyPage() {
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: title }]} />
       <div className="mt-6 max-w-3xl">
         <h1 className="text-4xl font-bold text-[#0F2744]">{title}</h1>
-        {content ? <div className="mt-6 prose max-w-none" dangerouslySetInnerHTML={{ __html: content }} /> : (
+        {content ? <div className="mt-6 prose max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }} /> : (
           <div className="mt-6 text-gray-500 space-y-4">
             <p>This Privacy Policy describes how we collect, use, and protect your personal information when you use our website or services.</p>
             <h2 className="text-lg font-semibold text-[#0F2744]">Information We Collect</h2>
