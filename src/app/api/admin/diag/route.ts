@@ -25,6 +25,20 @@ export async function GET() {
     if (k.startsWith("eyJ")) return "legacy-jwt";
     return "unrecognised";
   })();
+  // Fingerprints that reveal copy-paste damage without exposing the secret.
+  info.serviceKeyHasWhitespace = /\s/.test(process.env.SUPABASE_SERVICE_ROLE_KEY || "");
+  info.serviceKeyHasQuotes = /["']/.test(process.env.SUPABASE_SERVICE_ROLE_KEY || "");
+  info.serviceKeyCharClasses = (() => {
+    const k = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+    return {
+      hasUpper: /[A-Z]/.test(k),
+      hasLower: /[a-z]/.test(k),
+      hasDigit: /[0-9]/.test(k),
+      hasUnderscore: /_/.test(k),
+      hasDot: /\./.test(k),
+      hasHyphen: /-/.test(k),
+    };
+  })();
   info.serviceKeyLooksValid = (() => {
     const k = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!k) return false;
