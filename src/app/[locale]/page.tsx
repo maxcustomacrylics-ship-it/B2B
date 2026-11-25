@@ -62,7 +62,7 @@ export default async function HomePage() {
           <div className="text-center max-w-[560px] mx-auto mb-12">
             <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 tracking-wide mb-4">Small Batch Custom Manufacturing</span>
             <h2 id="smallbatch-heading" className="text-3xl font-bold tracking-tight text-[#0F2744] sm:text-4xl">{s.sbTitle || "Small Batch? No Problem."}</h2>
-            <p className="mt-4 text-gray-500 leading-relaxed">{s.sbSub || "From one-piece prototypes to small production runs — no minimum order barriers, the same engineering and quality control."}</p>
+            <p className="mt-4 text-gray-500 leading-relaxed">{s.sbSub || "From one-piece prototypes to small production runs — no minimum order barriers, the same engineering and quality control. Sample fees are credited toward your first bulk order."}</p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {[

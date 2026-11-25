@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const STEPS = [
   { step: "01", title: "Design Review", desc: "Our engineers review your drawings and optimize for manufacturability." },
   { step: "02", title: "Material Selection", desc: "We select the optimal acrylic grade, thickness, and finish for your application." },
@@ -28,9 +26,9 @@ export default function ProductManufacturing() {
         ))}
       </div>
       <div className="mt-6 text-center">
-        <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors">
+        <a href="#product-inquiry" className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2744] hover:text-blue-700 transition-colors">
           Start your project →
-        </Link>
+        </a>
       </div>
     </section>
   );

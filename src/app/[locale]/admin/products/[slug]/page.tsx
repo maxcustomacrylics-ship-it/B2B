@@ -6,6 +6,7 @@ import { showToast } from "@/components/admin/Toast";
 import ConfirmDialog from "@/components/admin/ConfirmDialog";
 import FormField from "@/components/admin/FormField";
 import SettingsImageField from "@/components/admin/SettingsImageField";
+import ProductSpecOptionsEditor from "@/components/admin/ProductSpecOptionsEditor";
 import { Save, X, Trash2 } from "lucide-react";
 import type { Product, ProductCategory } from "@/lib/types";
 
@@ -200,6 +201,8 @@ export default function AdminEditProductPage() {
               ))}
             </div>
           </div>
+
+          <ProductSpecOptionsEditor slug={slug} />
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <FormField label="Product Name">

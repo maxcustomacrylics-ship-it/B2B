@@ -4,9 +4,10 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SchemaOrg from "@/components/shared/SchemaOrg";
-import { generateBreadcrumbSchema } from "@/lib/schema";
+import { generateBreadcrumbSchema, generateProductSchema } from "@/lib/schema";
 import { getProductBySlug, getProducts, getSettings } from "@/lib/data-store";
 import { SITE_URL } from "@/lib/utils";
+import { SUPPLY_POLICY } from "@/lib/supply-policy";
 import ProductGallery from "@/components/products/ProductGallery";
 import ProductSEOIntro from "@/components/products/ProductSEOIntro";
 
@@ -16,6 +17,11 @@ import ProductCustomization from "@/components/products/ProductCustomization";
 import ProductManufacturing from "@/components/products/ProductManufacturing";
 import ProductFAQ from "@/components/products/ProductFAQ";
 import ProductRelated from "@/components/products/ProductRelated";
+import ProductInquiry from "@/components/products/ProductInquiry";
+import ProductApplications from "@/components/products/ProductApplications";
+import HowToOrder from "@/components/products/HowToOrder";
+import ComplianceBlock from "@/components/products/ComplianceBlock";
+import { getProductSpecOptions } from "@/lib/product-spec-options";
 import type { ProductImage } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -57,15 +63,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   if (catMap[slug]) {
     const c = catMap[slug];
-    return { title: `${c.title} | Max Custom Acrylics`, description: c.desc, openGraph: { type: "website", title: `${c.title} | Max Custom Acrylics`, description: c.desc } };
+    // The layout template already appends the brand, so don't repeat it here.
+    return { title: c.title, description: c.desc, openGraph: { type: "website", title: `${c.title} | Max Custom Acrylics`, description: c.desc } };
   }
   const p = await getProductBySlug(slug);
   if (!p) return {};
+  const image = p.images.length > 0 ? getImgUrl(p.images[0]) : undefined;
   return {
-    title: `${p.name} | Max Custom Acrylics`,
+    title: p.name,
     description: p.description,
-    openGraph: { type: "website", title: `${p.name} | Max Custom Acrylics`, description: p.description, images: p.images.length > 0 ? [getImgUrl(p.images[0])] : [] },
-    twitter: { card: "summary_large_image", title: `${p.name} | Max Custom Acrylics`, description: p.description, images: p.images.length > 0 ? [getImgUrl(p.images[0])] : [] },
+    openGraph: { type: "website", title: `${p.name} | Max Custom Acrylics`, description: p.description, ...(image ? { images: [image] } : {}) },
+    twitter: { card: "summary_large_image", title: `${p.name} | Max Custom Acrylics`, description: p.description, ...(image ? { images: [image] } : {}) },
   };
 }
 
@@ -184,14 +192,57 @@ export default async function ProductPage({ params }: Props) {
   const galleryImages = isNewFormat
     ? (allImages as ProductImage[]).filter(i => i.type === "gallery")
     : allImages;
-  const bcSchema = generateBreadcrumbSchema([{ name: "Home", url: SITE_URL }, { name: "Products", url: `${SITE_URL}/products` }, { name: product.name, url: `${SITE_URL}/products/${product.slug}` }]);
+
+  // Category landing page for this product — used in the breadcrumb so the
+  // category page (an important internal-link target) is one click away.
+  const categoryEntry = Object.entries(catMap).find(
+    ([, c]) => c.oldCats.includes(product.category)
+  );
+  const categorySlug = categoryEntry?.[0];
+  const categoryTitle = categoryEntry?.[1].title;
+  const bcSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL },
+    { name: "Products", url: `${SITE_URL}/en/products` },
+    ...(categoryTitle
+      ? [{ name: categoryTitle, url: `${SITE_URL}/en/products/${categorySlug}` }]
+      : []),
+    { name: product.name, url: `${SITE_URL}/en/products/${product.slug}` },
+  ]);
+
+  const productSchema = generateProductSchema(
+    product,
+    galleryImages.length > 0 ? getImgUrl(galleryImages[0]) : undefined,
+    categoryTitle
+  );
+
+  const settings = await getSettings();
+
+  // Quick specs shown beside the gallery: product-specific values first, then
+  // the supply policy so MOQ and lead time never contradict the homepage.
+  const quickSpecs = [
+    { label: "Material", value: product.specs.find(s => s.label.toLowerCase().includes("material"))?.value },
+    { label: "Thickness", value: product.specs.find(s => s.label.toLowerCase().includes("thickness"))?.value },
+    { label: "Finish", value: product.specs.find(s => s.label.toLowerCase().includes("finish"))?.value },
+    { label: "Minimum Order", value: SUPPLY_POLICY.moq.full },
+    { label: "Lead Time", value: SUPPLY_POLICY.leadTime.full },
+    { label: "Sample Fee", value: SUPPLY_POLICY.sample.full },
+  ].filter((s) => s.value);
 
   return (
     <>
-      <SchemaOrg data={[bcSchema]} />
+      <SchemaOrg data={[bcSchema, productSchema]} />
 
       <Container className="py-8 lg:py-12">
-        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: product.name }]} />
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Products", href: "/products" },
+            ...(categoryTitle
+              ? [{ label: categoryTitle, href: `/products/${categorySlug}` }]
+              : []),
+            { label: product.name },
+          ]}
+        />
         <h1 className="mt-4 text-3xl font-bold text-[#0F2744] sm:text-4xl">{product.name}</h1>
         <p className="mt-2 text-sm text-gray-500 max-w-2xl">{product.description}</p>
 
@@ -206,9 +257,18 @@ export default async function ProductPage({ params }: Props) {
                 title: typeof img === "object" && "title" in img ? (img as ProductImage).title : "",
               }))
             } />
-            <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-400">
-              {[{icon:"📐",label:"Custom Size"},{icon:"🤝",label:"OEM Available"},{icon:"💎",label:"Premium Acrylic"},{icon:"⚡",label:"Fast Response"}].map(h=>(
-                <span key={h.label} className="flex items-center gap-1.5"><span>{h.icon}</span>{h.label}</span>
+            {/* Verifiable facts rather than unverifiable trust words. */}
+            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-xs text-gray-600">
+              {[
+                { icon: "📦", label: SUPPLY_POLICY.moq.chip },
+                { icon: "⚡", label: SUPPLY_POLICY.leadTime.chip },
+                { icon: "🔬", label: SUPPLY_POLICY.material.chip },
+                { icon: "🏅", label: SUPPLY_POLICY.certification.chip },
+              ].map((h) => (
+                <span key={h.label} className="flex items-center gap-1.5">
+                  <span aria-hidden="true">{h.icon}</span>
+                  {h.label}
+                </span>
               ))}
             </div>
           </div>
@@ -217,27 +277,48 @@ export default async function ProductPage({ params }: Props) {
           <div>
             <h2 className="text-lg font-semibold text-[#0F2744] mb-4">Quick Specifications</h2>
             <div className="divide-y divide-gray-200 border-y border-gray-200">
-              {product.specs.map((s) => (
-                <div key={s.label} className="flex justify-between py-3 text-sm"><span className="text-gray-500">{s.label}</span><span className="font-medium text-[#0F2744]">{s.value}</span></div>
+              {quickSpecs.map((s) => (
+                <div key={s.label} className="flex justify-between gap-4 py-3 text-sm">
+                  <span className="text-gray-500 shrink-0">{s.label}</span>
+                  <span className="font-medium text-[#0F2744] text-right">{s.value}</span>
+                </div>
               ))}
             </div>
+            {/* Anchors into the on-page enquiry form — the product context is
+                carried by the form itself, so nothing is lost on the way. */}
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Request a Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Upload Your Drawing</Link>
+              <a href="#product-inquiry" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0F2744] px-5 py-3 text-sm font-semibold text-white hover:bg-[#1a3a5c] transition-colors shadow-sm">Get My Quote<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              <a href="#specify-requirements" className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#0F2744] bg-white px-5 py-3 text-sm font-semibold text-[#0F2744] hover:bg-blue-50 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Specify Requirements</a>
             </div>
+            <p className="mt-4 text-xs text-gray-500 leading-relaxed">
+              {SUPPLY_POLICY.quote.full}. {SUPPLY_POLICY.sample.full}.
+            </p>
           </div>
         </div>
-        {/* ═══════ END EXISTING CONTENT ═══════ */}
+        {/* ═══════ END GALLERY + QUICK SPECS ═══════ */}
 
-        {/* ═══════ NEW SEO ENHANCEMENT SECTIONS ═══════ */}
+        {/* ═══════ SPEC SELECTOR + IN-PAGE ENQUIRY FORM ═══════ */}
+        <ProductInquiry
+          productName={product.name}
+          productSlug={product.slug}
+          options={await getProductSpecOptions(product.slug)}
+        />
+
+        {/* ═══════ CONTENT SECTIONS ═══════ */}
         <ProductSEOIntro product={product} />
-        <ProductSpecsTable specs={product.specs} />
-        <ProductCustomization product={product} settings={await getSettings()} />
-        <ProductFeatures product={product} settings={await getSettings()} />
+        <ProductSpecsTable specs={product.specs} productName={product.name} />
+        <ProductCustomization product={product} settings={settings} />
+        <ProductApplications product={product} />
+        <HowToOrder productName={product.name} />
+        <ComplianceBlock
+          certNumber={settings.isoCertNumber}
+          certValidUntil={settings.isoCertValidUntil}
+        />
+        <ProductFeatures product={product} settings={settings} />
         <ProductManufacturing />
         <ProductFAQ product={product} />
         <ProductRelated current={product} allProducts={allProducts} />
-        {/* ═══════ END SEO ENHANCEMENT ═══════ */}
+        {/* ═══════ END CONTENT SECTIONS ═══════ */}
 
       </Container>
     </>

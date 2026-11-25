@@ -4,6 +4,7 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { checkRateLimit, isHoneypotTripped } from "@/lib/rate-limit";
 import { escapeHtml } from "@/lib/sanitize";
+import { SPEC_FIELD_LABELS } from "@/lib/spec-options";
 
 export const dynamic = "force-dynamic";
 
@@ -58,7 +59,26 @@ export async function POST(request: Request) {
     const phone = formData.get("phone")?.toString() || "";
     const productInterest = formData.get("productInterest")?.toString() || "";
     const message = formData.get("message")?.toString() || "";
+    const productSlug = formData.get("productSlug")?.toString() || "";
     const drawing = formData.get("drawing") as File | null;
+
+    // Structured specifications chosen in the product-page selector.
+    let specs: Record<string, string> = {};
+    const specsRaw = formData.get("specs")?.toString() || "";
+    if (specsRaw) {
+      try {
+        const parsed = JSON.parse(specsRaw);
+        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+          for (const [k, v] of Object.entries(parsed)) {
+            if (typeof v === "string" && v.length > 0 && v.length <= 200) {
+              specs[k] = v;
+            }
+          }
+        }
+      } catch {
+        // Malformed specs payload — fall back to the free-text message.
+      }
+    }
 
     // Validation
     if (!name || name.length < 2) return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -96,6 +116,24 @@ export async function POST(request: Request) {
       ? `<p><b>Drawing:</b> <a href="https://www.maxcustomacrylics.com${drawingUrl}">Download File (${escapeHtml(drawing?.name || "drawing")})</a></p>`
       : "<p><b>Drawing:</b> No file attached</p>";
 
+    // Requested specifications table — renders the values the buyer picked in
+    // the product-page selector so the quotation can be prepared in one pass.
+    const specEntries = Object.entries(specs);
+    const specSection =
+      specEntries.length > 0
+        ? `<h3 style="color:#0F2744;margin-top:20px">Requested Specifications</h3>
+           <table style="width:100%;border-collapse:collapse;background:#f8fafc;border-radius:8px">
+             ${specEntries
+               .map(
+                 ([key, value]) =>
+                   `<tr><td style="padding:8px;border-bottom:1px solid #eee;color:#666;width:150px">${escapeHtml(
+                     SPEC_FIELD_LABELS[key] ?? key
+                   )}</td><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold">${escapeHtml(value)}</td></tr>`
+               )
+               .join("")}
+           </table>`
+        : "";
+
     const resendApiKey = process.env.RESEND_API_KEY;
     if (resendApiKey) {
       try {
@@ -115,7 +153,9 @@ export async function POST(request: Request) {
                 <tr><td style="padding:8px;border-bottom:1px solid #eee;color:#666">Phone</td><td style="padding:8px;border-bottom:1px solid #eee">${escapeHtml(phone || "N/A")}</td></tr>
                 <tr><td style="padding:8px;border-bottom:1px solid #eee;color:#666">Interest</td><td style="padding:8px;border-bottom:1px solid #eee">${escapeHtml(productInterest || "N/A")}</td></tr>
                 ${drawingUrl ? `<tr><td style="padding:8px;border-bottom:1px solid #eee;color:#666">Drawing</td><td style="padding:8px;border-bottom:1px solid #eee"><a href="https://www.maxcustomacrylics.com${drawingUrl}" style="color:#0F2744;font-weight:bold">📎 Download ${escapeHtml(drawing?.name || "File")}</a></td></tr>` : ""}
+                ${productSlug ? `<tr><td style="padding:8px;border-bottom:1px solid #eee;color:#666">Product Page</td><td style="padding:8px;border-bottom:1px solid #eee"><a href="https://www.maxcustomacrylics.com/en/products/${encodeURIComponent(productSlug)}" style="color:#0F2744">${escapeHtml(productSlug)}</a></td></tr>` : ""}
               </table>
+              ${specSection}
               <h3 style="color:#0F2744;margin-top:20px">Project Description</h3>
               <p style="background:#f8fafc;padding:12px;border-radius:8px;line-height:1.6">${escapeHtml(message).replace(/\n/g, "<br>")}</p>
               <p style="color:#999;font-size:12px;margin-top:20px">Sent from maxcustomacrylics.com contact form</p>

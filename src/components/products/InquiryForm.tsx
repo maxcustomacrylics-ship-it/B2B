@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
+import type { SpecValues } from "@/components/products/SpecSelector";
 
 type InquiryFormProps = {
   productName?: string;
+  productSlug?: string;
+  /** Message text pre-filled from the specification selector. */
+  prefillMessage?: string;
+  /** Specification values chosen in the selector, posted with the enquiry. */
+  prefillSpecs?: SpecValues;
 };
 
 type FieldErrors = {
@@ -34,7 +40,12 @@ function validate(data: Record<string, string>, t: (k: string) => string): Field
   return errors;
 }
 
-export default function InquiryForm({ productName }: InquiryFormProps) {
+export default function InquiryForm({
+  productName,
+  productSlug,
+  prefillMessage,
+  prefillSpecs,
+}: InquiryFormProps) {
   const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [loading, setLoading] = useState(false);
@@ -42,6 +53,16 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [charCount, setCharCount] = useState(0);
+  const [message, setMessage] = useState(prefillMessage || "");
+
+  // The specification summary changes when the buyer edits the selector, so
+  // keep the message in sync until they start typing their own text.
+  useEffect(() => {
+    if (prefillMessage !== undefined) {
+      setMessage(prefillMessage);
+      setCharCount(prefillMessage.length);
+    }
+  }, [prefillMessage]);
 
   function handleBlur(field: string) {
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -83,6 +104,11 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
     payload.append("phone", data.phone || "");
     payload.append("productInterest", productName || data.productInterest || "");
     payload.append("message", data.message);
+    if (productSlug) payload.append("productSlug", productSlug);
+    // Structured specifications chosen in the selector, if any.
+    if (prefillSpecs && Object.keys(prefillSpecs).length > 0) {
+      payload.append("specs", JSON.stringify(prefillSpecs));
+    }
     // Honeypot: bots fill every input, humans never see this one.
     payload.append("website", data.website || "");
 
@@ -252,7 +278,11 @@ export default function InquiryForm({ productName }: InquiryFormProps) {
           placeholder="Describe your project requirements, quantities, timeline, material preferences..."
           className={`${inputClass("message")} resize-y`}
           onBlur={() => handleBlur("message")}
-          onChange={(e) => handleChange("message", e.target.value)}
+          onChange={(e) => {
+            handleChange("message", e.target.value);
+            setMessage(e.target.value);
+          }}
+          value={message}
         />
         <div className="flex justify-between mt-1">
           {touched.message && fieldErrors.message ? (

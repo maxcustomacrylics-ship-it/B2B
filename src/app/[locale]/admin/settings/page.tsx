@@ -55,6 +55,8 @@ export default function AdminSettingsPage() {
         faq4Q: d.faq4Q || "", faq4A: d.faq4A || "",
         // CTA
         ctaTitle: d.ctaTitle || "", ctaSub: d.ctaSub || "",
+        // Compliance
+        isoCertNumber: d.isoCertNumber || "", isoCertValidUntil: d.isoCertValidUntil || "",
         // Small Batch Section
         sbTitle: d.sbTitle || "", sbSub: d.sbSub || "",
         sb1Num: d.sb1Num || "", sb1Label: d.sb1Label || "",
@@ -135,6 +137,7 @@ export default function AdminSettingsPage() {
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Industry Insights</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="insTitle" /><F label="Subtitle" field="insSub" /></div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">FAQ</h2><div className="grid gap-4 sm:grid-cols-2">{[1, 2, 3, 4].map((n) => (<div key={n} className="border rounded-lg p-3"><p className="text-xs text-gray-400 mb-2">Question {n}</p><F label="Question" field={`faq${n}Q`} /><div className="mt-2"><F label="Answer" field={`faq${n}A`} textarea /></div></div>))}</div></div>
           <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Final CTA</h2><div className="grid gap-4 sm:grid-cols-2"><F label="Title" field="ctaTitle" /><F label="Subtitle" field="ctaSub" /></div></div>
+          <div className={sec}><h2 className="text-lg font-semibold text-gray-900 mb-4">Quality &amp; Compliance</h2><p className="text-xs text-gray-500 mb-4">Shown on every product page under &ldquo;Quality &amp; Compliance&rdquo;. Only fill these in if you can substantiate them — a certificate number you cannot verify damages credibility more than omitting it.</p><div className="grid gap-4 sm:grid-cols-2"><F label="ISO 9001 Certificate No." field="isoCertNumber" /><F label="Valid Until" field="isoCertValidUntil" /></div></div>
         </div>
       )}
 
