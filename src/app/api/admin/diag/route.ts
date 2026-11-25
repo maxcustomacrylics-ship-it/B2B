@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { hasSupabase, getSupabase } from "@/lib/supabase";
+import { hasSupabase, getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 import { requireAdmin } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +25,36 @@ export async function GET() {
     info.queryOk = !error;
     info.queryError = error?.message || null;
     info.rowCount = data?.length || 0;
+  }
+
+  // Write probe using the service-role client. Writes a scratch key and
+  // removes it again — nothing user-facing is touched.
+  const admin = getSupabaseAdmin();
+  if (admin) {
+    const probeKey = "_diag_write_probe";
+    const { error: writeErr } = await admin
+      .from("settings")
+      .upsert(
+        { key: probeKey, value: "ok", updated_at: new Date().toISOString() },
+        { onConflict: "key" }
+      );
+    info.writeOk = !writeErr;
+    info.writeError = writeErr?.message || null;
+
+    if (!writeErr) {
+      // Confirm the row is really visible to a plain read.
+      const { data: probeRow } = await admin
+        .from("settings")
+        .select("value")
+        .eq("key", probeKey)
+        .maybeSingle();
+      info.writeVisible = probeRow?.value === "ok";
+
+      await admin.from("settings").delete().eq("key", probeKey);
+    }
+  } else {
+    info.writeOk = false;
+    info.writeError = "service-role client unavailable";
   }
 
   return NextResponse.json(info);
