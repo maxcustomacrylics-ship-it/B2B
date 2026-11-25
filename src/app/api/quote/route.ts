@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { escapeHtml } from "@/lib/sanitize";
+import { escapeHtml } from "@/lib/sanitize-html";
 
 export const dynamic = "force-dynamic";
 

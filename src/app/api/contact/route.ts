@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { checkRateLimit, isHoneypotTripped } from "@/lib/rate-limit";
-import { escapeHtml } from "@/lib/sanitize";
+import { escapeHtml } from "@/lib/sanitize-html";
 import { SPEC_FIELD_LABELS } from "@/lib/spec-options";
 
 export const dynamic = "force-dynamic";
