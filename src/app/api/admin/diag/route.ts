@@ -16,6 +16,15 @@ export async function GET() {
   info.keySet = Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
   info.serviceKeySet = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY);
   info.serviceKeyLen = process.env.SUPABASE_SERVICE_ROLE_KEY?.length ?? 0;
+  // Classify the key format without echoing any part of the secret.
+  info.serviceKeyFormat = (() => {
+    const k = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!k) return "missing";
+    if (k.startsWith("sb_secret_")) return "new-secret-key";
+    if (k.startsWith("sb_publishable_")) return "new-publishable-key (not a secret)";
+    if (k.startsWith("eyJ")) return "legacy-jwt";
+    return "unrecognised";
+  })();
   info.serviceKeyLooksValid = (() => {
     const k = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!k) return false;
