@@ -199,18 +199,24 @@ export async function saveProducts(products: Product[]): Promise<void> {
         const exists = await check.json();
         if (exists && Array.isArray(exists) && exists.length > 0) {
           // Update existing
-          await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${eqFilter(p.slug)}`, {
+          const upd = await fetch(`${supabaseUrl}/rest/v1/products?slug=eq.${eqFilter(p.slug)}`, {
             method: "PATCH",
             headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
             body: JSON.stringify(row),
           });
+          if (!upd.ok) {
+            console.error("[supabase] product PATCH failed:", upd.status, (await upd.text()).slice(0, 300));
+          }
         } else {
           // Insert new
-          await fetch(`${supabaseUrl}/rest/v1/products`, {
+          const ins = await fetch(`${supabaseUrl}/rest/v1/products`, {
             method: "POST",
             headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
             body: JSON.stringify(row),
           });
+          if (!ins.ok) {
+            console.error("[supabase] product insert failed:", ins.status, (await ins.text()).slice(0, 300));
+          }
         }
       }
     } catch (e) { console.error("[supabase] saveProducts failed:", e); }

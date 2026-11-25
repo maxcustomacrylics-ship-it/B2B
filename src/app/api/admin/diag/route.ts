@@ -15,6 +15,14 @@ export async function GET() {
   info.urlSet = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL);
   info.keySet = Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
   info.serviceKeySet = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY);
+  info.serviceKeyLen = process.env.SUPABASE_SERVICE_ROLE_KEY?.length ?? 0;
+  info.serviceKeyLooksValid = (() => {
+    const k = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!k) return false;
+    // A Supabase service_role key is a JWT: three dot-separated segments.
+    // A quoted or truncated value will not match.
+    return k.split(".").length === 3 && !/["'\s]/.test(k);
+  })();
   info.resendKeySet = Boolean(process.env.RESEND_API_KEY);
 
   if (hasSupabase()) {
