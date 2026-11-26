@@ -223,6 +223,69 @@ export async function saveProducts(products: Product[]): Promise<void> {
   }
 }
 
+/**
+ * Update a single product in Supabase and the local JSON file.
+ *
+ * `saveProducts` rewrites every row, which turns a one-product edit into
+ * 200+ HTTP requests and times out the serverless function once the
+ * catalogue grows. This path touches only the row being changed.
+ */
+export async function saveProduct(product: Product): Promise<void> {
+  ensureDir(DATA_DIR);
+  try {
+    const fp = path.join(DATA_DIR, "products.json");
+    const all = fs.existsSync(fp)
+      ? JSON.parse(fs.readFileSync(fp, "utf-8"))
+      : [];
+    const idx = all.findIndex((p: Product) => p.slug === product.slug);
+    if (idx >= 0) all[idx] = product;
+    else all.push(product);
+    fs.writeFileSync(fp, JSON.stringify(all, null, 2), "utf-8");
+  } catch (e) { console.error("[products] Local save failed:", e); }
+
+  const supabaseUrl = SUPABASE_URL;
+  const supabaseKey = getSupabaseWriteKey();
+  if (!supabaseUrl || !supabaseKey) {
+    console.error("[supabase] SUPABASE_SERVICE_ROLE_KEY not set — skipping write sync");
+    return;
+  }
+
+  try {
+    const row = {
+      ...camelToSnake(product as unknown as Record<string, unknown>),
+      updated_at: new Date().toISOString(),
+    };
+    const url = `${supabaseUrl}/rest/v1/products?slug=eq.${eqFilter(product.slug)}`;
+    const headers = {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
+    };
+
+    const check = await fetch(`${url}&select=slug`, { headers });
+    const exists = await check.json();
+    const res =
+      exists && Array.isArray(exists) && exists.length > 0
+        ? await fetch(url, { method: "PATCH", headers, body: JSON.stringify(row) })
+        : await fetch(`${supabaseUrl}/rest/v1/products`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(row),
+          });
+
+    if (!res.ok) {
+      console.error(
+        "[supabase] product write failed:",
+        res.status,
+        (await res.text()).slice(0, 300)
+      );
+    }
+  } catch (e) {
+    console.error("[supabase] saveProduct failed:", e);
+  }
+}
+
 // ═══════════════════════════════════════════
 //  SHARED HELPERS
 // ═══════════════════════════════════════════

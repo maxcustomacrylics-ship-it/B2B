@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getProducts, saveProducts } from "@/lib/data-store";
+import { getProducts, saveProduct } from "@/lib/data-store";
 import { requireAdmin } from "@/lib/auth";
 import fs from "fs";
 import path from "path";
@@ -29,7 +29,7 @@ export async function PUT(
   const index = products.findIndex((p) => p.slug === slug);
   if (index === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
   products[index] = { ...products[index], ...body, slug };
-  await saveProducts(products);
+  await saveProduct(products[index]);
   return NextResponse.json(products[index]);
 }
 

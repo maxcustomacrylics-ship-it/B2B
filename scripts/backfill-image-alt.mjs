@@ -94,6 +94,7 @@ console.log(`Loaded ${products.length} products\n`);
 
 let changed = 0;
 let failed = 0;
+let succeeded = 0;
 
 for (const p of products) {
   const images = p.images || [];
@@ -126,19 +127,35 @@ for (const p of products) {
   }
 
   try {
-    const res = await fetch(
-      `${BASE_URL}/api/admin/products/${encodeURIComponent(p.slug)}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json", Cookie: cookie },
-        body: JSON.stringify({ ...p, images: updated }),
+    // Retry on transient failures — a long backfill can trip rate limits or
+    // timeouts partway through.
+    let res = null;
+    let lastErr = "";
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        res = await fetch(
+          `${BASE_URL}/api/admin/products/${encodeURIComponent(p.slug)}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", Cookie: cookie },
+            body: JSON.stringify({ ...p, images: updated }),
+          }
+        );
+        if (res.ok) break;
+        lastErr = `${res.status} ${(await res.text()).slice(0, 120)}`;
+        if (res.status < 500) break; // client error — retrying won't help
+      } catch (err) {
+        lastErr = err.message;
       }
-    );
-    if (!res.ok) {
-      console.error(`✗ ${p.slug}: ${res.status} ${await res.text()}`);
+      if (attempt < 3) await new Promise((r) => setTimeout(r, attempt * 2000));
+    }
+
+    if (!res || !res.ok) {
+      console.error(`✗ ${p.slug}: ${lastErr}`);
       failed++;
       continue;
     }
+    succeeded++;
     console.log(`✓ ${p.slug} (${updated.length} images)`);
   } catch (err) {
     console.error(`✗ ${p.slug}: ${err.message}`);
@@ -147,5 +164,5 @@ for (const p of products) {
 }
 
 console.log(
-  `\n${DRY ? "Would update" : "Updated"} ${changed} products${failed ? `, ${failed} failed` : ""}.`
+  `\n${DRY ? "Would update" : "Updated"} ${succeeded}/${changed} products${failed ? `, ${failed} failed` : ""}.`
 );
